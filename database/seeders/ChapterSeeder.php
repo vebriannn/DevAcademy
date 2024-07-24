@@ -2,10 +2,11 @@
 
 namespace Database\Seeders;
 
+use App\Models\Chapter;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-
 use App\Models\Course;
+
 
 class ChapterSeeder extends Seeder
 {
@@ -14,7 +15,7 @@ class ChapterSeeder extends Seeder
      */
     public function run(): void
     {
-        Course::create([
+        Chapter::create([
             'name' => 'Perkenalan Kelas',
             'course_id' => 1,
         ]);
