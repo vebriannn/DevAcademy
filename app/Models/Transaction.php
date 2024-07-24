@@ -5,13 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Forum extends Model
+class Transaction extends Model
 {
     use HasFactory;
 
-    protected $table = 'tbl_forums';
-
+    protected $table = 'tbl_transactions';
+    
     protected $fillable = [
-        'course_id',
+        'status',
+        'course_id'
     ];
 }
