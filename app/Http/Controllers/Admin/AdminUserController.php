@@ -91,7 +91,7 @@ class AdminUserController extends Controller
 
         return response()->json([
             'message' => 'User updated successfully'
-        ], 200);
+        ], 201);
     }
 
     public function delete($id) {
