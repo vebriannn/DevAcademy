@@ -9,13 +9,12 @@ class Review extends Model
 {
     use HasFactory;
 
+    protected $table = 'tbl_reviews';
+    
     protected $fillable = [
         'user_id',
         'course_id',
         'rating',
         'note',
     ];
-
-    // Add this line to specify the table name
-    protected $table = 'tbl_reviews';
 }

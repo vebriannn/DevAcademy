@@ -29,7 +29,7 @@ class AdminCourseController extends Controller
             'price' => 'required|integer',
             'level' => 'required|in:beginner,intermediate,expert',
             'description' => 'nullable|string',
-            'mentor_id' => 'required|exists:users,id', // Assuming `users` table for mentor
+            'mentor_id' => 'required|exists:users,id', 
         ]);
 
         $coverPath = null;

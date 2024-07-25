@@ -29,7 +29,7 @@ class CourseSeeder extends Seeder
                 'price' => 100,
                 'level' => 'intermediate',
                 'description' => 'An advanced course on Laravel framework.',
-                'mentor_id' => 2
+                'mentor_id' => 1
             ],
 
             [
@@ -40,7 +40,7 @@ class CourseSeeder extends Seeder
                 'price' => 100,
                 'level' => 'intermediate',
                 'description' => 'An advanced course on Laravel framework.',
-                'mentor_id' => 3
+                'mentor_id' => 1
             ],
         ];
 

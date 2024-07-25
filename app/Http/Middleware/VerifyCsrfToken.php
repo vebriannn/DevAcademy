@@ -23,6 +23,10 @@ class VerifyCsrfToken extends Middleware
         'admin/lesson',
         'admin/lesson/create/store',
         'admin/lesson/edit/update/*',
-        'admin/lesson/delete/*'
+        'admin/lesson/delete/*',
+        'admin/course',
+        'admin/course/create/store',
+        'admin/course/edit/update/*',
+        'admin/course/delete/*'
     ];
 }
