@@ -21,4 +21,9 @@ class Course extends Model
         'description',
         'mentor_id',
     ];
+
+    public function users() {
+        // jika ingin memanggil course dari user setiap foreign key maka gunakan tabel users sebagai belongsto untuk join relation
+        return $this->belongsTo(User::class, 'mentor_id', 'id');
+    }
 }

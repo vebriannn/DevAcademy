@@ -44,4 +44,9 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function courses() {
+        // jika ingin memanggil course dari user setiap foreign key maka gunakan tabel course sebagai hasMany (untuk di panggil di controller menggunakan function with)
+        return $this->hasMany(Course::class, 'mentor_id', 'id');
+    }
 }
