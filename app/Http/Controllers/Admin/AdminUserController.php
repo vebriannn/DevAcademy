@@ -16,11 +16,13 @@ class AdminUserController extends Controller
             'pesan'=>"fungsi index berhasil",
             'data' => $users
         ], 200);
+        dd($users);
     }
 
     public function create() {
-        // Return a view for creating users, if needed
+        
     }
+
     public function store(Request $request) {
         $request->validate([
             'name' => 'required|string|max:255',
@@ -49,7 +51,7 @@ class AdminUserController extends Controller
         ]);
     
         return response()->json([
-            'message' => 'User created successfully'
+            'message' => 'sukses'
         ], 201);
     }
     
