@@ -9,11 +9,10 @@ class Chapter extends Model
 {
     use HasFactory;
     
-    protected $table = 'tbl_chapter';
+    protected $table = 'tbl_chapters';
 
     protected $fillable = [
         'name',
-        'video',
         'course_id'
     ];
 }

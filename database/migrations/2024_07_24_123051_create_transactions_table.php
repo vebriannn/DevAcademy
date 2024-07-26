@@ -11,18 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tbl_reviews', function (Blueprint $table) {
+        Schema::create('tbl_transactions', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('course_id');
-
-            // foreign key
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('course_id')->references('id')->on('tbl_courses')->onDelete('cascade');
-
-            $table->integer('rating')->nullable(false);
-            $table->string('note')->nullable(true);
+            $table->enum('status', ['success', 'pending', 'failed']);
             $table->timestamps();
+
+            $table->foreign('course_id')->references('id')->on('tbl_courses')->onDelete('cascade');
         });
     }
 
@@ -31,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('tbl_reviews');
+        Schema::dropIfExists('tbl_transactions');
     }
 };
