@@ -32,7 +32,7 @@ return new class extends Migration
  */
     public function down(): void
     {
-        Schema::dropIfExists('tbl_courses'); // Changed from 'courses' to 'tbl_courses'
+        Schema::dropIfExists('tbl_courses');
     }
 
 };
