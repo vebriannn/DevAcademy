@@ -12,14 +12,15 @@ class AdminUserController extends Controller
 {
     public function index() {
         $users = User::all();
-        // return response()->json($users);
-        dd($users);
+        return response()->json([
+            'pesan'=>"fungsi index berhasil",
+            'data' => $users
+        ], 200);
     }
 
     public function create() {
         // Return a view for creating users, if needed
     }
-
     public function store(Request $request) {
         $request->validate([
             'name' => 'required|string|max:255',
@@ -29,15 +30,15 @@ class AdminUserController extends Controller
             'password' => 'required|string|min:8',
             'role' => 'required|string|in:students,mentor,superadmin',
         ]);
-
+    
         $avatarPath = null;
-
+    
         if ($request->hasFile('avatar')) {
             $avatar = $request->file('avatar');
             $avatarName = Str::random(10) . '.' . $avatar->getClientOriginalExtension();
             $avatarPath = $avatar->storeAs('public/images/avatars', $avatarName);
         }
-
+    
         User::create([
             'name' => $request->name,
             'avatar' => $avatarPath,
@@ -46,17 +47,27 @@ class AdminUserController extends Controller
             'password' => bcrypt($request->password),
             'role' => $request->role,
         ]);
-
+    
         return response()->json([
             'message' => 'User created successfully'
         ], 201);
     }
+    
 
     public function edit($id) {
-        $user = User::findOrFail($id);
-        return response()->json($user);
+        $user = User::find($id);
+    
+        if ($user) {
+            return response()->json([
+                'message' => 'Data ditemukan',
+                'data' => $user
+            ], 200);
+        } else {
+            return response()->json([
+                'message' => 'Data tidak ditemukan',
+            ], 404);
+        }
     }
-
     public function update(Request $request, $id) {
         $request->validate([
             'name' => 'required|string|max:255',
@@ -64,7 +75,7 @@ class AdminUserController extends Controller
             'username' => 'required|string|max:255|unique:users,username,' . $id,
             'email' => 'required|string|email|max:255|unique:users,email,' . $id,
             'password' => 'nullable|string|min:8',
-            'role' => 'required|string|in:students,mentor,superadmin',
+            'role' => 'required|string|in:student,mentor,superadmin',
         ]);
 
         $user = User::findOrFail($id);
