@@ -49,7 +49,7 @@ Route::prefix('admin')->group(function() {
 
     // routes for course
     Route::prefix('course')->group(function() {
-        Route::get('/', [AdminCourseController::class, 'index'])->name('admin.course.index');
+        Route::get('/', [AdminCourseController::class, 'index'])->name('admin.course');
         Route::post('/create/store', [AdminCourseController::class, 'store'])->name('admin.course.create.store');
         Route::put('/edit/update/{id}', [AdminCourseController::class, 'update'])->name('admin.course.edit.update');
         Route::get('/delete/{id}', [AdminCourseController::class, 'delete'])->name('admin.course.delete');
@@ -57,21 +57,21 @@ Route::prefix('admin')->group(function() {
     
     // routes for user
     Route::prefix('user')->group(function() {
-        Route::get('/', [AdminUserController::class, 'index'])->name('admin.user.index');
+        Route::get('/', [AdminUserController::class, 'index'])->name('admin.user');
         Route::get('/create', [AdminUserController::class, 'create'])->name('admin.user.create');
-        Route::post('/store', [AdminUserController::class, 'store'])->name('admin.user.store');
+        Route::post('/create/store', [AdminUserController::class, 'store'])->name('admin.user.create.store');
         Route::get('/edit/{id}', [AdminUserController::class, 'edit'])->name('admin.user.edit');
-        Route::put('/update/{id}', [AdminUserController::class, 'update'])->name('admin.user.update');
+        Route::put('/edit/update/{id}', [AdminUserController::class, 'update'])->name('admin.user.edit.update');
         Route::get('/delete/{id}', [AdminUserController::class, 'delete'])->name('admin.user.delete');
     });
     
     // routes for review
     Route::prefix('review')->group(function() {
-        Route::get('/', [AdminReviewController::class, 'index'])->name('admin.review.index');
+        Route::get('/', [AdminReviewController::class, 'index'])->name('admin.review');
         Route::get('/create', [AdminReviewController::class, 'create'])->name('admin.review.create');
-        Route::post('/store', [AdminReviewController::class, 'store'])->name('admin.review.store');
+        Route::post('/create/store', [AdminReviewController::class, 'store'])->name('admin.review.create.store');
         Route::get('/edit/{id}', [AdminReviewController::class, 'edit'])->name('admin.review.edit');
-        Route::put('/update/{id}', [AdminReviewController::class, 'update'])->name('admin.review.update');
+        Route::put('/edit/update/{id}', [AdminReviewController::class, 'update'])->name('admin.review.edit.update');
         Route::get('/delete/{id}', [AdminReviewController::class, 'delete'])->name('admin.review.delete');
     });
 });

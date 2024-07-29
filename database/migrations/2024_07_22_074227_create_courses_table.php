@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('tbl_courses', function (Blueprint $table) {
             $table->id();
+            $table->string('category', 255);
             $table->string('name', 255);
             $table->text('cover');
             $table->enum('type', ['free', 'premium']);

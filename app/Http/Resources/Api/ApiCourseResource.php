@@ -19,16 +19,17 @@ class ApiCourseResource extends JsonResource
             'course' => $this->courses->map(function ($course) {
                 return [
                     'id_course' => $course->id,
+                    'category_course' => $course->category,
                     'cover_course' => $course->cover,
                     'title_course' => $course->name,
                     'description_course' => $course->description,
                     'level_course' => $course->level,
                     'type_course' => $course->type,
                     'price_course' => $course->price,
-                    
                     // Add other properties you need from the Course model
                 ];
-            })
+            }),
+            'message' => 'course tersedia'
         ];
     }
 }
