@@ -24,6 +24,7 @@ class AdminUserController extends Controller
     }
 
     public function store(Request $request) {
+        
         $request->validate([
             'name' => 'required|string|max:255',
             'avatar' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
