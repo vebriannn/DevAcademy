@@ -12,7 +12,6 @@ class Category extends Model
     protected $table = 'tbl_categories';
     
     protected $fillable = [
-        'user_id',
-        'status'
+        'name',
     ];
 }

@@ -29,7 +29,7 @@ class VerifyCsrfToken extends Middleware
         'admin/course/edit/update/*',
         'admin/course/delete/*',
         'admin/user',
-        'admin/user/create',
+        'admin/user/create/store',
         'admin/user/store',
         'admin/user/edit/*',
         'admin/user/update/*',
@@ -40,5 +40,13 @@ class VerifyCsrfToken extends Middleware
         'admin/review/edit/*',
         'admin/review/update/*',
         'admin/review/delete/*',
+        'admin/category',
+        'admin/category/create/store',
+        'admin/category/edit/update/*',
+        'admin/category/delete/*',
+        'admin/submission',
+        'admin/submission/create/store',
+        'admin/submission/edit/update/*',
+        'admin/submission/delete/*',
     ];
 }

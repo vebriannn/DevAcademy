@@ -12,6 +12,12 @@ class Submission extends Model
     protected $table = 'tbl_submissions';
     
     protected $fillable = [
-        'name',
+        'status',
+        'user_id',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
