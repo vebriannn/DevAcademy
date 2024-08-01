@@ -1,36 +1,21 @@
 <?php
 
-namespace App\Http\Controllers\Member;
+namespace App\Http\Controllers\member;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-use App\Models\Course;
-use App\Models\Ca
-
 class MemberCourseController extends Controller
 {
-    public function index() {
-        $course = Course::all();
-        
-        return view('index', compact('course'));
-    } 
-
-    public function course() {
-
-        
-        return view('usercourse');
-    } 
-
-    public function join() {
-        return view('gabungkelas');
+    public function index(){
+        return view('member.Usercourse');
     }
 
-    public function play() {
-        return view('classvideo');
+    public function join(){
+        return view('member.gabungkelas');
     }
-    
-    public function payment() {
-        return view('payment');
+
+    public function play(){
+        return view('member.classvideo');
     }
 }

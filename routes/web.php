@@ -10,6 +10,13 @@ use App\Http\Controllers\Admin\AdminReviewController;
 use App\Http\Controllers\Admin\AdminCategoryController;
 use App\Http\Controllers\Admin\SubmissionController;
 
+use App\Http\Controllers\Member\Auth\RegisterController;
+use App\Http\Controllers\Member\LandingpageController;
+use App\Http\Controllers\Member\Auth\LoginController;
+use App\Http\Controllers\Member\MemberCourseController as MemberMemberCourseController;
+use App\Http\Controllers\Member\MemberTransactionController;
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -112,6 +119,15 @@ Route::prefix('admin')->group(function() {
     
 });
 
-Route::get('/', function () {
-    return view('index');
+Route::get('/', [LandingpageController::class, 'index']);
+Route::get('/login', [LoginController::class, 'index']);
+Route::get('/register', [RegisterController::class, 'index']);
+
+Route::prefix('member')->group(function() {
+
+    Route::get('/course', [MemberMemberCourseController::class, 'index']);
+    Route::get('/course/join', [MemberMemberCourseController::class, 'join']);
+    Route::get('/course/play', [MemberMemberCourseController::class, 'play']);
+
+    Route::get('course/payment', [MemberTransactionController::class, 'index']);
 });
