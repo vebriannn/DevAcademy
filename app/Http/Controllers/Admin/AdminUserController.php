@@ -8,7 +8,6 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
-use Exception;
 
 class AdminUserController extends Controller
 {
@@ -21,118 +20,107 @@ class AdminUserController extends Controller
     }
 
     public function create() {
+        // Method can be removed or implemented if needed for a view
     }
 
     public function store(Request $request) {
-        try {
-            $request->validate([
-                'name' => 'required|string|max:255',
-                'avatar' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
-                'username' => 'required|string|max:255',
-                'email' => 'required|string|email|max:255|unique:users,email',
-                'password' => 'required|string|min:8',
-                'role' => 'required|string|in:students,mentor,superadmin',
-            ]);
-
-            $avatarPath = null;
-            if ($request->hasFile('avatar')) {
-                $avatar = $request->file('avatar');
-                $avatarName = Str::random(10) . '.' . $avatar->getClientOriginalExtension();
-                $avatarPath = $avatar->storeAs('public/images/avatars', $avatarName);
-            }
-
-            $user = User::create([
-                'name' => $request->name,
-                'avatar' => $avatarPath,
-                'username' => $request->username,
-                'email' => $request->email,
-                'password' => Hash::make($request->password),
-                'role' => $request->role,
-            ]);
-
-            return response()->json([
-                'message' => 'User created successfully',
-                'data' => $user
-            ], 201);
-
-        } catch (Exception $e) {
-            return response()->json([
-                'message' => 'Failed to create user',
-                'error' => $e->getMessage()
-            ], 500);
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'avatar' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'username' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users,email',
+            'password' => 'required|string|min:8',
+            'role' => 'required|string|in:students,mentor,superadmin',
+        ]);
+    
+        if ($request->hasFile('avatar')) {
+            $avatar = $request->file('avatar');
+            $avatarName = Str::random(10) . '.' . $avatar->getClientOriginalExtension();
+            $avatar->storeAs('public/images/avatars', $avatarName);
         }
-    }
-
-    public function edit($id) {
-        $user = User::findOrFail($id);
+    
+        $user = User::create([
+            'name' => $request->name,
+            'avatar' => $avatarName ?? null,
+            'username' => $request->username,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'role' => $request->role,
+        ]);
+    
         return response()->json([
-            'message' => 'Data retrieved successfully',
+            'message' => 'User created successfully',
             'data' => $user
+        ], 201);
+    }
+    
+    public function update(Request $request, $id) {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'avatar' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'username' => 'required|string|max:255|unique:users,username,' . $id,
+            'email' => 'required|string|email|max:255|unique:users,email,' . $id,
+            'password' => 'nullable|string|min:8',
+            'role' => 'required|string|in:students,mentor,superadmin',
+        ]);
+    
+        $user = User::findOrFail($id);
+    
+        $avatarName = $user->avatar;
+        if ($request->hasFile('avatar')) {
+            if ($avatarName && Storage::exists('public/images/avatars/' . $avatarName)) {
+                Storage::delete('public/images/avatars/' . $avatarName);
+            }
+    
+            $avatar = $request->file('avatar');
+            $avatarName = Str::random(10) . '.' . $avatar->getClientOriginalExtension();
+            $avatar->storeAs('public/images/avatars', $avatarName);
+        }
+    
+        $user->update([
+            'name' => $request->name,
+            'avatar' => $avatarName,
+            'username' => $request->username,
+            'email' => $request->email,
+            'password' => $request->filled('password') ? Hash::make($request->password) : $user->password,
+            'role' => $request->role,
+        ]);
+    
+        return response()->json([
+            'message' => 'User updated successfully'
         ], 200);
     }
-
-    public function update(Request $request, $id) {
-        try {
-            $request->validate([
-                'name' => 'required|string|max:255',
-                'avatar' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
-                'username' => 'required|string|max:255|unique:users,username,' . $id,
-                'email' => 'required|string|email|max:255|unique:users,email,' . $id,
-                'password' => 'nullable|string|min:8',
-                'role' => 'required|string|in:students,mentor,superadmin',
-            ]);
-
-            $user = User::findOrFail($id);
-
-            $avatarPath = $user->avatar;
-            if ($request->hasFile('avatar')) {
-                if ($avatarPath && Storage::exists($avatarPath)) {
-                    Storage::delete($avatarPath);
-                }
-
-                $avatar = $request->file('avatar');
-                $avatarName = Str::random(10) . '.' . $avatar->getClientOriginalExtension();
-                $avatarPath = $avatar->storeAs('public/images/avatars', $avatarName);
-            }
-
-            $user->update([
-                'name' => $request->name,
-                'avatar' => $avatarPath,
-                'username' => $request->username,
-                'email' => $request->email,
-                'password' => $request->filled('password') ? Hash::make($request->password) : $user->password,
-                'role' => $request->role,
-            ]);
-
-            return response()->json([
-                'message' => 'User updated successfully'
-            ], 200);
-
-        } catch (Exception $e) {
-            return response()->json([
-                'message' => 'Failed to update user',
-                'error' => $e->getMessage()
-            ], 500);
-        }
-    }
+    
 
     public function delete($id) {
-        try {
-            $user = User::findOrFail($id);
-            if ($user->avatar && Storage::exists($user->avatar)) {
-                Storage::delete($user->avatar);
+        $user = User::findOrFail($id);
+    
+        if ($user->avatar) {
+            $avatarPath = 'public/images/avatars/' . $user->avatar;
+            
+            if (Storage::exists($avatarPath)) {
+                if (Storage::delete($avatarPath)) {
+                    $user->delete();
+                    return response()->json([
+                        'message' => 'User and avatar deleted successfully'
+                    ], 200);
+                } else {
+                    return response()->json([
+                        'message' => 'Failed to delete avatar'
+                    ], 500);
+                }
+            } else {
+                $user->delete();
+                return response()->json([
+                    'message' => 'User deleted successfully, but avatar does not exist'
+                ], 200);
             }
+        } else {
             $user->delete();
-
             return response()->json([
                 'message' => 'User deleted successfully'
             ], 200);
-
-        } catch (Exception $e) {
-            return response()->json([
-                'message' => 'Failed to delete user',
-                'error' => $e->getMessage()
-            ], 500);
         }
-    }
+    }    
+    
 }

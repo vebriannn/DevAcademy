@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('category', 255);
             $table->string('name', 255);
-            $table->text('cover');
+            $table->text('cover')->nullable();
             $table->enum('type', ['free', 'premium']);
             $table->enum('status', ['draft', 'published']);
             $table->integer('price');
@@ -28,12 +28,11 @@ return new class extends Migration
         });
     }
 
-/**
- * Reverse the migrations.
- */
+    /**
+     * Reverse the migrations.
+     */
     public function down(): void
     {
         Schema::dropIfExists('tbl_courses');
     }
-
 };
