@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             
             $table->string('name', 255)->nullable(false);
-            $table->string('username', 255)->nullable(false);
+            $table->string('username', 255)->nullable(true);
             // $table->string('re-password', 255)->nullable(false);
             $table->text('avatar')->nullable(true);
             $table->string('email', 255)->nullable(false);

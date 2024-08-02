@@ -17,7 +17,7 @@ class UserSeeder extends Seeder
             [
                 'name' => 'John Doe',
                 'username' => 'johndoe',
-                'avatar' => 'path/to/avatar1.jpg',
+                'avatar' => 'avatar1.jpg',
                 'email' => 'johndoe@example.com',
                 'password' => Hash::make('password123'),
                 'role' => 'superadmin',
@@ -27,7 +27,7 @@ class UserSeeder extends Seeder
             [
                 'name' => 'Jane Smith',
                 'username' => 'janesmith',
-                'avatar' => 'path/to/avatar2.jpg',
+                'avatar' => 'avatar2.jpg',
                 'email' => 'janesmith@example.com',
                 'password' => Hash::make('password123'),
                 'role' => 'mentor',
@@ -37,7 +37,7 @@ class UserSeeder extends Seeder
             [
                 'name' => 'Student User',
                 'username' => 'studentuser',
-                'avatar' => 'path/to/avatar3.jpg',
+                'avatar' => 'avatar3.png',
                 'email' => 'studentuser@example.com',
                 'password' => Hash::make('password123'),
                 'role' => 'students',
@@ -48,7 +48,7 @@ class UserSeeder extends Seeder
             [
                 'name' => 'Student User 1',
                 'username' => 'studentuser',
-                'avatar' => 'path/to/avatar4.jpg',
+                'avatar' => 'avatar4.png',
                 'email' => 'studentuser1@example.com',
                 'password' => Hash::make('password123'),
                 'role' => 'students',
@@ -59,7 +59,7 @@ class UserSeeder extends Seeder
             [
                 'name' => 'Student User 2',
                 'username' => 'studentuser',
-                'avatar' => 'path/to/avatar5.jpg',
+                'avatar' => 'avatar5.jpg',
                 'email' => 'studentuser2@example.com',
                 'password' => Hash::make('password123'),
                 'role' => 'students',

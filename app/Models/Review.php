@@ -17,4 +17,15 @@ class Review extends Model
         'rating',
         'note',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    // Define the relationship with the Course model
+    public function course()
+    {
+        return $this->belongsTo(Course::class);
+    }
 }

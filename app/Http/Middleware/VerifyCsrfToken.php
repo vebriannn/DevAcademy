@@ -48,5 +48,8 @@ class VerifyCsrfToken extends Middleware
         'admin/submission/create/store',
         'admin/submission/edit/update/*',
         'admin/submission/delete/*',
+        // Member review routes
+        'member/reviews',
+        'member/reviews/*',
     ];
 }

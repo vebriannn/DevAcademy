@@ -1,11 +1,14 @@
 <?php
 
+// App\Models\User.php
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Support\Facades\Hash;
 
 class User extends Authenticatable
 {
@@ -30,7 +33,6 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
-    //sembunyikan password
     protected $hidden = [
         'password',
         'remember_token',
@@ -45,8 +47,22 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function courses() {
-        // jika ingin memanggil course dari user setiap foreign key maka gunakan tabel course sebagai hasMany (untuk di panggil di controller menggunakan function with)
+    /**
+     * Get the courses associated with the user.
+     */
+    public function courses()
+    {
         return $this->hasMany(Course::class, 'mentor_id', 'id');
+    }
+
+    /**
+     * Set the user's password and hash it.
+     *
+     * @param  string  $password
+     * @return void
+     */
+    public function setPasswordAttribute($password)
+    {
+        $this->attributes['password'] = Hash::make($password);
     }
 }

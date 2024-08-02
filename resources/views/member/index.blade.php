@@ -114,231 +114,44 @@
       <div class="marquee-container col-3 d-flex flex-column">
         <div class="scroll d-flex flex-column align-item-center justify-content-center">
           <!-- Original set of cards -->
-          <div class="card card-testimonial p-4">
-            <div class="profile d-flex">
-              <img src="{{asset('nemolab/assets/image/profile-img.png')}}" alt="">
-              <p class="ms-2 my-auto text-white">Riveiro Gaming</p>
-            </div>
-            <div class="comment">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta veritatis delectus voluptatibus aspernatur ipsum fugit unde eligendi minus illum, molestias eveniet atque ex consectetur distinctio impedit dignissimos quisquam eaque. Optio!
-            </div>
-          </div>
-          <div class="card card-testimonial p-4">
-            <div class="profile d-flex">
-              <img src="{{asset('nemolab/assets/image/profile-img.png')}}" alt="">
-              <p class="ms-2 my-auto text-white">Riveiro Gaming</p>
-            </div>
-            <div class="comment">
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Molestias laborum inventore impedit quos perferendis quas officia ex reiciendis perspiciatis ducimus?
-            </div>
-          </div>
-          <div class="card card-testimonial p-4">
-            <div class="profile d-flex">
-              <img src="{{asset('nemolab/assets/image/profile-img.png')}}" alt="">
-              <p class="ms-2 my-auto text-white">Riveiro Gaming</p>
-            </div>
-            <div class="comment">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore officia magni expedita debitis error tenetur ea, molestiae vel culpa eius?
-            </div>
-          </div>
-          <div class="card card-testimonial p-4">
-            <div class="profile d-flex">
-              <img src="{{asset('nemolab/assets/image/profile-img.png')}}" alt="">
-              <p class="ms-2 my-auto text-white">Riveiro Gaming</p>
-            </div>
-            <div class="comment">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta veritatis delectus voluptatibus aspernatur ipsum fugit unde eligendi minus illum, molestias eveniet atque ex consectetur distinctio impedit dignissimos quisquam eaque. Optio!
-            </div>
-          </div>
-          <div class="card card-testimonial p-4">
-            <div class="profile d-flex">
-              <img src="{{asset('nemolab/assets/image/profile-img.png')}}" alt="">
-              <p class="ms-2 my-auto text-white">Riveiro Gaming</p>
-            </div>
-            <div class="comment">
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Molestias laborum inventore impedit quos perferendis quas officia ex reiciendis perspiciatis ducimus?
-            </div>
-          </div>
-          <div class="card card-testimonial p-4">
-            <div class="profile d-flex">
-              <img src="{{asset('nemolab/assets/image/profile-img.png')}}" alt="">
-              <p class="ms-2 my-auto text-white">Riveiro Gaming</p>
-            </div>
-            <div class="comment">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore officia magni expedita debitis error tenetur ea, molestiae vel culpa eius?
-            </div>
-          </div>
-          <!-- Duplicate set of cards for seamless scrolling -->
-          <div class="card card-testimonial p-4">
-            <div class="profile d-flex">
-              <img src="{{asset('nemolab/assets/image/profile-img.png')}}" alt="">
-              <p class="ms-2 my-auto text-white">Riveiro Gaming</p>
-            </div>
-            <div class="comment">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta veritatis delectus voluptatibus aspernatur ipsum fugit unde eligendi minus illum, molestias eveniet atque ex consectetur distinctio impedit dignissimos quisquam eaque. Optio!
-            </div>
-          </div>
-          <div class="card card-testimonial p-4">
-            <div class="profile d-flex">
-              <img src="{{asset('nemolab/assets/image/profile-img.png')}}" alt="">
-              <p class="ms-2 my-auto text-white">Riveiro Gaming</p>
-            </div>
-            <div class="comment">
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Molestias laborum inventore impedit quos perferendis quas officia ex reiciendis perspiciatis ducimus?
-            </div>
-          </div>
-          <div class="card card-testimonial p-4">
-            <div class="profile d-flex">
-              <img src="{{asset('nemolab/assets/image/profile-img.png')}}" alt="">
-              <p class="ms-2 my-auto text-white">Riveiro Gaming</p>
-            </div>
-            <div class="comment">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore officia magni expedita debitis error tenetur ea, molestiae vel culpa eius?
-            </div>
-          </div>
-          <div class="card card-testimonial p-4">
-            <div class="profile d-flex">
-              <img src="{{asset('nemolab/assets/image/profile-img.png')}}" alt="">
-              <p class="ms-2 my-auto text-white">Riveiro Gaming</p>
-            </div>
-            <div class="comment">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta veritatis delectus voluptatibus aspernatur ipsum fugit unde eligendi minus illum, molestias eveniet atque ex consectetur distinctio impedit dignissimos quisquam eaque. Optio!
-            </div>
-          </div>
-          <div class="card card-testimonial p-4">
-            <div class="profile d-flex">
-              <img src="{{asset('nemolab/assets/image/profile-img.png')}}" alt="">
-              <p class="ms-2 my-auto text-white">Riveiro Gaming</p>
-            </div>
-            <div class="comment">
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Molestias laborum inventore impedit quos perferendis quas officia ex reiciendis perspiciatis ducimus?
-            </div>
-          </div>
-          <div class="card card-testimonial p-4">
-            <div class="profile d-flex">
-              <img src="{{asset('nemolab/assets/image/profile-img.png')}}" alt="">
-              <p class="ms-2 my-auto text-white">Riveiro Gaming</p>
-            </div>
-            <div class="comment">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore officia magni expedita debitis error tenetur ea, molestiae vel culpa eius?
-            </div>
-          </div>
+            @foreach ($reviews as $review)
+              <div class="card card-testimonial p-4">
+                  <div class="profile d-flex">
+                      @if ($review->user->avatar)
+                          <img src="{{ asset('storage/images/avatars/' . $review->user->avatar) }}" alt="">
+                      @else
+                          <img src="{{ asset('nemolab/assets/image/profile-img.png') }}" alt="">
+                      @endif
+                      <p class="ms-2 my-auto text-white">{{ $review->user->name }}</p>
+                  </div>
+                  <div class="comment">
+                      {{ $review->note }}
+                  </div>
+              </div>
+          @endforeach
         </div>
       </div>
+      
 
       <!-- Second marquee (scrolling down) -->
       <div class="marquee-container col-3 d-flex flex-column">
         <div class="scroll-reverse mx-auto">
           <!-- Original set of cards -->
+          @foreach ($reviews as $review)
           <div class="card card-testimonial p-4">
-            <div class="profile d-flex">
-              <img src="{{asset('nemolab/assets/image/profile-img.png')}}" alt="">
-              <p class="ms-2 my-auto text-white">Riveiro Gaming</p>
-            </div>
-            <div class="comment">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe hic magni sapiente labore numquam error?
-            </div>
+              <div class="profile d-flex">
+                  @if ($review->user->avatar)
+                      <img src="{{ asset('storage/images/avatars/' . $review->user->avatar) }}" alt="">
+                  @else
+                      <img src="{{ asset('nemolab/assets/image/profile-img.png') }}" alt="">
+                  @endif
+                  <p class="ms-2 my-auto text-white">{{ $review->user->name }}</p>
+              </div>
+              <div class="comment">
+                  {{ $review->note }}
+              </div>
           </div>
-          <div class="card card-testimonial p-4">
-            <div class="profile d-flex">
-              <img src="{{asset('nemolab/assets/image/profile-img.png')}}" alt="">
-              <p class="ms-2 my-auto text-white">Riveiro Gaming</p>
-            </div>
-            <div class="comment">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro harum explicabo earum voluptas? Modi, saepe?
-            </div>
-          </div>
-          <div class="card card-testimonial p-4">
-            <div class="profile d-flex">
-              <img src="{{asset('nemolab/assets/image/profile-img.png')}}" alt="">
-              <p class="ms-2 my-auto text-white">Riveiro Gaming</p>
-            </div>
-            <div class="comment">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos dolor sint blanditiis unde reprehenderit quisquam.
-            </div>
-          </div>
-          <div class="card card-testimonial p-4">
-            <div class="profile d-flex">
-              <img src="{{asset('nemolab/assets/image/profile-img.png')}}" alt="">
-              <p class="ms-2 my-auto text-white">Riveiro Gaming</p>
-            </div>
-            <div class="comment">
-              Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, wr took type and scrambled it to make a type specimen book. It has
-            </div>
-          </div>
-          <div class="card card-testimonial p-4">
-            <div class="profile d-flex">
-              <img src="{{asset('nemolab/assets/image/profile-img.png')}}" alt="">
-              <p class="ms-2 my-auto text-white">Riveiro Gaming</p>
-            </div>
-            <div class="comment">
-              Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, wr took a galley of type and scrambled it to make a type specimen book. It has
-            </div>
-          </div>
-          <div class="card card-testimonial p-4">
-            <div class="profile d-flex">
-              <img src="{{asset('nemolab/assets/image/profile-img.png')}}" alt="">
-              <p class="ms-2 my-auto text-white">Riveiro Gaming</p>
-            </div>
-            <div class="comment">
-              Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, wr took type and scrambled it to make a type specimen book. It has
-            </div>
-          </div>
-          <!-- Duplicate set of cards for seamless scrolling -->
-          <div class="card card-testimonial p-4">
-            <div class="profile d-flex">
-              <img src="{{asset('nemolab/assets/image/profile-img.png')}}" alt="">
-              <p class="ms-2 my-auto text-white">Riveiro Gaming</p>
-            </div>
-            <div class="comment">
-              Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, wr took a galley of type and scrambled it to make a type specimen book. It has
-            </div>
-          </div>
-          <div class="card card-testimonial p-4">
-            <div class="profile d-flex">
-              <img src="{{asset('nemolab/assets/image/profile-img.png')}}" alt="">
-              <p class="ms-2 my-auto text-white">Riveiro Gaming</p>
-            </div>
-            <div class="comment">
-              Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, wr took type and scrambled it to make a type specimen book. It has
-            </div>
-          </div>
-          <div class="card card-testimonial p-4">
-            <div class="profile d-flex">
-              <img src="{{asset('nemolab/assets/image/profile-img.png')}}" alt="">
-              <p class="ms-2 my-auto text-white">Riveiro Gaming</p>
-            </div>
-            <div class="comment">
-              Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, wr took a galley of type and scrambled it to make a type specimen book. It has
-            </div>
-          </div>
-          <div class="card card-testimonial p-4">
-            <div class="profile d-flex">
-              <img src="{{asset('nemolab/assets/image/profile-img.png')}}" alt="">
-              <p class="ms-2 my-auto text-white">Riveiro Gaming</p>
-            </div>
-            <div class="comment">
-              Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, wr took type and scrambled it to make a type specimen book. It has
-            </div>
-          </div>
-          <div class="card card-testimonial p-4">
-            <div class="profile d-flex">
-              <img src="{{asset('nemolab/assets/image/profile-img.png')}}" alt="">
-              <p class="ms-2 my-auto text-white">Riveiro Gaming</p>
-            </div>
-            <div class="comment">
-              Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, wr took a galley of type and scrambled it to make a type specimen book. It has
-            </div>
-          </div>
-          <div class="card card-testimonial p-4">
-            <div class="profile d-flex">
-              <img src="{{asset('nemolab/assets/image/profile-img.png')}}" alt="">
-              <p class="ms-2 my-auto text-white">Riveiro Gaming</p>
-            </div>
-            <div class="comment">
-              Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, wr took type and scrambled it to make a type specimen book. It has
-            </div>
-          </div>
+      @endforeach
         </div>
       </div>
 
@@ -346,115 +159,22 @@
       <div class="marquee-container col-3 d-flex flex-column">
                 <div class="scroll d-flex flex-column align-item-center justify-content-center">
                   <!-- Original set of cards -->
+                  
+                  @foreach ($reviews as $review)
                   <div class="card card-testimonial p-4">
-                    <div class="profile d-flex">
-                      <img src="{{asset('nemolab/assets/image/profile-img.png')}}" alt="">
-                      <p class="ms-2 my-auto text-white">Riveiro Gaming</p>
-                    </div>
-                    <div class="comment">
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta veritatis delectus voluptatibus aspernatur ipsum fugit unde eligendi minus illum, molestias eveniet atque ex consectetur distinctio impedit dignissimos quisquam eaque. Optio!
-                    </div>
+                      <div class="profile d-flex">
+                          @if ($review->user->avatar)
+                              <img src="{{ asset('storage/images/avatars/' . $review->user->avatar) }}" alt="">
+                          @else
+                              <img src="{{ asset('nemolab/assets/image/profile-img.jpg') }}" alt="">
+                          @endif
+                          <p class="ms-2 my-auto text-white">{{ $review->user->name }}</p>
+                      </div>
+                      <div class="comment">
+                          {{ $review->note }}
+                      </div>
                   </div>
-                  <div class="card card-testimonial p-4">
-                    <div class="profile d-flex">
-                      <img src="{{asset('nemolab/assets/image/profile-img.png')}}" alt="">
-                      <p class="ms-2 my-auto text-white">Riveiro Gaming</p>
-                    </div>
-                    <div class="comment">
-                      Lorem ipsum, dolor sit amet consectetur adipisicing elit. Molestias laborum inventore impedit quos perferendis quas officia ex reiciendis perspiciatis ducimus?
-                    </div>
-                  </div>
-                  <div class="card card-testimonial p-4">
-                    <div class="profile d-flex">
-                      <img src="{{asset('nemolab/assets/image/profile-img.png')}}" alt="">
-                      <p class="ms-2 my-auto text-white">Riveiro Gaming</p>
-                    </div>
-                    <div class="comment">
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore officia magni expedita debitis error tenetur ea, molestiae vel culpa eius?
-                    </div>
-                  </div>
-                  <div class="card card-testimonial p-4">
-                    <div class="profile d-flex">
-                      <img src="{{asset('nemolab/assets/image/profile-img.png')}}" alt="">
-                      <p class="ms-2 my-auto text-white">Riveiro Gaming</p>
-                    </div>
-                    <div class="comment">
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta veritatis delectus voluptatibus aspernatur ipsum fugit unde eligendi minus illum, molestias eveniet atque ex consectetur distinctio impedit dignissimos quisquam eaque. Optio!
-                    </div>
-                  </div>
-                  <div class="card card-testimonial p-4">
-                    <div class="profile d-flex">
-                      <img src="{{asset('nemolab/assets/image/profile-img.png')}}" alt="">
-                      <p class="ms-2 my-auto text-white">Riveiro Gaming</p>
-                    </div>
-                    <div class="comment">
-                      Lorem ipsum, dolor sit amet consectetur adipisicing elit. Molestias laborum inventore impedit quos perferendis quas officia ex reiciendis perspiciatis ducimus?
-                    </div>
-                  </div>
-                  <div class="card card-testimonial p-4">
-                    <div class="profile d-flex">
-                      <img src="{{asset('nemolab/assets/image/profile-img.png')}}" alt="">
-                      <p class="ms-2 my-auto text-white">Riveiro Gaming</p>
-                    </div>
-                    <div class="comment">
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore officia magni expedita debitis error tenetur ea, molestiae vel culpa eius?
-                    </div>
-                  </div>
-                  <!-- Duplicate set of cards for seamless scrolling -->
-                  <div class="card card-testimonial p-4">
-                    <div class="profile d-flex">
-                      <img src="{{asset('nemolab/assets/image/profile-img.png')}}" alt="">
-                      <p class="ms-2 my-auto text-white">Riveiro Gaming</p>
-                    </div>
-                    <div class="comment">
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta veritatis delectus voluptatibus aspernatur ipsum fugit unde eligendi minus illum, molestias eveniet atque ex consectetur distinctio impedit dignissimos quisquam eaque. Optio!
-                    </div>
-                  </div>
-                  <div class="card card-testimonial p-4">
-                    <div class="profile d-flex">
-                      <img src="{{asset('nemolab/assets/image/profile-img.png')}}" alt="">
-                      <p class="ms-2 my-auto text-white">Riveiro Gaming</p>
-                    </div>
-                    <div class="comment">
-                      Lorem ipsum, dolor sit amet consectetur adipisicing elit. Molestias laborum inventore impedit quos perferendis quas officia ex reiciendis perspiciatis ducimus?
-                    </div>
-                  </div>
-                  <div class="card card-testimonial p-4">
-                    <div class="profile d-flex">
-                      <img src="{{asset('nemolab/assets/image/profile-img.png')}}" alt="">
-                      <p class="ms-2 my-auto text-white">Riveiro Gaming</p>
-                    </div>
-                    <div class="comment">
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore officia magni expedita debitis error tenetur ea, molestiae vel culpa eius?
-                    </div>
-                  </div>
-                  <div class="card card-testimonial p-4">
-                    <div class="profile d-flex">
-                      <img src="{{asset('nemolab/assets/image/profile-img.png')}}" alt="">
-                      <p class="ms-2 my-auto text-white">Riveiro Gaming</p>
-                    </div>
-                    <div class="comment">
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta veritatis delectus voluptatibus aspernatur ipsum fugit unde eligendi minus illum, molestias eveniet atque ex consectetur distinctio impedit dignissimos quisquam eaque. Optio!
-                    </div>
-                  </div>
-                  <div class="card card-testimonial p-4">
-                    <div class="profile d-flex">
-                      <img src="{{asset('nemolab/assets/image/profile-img.png')}}" alt="">
-                      <p class="ms-2 my-auto text-white">Riveiro Gaming</p>
-                    </div>
-                    <div class="comment">
-                      Lorem ipsum, dolor sit amet consectetur adipisicing elit. Molestias laborum inventore impedit quos perferendis quas officia ex reiciendis perspiciatis ducimus?
-                    </div>
-                  </div>
-                  <div class="card card-testimonial p-4">
-                    <div class="profile d-flex">
-                      <img src="{{asset('nemolab/assets/image/profile-img.png')}}" alt="">
-                      <p class="ms-2 my-auto text-white">Riveiro Gaming</p>
-                    </div>
-                    <div class="comment">
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore officia magni expedita debitis error tenetur ea, molestiae vel culpa eius?
-                    </div>
-                  </div>
+              @endforeach
                 </div>
               </div>
 
