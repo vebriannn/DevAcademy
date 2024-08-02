@@ -18,9 +18,9 @@
 <body>
 
     <div id="content">
-        @include('components.includes.member.navbargabungkelas')
+        @include('components.includes.member.navbar-play')
 
-        @yield('content-course')
+        @yield('content-course')  
         @yield('content-gabungkelas')
     
         @include('components.includes.member.footer')

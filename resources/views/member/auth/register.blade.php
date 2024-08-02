@@ -13,7 +13,7 @@
           <div>
             <img src="{{ asset('nemolab/assets/image/avatar.png') }}" alt="avatar" width="105" height="105" style="border-radius: 50%; object-fit: cover" />
           </div>
-          <form action="{{ route('register') }}" method="POST" enctype="multipart/form-data">
+          <form action="{{ route('register.auth') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="input-col position-relative">
                 <input type="text" name="name" placeholder="Name" value="{{ old('name') }}" />

@@ -51,5 +51,6 @@ class VerifyCsrfToken extends Middleware
         // Member review routes
         'member/reviews',
         'member/reviews/*',
+        'register/store'
     ];
 }

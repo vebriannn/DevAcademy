@@ -18,7 +18,12 @@
 <body>
 
     <div id="content">
-        @include('components.includes.member.navbarcourse')
+      @if(Auth::user())
+        @include('components.includes.member.navbar-auth')
+      @else 
+        @include('components.includes.member.navbar')
+      @endif
+
 
         @yield('content-course')
         @yield('content-gabungkelas')
@@ -26,6 +31,7 @@
         @include('components.includes.member.footer')
     </div>
 
+    @yield('js')
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
     crossorigin="anonymous"></script>
@@ -33,6 +39,14 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap"rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
     <script src="./assets/js/javascript.js"></script>
+    {{-- <script>
+      var navLink = document.querySelectorAll('.nav-item');
+      navLink.forEach(element => {
+        element.addEventListener("click", (e) => {
+          console.log(e)
+        });
+      });
+    </script> --}}
 </body>
 
 </html>

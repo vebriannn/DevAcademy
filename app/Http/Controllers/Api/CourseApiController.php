@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
-Use App\Models\Course;
 Use App\Models\User;
 use App\Models\Chapter;
 use App\Models\Category;
@@ -44,7 +44,7 @@ class CourseApiController extends Controller
     }
 
     public function filterCourseCategory(Request $requests) {
-        $q = $requests->query('q');
+        $q = Str::lower($requests->query('q'));
         
         if($q != "all") {
             $course = User::with(['courses' => function ($query) use ($q) {
@@ -86,6 +86,15 @@ class CourseApiController extends Controller
 
     public function category() {
         $category = Category::all();
-        return ApiCategoryResource::collection($category);
+
+        $addData = [
+            'id' => 0,
+            'name' => 'All' 
+        ];
+        
+        $newCategory = $category->push((object)$addData);
+        $sortedCategory = $newCategory->sortBy('id');
+        
+        return ApiCategoryResource::collection($sortedCategory);
     }
 }

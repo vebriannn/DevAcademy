@@ -101,20 +101,21 @@ Route::prefix('admin')->middleware('role:superadmin')->group(function() {
     });
 });
 
-Route::get('/', [LandingpageController::class, 'index'])->name('/');
+Route::get('/', [LandingpageController::class, 'index'])->name('home');
 Route::get('/login', [LoginController::class, 'index'])->name('login');
-Route::post('/login', [LoginController::class, 'login']);
-Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+Route::post('/login', [LoginController::class, 'login'])->name('login.auth');
+Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::get('/register', [RegisterController::class, 'index'])->name('register');
-Route::post('/register', [RegisterController::class, 'register']);
+Route::post('/register/store', [RegisterController::class, 'register'])->name('register.auth');
 
-Route::prefix('member')->middleware('role:students,mentor,superadmin')->group(function() {
-    Route::get('/course', [MemberMemberCourseController::class, 'index'])->name('course');
-    Route::get('/course/join', [MemberMemberCourseController::class, 'join']);
-    Route::get('/course/play', [MemberMemberCourseController::class, 'play']);
-    Route::get('/course/payment', [MemberTransactionController::class, 'index']);
 
-    // Routes for reviews
+
+Route::prefix('member')->middleware('student')->group(function() {
+
+    Route::get('/course', [MemberMemberCourseController::class, 'index'])->name('member.course');
+    Route::get('/course/join/{id}', [MemberMemberCourseController::class, 'join'])->name('member.course.join');
+    Route::get('/course/play/{id}', [MemberMemberCourseController::class, 'play'])->name('member.course.play');
+
     Route::prefix('reviews')->group(function() {
         Route::get('/', [MemberReviewController::class, 'index'])->name('member.reviews');
         Route::post('/store', [MemberReviewController::class, 'store'])->name('member.reviews.store');
@@ -122,8 +123,10 @@ Route::prefix('member')->middleware('role:students,mentor,superadmin')->group(fu
         Route::put('/{id}', [MemberReviewController::class, 'update'])->name('member.reviews.update');
         Route::delete('/{id}', [MemberReviewController::class, 'destroy'])->name('member.reviews.destroy');
     });
+
+    Route::get('course/payment', [MemberTransactionController::class, 'index']);
 });
 
-Route::get('/admin/dashboard', [SuperadminController::class, 'index'])->name('admin.dashboard')->middleware('auth', 'role:superadmin');
-Route::get('/mentor/dashboard', [MentorController::class, 'index'])->name('mentor.dashboard')->middleware('auth', 'role:mentor');
-Route::get('/student/dashboard', [StudentController::class, 'index'])->name('student.dashboard')->middleware('auth');
+// Route::get('/admin/dashboard', [SuperadminController::class, 'index'])->name('admin.dashboard')->middleware('auth', 'role:superadmin');
+// Route::get('/mentor/dashboard', [MentorController::class, 'index'])->name('mentor.dashboard')->middleware('auth', 'role:mentor');
+// Route::get('/student/dashboard', [StudentController::class, 'index'])->name('student.dashboard')->middleware('auth');

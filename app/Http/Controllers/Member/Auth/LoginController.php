@@ -31,10 +31,9 @@ class LoginController extends Controller
 
         if ($user) {
             // Jika email ada, periksa password
-            if (Hash::check($password, $user->password)) {
-                // Autentikasi berhasil
-                Auth::login($user);
-                return redirect()->intended('/')->with('success', 'Login successful.');
+            if (Auth::attempt(['email' => $email, 'password' => $password])) {
+                $request->session()->regenerate();
+                return redirect()->route('home')->with('success', 'Login successful.');
             } else {
                 // Password salah
                 return redirect()->back()->withErrors(['password' => 'Password salah.'])->withInput();
@@ -48,6 +47,8 @@ class LoginController extends Controller
     public function logout(Request $request)
     {
         Auth::logout();
-        return redirect()->route('/');
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return redirect()->route('home');
     }
 }
