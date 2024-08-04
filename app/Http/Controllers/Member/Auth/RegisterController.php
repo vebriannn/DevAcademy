@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Member\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use App\Models\User;
+use Illuminate\Support\Facades\Log;
 
 class RegisterController extends Controller
 {
@@ -33,35 +33,47 @@ class RegisterController extends Controller
             'password.regex' => 'Password harus berisi kombinasi huruf dan angka',
         ]);
 
+        // JANGAN DIGUNAKAN DI PROFUCTION
+        // Log::info('Password sebelum di-hash: ' . $request->input('password'));
+
         // Upload avatar dengan nama acak dan ekstensi asli
         $avatarPath = 'default.png';
-        if ($request->avatar) {
-            $avatar = $request->avatar;
+        if ($request->hasFile('avatar')) {
+            $avatar = $request->file('avatar');
             $getName = $avatar->getClientOriginalName();
-            $avatarName = Str::random(9).$getName; 
-            $avatar->storeAs('public/images/avatars/'.$avatarName);
+            $avatarName = Str::random(9) . '.' . $avatar->getClientOriginalExtension();
+            $avatar->storeAs('public/images/avatars', $avatarName);
             $avatarPath = $avatarName;
         }
 
-        $cekEmail = User::where('email', $request->email)->first();
-        if(!$cekEmail) {
+        $email = $request->input('email');
+        $password = $request->input('password');
+
+        // Log email dan password untuk debugging
+        // Log::info('Registrasi dengan email: ' . $email);
+
+        // Cek apakah email sudah ada
+        $cekEmail = User::where('email', $email)->first();
+        if (!$cekEmail) {
             // Buat pengguna baru
             $user = User::create([
                 'name' => $request->input('name'),
                 'username' => $request->input('name'),
-                'email' => $request->input('email'),
-                'password' => Hash::make($request->input('password')),
+                'email' => $email,
+                'password' => $password,
                 'avatar' => $avatarPath,
                 'role' => 'students',
             ]);
+
+            // Log::info('User baru dibuat: ', ['user' => $user]);
+
             auth()->login($user);
-    
+
             // Redirect ke halaman yang diinginkan
             return redirect()->route('home')->with('success', 'Registration successful.');
+        } else {
+            // Log::warning('Email sudah terdaftar: ' . $email);
+            return redirect()->back()->withErrors(['email' => 'Email sudah terdaftar, silahkan gunakan akun lain'])->withInput();
         }
-        else {
-            return redirect()->back()->withErrors(['email' => 'Email sudah terdaftar, silahakan gunakan akun lain'])->withInput();
-        }
-        
     }
 }
