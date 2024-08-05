@@ -168,6 +168,14 @@ Route::get('/admin/datacategory', function(){
     return view('admin.category.data-category');
 });
 
+Route::get('/admin/course/tambah', function(){
+    return view('admin.course.edit');
+});
+
+Route::get('/mentor/tambahdata', function(){
+    return view('mentor.courses.tambahdatacourses');
+});
+
 Route::prefix('member')->middleware('role:students,mentor,superadmin')->group(function() {
     Route::get('/course', [MemberMemberCourseController::class, 'index'])->name('course');
     Route::get('/course/join', [MemberMemberCourseController::class, 'join']);

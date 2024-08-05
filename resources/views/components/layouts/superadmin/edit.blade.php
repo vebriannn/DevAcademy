@@ -20,6 +20,8 @@
     <div id="content">
 
         @yield('content-edit-course')
+        @yield('content-editdatacourses')
+        @yield('content-tambahdatacourses')
 
     </div>
 
