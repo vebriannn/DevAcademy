@@ -15,8 +15,8 @@
         @include('components.includes.navbar.navbar')
         @yield('content-setting')
         @yield('content-mycourse')
-        @yield('content-myportofolio')
-        @yield('content-transctions')
+        @yield('content-courses-table-mentor')
+        @yield('content-superadmin-lesson')
         @include('components.includes.footer')
     </div>
     <script src="{{ asset('nemolab/assets/js/profile-navbar.js') }}"></script>

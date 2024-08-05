@@ -18,44 +18,12 @@ body {
 .btn-primary:hover {
     background-color: var(--c-brand-dark);
 }
-.col-lg-9{
-    width: 80%;
-}
 
-/* SIDEBAR */
-.sidebar {
-    background-color: var(--c-brand);
-    color: white;
-    border-radius: 10px;
-    height: 600px;
-    width: 259px;
-}
-
-.sidebar a {
-    color: white;
-    display: block;
-    margin: 10px 0;
+a{
     text-decoration: none;
 }
-.sidebar-img{
-    width: 25px;
-    height: 25px;
-}
-.sidebar-a{
-    border-radius: 5px;
-}
-.aktif{
-    background-color: white;
-    justify-content: center;
-}
-.aktif p{
-    color: var(--c-brand);
-}
-.sidebar-a p{
-    font-size: 1rem;
 
-}
-/* END SIDEBAR */
+
 
 /* TABLE DATA */
 .judul-table{

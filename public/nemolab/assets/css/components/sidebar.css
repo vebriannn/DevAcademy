@@ -1,9 +1,17 @@
 /* Sidebar */
 .col-3 {
-    height: 600px;
+    height: max-content;
+  }
+
+#mentor .col-3{
+  height: 600px;
 }
 
-.list-sidebar {
+  .tittle-list-sidebar{
+    font-weight: bold;
+  }
+  
+  .list-sidebar {
     text-decoration: none;
     color: #fff;
     cursor: pointer;
@@ -17,7 +25,7 @@
     cursor: pointer;
     text-decoration: none;
     background-color: #fff;
-    color: #faa907 !important;
+    color: #faa907;
     padding: 8px 10px;
     border-radius: 9px;
     margin-bottom: 0px !important;

@@ -120,6 +120,42 @@ Route::get('/dashboard/classvideo', function(){
     return view('admin.data-mentor');
 });
 
+Route::get('/mentor', function(){
+    return view('mentor.courses.courses-table');
+});
+
+Route::get('/admin/datamember', function(){
+    return view('admin.member.data-member');
+});
+
+Route::get('/admin/datamentor', function(){
+    return view('admin.mentor.data-mentor');
+});
+
+Route::get('/admin/datapengajuan', function(){
+    return view('admin.pengajuanmentor.data-pengajuan-mentor');
+});
+
+Route::get('/admin/dataadmin', function(){
+    return view('admin.datasuperadmin.data-superadmin');
+});
+
+Route::get('/admin/datacourse', function(){
+    return view('admin.course.data-course');
+});
+
+Route::get('/admin/datalesson', function(){
+    return view('admin.lesson.data-lesson');
+});
+
+Route::get('/admin/datachapter', function(){
+    return view('admin.chapter.data-chapter');
+});
+
+Route::get('/admin/datacategory', function(){
+    return view('admin.category.data-category');
+});
+
 Route::prefix('member')->middleware('role:students,mentor,superadmin')->group(function() {
     Route::get('/course', [MemberMemberCourseController::class, 'index'])->name('course');
     Route::get('/course/join', [MemberMemberCourseController::class, 'join']);
