@@ -15,6 +15,8 @@
         @include('components.includes.navbar.navbar')
         @yield('content-setting')
         @yield('content-mycourse')
+        @yield('content-courses-table-mentor')
+        @yield('content-superadmin-lesson')
         @include('components.includes.footer')
     </div>
     <script>

@@ -1,52 +1,52 @@
 @extends('components.layouts.superadmin.dashboard')
 
-@section('title, data-member')
+@section('title, data-course-admin')
 
-@section('content-data-member')
+@section('content-data-course-admin')
+<link rel="stylesheet" href="{{ asset('nemolab/assets/css/components/sidebar.css') }}">
 
-<div class="container">
-    <div class="container-fluid mt-5 mb-5">
-        <div class="row">
+<div class="container pe-0">
+    <div class="row w-100">
             <!-- Sidebar -->
-            <div class="col-md-2 d-none d-md-block sidebar px-3 py-4">
-                <div class="sidebar-sticky">
-                    <h6 class="view-data mt-3">View Data</h6>
-                    <a class="sidebar-a py-1 px-1 d-flex" href="superadmin-data-member.html">
-                        <img src="assets/img/ic_invoice_gray 1(gray).png" class="sidebar-img active">
-                        <p class="side-text mx-1 mb-0">Data Member</p>
-                    </a>
-                    <a class="sidebar-a py-1 px-1 d-flex" href="superadmin-data-mentor.html">
-                        <img src="assets/img/ic_invoice_gray 1(gray).png" class="sidebar-img active">
-                        <p class="side-text mx-1 mb-0">Data Mentor</p>
-                    </a>
-                    <a class="sidebar-a py-1 px-1 d-flex" href="superadmin-data-superadmin.html">
-                        <img src="assets/img/ic_invoice_gray 1(gray).png" class="sidebar-img active">
-                        <p class="side-text mx-1 mb-0">Data Superadmin</p>
-                    </a>
-                    <a class="sidebar-a py-1 px-1 d-flex" href="superadmin-data-pengajuan-mentor.html">
-                        <img src="assets/img/ic_invoice_gray 2.png" class="sidebar-img active">
-                        <p class="side-text mx-1 mb-0">Pengajuan Mentor</p>
-                    </a>
-                    <h6 class="learn mt-5">Learn</h6>
-                    <a class="sidebar-a py-1 px-1 d-flex aktif" href="superadmin-data-admin-courses.html">
-                        <img src="assets/img/ic_invoice_gray 4.png" class="sidebar-img active">
-                        <p class="side-text mx-1 mb-0">Courses</p>
-                    </a>
-                    <a class="sidebar-a py-1 px-1 d-flex" href="#">
-                        <img src="assets/img/book.png" class="sidebar-img active">
-                        <p class="side-text mx-1 mb-0">Lesson</p>
-                    </a>
-                    <a class="sidebar-a py-1 px-1 d-flex" href="#">
-                        <img src="assets/img/ic_invoice_gray 3.png" class="sidebar-img active">
-                        <p class="side-text mx-1 mb-0">Chapter</p>
-                    </a>
-                    <h6 class="category mt-5">Category</h6>
-                    <a class="sidebar-a py-1 px-1 d-flex" href="#">
-                        <img src="assets/img/ic_invoice_gray 3(1).png" class="sidebar-img active">
-                        <p class="side-text mx-1 mb-0">Category</p>
-                    </a>
-                </div>
-            </div>
+            <div class="col-3 d-none d-lg-block p-4 rounded-4 text-white" style="background-color: #faa907">
+                <p class="tittle-list-sidebar mt-4">View Data</p>
+                <a href="#" class="list-sidebar">
+                    <img src="{{ asset('nemolab/assets/image/datamember.png') }}" alt="" width="30" />
+                    <p class="m-0">Data Member</p>
+                </a>
+                <a href="#" class="list-sidebar">
+                    <img src="{{ asset('nemolab/assets/image/datamember.png') }}" alt="" width="30" />
+                    <p class="m-0">Data Mentor</p>
+                </a>
+                <a href="dashboard-transactions.html" class="list-sidebar">
+                    <img src="{{ asset('nemolab/assets/image/datamember.png') }}" alt="" width="30" />
+                    <p class="m-0">Data Super Admin</p>
+                </a>
+                <a href="#" class="list sidebar d-flex">
+                    <img src="{{ asset('nemolab/assets/image/datamember.png') }}" alt="" width="30"/>
+                    <p class="m-0 ps-2 text-white">Pengajuan Mentor</p>
+                </a>
+    
+                <p class="tittle-list-sidebar mt-4">Learn</p>
+                <a href="#" class="list-sidebar active">
+                    <img src="{{ asset('nemolab/assets/image/datacourses-active.png') }}" alt="" width="30" />
+                    <p class="m-0">Courses</p>
+                </a>
+                <a href="#" class="list-sidebar">
+                    <img src="{{ asset('nemolab/assets/image/datalesson.png') }}" alt="" width="30" />
+                    <p class="m-0">Lesson</p>
+                </a>
+                <a href="dashboard-transactions.html" class="list-sidebar">
+                    <img src="{{ asset('nemolab/assets/image/datachapter.png') }}" alt="" width="30" />
+                    <p class="m-0">Chapter</p>
+                </a>
+    
+                <p class="tittle-list-sidebar mt-4">Category</p>
+                <a href="#" class="list-sidebar">
+                    <img src="{{ asset('nemolab/assets/image/datacategory.png') }}" alt="" width="30" />
+                    <p class="m-0">Category</p>
+                </a>
+        </div>
             <!-- End Sidebar -->
 
             <!-- Main Content -->
@@ -142,7 +142,6 @@
             </main>
             <!-- End Main Content -->
         </div>
-    </div>
 </div>
 
 @endsection

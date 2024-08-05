@@ -27,7 +27,15 @@
         @yield('content-data-super-admin')
         @yield('content--data-pengajuan-mentor')
         @yield('content-data-course')
+        @yield('content-data-category')
+        @yield('content-data-chapter')
+        @yield('content-data-course-admin')
+        @yield('content-data-lessson')
+        @yield('content-data-mentor')
+        @yield('content-data-pengajuan-mentor')
+        @yield('content-data-superadmin')
         @yield('content-data-member')
+        @yield('content-courses-table-mentor')
     
         @include('components.includes.footer')
     </div>
