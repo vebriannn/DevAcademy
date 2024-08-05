@@ -9,11 +9,9 @@
     integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
   
   <link rel="stylesheet" href="{{asset('nemolab/assets/css/components/navback.css')}} ">
-  <link rel="stylesheet" href="{{asset('nemolab/assets/css/payment.css')}} ">
-  <link rel="stylesheet" href="{{asset('nemolab/assets/css/classvideo.css')}} ">
-  <link rel="stylesheet" href="{{asset('nemolab/assets/css/editpassword.css')}} ">
-  {{-- <link rel="stylesheet" href="{{asset('nemolab/assets/css/editprofile.css')}} "> --}}
   <link rel="stylesheet" href="{{asset('nemolab/assets/css/components/footer.css')}} ">
+  <link rel="stylesheet" href="{{asset('nemolab/assets/css/superadmin-data.css')}} ">
+  
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" />
@@ -25,10 +23,11 @@
     <div id="content">
         @include('components.includes.navbar.navback')
 
-        @yield('contentclassvideo')
-        @yield('content-payment')
-        @yield('content-editpassword')
-        @yield('content-editprofile')
+        @yield('content-data-mentor')
+        @yield('content-data-super-admin')
+        @yield('content--data-pengajuan-mentor')
+        @yield('content-data-course')
+        @yield('content-data-member')
     
         @include('components.includes.footer')
     </div>

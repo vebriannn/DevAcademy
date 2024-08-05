@@ -101,7 +101,7 @@ Route::prefix('admin')->middleware('role:superadmin')->group(function() {
     });
 });
 
-Route::get('/', [LandingpageController::class, 'index'])->name('/');
+Route::get('/', [LandingpageController::class, 'index'])->name('home');
 Route::get('/login', [LoginController::class, 'index'])->name('login');
 Route::post('/login', [LoginController::class, 'login']);
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');

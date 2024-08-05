@@ -75,7 +75,7 @@
             <img src="{{ asset('nemolab/assets/image/avatar.png') }}" alt="" width="45" class="d-none d-lg-block border border-2 rounded-circle" id="myProfile" style="cursor: pointer" />
 
             <!-- Profile Menu -->
-            <div class="profile-user border border-2 rounded-2" id="profileMenu">
+            <div class="profile-user border border-2 rounded-2 overflow-hidden" id="profileMenu">
               <a href="" class="bg-white px-3 py-2 d-flex align-items-center text-decoration-none text-black-50">
                 <img src="{{ asset('nemolab/assets/image/profile copy.png') }}"  alt="" width="23" />
                 <div class="item fw-semibold m-0 w-100">Dashboard</div>
