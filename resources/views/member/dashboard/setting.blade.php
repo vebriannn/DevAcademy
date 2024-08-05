@@ -3,7 +3,6 @@
 @section('content-setting')
 <link rel="stylesheet" href="{{ asset('nemolab/assets/css/dashboardsettings.css') }}">
 <link rel="stylesheet" href="{{ asset('nemolab/assets/css/components/sidebar.css') }}">
-<link rel="stylesheet" href="{{ asset('nemolab/assets/css/dashboardsettings.css') }}">
 <div class="container">
     <div class="row">
             <!-- Sidebar -->
@@ -25,9 +24,9 @@
                       <img src="{{ asset('nemolab/assets/image/transaksi.png') }}" alt="" width="30" />
                       <p class="m-0">Transactions</p>
                   </a>
-                  <a href="#" class="list sidebar active">
+                  <a href="#" class="list-sidebar active">
                       <img src="{{ asset('nemolab/assets/image/setting active.png') }}" alt="" width="30"/>
-                      <p class="m-0 fw-semibold">Settings</p>
+                      <p class="m-0">Settings</p>
                   </a>
               </div>
           </div>

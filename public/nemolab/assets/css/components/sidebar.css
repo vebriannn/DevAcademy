@@ -1,9 +1,9 @@
 /* Sidebar */
 .col-3 {
     height: 600px;
-  }
-  
-  .list-sidebar {
+}
+
+.list-sidebar {
     text-decoration: none;
     color: #fff;
     cursor: pointer;
@@ -11,9 +11,9 @@
     align-items: center;
     gap: 10px;
     margin: 25px 0;
-  }
+}
 
-  .active {
+.active {
     cursor: pointer;
     text-decoration: none;
     background-color: #fff;
@@ -25,5 +25,6 @@
     display: inline-flex;
     gap: 10px;
     align-items: center;
-  }
-  /* End Sidebar */
+    font-weight: 600;
+}
+/* End Sidebar */

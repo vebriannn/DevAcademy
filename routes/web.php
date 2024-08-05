@@ -112,12 +112,12 @@ Route::post('/register', [RegisterController::class, 'register']);
      return view('member.dashboard.setting');
  });
 
- Route::get('/dashboard/mycourse', function(){
-    return view('member.dashboard.mycourse');
+Route::get('/dashboard/mycourse', function(){
+    return view('member.dashboard.myportofolio');
 });
 
 Route::get('/dashboard/classvideo', function(){
-    return view('member.classvideo');
+    return view('admin.data-mentor');
 });
 
 Route::prefix('member')->middleware('role:students,mentor,superadmin')->group(function() {

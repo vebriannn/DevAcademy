@@ -25,16 +25,8 @@
         @include('components.includes.footer')
     </div>
 
-    <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        const profileDiv = document.getElementById("profileMenu");
-        const profileImg = document.getElementById("myProfile");
+    <script src="{{ asset('nemolab/assets/js/profile-navbar.js') }}"></script>
 
-        profileImg.addEventListener("click", function () {
-          profileDiv.classList.toggle("menu");
-        });
-      });
-    </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
