@@ -14,6 +14,27 @@ body {
 }
 
 /* Navbar */
+
+.btn-login {
+    font-weight: 600;
+    color: #383131;
+    width: 87px;
+    border-radius: 10px;
+    border: 1px solid #faa907;
+    color: #faa907;
+}
+.btn-login:hover {
+    border: 1px solid #d78f00;
+    color: #c68605;
+}
+.btn-signup {
+    background-color: #faa907;
+    font-weight: 600;
+    border-radius: 10px;
+}
+.btn-signup:hover {
+    background-color: #c68605;
+}
 .navbar-collapse {
     max-height: 85vh;
     overflow-y: auto;
