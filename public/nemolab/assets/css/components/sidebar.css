@@ -1,24 +1,24 @@
 /* Sidebar */
 .col-3 {
     height: max-content;
-  }
-
-#mentor .col-3{
-  height: 600px;
 }
 
-  .tittle-list-sidebar{
+#mentor .col-3 {
+    height: 530px;
+}
+
+.tittle-list-sidebar {
     font-weight: bold;
-  }
-  
-  .list-sidebar {
+}
+
+.list-sidebar {
     text-decoration: none;
     color: #fff;
     cursor: pointer;
     display: flex;
     align-items: center;
     gap: 10px;
-    margin: 25px 0;
+    margin: 20px 0;
 }
 
 .active {

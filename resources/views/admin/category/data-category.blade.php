@@ -82,8 +82,8 @@
                             <tr>
                                 <td>Bab 1</td>
                                 <td>
-                                    <a href="#" class="edit-data px-2 py-2">Edit</a>
-                                    <a href="#" class="edit-data px-2 py-2">Hapus</a>
+                                    <a href="#" class="me-2"><img src="{{ asset('nemolab/assets/image/edit.png') }}" alt="" width="35" height="35"><a>
+                                    <a href="#"><img src="{{ asset('nemolab/assets/image/delete.png') }}" alt="" width="35" height="35"></a>
                                 </td>
                             </tr>
                         </tbody>

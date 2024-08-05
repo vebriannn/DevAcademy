@@ -113,7 +113,15 @@ Route::post('/register', [RegisterController::class, 'register']);
  });
 
 Route::get('/dashboard/mycourse', function(){
+    return view('member.dashboard.mycourse');
+});
+
+Route::get('/dashboard/portofolio', function(){
     return view('member.dashboard.myportofolio');
+});
+
+Route::get('/dashboard/transactions', function(){
+    return view('member.dashboard.transactions');
 });
 
 Route::get('/dashboard/classvideo', function(){
@@ -138,6 +146,10 @@ Route::get('/admin/datapengajuan', function(){
 
 Route::get('/admin/dataadmin', function(){
     return view('admin.datasuperadmin.data-superadmin');
+});
+
+Route::get('/admin/datatransactions', function(){
+    return view('admin.transactions.data-transactions');
 });
 
 Route::get('/admin/datacourse', function(){

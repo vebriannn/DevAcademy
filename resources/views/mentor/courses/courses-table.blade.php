@@ -9,8 +9,8 @@
 <div class="container" id="mentor">
     <div class="row w-100">
         <!-- Sidebar -->
-        <div class="col-3 d-none d-lg-block p-4 rounded-4 text-white" style="background-color: #faa907">
-                <a href="#" class="list-sidebar active">
+        <div class="col-3 d-none d-lg-block p-4 pt-5  rounded-4 text-white" style="background-color: #faa907">
+                <a href="#" class=" list-sidebar active w-75 d-flex mx-auto ">
                     <img src="{{ asset('nemolab/assets/image/active-mentor.png') }}" alt="" width="30" />
                     <p class="m-0">Mentor</p>
                 </a>
@@ -59,8 +59,8 @@
                                 <td><img src="https://via.placeholder.com/150" alt="Image" class="table-img img-fluid"></td>
                                 <td><a href="www.example.com">Website</a></td>
                                 <td>
-                                    <a href="#" class="edit-data px-2 py-2">Edit</a>
-                                    <a href="#" class="edit-data px-2 py-2">Hapus</a>
+                                    <a href="#" class="me-2"><img src="{{ asset('nemolab/assets/image/edit.png') }}" alt="" width="35" height="35"><a>
+                                    <a href="#"><img src="{{ asset('nemolab/assets/image/delete.png') }}" alt="" width="35" height="35"></a>
                                 </td>
                             </tr>
                             

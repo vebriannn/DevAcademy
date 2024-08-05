@@ -1,6 +1,6 @@
 @extends('components.layouts.member.dashboard')
 
-@section('content-transctions')
+@section('content-transactions')
 <link rel="stylesheet" href="{{ asset('nemolab/assets/css/components/sidebar.css') }}">
 <link rel="stylesheet" href="{{ asset('nemolab/assets/css/tabel.css') }}">
 <div class="container">

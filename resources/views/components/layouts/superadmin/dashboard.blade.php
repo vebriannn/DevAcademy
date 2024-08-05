@@ -31,10 +31,10 @@
         @yield('content-data-chapter')
         @yield('content-data-course-admin')
         @yield('content-data-lessson')
-        @yield('content-data-mentor')
         @yield('content-data-pengajuan-mentor')
         @yield('content-data-superadmin')
         @yield('content-data-member')
+        @yield('content-data-transactions')
         @yield('content-courses-table-mentor')
     
         @include('components.includes.footer')

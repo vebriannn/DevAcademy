@@ -22,6 +22,12 @@
                 <img src="{{ asset('nemolab/assets/image/datamember-active.png') }}" alt="" width="30" />
                 <p class="m-0">Data Super Admin</p>
             </a>
+
+            <a href="dashboard-transactions.html" class="list-sidebar">
+                <img src="{{ asset('nemolab/assets/image/datamember.png') }}" alt="" width="30" />
+                <p class="m-0">Data Transactions</p>
+            </a>
+
             <a href="#" class="list sidebar d-flex mt-4">
                 <img src="{{ asset('nemolab/assets/image/datamember.png') }}" alt="" width="30"/>
                 <p class="m-0 ps-2 text-white">Pengajuan Mentor</p>

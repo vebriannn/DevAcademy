@@ -23,6 +23,12 @@
                     <img src="{{ asset('nemolab/assets/image/datamember.png') }}" alt="" width="30" />
                     <p class="m-0">Data Super Admin</p>
                 </a>
+
+                <a href="dashboard-transactions.html" class="list-sidebar">
+                    <img src="{{ asset('nemolab/assets/image/datamember.png') }}" alt="" width="30" />
+                    <p class="m-0">Data Transactions</p>
+                </a>
+
                 <a href="#" class="list sidebar d-flex">
                     <img src="{{ asset('nemolab/assets/image/datamember.png') }}" alt="" width="30"/>
                     <p class="m-0 ps-2 text-white">Pengajuan Mentor</p>
@@ -84,8 +90,8 @@
                                 <td>UI/UX</td>
                                 <td>https</td>
                                 <td>
-                                    <a href="#" class="edit-data px-2 py-2">Edit</a>
-                                    <a href="#" class="edit-data px-2 py-2">Hapus</a>
+                                    <a href="#" class="me-2"><img src="{{ asset('nemolab/assets/image/edit.png') }}" alt="" width="35" height="35"><a>
+                                    <a href="#"><img src="{{ asset('nemolab/assets/image/delete.png') }}" alt="" width="35" height="35"></a>
                                 </td>
                             </tr>
                         </tbody>

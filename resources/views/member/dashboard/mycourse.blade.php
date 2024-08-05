@@ -4,8 +4,8 @@
     <link rel="stylesheet" href="{{ asset('nemolab/assets/css/dashboradmycourse.css') }}">
     <link rel="stylesheet" href="{{ asset('nemolab/assets/css/components/sidebar.css') }}">
     <link rel="stylesheet" href="{{ asset('nemolab/assets/css/dashboardsettings.css') }}">
-    <div class="container" id="mycourse">
-        <div class="row w-100">
+    <div class="container">
+        <div class="row">
             <!-- Sidebar -->
             <div class="col-3 d-none d-lg-block p-4 rounded-4 text-white" style="background-color: #faa907">
                 <img src="{{ asset('nemolab/assets/image/profile2.png') }}" alt="" width="70"
@@ -25,12 +25,12 @@
                         <img src="{{ asset('nemolab/assets/image/transaksi.png') }}" alt="" width="30" />
                         <p class="m-0">Transactions</p>
                     </a>
-                    <a href="#" class="list sidebar d-flex">
+                    <a href="#" class="list-sidebar">
                         <img src="{{ asset('nemolab/assets/image/setting.png') }}" alt="" width="30"/>
-                        <p class="m-0 ps-2 text-white">Settings</p>
+                        <p class="m-0">Settings</p>
                     </a>
                 </div>
-            </div>
+              </div>
             <!-- End Sidebar -->
 
             <!-- Content -->            
