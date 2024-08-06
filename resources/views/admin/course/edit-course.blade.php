@@ -1,6 +1,6 @@
-@extends('components.layouts.superadmin.edittambah')
+@extends('components.layouts.superadmin.edit-gambar')
 
-@section('title, editcourse')
+@section('title, edit-course')
 
 @section('content-edit-course')
 <div class="container mt-3 mb-3 p-5">
