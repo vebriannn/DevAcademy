@@ -9,23 +9,24 @@ use App\Models\Chapter;
 
 class AdminChapterController extends Controller
 {
-    public function index() {
-        $chapter = Chapter::all();
-        dd($chapter);
+    public function index($id) {
+        $chapters = Chapter::where('course_id', $id)->get();
+        return view('admin.chapter.data-chapter', compact('chapters', 'id'));
     }
 
-    public function create() {
-        
+    public function create($id) {
+        return view('admin.chapter.create-chapter', compact('id'));
     }
 
-    public function store(Request $requests) {
+
+    public function store(Request $requests, $id) {
         $requests->validate([
             'name' => 'required',
         ]);
  
         Chapter::create([
             'name' => $requests->name,
-            'course_id' => $requests->course_id, 
+            'course_id' => $id, 
         ]);
         
         return response()->json([
@@ -33,8 +34,9 @@ class AdminChapterController extends Controller
         ], 200);
     }
 
-    public function edit() {
-        
+    public function edit($id) {
+        $chapters = Chapter::where('id', $id)->first();
+        return view('admin.chapter.edit-chapter', compact('chapters'));
     }
 
     public function update(Request $requests, $id) {
