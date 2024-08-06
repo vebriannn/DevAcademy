@@ -63,8 +63,8 @@
                     <tbody>
                         <tr>
                             <td>John Doe</td>
-                            <td>johndoe@example.com</td>
-                            <td>password123</td>
+                            <td>Saminaminaee</td>
+                            <td>www.youtube.com</td>
                             <td>
                                 <a href="#" class="me-2"><img src="{{ asset('nemolab/assets/image/edit.png') }}" alt="" width="35" height="35"><a>
                                 <a href="#"><img src="{{ asset('nemolab/assets/image/delete.png') }}" alt="" width="35" height="35"></a>
@@ -72,8 +72,8 @@
                         </tr>
                         <tr>
                             <td>John Doe</td>
-                            <td>johndoe@example.com</td>
-                            <td>password123</td>
+                            <td>Saminaminaee</td>
+                            <td>www.youtube.com</td>
                             <td>
                                 <a href="#" class="me-2"><img src="{{ asset('nemolab/assets/image/edit.png') }}" alt="" width="35" height="35"><a>
                                 <a href="#"><img src="{{ asset('nemolab/assets/image/delete.png') }}" alt="" width="35" height="35"></a>

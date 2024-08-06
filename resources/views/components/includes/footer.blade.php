@@ -1,5 +1,5 @@
 <footer class="footer">
-    <div class="container-fluid">
+    <div class="container py-4">
       <div class="row align-items-center">
         <div class="col-4  text-md-left logo">
           <img src="{{asset('nemolab/assets/image/LogoNemolab.png')}}" alt="Company Logo">
