@@ -22,10 +22,10 @@ class AdminChapterController extends Controller
         $requests->validate([
             'name' => 'required',
         ]);
-                    
+ 
         Chapter::create([
             'name' => $requests->name,
-            'course_id' => 1, 
+            'course_id' => $requests->course_id, 
         ]);
         
         return response()->json([

@@ -4,7 +4,7 @@
 
 @section('content-landing')
     <!-- HOME -->
-    <section class="mt-3 pb-3" id="home">
+    <section class="mt-5 pt-5 pb-3" id="home">
         <div class="container">
             <div class="card card-home text-white p-0">
                 <div class="card-body d-flex flex-column justify-content-center p-0">

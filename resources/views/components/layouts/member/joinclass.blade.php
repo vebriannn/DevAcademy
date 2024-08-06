@@ -21,7 +21,7 @@
 <body>
 
     <div id="content">
-        @include('components.includes.member.back')
+        @include('components.includes.member.navbar-play')
 
         @yield('contentclassvideo')
         @yield('content-payment')

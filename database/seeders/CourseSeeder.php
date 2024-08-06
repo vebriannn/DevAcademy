@@ -20,6 +20,7 @@ class CourseSeeder extends Seeder
                 'price' => 0,
                 'level' => 'beginner',
                 'description' => 'A basic course on programming concepts.',
+                'resources' => 'https://gedangsuket.id',
                 'mentor_id' => 1
             ],
             [
@@ -31,6 +32,7 @@ class CourseSeeder extends Seeder
                 'price' => 100,
                 'level' => 'intermediate',
                 'description' => 'An advanced course on Laravel framework.',
+                'resources' => 'https://gedangsuket.id',
                 'mentor_id' => 1
             ],
 
@@ -43,6 +45,7 @@ class CourseSeeder extends Seeder
                 'price' => 100,
                 'level' => 'intermediate',
                 'description' => 'An advanced course on Laravel framework.',
+                'resources' => 'https://gedangsuket.id',
                 'mentor_id' => 1
             ],
         ];

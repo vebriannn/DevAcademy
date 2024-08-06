@@ -27,7 +27,7 @@ class AdminCourseController extends Controller
         $validator = Validator::make($request->all(), [
             'category' => 'required|string|max:255',
             'name' => 'required|string|max:255',
-            'cover' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'cover' => 'nullable|image|mimes:jpeg,png,jpg',
             'type' => 'required|in:free,premium',
             'status' => 'required|in:draft,published',
             'price' => 'required|integer',
@@ -58,6 +58,7 @@ class AdminCourseController extends Controller
         $course->description = $request->description;
         $course->mentor_id = $request->mentor_id;
         $course->save();
+
 
         return response()->json(['message' => 'Course created successfully', 'course' => $course], 201);
     }
@@ -110,6 +111,7 @@ class AdminCourseController extends Controller
         $course->level = $request->level;
         $course->description = $request->description;
         $course->mentor_id = $request->mentor_id;
+        
         $course->save();
 
         return response()->json(['message' => 'Course updated successfully', 'course' => $course]);

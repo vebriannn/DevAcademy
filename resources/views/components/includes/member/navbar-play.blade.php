@@ -9,7 +9,7 @@
                 aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <div class="d-none" id="navbarSupportedContent">
                 <p class="fw-bold my-auto me-2 ">Halo, Veroo</p>
                 <img class="my-auto" src="{{ asset('nemolab/assets/image/profile2.png') }}" style="width:4%;"
                     alt="">

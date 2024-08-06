@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 use App\Models\Lesson;
 
@@ -26,6 +27,7 @@ class AdminLessonController extends Controller
 
         Lesson::create([
             'name' => $requests->name,
+            'episode' => Str::random(12),
             'video' => $requests->video,
             'chapter_id' => 1,
         ]);

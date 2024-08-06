@@ -48,7 +48,7 @@
                             </div>
                         @endforeach
                     </div>
-                    <a href="{{ route('member.course.play', $id) }}" class="d-none">
+                    <a href="{{ route('member.course.play', ['slug' => $course->slug, 'episode' => $lesson->episode]) }}" >
                         <div class="button">Start Learning</div>
                     </a>
                 @else
@@ -66,7 +66,7 @@
             </div>
         </div>
         <!-- Tools -->
-        <div class="row">
+        <div class="row d-none">
             <div class="col-12">
                 <h4 class="fw-semibold mb-4">Tools</h4>
             </div>
@@ -111,7 +111,7 @@
             </div>
             <div class="col-lg-4 col-md-6 border border-2 rounded-4 p-4 ms-lg-2 mt-4 shadow-sm">
                 <img src="{{ asset('nemolab/assets/image/payment-img.png') }}" alt="" width="70" />
-                <h5 class="mt-4 fw-semibold">Rp 300,000</h5>
+                <h5 class="mt-4 fw-semibold">Rp {{number_format($course->price, 0)}}</h5>
                 <p>Raih Akses Premium Seumur Hidup dan Bangun Proyek Nyata Anda Sendiri</p>
                 <hr class="mb-4 border-2" />
                 <div>

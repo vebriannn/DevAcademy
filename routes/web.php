@@ -31,7 +31,7 @@ use App\Http\Controllers\Member\MemberReviewController;
 |
 */
 
-Route::prefix('admin')->middleware('role:superadmin')->group(function() {
+Route::prefix('admin')->group(function() {
     // Routes for tools
     Route::prefix('tools')->group(function() {
         Route::get('/', [AdminToolsController::class, 'index'])->name('admin.tools');
@@ -113,8 +113,8 @@ Route::post('/register/store', [RegisterController::class, 'register'])->name('r
 Route::prefix('member')->middleware('student')->group(function() {
 
     Route::get('/course', [MemberMemberCourseController::class, 'index'])->name('member.course');
-    Route::get('/course/join/{id}', [MemberMemberCourseController::class, 'join'])->name('member.course.join');
-    Route::get('/course/play/{id}', [MemberMemberCourseController::class, 'play'])->name('member.course.play');
+    Route::get('/course/join/{slug}', [MemberMemberCourseController::class, 'join'])->name('member.course.join');
+    Route::get('/course/{slug}/play/episode/{episode}', [MemberMemberCourseController::class, 'play'])->name('member.course.play');
 
     Route::prefix('reviews')->group(function() {
         Route::get('/', [MemberReviewController::class, 'index'])->name('member.reviews');

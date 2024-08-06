@@ -20,7 +20,7 @@ class ApiCourseResource extends JsonResource
             'avatars_mentor' => url(Storage::url('images/avatars/' . $this->avatar)),
             'course' => $this->courses->map(function ($course) {
                 return [
-                    'id_course' => $course->id,
+                    'slug_course' => $course->slug,
                     'category_course' => $course->category,
                     'cover_course' => url(Storage::url('images/covers/' . $course->cover)),
                     'title_course' => $course->name,

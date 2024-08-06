@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Http;
 use App\Models\Category;
 use App\Models\Course;
 use App\Models\Chapter;
+use App\Models\Lesson;
 use App\Models\User;
 
 
@@ -29,14 +30,18 @@ class MemberCourseController extends Controller
         return view('member.usercourse', compact('sortedCategory'));
     }
 
-    public function join($id){
-        $chapters = Chapter::where('course_id', $id)->get();
-        $course = Course::findOrFail($id);
-        return view('member.gabungkelas', compact('chapters', 'course', 'id'));
+    public function join($slug){
+        $course = Course::where('slug', $slug)->first();
+        $chapters = Chapter::with('lessons')->where('course_id', $course->id)->get();
+        $lesson = Lesson::with('chapters')->where('chapter_id', $chapters->first()->id)->first();
+        return view('member.gabungkelas', compact('chapters', 'course', 'lesson'));
     }
 
 
-    public function play(){
-        return view('member.classvideo');
+    public function play($slug, $episode){
+        $course = Course::where('slug', $slug)->first();
+        $chapters = Chapter::with('lessons')->where('course_id', $course->id)->get();
+        $play = Lesson::where('episode', $episode)->first();
+        return view('member.classvideo', compact('play', 'chapters', 'slug', 'course'));
     }
 }

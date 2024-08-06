@@ -16,6 +16,7 @@ class LessonSeeder extends Seeder
     {
         Lesson::create([
             'name' => 'tools yang akan di gunakan',
+            'episode' => 'eps-1',
             'video' => 'https:://gedangsuket.id/video',
             'chapter_id' => 1,
         ]);

@@ -119,7 +119,7 @@
                             courseElement.className =
                                 'col-xl-4 col-lg-6 col-md-12 col-sm-12 mb-lg-4 m-mobile first-card';
                             courseElement.innerHTML = `
-                                <a href="#" data-course-id="${course.id_course}" onclick="setCourseUrl(this)">
+                                <a href="#" data-slug-course="${course.slug_course}" onclick="setCourseUrl(this)">
                                     <div class="card-course">
                                         <img src="${course.cover_course}" class="img-card" alt="${course.title_course}">
                                         <div class="container-card px-3 mt-2">
@@ -159,9 +159,9 @@
         }
 
         function setCourseUrl(element) {
-            var courseId = element.getAttribute('data-course-id');
-            var url = "{{ route('member.course.join', ':id_course') }}";
-            url = url.replace(':id_course', courseId);
+            var slugCourse = element.getAttribute('data-slug-course');
+            var url = "{{ route('member.course.join', ':slug_course') }}";
+            url = url.replace(':slug_course', slugCourse);
             window.location.href = url;
         }
     </script>

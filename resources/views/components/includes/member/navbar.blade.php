@@ -1,6 +1,6 @@
     <!-- NAVBAR -->
     <div class="container">
-        <nav class="navbar navbar-expand-lg ">
+        <nav class="navbar navbar-expand-lg fixed-top bg-white px-5 z-5">
             <div class="container-fluid">
                 <a class="navbar-brand" href="#">
                     <img src="{{ asset('nemolab/assets/image/LogoNemolab.png') }}" alt="Logo" width="30"
@@ -14,10 +14,10 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
                         <li class="nav-item pt-lg-0 pt-sm-4">
-                            <a class="nav-link active" aria-current="page" href="{{ route('home') }}#home">Home</a>
+                            <a class="nav-link" aria-current="page" href="{{ route('home') }}#home">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link {{ Request::is('/course') ? 'active' : '' }}" href="{{ route('home') }}#course">Course</a>
+                            <a class="nav-link" href="{{ route('home') }}#course">Course</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('home') }}#aboutus">About Us</a>
