@@ -23,7 +23,11 @@
         @yield('content-editportofolio')
         @yield('content-tambahportofolio')
         @yield('content-edittransactions')
+<<<<<<< Updated upstream
         @yield('content-tambahtransactions')
+=======
+        @yield('content-tambahdatacourse')
+>>>>>>> Stashed changes
     
     </div>
 
