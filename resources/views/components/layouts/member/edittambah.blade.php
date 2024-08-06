@@ -23,6 +23,7 @@
         @yield('content-editportofolio')
         @yield('content-tambahportofolio')
         @yield('content-edittransactions')
+        @yield('content-tambahtransactions')
     
     </div>
 
