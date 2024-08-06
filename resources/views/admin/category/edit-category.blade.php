@@ -1,19 +1,18 @@
 @extends('components.layouts.member.edittambah')
 
-@section('title, Tambah')
+@section('title, Edit')
 
 @section('back', 'back')
 
-@section('content-tambahchapter')
+@section('content-editcategory')
 <div class="container tambah my-3 p-5 w-100">
-    <h2 class="fw-semibold mb-4" style="color: #faa907">Tambah Data</h2>
+    <h2 class="fw-semibold mb-4" style="color: #faa907">Edit Data</h2>
     <div class="row">
       <form class="col-12" action="" method="post" enctype="multipart/form-data">
         <div class="row">
           
-          @csrf
-          <div class="col-12" action="{{ route('admin.chapter.create.store', $id) }}" method="post"
-          enctype="multipart/form-data">
+          
+          <div class="col-12">
             <div class="entryarea">
               <input type="text" id="name" name="name" placeholder="" required />
               <div class="labelline" for="name">Tittle</div>
