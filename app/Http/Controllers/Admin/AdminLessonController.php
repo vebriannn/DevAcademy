@@ -10,26 +10,26 @@ use App\Models\Lesson;
 
 class AdminLessonController extends Controller
 {
-    public function index() {
-        $lesson = Lesson::all();
-        dd($lesson);
+    public function index($id) {
+        $lessons = Lesson::where('chapter_id', $id)->get();
+        return view('admin.lesson.data-lesson', compact('lessons', 'id'));
     }
 
-    public function create() {
-        
+    public function create($id) {
+        return view('admin.lesson.create-data', compact('id'));
     }
 
-    public function store(Request $requests) {
+    public function store(Request $requests, $id) {
         $requests->validate([
             'name' => 'required',
-            'video' => 'required|url',
+            'video' => 'required|',
         ]);
 
         Lesson::create([
             'name' => $requests->name,
             'episode' => Str::random(12),
             'video' => $requests->video,
-            'chapter_id' => 1,
+            'chapter_id' => $id,
         ]);
         
         return response()->json([
@@ -37,8 +37,9 @@ class AdminLessonController extends Controller
         ], 200);
     }
 
-    public function edit() {
-        
+    public function edit($id) {
+        $lessons = Lesson::where('id', $id)->first();
+        return view('admin.lesson.edit-data', compact('lessons'));
     }
 
     public function update(Request $requests, $id) {
@@ -52,7 +53,6 @@ class AdminLessonController extends Controller
         $lesson->update([
             'name' => $requests->name,
             'video' => $requests->video,
-            'chapter_id' => 1,
         ]);     
 
         return response()->json([
