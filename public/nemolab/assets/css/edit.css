@@ -17,6 +17,9 @@ body{
     padding: 0;
     background: linear-gradient(to bottom right, #faa907, #ff7700);
     height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .container {
@@ -31,17 +34,13 @@ h2 {
     text-align: center;
     font-weight: bold;
 }
-#preview {
-    border-radius: 30px;
-}
 
 input,
 textarea,
 select {
     position: relative;
     width: 100%;
-    padding: 0 20px;
-    line-height: 50px;
+    padding: 15px 20px;
     border-radius: 15px;
     border: 1px solid rgb(0, 0, 0);
     background: transparent;
@@ -55,19 +54,24 @@ select {
 .labelline-textarea {
     position: absolute;
     color: rgb(0, 0, 0);
-    padding: 0 10px;
-    margin: 0 15px;
     background-color: white;
     transition: 0.2s ease;
     pointer-events: none;
     line-height: 50px;
     top: 0;
+    left: 20px;
 }
-
+textarea{
+    min-height: 157px;
+    resize: none;
+}
 .textarea,
 .entryarea {
     position: relative;
     margin-bottom: 1rem;
+}
+#preview{
+    max-height: 408px !important;
 }
 
 textarea::-webkit-scrollbar {
@@ -83,16 +87,29 @@ input::-webkit-inner-spin-button {
 input[type="number"] {
     -moz-appearance: textfield;
 }
+.input-img{
+    position: relative;
+    width: 100%;
+    padding: 0 20px;
+    line-height: 50px;
+    border-radius: 15px;
+    border: 1px solid rgb(0, 0, 0);
+    background: transparent;
+    transition: 0.1s ease;
+    z-index: 1;
+    color: rgb(0, 0, 0);
+    box-shadow: inset 0px 0px 5px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+}
 
 .btn-kirim {
     background-color: var(--c-brand);
-    border-color: var(--c-brand);
     padding: 12px;
     font-weight: bold;
     letter-spacing: 1px;
     color: #fff;
-    border-radius: 50px;
     transition: var(--transition);
+    display: inline-block;
 }
 .btn-batal{
     background-color: gray;
@@ -100,18 +117,17 @@ input[type="number"] {
     font-weight: bold;
     letter-spacing: 1px;
     color: #fff;
-    border-radius: 50px;
     transition: var(--transition);
+    display: inline-block;
+
 }
 
 .btn-kirim:hover {
     background-color: var(--c-brand-dark);
-    border-color: var(--c-brand-dark);
     color: white;
 }
 .btn-batal:hover {
-    background-color: var(--c-brand-dark);
-    border-color: var(--c-brand-dark);
+    background-color: black;
     color: white;
 }
 
@@ -124,6 +140,7 @@ input[type="number"] {
     border: 1px solid rgb(0, 0, 0);
     border-radius: 15px;
     color: rgb(0, 0, 0);
+    height: 100%;
     line-height: 50px;
     box-shadow: inset 0px 0px 5px rgba(0, 0, 0, 0.1);
     transition: var(--transition);
@@ -143,13 +160,6 @@ input[type="number"] {
     pointer-events: none;
 }
 
-input:focus,
-input:not(:placeholder-shown),
-textarea:focus,
-textarea:not(:placeholder-shown),
-select:focus {
-    border: 2px solid rgb(0, 0, 0);
-}
 
 input:focus + .labelline,
 input:not(:placeholder-shown) + .labelline,
