@@ -3,19 +3,19 @@
 @section('title, data-course-mentor')
 
 @section('content-courses-table-mentor')
-<link rel="stylesheet" href="{{ asset('nemolab/assets/css/mentorcoursestable.css') }}">
-<link rel="stylesheet" href="{{ asset('nemolab/assets/css/components/sidebar.css') }}">
+    <link rel="stylesheet" href="{{ asset('nemolab/assets/css/mentorcoursestable.css') }}">
+    <link rel="stylesheet" href="{{ asset('nemolab/assets/css/components/sidebar.css') }}">
 
-<div class="container" id="mentor">
-    <div class="row w-100">
-        <!-- Sidebar -->
-        <div class="col-3 d-none d-lg-block p-4 pt-5  rounded-4 text-white" style="background-color: #faa907">
+    <div class="container" id="mentor">
+        <div class="row w-100">
+            <!-- Sidebar -->
+            <div class="col-3 d-none d-lg-block p-4 pt-5  rounded-4 text-white" style="background-color: #faa907">
                 <a href="#" class=" list-sidebar active w-75 d-flex mx-auto ">
                     <img src="{{ asset('nemolab/assets/image/active-mentor.png') }}" alt="" width="30" />
                     <p class="m-0">Mentor</p>
                 </a>
-        </div>
-        <!-- End Sidebar -->
+            </div>
+            <!-- End Sidebar -->
 
             <!-- Main Content -->
             <main role="main" class="col-md-9 ml-sm-auto col-lg-9 px-4">
@@ -35,7 +35,7 @@
                             </select>
                             <p class="mb-0 me-2 text-center mx-2">entries</p>
                         </div>
-                        <button class="tambah-data px-2 py-2">Tambah</button>
+                        <a href="{{route('admin.course.create')}}" class="tambah-data px-2 py-2">Tambah</a>
                     </div>
 
                     <table class="table table-sm">
@@ -45,27 +45,48 @@
                                 <th>Title</th>
                                 <th>Deskripsi</th>
                                 <th>Mentor</th>
-                                <th>Image</th>
-                                <th>Link</th>
+                                <th>images</th>
+                                <th>price</th>
+                                <th>status</th>
+                                <th>type</th>
+                                <th>level</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>John Doe</td>
-                                <td>johndoe@example.com</td>
-                                <td>password123</td>
-                                <td>Vero</td>
-                                <td><img src="https://via.placeholder.com/150" alt="Image" class="table-img img-fluid"></td>
-                                <td><a href="www.example.com">Website</a></td>
-                                <td>
-                                    <a href="#" class="me-2"><img src="{{ asset('nemolab/assets/image/edit.png') }}" alt="" width="35" height="35"><a>
-                                    <a href="#"><img src="{{ asset('nemolab/assets/image/delete.png') }}" alt="" width="35" height="35"></a>
-                                </td>
-                            </tr>
-                            
+                            @foreach ($courses as $course)
+                                <tr>
+                                    <td>{{ $course->category }}</td>
+                                    <td>{{ $course->name }}</td>
+                                    <td>{{ $course->description }}</td>
+                                    <td>{{ $course->price }}</td>
+                                    <td>
+                                        <img src="{{ asset('storage/images/covers/'.$course->cover) }}" alt=""
+                                            width="150" height="100">
+                                        </td>
+                                        <td>{{ $course->price }}</td>
+                                        <td>{{ $course->status }}</td>
+                                        <td>{{ $course->type }}</td>
+                                        <td>{{ $course->level }}</td>
+
+                                    <td>
+                                        <a href="{{route('admin.chapter', $course->id)}}" class="btn btn-success">
+                                            View Chapter
+                                        </a>
+                                        <a href="{{route('admin.course.edit', $course->id)}}" class="me-2">
+                                            <img src="{{ asset('nemolab/assets/image/edit.png') }}" alt=""
+                                                width="35" height="35">
+                                        </a>
+                                        <a href="{{route('admin.course.delete', $course->id)}}">
+                                            <img src="{{ asset('nemolab/assets/image/delete.png') }}" alt=""
+                                                width="35" height="35">
+                                        </a>
+                                    </td>
+                                </tr>
+                            @endforeach
                         </tbody>
                     </table>
+
 
                     <div class="d-flex justify-content-between px-1 py-1">
                         <p class="show">Showing 10 of 10</p>
@@ -77,8 +98,8 @@
                 </div>
             </main>
             <!-- End Main Content -->
+        </div>
     </div>
-</div>
 
-        
+
 @endsection

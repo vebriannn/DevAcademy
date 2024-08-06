@@ -20,7 +20,11 @@
 
     <div id="content">
 
-        @include('components.includes.member.navbar-auth')
+        @if (Auth::user())
+            @include('components.includes.member.navbar-auth')
+        @else
+            @include('components.includes.member.navbar')
+        @endif
 
         @yield('content-landing')
 
