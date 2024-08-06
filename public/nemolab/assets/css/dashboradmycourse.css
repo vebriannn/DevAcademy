@@ -1,0 +1,122 @@
+  :root {
+    --c-dark: #383131;
+    --c-brand: #faa907;
+    --c-brand-rgb: rgb(250, 169, 7);
+    --font-base: "Poppins", sans-serif;
+    --transition: all 0.5s ease;
+    --box-shadow-card:rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  }
+  
+  body {
+    font-family: var(--font-base);
+  }
+
+  a{
+    text-decoration: none;
+  }
+
+  #mycourse{
+    margin-top: 130px;
+  }
+
+  /* CONTENT */
+  .tittle{
+    color: var(--c-brand);
+  }
+
+  .row-course{
+    overflow-y: scroll;
+  }
+
+  .row-course::-webkit-scrollbar{
+    display: none;
+  }
+
+  .col-course{
+    height: max-content;
+  }
+
+  .card-course {
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.345);
+    transition: box-shadow 0.5s linear;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.card-course:hover {
+    box-shadow: 0px 0px 5px 0px var(--c-brand);
+}
+
+.img-card {
+    padding: 7px;
+    height: auto;
+    flex-shrink: 0;
+}
+
+.img-card img {
+    width: 100%;
+}
+
+.category {
+    padding: 5px 7px;
+    background-color: #E4E4E4;
+    width: max-content;
+    border-radius: 5px;
+    flex-shrink: 0;
+}
+
+.category p {
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.tittle-card {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: black;
+    flex-shrink: 0;
+}
+
+.profile-card {
+    flex-shrink: 0;
+}
+
+.profile-card a {
+    color: black;
+}
+
+
+.status {
+    width: 100%;
+    margin-top: auto; /* Pushes the status div to the bottom */
+}
+
+.txt-start {
+    color: rgba(0, 0, 0, 0.5);
+    height: max-content;
+    margin: 0;
+}
+
+
+@media only screen and (max-width: 1200px) {
+  a{
+    font-size: 14px;
+  }
+
+  .status img{
+    margin: auto 0;
+  }
+
+  .flex-direction-costum{
+    flex-direction: column;
+  }
+
+  .date{
+    margin: 0 !important;
+    font-size: 14px;
+  }
+}
