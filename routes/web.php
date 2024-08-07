@@ -9,6 +9,9 @@ use App\Http\Controllers\Admin\AdminCourseController;
 use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\Admin\AdminReviewController;
 use App\Http\Controllers\Admin\AdminCategoryController;
+use App\Http\Controllers\Admin\AdminMentorController;
+use App\Http\Controllers\Admin\AdminStudentController;
+use App\Http\Controllers\Admin\AdminSuperadminController;
 use App\Http\Controllers\Admin\SubmissionController;
 
 use App\Http\Controllers\Member\Auth\RegisterController;
@@ -73,13 +76,29 @@ Route::prefix('admin')->group(function() {
         });
     });
     // Routes for users
-    Route::prefix('user')->group(function() {
+    Route::prefix('user')->middleware('superadmin')->group(function() {
         Route::get('/', [AdminUserController::class, 'index'])->name('admin.user');
         Route::get('/create', [AdminUserController::class, 'create'])->name('admin.user.create');
         Route::post('/create/store', [AdminUserController::class, 'store'])->name('admin.user.create.store');
         Route::get('/edit/{id}', [AdminUserController::class, 'edit'])->name('admin.user.edit');
         Route::put('/edit/update/{id}', [AdminUserController::class, 'update'])->name('admin.user.edit.update');
         Route::get('/delete/{id}', [AdminUserController::class, 'delete'])->name('admin.user.delete');
+        
+        Route::prefix('member')->middleware('superadmin')->group(function() {
+            Route::get('/', [AdminStudentController::class, 'index'])->name('admin.member');
+            Route::get('/create', [AdminStudentController::class, 'create'])->name('admin.member.create');
+            Route::post('/create/store', [AdminStudentController::class, 'store'])->name('admin.member.store');
+        });
+        Route::prefix('mentor')->middleware('superadmin')->group(function() {
+            Route::get('/', [AdminMentorController::class, 'index'])->name('admin.mentor');
+            Route::get('/create', [AdminMentorController::class, 'create'])->name('admin.mentor.create');
+            Route::post('/create/store', [AdminMentorController::class, 'store'])->name('admin.mentor.store');
+        });
+        Route::prefix('superadmin')->middleware('superadmin')->group(function() {
+            Route::get('/', [AdminSuperadminController::class, 'index'])->name('admin.superadmin');
+            Route::get('/create', [AdminSuperadminController::class, 'create'])->name('admin.superadmin.create');
+            Route::post('/create/store', [AdminSuperadminController::class, 'store'])->name('admin.superadmin.store');
+        });
     });
     // Routes for reviews
     Route::prefix('review')->group(function() {
