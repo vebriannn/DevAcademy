@@ -20,14 +20,9 @@
     <div id="content">
         @include('components.includes.navbar.navback')
 
-        @yield('content-editportofolio')
-        @yield('content-tambahportofolio')
-        @yield('content-edittransactions')
-<<<<<<< Updated upstream
-        @yield('content-tambahtransactions')
-=======
-        @yield('content-tambahdatacourse')
->>>>>>> Stashed changes
+        @yield('content-create-data-superadmin')
+        @yield('content-create-data-member')
+        @yield('content-create-data-mentor')
     
     </div>
 

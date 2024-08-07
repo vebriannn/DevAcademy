@@ -8,7 +8,7 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
   <link rel="stylesheet" href="{{asset('nemolab/assets/css/components/navbar.css')}} ">
-  <link rel="stylesheet" href="{{asset('nemolab/assets/css/edittambah.css')}} ">
+  <link rel="stylesheet" href="{{asset('nemolab/assets/css/edit-gambar.css')}} ">
   <link rel="stylesheet" href="{{asset('nemolab/assets/css/components/footer.css')}} ">
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -18,21 +18,17 @@
 <body>
 
     <div id="content">
-        @include('components.includes.navbar.navback')
+      @include('components.includes.navbar.navback')
 
-        @yield('content-editportofolio')
-        @yield('content-tambahportofolio')
-        @yield('content-edittransactions')
-<<<<<<< Updated upstream
-        @yield('content-tambahtransactions')
-=======
-        @yield('content-tambahdatacourse')
->>>>>>> Stashed changes
-    
+        @yield('content-edit-course')
+        @yield('content-create-data-course')
+        @yield('content-editdatacourses')
+        @yield('content-tambahdatacourses')
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="{{ asset('nemolab/assets/js/profile-navbar.js') }}"></script>
+    <script src="{{ asset('nemolab/assets/preview-image.js') }}"></script>
 
     
 </body>
