@@ -13,21 +13,18 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-<<<<<<< HEAD
+            
             $table->string('name', 255)->nullable(false);
-            // $table->string('username', 255)->nullable(false);
+            $table->string('username', 255)->nullable(true);
             // $table->string('re-password', 255)->nullable(false);
             $table->text('avatar')->nullable(true);
             $table->string('email', 255)->nullable(false);
             $table->string('password', 255)->nullable(false);
-            $table->enum('role', ['students', 'mentor', 'superadmin'])->nullable(false);
-=======
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->rememberToken();
->>>>>>> 65f9c5bd10b71f88ebe5fa792fb3195585152ab0
+            // $table->enum('profession', ['mahasiswa', 'freelance'])->nullable(false);
+            // $table->string('phone', 255)->nullable(false);
+            // $table->string('city', 255)->nullable(false);
+            // $table->string('national', 255)->nullable(false);
+            $table->enum('role', ['students', 'mentor', 'superadmin'])->default('students');
             $table->timestamps();
         });
     }
@@ -39,8 +36,4 @@ return new class extends Migration
     {
         Schema::dropIfExists('users');
     }
-<<<<<<< HEAD
 };
-=======
-};
->>>>>>> 65f9c5bd10b71f88ebe5fa792fb3195585152ab0

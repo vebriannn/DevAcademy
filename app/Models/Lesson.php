@@ -13,7 +13,13 @@ class Lesson extends Model
 
     protected $fillable = [
         'name',
+        'episode',
         'video',
         'chapter_id'
     ];
+
+    public function chapters()
+    {
+        return $this->belongsTo(Chapter::class, 'chapter_id', 'id');
+    }
 }

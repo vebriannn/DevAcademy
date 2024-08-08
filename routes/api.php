@@ -2,6 +2,8 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\CourseApiController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::get('v1/course/', [CourseApiController::class, 'course'])->name('api.course.query');
+Route::get('v1/course/category/', [CourseApiController::class, 'filterCourseCategory'])->name('api.course.query.category');
+Route::get('v1/category', [CourseApiController::class, 'category'])->name('api.category');
+Route::get('v1/course/chapter/', [CourseApiController::class, 'chapter'])->name('api.course.chapter');

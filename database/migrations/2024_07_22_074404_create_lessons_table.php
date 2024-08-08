@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('tbl_lessons', function (Blueprint $table) {
             $table->id();
             $table->string('name', 255)->nullable(false);
+            $table->string('episode', 255)->nullable(false);
             $table->text('video', 255)->nullable(false);
             $table->unsignedBigInteger('chapter_id');
 
