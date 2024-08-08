@@ -12,6 +12,7 @@ class CourseSeeder extends Seeder
         // Ensure mentor_id exists in users table
         $courses = [
             [
+                'category' => 'Fullstack ',
                 'name' => 'Introduction to Programming',
                 'cover' => 'cover_image_1.jpg',
                 'type' => 'free',
@@ -19,9 +20,11 @@ class CourseSeeder extends Seeder
                 'price' => 0,
                 'level' => 'beginner',
                 'description' => 'A basic course on programming concepts.',
+                'resources' => 'https://gedangsuket.id',
                 'mentor_id' => 1
             ],
             [
+                'category' => 'Frontend ',
                 'name' => 'Advanced Laravel',
                 'cover' => 'cover_image_2.jpg',
                 'type' => 'premium',
@@ -29,10 +32,12 @@ class CourseSeeder extends Seeder
                 'price' => 100,
                 'level' => 'intermediate',
                 'description' => 'An advanced course on Laravel framework.',
+                'resources' => 'https://gedangsuket.id',
                 'mentor_id' => 1
             ],
 
             [
+                'category' => 'Backend',
                 'name' => 'Advanced Linux',
                 'cover' => 'cover_image_3.jpg',
                 'type' => 'premium',
@@ -40,6 +45,7 @@ class CourseSeeder extends Seeder
                 'price' => 100,
                 'level' => 'intermediate',
                 'description' => 'An advanced course on Laravel framework.',
+                'resources' => 'https://gedangsuket.id',
                 'mentor_id' => 1
             ],
         ];

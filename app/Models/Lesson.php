@@ -13,6 +13,7 @@ class Lesson extends Model
 
     protected $fillable = [
         'name',
+        'episode',
         'video',
         'chapter_id'
     ];

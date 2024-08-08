@@ -27,6 +27,30 @@ class VerifyCsrfToken extends Middleware
         'admin/course',
         'admin/course/create/store',
         'admin/course/edit/update/*',
-        'admin/course/delete/*'
+        'admin/course/delete/*',
+        'admin/user',
+        'admin/user/create/store',
+        'admin/user/store',
+        'admin/user/edit/*',
+        'admin/user/update/*',
+        'admin/user/delete/*',
+        'admin/review',
+        'admin/review/create',
+        'admin/review/store',
+        'admin/review/edit/*',
+        'admin/review/update/*',
+        'admin/review/delete/*',
+        'admin/category',
+        'admin/category/create/store',
+        'admin/category/edit/update/*',
+        'admin/category/delete/*',
+        'admin/submission',
+        'admin/submission/create/store',
+        'admin/submission/edit/update/*',
+        'admin/submission/delete/*',
+        // Member review routes
+        'member/reviews',
+        'member/reviews/*',
+        'register/store'
     ];
 }
