@@ -3,8 +3,8 @@
         <nav class="navbar navbar-expand-lg fixed-top bg-white px-5 z-5">
             <div class="container-fluid">
                 <a class="navbar-brand" href="#">
-                    <img src="{{ asset('nemolab/assets/image/LogoNemolab.png') }}" alt="Logo" width="30"
-                        height="24" class="d-inline-block align-text-top">
+                    <img src="{{ asset('nemolab/admin/img/Logo Nemolab.png') }}" alt="Logo" width="100"
+                        class="d-inline-block align-text-top">
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"

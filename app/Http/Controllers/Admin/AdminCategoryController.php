@@ -11,12 +11,12 @@ class AdminCategoryController extends Controller
     public function index()
     {
         $categories = Category::all();
-        return response()->json($categories, 200);
+        return view('admin.category.view', compact('categories'));
     }
 
     public function create()
     {
-        // Optionally return a view or JSON response
+        return view('admin.category.create');
     }
 
     public function store(Request $request)
@@ -25,20 +25,29 @@ class AdminCategoryController extends Controller
             'name' => 'required|string|max:255',
         ]);
 
-        $category = Category::create([
-            'name' => $request->name,
-        ]);
-
-        return response()->json([
-            'message' => 'Category created successfully',
-            'data' => $category
-        ], 201);
+        $check = Category::where('name', strtolower($request->name))->first();
+        
+        if(!$check) {
+            $category = Category::create([
+                'name' => $request->name,
+            ]);
+            
+            return response()->json([
+                'message' => 'Category created successfully',
+                'data' => $category
+            ], 200);
+        } else {
+            return response()->json([
+                'message' => 'Maaf Kategori Yang Anda Inputkan Sudah Ada!'
+                ], 201);
+        }
+        
     }
 
     public function edit($id)
     {
         $category = Category::findOrFail($id);
-        return response()->json($category, 200);
+        return view('admin.category.update', compact('category'));
     }
 
     public function update(Request $request, $id)
@@ -47,10 +56,38 @@ class AdminCategoryController extends Controller
             'name' => 'required|string|max:255',
         ]);
 
-        $category = Category::findOrFail($id);
-        $category->update([
-            'name' => $request->name,
-        ]);
+        $category = Category::findOrFail($id)->first();
+
+        if($category->name == $request->name) {
+            $category->update([
+                'name' => $request->name,
+            ]);
+    
+            return response()->json([
+                'message' => 'Category updated successfully',
+                'data' => $category
+            ], 200);
+        }
+        else {
+            $check = Category::where('name', $request->name)->first();
+            if(!$check) {
+                $category->update([
+                    'name' => $request->name,
+                ]);
+        
+                return response()->json([
+                    'message' => 'Category updated successfully',
+                    'data' => $category
+                ], 200);
+            }
+            else {
+                return response()->json([
+                    'message' => 'Maaf Kategori Yang Anda Inputkan Sudah Ada!',
+                    'data' => $category
+                ], 200);
+            }
+        }
+        
 
         return response()->json([
             'message' => 'Category updated successfully',

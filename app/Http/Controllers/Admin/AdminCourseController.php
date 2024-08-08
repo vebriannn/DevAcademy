@@ -3,12 +3,14 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Category;
-use App\Models\Course;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
+
+use App\Models\Category;
+use App\Models\Course;
 
 class AdminCourseController extends Controller
 {
@@ -18,12 +20,12 @@ class AdminCourseController extends Controller
     public function index() {
         $user = Auth::user();
         $courses = Course::where('mentor_id', $user->id)->get();
-        return view('mentor.courses.courses-table', compact('courses'));
+        return view('admin.courses.view', compact('courses'));
     }
 
     public function create() {
         $category = Category::all();
-        return view('mentor.courses.tambahdatacourses', compact('category'));
+        return view('admin.courses.create', compact('category'));
     }
 
     /**
@@ -31,48 +33,40 @@ class AdminCourseController extends Controller
      */
     public function store(Request $request)
     {
-
-        $validator = Validator::make($request->all(), [
+        $request->validate([
             'category' => 'required|string|max:255',
             'name' => 'required|string|max:255',
-            'cover' => 'nullable|image|mimes:jpeg,png,jpg',
+            'cover' => 'required|image|mimes:jpeg,png,jpg',
             'type' => 'required|in:free,premium',
             'status' => 'required|in:draft,published',
             'price' => 'required|integer',
             'level' => 'required|in:beginner,intermediate,expert',
-            'description' => 'nullable|string',
+            'description' => 'required|string'
+        ]); 
+
+        $images = $request->cover;
+        $imagesGetNewName = Str::random(10).$images->getClientOriginalName();
+        $images->storeAs('public/images/covers/'.$imagesGetNewName);
+
+        $course = Course::create([
+            'category' => $request->category,
+            'name' => $request->name,
+            'cover' => $imagesGetNewName,
+            'type' => $request->type,
+            'status' => $request->status,
+            'price' => $request->price,
+            'level' => $request->level,
+            'description' => $request->description,
+            'mentor_id' => Auth::user()->id,
         ]);
-
-        if ($validator->fails()) {
-            return response()->json(['errors' => $validator->errors()], 422);
-        }
-
-        $course = new Course();
-        $course->category = $request->category;
-        $course->name = $request->name;
-
-        if ($request->hasFile('cover')) {
-            $file = $request->file('cover');
-            $filename = time() . '.' . $file->getClientOriginalExtension();
-            $file->storeAs('public/images/covers', $filename);
-            $course->cover = $filename;
-        }
-
-        $course->type = $request->type;
-        $course->status = $request->status;
-        $course->price = $request->price;
-        $course->level = $request->level;
-        $course->description = $request->description;
-        $course->mentor_id = Auth::user()->id;
-        $course->save();
-
+        
         return response()->json(['message' => 'Course created successfully', 'course' => $course], 201);
     }
 
     public function edit($id) {
         $category = Category::all();
-        $courses = Course::where('id', $id)->first();
-        return view('mentor.courses.editdatacourses', compact('courses', 'category'));
+        $course = Course::where('id', $id)->first();
+        return view('admin.courses.update', compact('course', 'category'));
     }
 
     /**
@@ -80,51 +74,48 @@ class AdminCourseController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $course = Course::find($id);
+        $course = Course::where('id', $id)->first();
 
-        if (!$course) {
-            return response()->json(['error' => 'Course not found'], 404);
-        }
-
-        $validator = Validator::make($request->all(), [
+        $request->validate([
             'category' => 'required|string|max:255',
             'name' => 'required|string|max:255',
-            'cover' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
             'type' => 'required|in:free,premium',
             'status' => 'required|in:draft,published',
             'price' => 'required|integer',
             'level' => 'required|in:beginner,intermediate,expert',
-            'description' => 'nullable|string',
+            'description' => 'required|string'
         ]);
 
-        if ($validator->fails()) {
-            return response()->json(['errors' => $validator->errors()], 422);
-        }
-
-        $course->category = $request->category;
-        $course->name = $request->name;
-
-        if ($request->hasFile('cover')) {
-            // Delete old cover file if exists
-            if ($course->cover && Storage::exists('public/images/covers/' . $course->cover)) {
-                Storage::delete('public/images/covers/' . $course->cover);
-            }
-
-            $file = $request->file('cover');
-            $filename = time() . '.' . $file->getClientOriginalExtension();
-            $file->storeAs('public/images/covers', $filename);
-            $course->cover = $filename;
-        }
-
-        $course->type = $request->type;
-        $course->status = $request->status;
-        $course->price = $request->price;
-        $course->level = $request->level;
-        $course->description = $request->description;
+        $images = $request->cover;
         
-        $course->save();
+        if($images) {
+            $imagesGetNewName = Str::random(10).$images->getClientOriginalName();
+            $images->storeAs('public/images/covers/'.$imagesGetNewName);
+            $data['cover'] = $imagesGetNewName;
+            Storage::delete('public/images/covers/' . $course->cover);
+        }
+        else {
+            $data['cover'] = $course->cover;
+        }
 
-        return response()->json(['message' => 'Course updated successfully', 'course' => $course]);
+        $slug = Str::slug($request->name);
+        
+        $course->update([
+            'category' => $request->category,
+            'name' => $request->name,
+            'slug' => $slug,
+            'cover' => $data['cover'],
+            'type' => $request->type,
+            'status' => $request->status,
+            'price' => $request->price,
+            'level' => $request->level,
+            'description' => $request->description,
+        ]);  
+
+        return response()->json([
+            'message' => 'Data berhasil diedit',
+            'course' => $course
+        ], 200);
     }
 
     /**

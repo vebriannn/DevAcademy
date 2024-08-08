@@ -13,7 +13,7 @@ class LandingpageController extends Controller
 
     public function index(){
         $reviews = Review::with('user')->get(); 
-        return view('member.index', ['reviews' => $reviews]);
+        return view('member.home', ['reviews' => $reviews]);
     }
     
 }

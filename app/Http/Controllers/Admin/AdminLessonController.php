@@ -10,13 +10,13 @@ use App\Models\Lesson;
 
 class AdminLessonController extends Controller
 {
-    public function index($id) {
-        $lessons = Lesson::where('chapter_id', $id)->get();
-        return view('admin.lesson.data-lesson', compact('lessons', 'id'));
+    public function index($slug, $id_chapter) {
+        $lessons = Lesson::where('chapter_id', $id_chapter)->get();
+        return view('admin.lesson.view', compact('lessons', 'slug', 'id_chapter'));
     }
 
-    public function create($id) {
-        return view('admin.lesson.create-data', compact('id'));
+    public function create($slug, $id_chapter) {
+        return view('admin.lesson.create', compact('slug', 'id_chapter'));
     }
 
     public function store(Request $requests, $id) {
@@ -37,9 +37,9 @@ class AdminLessonController extends Controller
         ], 200);
     }
 
-    public function edit($id) {
-        $lessons = Lesson::where('id', $id)->first();
-        return view('admin.lesson.edit-data', compact('lessons'));
+    public function edit($slug, $id_chapter, $id_lesson) {
+        $lessons = Lesson::where('id', $id_lesson)->first();
+        return view('admin.lesson.update', compact('lessons', 'slug', 'id_chapter', 'id_chapter'));
     }
 
     public function update(Request $requests, $id) {
@@ -49,7 +49,6 @@ class AdminLessonController extends Controller
         ]);
 
         $lesson = Lesson::findOrFail($id);
-
         $lesson->update([
             'name' => $requests->name,
             'video' => $requests->video,
@@ -60,8 +59,8 @@ class AdminLessonController extends Controller
         ], 200);
     }
 
-    public function delete($id) {
-        $lesson = Lesson::findOrFail($id); 
+    public function delete($id_lesson) {
+        $lesson = Lesson::findOrFail($id_lesson); 
         $lesson->delete();
         
         return response()->json([

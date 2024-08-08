@@ -54,27 +54,25 @@ Route::prefix('admin')->group(function() {
         Route::get('/edit/{id}', [AdminCourseController::class, 'edit'])->name('admin.course.edit');
         Route::put('/edit/update/{id}', [AdminCourseController::class, 'update'])->name('admin.course.edit.update');
         Route::get('/delete/{id}', [AdminCourseController::class, 'delete'])->name('admin.course.delete');
-        
-        // Routes for chapters
-        Route::prefix('chapter')->middleware('mentor')->group(function() {
-            Route::get('/{id}', [AdminChapterController::class, 'index'])->name('admin.chapter');
-            Route::get('/create/{id}', [AdminChapterController::class, 'create'])->name('admin.chapter.create');
-            Route::post('/create/store/{id}', [AdminChapterController::class, 'store'])->name('admin.chapter.create.store');
-            Route::get('/edit/{id}', [AdminChapterController::class, 'edit'])->name('admin.chapter.edit');
-            Route::put('/edit/update/{id}', [AdminChapterController::class, 'update'])->name('admin.chapter.edit.update');
-            Route::get('/delete/{id}', [AdminChapterController::class, 'delete'])->name('admin.chapter.delete');
 
-                // Routes for lessons
-            Route::prefix('lesson')->middleware('mentor')->group(function() {
-                Route::get('/{id}', [AdminLessonController::class, 'index'])->name('admin.lesson');
-                Route::get('/create/{id}', [AdminLessonController::class, 'create'])->name('admin.lesson.create');
-                Route::post('/create/store/{id}', [AdminLessonController::class, 'store'])->name('admin.lesson.create.store');
-                Route::get('/edit/{id}', [AdminLessonController::class, 'edit'])->name('admin.lesson.edit');
-                Route::put('/edit/update/{id}', [AdminLessonController::class, 'update'])->name('admin.lesson.edit.update');
-                Route::get('/delete/{id}', [AdminLessonController::class, 'delete'])->name('admin.lesson.delete');
-            });
+        // Routes for chapters
+        Route::get('{slug}/chapter', [AdminChapterController::class, 'index'])->name('admin.chapter');
+        Route::get('{slug}/chapter/create/{id_course}', [AdminChapterController::class, 'create'])->name('admin.chapter.create');
+        Route::post('chapter/create/store/{id_course}', [AdminChapterController::class, 'store'])->name('admin.chapter.create.store');
+        Route::get('{slug}/chapter/edit/{id_chapter}', [AdminChapterController::class, 'edit'])->name('admin.chapter.edit');
+        Route::put('chapter/edit/update/{id_chapter}', [AdminChapterController::class, 'update'])->name('admin.chapter.edit.update');
+        Route::get('chapter/delete/{id_chapter}', [AdminChapterController::class, 'delete'])->name('admin.chapter.delete');
+        
+        // Routes for lessons
+        Route::get('{slug}/chapter/{id_chapter}/lesson', [AdminLessonController::class, 'index'])->name('admin.lesson');
+        Route::get('{slug}/chapter/{id_chapter}/lesson/create', [AdminLessonController::class, 'create'])->name('admin.lesson.create');
+        Route::post('chapter/{id_chapter}/lesson/create/store', [AdminLessonController::class, 'store'])->name('admin.lesson.create.store');
+        Route::get('{slug}/chapter/{id_chapter}/lesson/edit/{id_lesson}', [AdminLessonController::class, 'edit'])->name('admin.lesson.edit');
+        Route::put('chapter/lesson/edit/update/{id_lesson}', [AdminLessonController::class, 'update'])->name('admin.lesson.edit.update');
+        Route::get('chapter/lesson/delete/{id_lesson}', [AdminLessonController::class, 'delete'])->name('admin.lesson.delete');
         });
-    });
+
+
     // Routes for users
     Route::prefix('user')->middleware('superadmin')->group(function() {
         Route::get('/', [AdminUserController::class, 'index'])->name('admin.user');
@@ -100,6 +98,7 @@ Route::prefix('admin')->group(function() {
             Route::post('/create/store', [AdminSuperadminController::class, 'store'])->name('admin.superadmin.store');
         });
     });
+    
     // Routes for reviews
     Route::prefix('review')->group(function() {
         Route::get('/', [AdminReviewController::class, 'index'])->name('admin.review');
