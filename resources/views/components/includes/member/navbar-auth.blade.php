@@ -14,10 +14,10 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
                     <li class="nav-item pt-lg-0 pt-sm-4">
-                        <a class="nav-link" aria-current="page" href="{{ route('home') }}#home">Home</a>
+                        <a class="nav-link" href="{{ route('home') }}#home">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="{{ route('member.course') }}">Course</a>
+                        <a class="nav-link" href="{{ route('member.course') }}">Course</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('home') }}#aboutus">About Us</a>
@@ -42,11 +42,11 @@
                     @endif
                     <!-- Profile Menu -->
                     <div class="profile-user border border-2 rounded-2 overflow-hidden" id="profileMenu">
-                        <a href="{{ route('logout') }}"
+                        <a href="#"
                             class="bg-white px-3 py-2 d-flex align-items-center text-decoration-none text-black-50 item fw-semibold m-0 w-100 fw-bold">
                             Setting
                         </a>
-                        <a href="{{ route('admin.logout') }}"
+                        <a href="{{ route('logout') }}"
                             class="bg-white px-3 py-2 d-flex align-items-center text-decoration-none text-black-50 item fw-semibold m-0 w-100 fw-bold">
                             Logout
                         </a>
