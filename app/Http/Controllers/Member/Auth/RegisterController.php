@@ -33,25 +33,18 @@ class RegisterController extends Controller
             'password.regex' => 'Password harus berisi kombinasi huruf dan angka',
         ]);
 
-        // JANGAN DIGUNAKAN DI PROFUCTION
-        // Log::info('Password sebelum di-hash: ' . $request->input('password'));
-
+        $imagesGetNewName = 'default.png';
+        
         // Upload avatar dengan nama acak dan ekstensi asli
-        $avatarPath = 'default.png';
-        if ($request->hasFile('avatar')) {
-            $avatar = $request->file('avatar');
-            $getName = $avatar->getClientOriginalName();
-            $avatarName = Str::random(9) . '.' . $avatar->getClientOriginalExtension();
-            $avatar->storeAs('public/images/avatars', $avatarName);
-            $avatarPath = $avatarName;
+        if($request->avatar) {
+            $images = $request->avatar;
+            $imagesGetNewName = Str::random(10).$images->getClientOriginalName();
+            $images->storeAs('public/images/avatars/'.$imagesGetNewName);
+    
         }
-
         $email = $request->input('email');
         $password = $request->input('password');
-
-        // Log email dan password untuk debugging
-        // Log::info('Registrasi dengan email: ' . $email);
-
+        
         // Cek apakah email sudah ada
         $cekEmail = User::where('email', $email)->first();
         if (!$cekEmail) {
@@ -61,11 +54,9 @@ class RegisterController extends Controller
                 'username' => $request->input('name'),
                 'email' => $email,
                 'password' => $password,
-                'avatar' => $avatarPath,
+                'avatar' => $imagesGetNewName,
                 'role' => 'students',
             ]);
-
-            // Log::info('User baru dibuat: ', ['user' => $user]);
 
             auth()->login($user);
 

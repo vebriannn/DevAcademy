@@ -45,14 +45,25 @@ class AdminLessonController extends Controller
     public function update(Request $requests, $id) {
         $requests->validate([
             'name' => 'required',
-            'video' => 'required|url',
+            'video' => 'required',
         ]);
 
         $lesson = Lesson::findOrFail($id);
-        $lesson->update([
-            'name' => $requests->name,
-            'video' => $requests->video,
-        ]);     
+
+        if($lesson->first()->video != $requests->video) {
+            $lesson->update([
+                'name' => $requests->name,
+                'episode' => Str::random(12),
+                'video' => $requests->video,
+            ]);
+        }
+        else {
+            $lesson->update([
+                'name' => $requests->name,
+            ]);   
+        }
+
+        
 
         return response()->json([
             'message' => 'Data berhasil diedit'

@@ -18,7 +18,7 @@ class CheckMentor
     public function handle(Request $request, Closure $next)
     {
         
-        if (Auth::check() && Auth::user()->role != 'student') {
+        if (Auth::check() && Auth::user()->role != 'students') {
             return $next($request);
         }
 

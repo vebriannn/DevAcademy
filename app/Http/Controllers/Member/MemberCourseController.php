@@ -27,21 +27,36 @@ class MemberCourseController extends Controller
         $newCategory = $category->push((object)$addData);
         $sortedCategory = $newCategory->sortBy('id');
 
-        return view('member.usercourse', compact('sortedCategory'));
+        return view('member.course', compact('sortedCategory'));
     }
 
     public function join($slug){
         $course = Course::where('slug', $slug)->first();
-        $chapters = Chapter::with('lessons')->where('course_id', $course->id)->get();
-        $lesson = Lesson::with('chapters')->where('chapter_id', $chapters->first()->id)->first();
-        return view('member.gabungkelas', compact('chapters', 'course', 'lesson'));
+
+        if ($course) {
+            $chapters = Chapter::with('lessons')->where('course_id', $course->id)->get();
+
+            if ($chapters->isNotEmpty()) {
+                $lesson = Lesson::with('chapters')->where('chapter_id', $chapters->first()->id)->first();
+            } else {
+                $lesson = null;
+            }
+        } else {
+            $chapters = collect();
+            $lesson = null;
+        }
+
+
+        return view('member.joincourse', compact('chapters', 'course', 'lesson'));
     }
 
 
     public function play($slug, $episode){
         $course = Course::where('slug', $slug)->first();
+        $user = User::where('id', $course->mentor_id)->first();
         $chapters = Chapter::with('lessons')->where('course_id', $course->id)->get();
         $play = Lesson::where('episode', $episode)->first();
-        return view('member.classvideo', compact('play', 'chapters', 'slug', 'course'));
+        
+        return view('member.play', compact('play', 'chapters', 'slug', 'course', 'user'));
     }
 }

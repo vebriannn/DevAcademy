@@ -1,17 +1,21 @@
-@extends('components.layouts.member.course')
+@extends('components.layouts.member.app')
 
-@section('title, nemolab')
+@section('title', 'Course')
 
-@section('content-course')
+@push('prepend-style')
+    <link rel="stylesheet" href="{{ asset('nemolab/member/css/course.css') }} ">
+@endpush
+
+@section('content')
     <!-- CONTENT -->
     <div class="container-sm ">
-        <div class="container position-fixed w-100">
+        {{-- <div class="container position-fixed w-100">
             <div class="alert alert-warning alert-dismissible fade show text-black" role="alert">
                 Ingin jadi Mentor? klik <a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal"
                     class="disini text-decoratiom-none text-black px-2 py-1"> Disini</a>
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
-        </div>
+        </div> --}}
 
         <!-- alert -->
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -74,14 +78,14 @@
         </div>
     </div>
 @endsection
-@section('js')
+@push('addon-script')
     <script>
         // variabel
-        const btnRadio = document.querySelectorAll('.radiofilter');
+        var btnRadio = document.querySelectorAll('.radiofilter');
 
-        const starImagePath = "{{ asset('nemolab/assets/image/star.png') }}";
-        const lessonImagePath = "{{ asset('nemolab/assets/image/lesson.png') }}";
-        const hourseImagePath = "{{ asset('nemolab/assets/image/hours.png') }}";
+        // const starImagePath = "{{ asset('nemolab/assets/image/star.png') }}";
+        // const lessonImagePath = "{{ asset('nemolab/assets/image/lesson.png') }}";
+        // const hourseImagePath = "{{ asset('nemolab/assets/image/hours.png') }}";
         var query = "all";
 
         getDataCourse();
@@ -113,12 +117,13 @@
                     // Menghapus semua elemen anak dari courseContainer
                     courseContainer.innerHTML = '';
 
-                    courses.forEach(courseData => {
-                        courseData.course.forEach(course => {
-                            const courseElement = document.createElement('div');
-                            courseElement.className =
-                                'col-xl-4 col-lg-6 col-md-12 col-sm-12 mb-lg-4 m-mobile first-card';
-                            courseElement.innerHTML = `
+                    if (courses.message != "notfound") {
+                        courses.forEach(courseData => {
+                            courseData.course.forEach(course => {
+                                const courseElement = document.createElement('div');
+                                courseElement.className =
+                                    'col-xl-4 col-lg-6 col-md-12 col-sm-12 mb-lg-4 m-mobile first-card';
+                                courseElement.innerHTML = `
                                 <a href="#" data-slug-course="${course.slug_course}" onclick="setCourseUrl(this)">
                                     <div class="card-course">
                                         <img src="${course.cover_course}" class="img-card" alt="${course.title_course}">
@@ -129,7 +134,7 @@
                                                 <a href="" class="img-a my-auto">
                                                     <img src="${courseData.avatars_mentor}" alt="${courseData.name_mentor}" class="card-img-profile" style="border-radius: 100%;">
                                                 </a>
-                                                <a href="$" class="kurung text-a text-decoration-none">
+                                                <a href="#" class="kurung text-a text-decoration-none">
                                                     <p class="profile-mentor text-black my-2">${courseData.name_mentor}</p>
                                                 </a>
                                             </div>
@@ -138,22 +143,30 @@
                                             </div>
                                             <div class="status d-flex">
                                                 <div class="left d-flex">
-                                                    <img src="http://127.0.0.1:8000/nemolab/assets/image/lesson.png" alt="">
+                                                    <img src="http://127.0.0.1:8000/nemolab/member/img/lesson.png" alt="">
                                                     <p class="text-black mb-0 ms-1">1 Lesson</p>
-                                                    <img src="http://127.0.0.1:8000/nemolab/assets/image/hours.png" style="height: 20px; margin-top: -1px; margin-left: 10px;" alt="">
+                                                    <img src="http://127.0.0.1:8000/nemolab/member/img/hours.png" style="height: 20px; margin-top: -1px; margin-left: 10px;" alt="">
                                                     <p class="text-black mb-0 ms-1">1 Hours</p>
                                                 </div>
                                                 <div class="right d-flex">
-                                                    <img src="http://127.0.0.1:8000/nemolab/assets/image/star.png" style="height: 20px; margin-top: -1px;" alt="">
+                                                    <img src="http://127.0.0.1:8000/nemolab/member/img/star.png" style="height: 20px; margin-top: -1px;" alt="">
                                                     <p class="text-black mb-0 ms-1">4,6</p>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </a>`;
-                            courseContainer.appendChild(courseElement);
+                                courseContainer.appendChild(courseElement);
+                            });
                         });
-                    });
+                    } else {
+                        const courseElement = document.createElement('div');
+                        courseElement.className =
+                            'col-12 d-flex justify-content-center align-items-center';
+                        courseElement.innerHTML = `Maaf Course Belum Tersedia`
+                        courseContainer.appendChild(courseElement);
+                    }
+
                 })
                 .catch(error => console.error('Error fetching courses:', error));
         }
@@ -165,4 +178,4 @@
             window.location.href = url;
         }
     </script>
-@endsection
+@endpush

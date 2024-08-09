@@ -33,7 +33,7 @@ class CourseApiController extends Controller
             return response()->json([
                 'data' => [
                     'course' => [],
-                    'message' => 'maaf course tidak tersedia'
+                    'message' => 'notfound'
                 ],
             ]);
         }
@@ -57,7 +57,7 @@ class CourseApiController extends Controller
                 $query->where('status', 'published');
             }])->get();
         }
-        
+
         // filter course, jika mentor tidak ada course yang di buat maka akan di hapus
         $filteredCourse = $course->filter(function ($filter) {
             return $filter->courses->isNotEmpty();
@@ -67,7 +67,7 @@ class CourseApiController extends Controller
             return response()->json([
                 'data' => [
                     'course' => [],
-                    'message' => 'maaf course tidak tersedia'
+                    'message' => 'notfound'
                 ],
             ]);
         }

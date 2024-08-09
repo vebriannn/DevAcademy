@@ -1,12 +1,13 @@
-@extends('components.layouts.member.joinclass')
+@extends('components.layouts.member.navback')
 
-@section('title, nemolab')
+@section('title', 'Play Video')
 
-@section('back', 'My Course')
+@push('prepend-style')
+    <link rel="stylesheet" href="{{ asset('nemolab/member/css/play.css') }} ">
+@endpush
 
-@section('contentclassvideo')
-
-    <div class="container mb-5" id="content">
+@section('content')
+    <div class="container mb-5" id="content" style="margin-top: 4rem">
         <div class="row mt-4">
             <div class="col-lg-3 col-md-3 col-sm-12">
                 <div class="card costum-card">
@@ -31,7 +32,7 @@
                                                 class="btn btn-primary btn-video mx-auto mt-3 d-flex justify-content-between">
                                                 <div class="d-flex play">
                                                     <img src="{{ asset('nemolab\assets\image\play.png') }}" alt="">
-                                                    <p class="ms-2 my-auto opacity-75">{{$lesson->name}}</p>
+                                                    <p class="ms-2 my-auto opacity-75">{{ $lesson->name }}</p>
                                                 </div>
                                                 <div class="bg-white rounded-circle check"></div>
                                             </a>
@@ -52,18 +53,18 @@
             <div class="about col-lg-9 col-md-9 col-sm-12 d-flex mt-3">
                 <div class="wrapper">
                     <div class="title-deskripsi">
-                        <h4>{{$course->name}}</h4>
-                        <p>Materi bagian: {{$play->name}}</p>
+                        <h4>{{ $course->name }}</h4>
+                        <p>Materi bagian: {{ $play->name }}</p>
                     </div>
-                    <div class="profile-mentor d-flex">
-                        <img src="{{ asset('nemolab/assets/image/profile2.png') }}" alt="">
-                        <p class="ms-2">Radiansyah</p>
+                    <div class="profile-mentor d-flex align-items-center">
+                        <img src="{{ asset('storage/images/avatars/'.$user->avatar) }}" alt="" style="border-radius:100%; width: 50px; height: auto;">
+                        <p class="m-0 ms-2 fs-5">{{$user->name}}</p>
                     </div>
                     <div class="resource">
                         <h4 class="fw-bold mt-3">Resource</h4>
                         <div class="d-flex course-option mt-3">
-                            <a href="download" class="btn btn-download d-flex align-item-center">
-                                <img src="{{ asset('nemolab/assets/image/download.png') }}" alt="">
+                            <a href="#" class="btn btn-download d-flex align-item-center">
+                                <img src="{{ asset('nemolab/member/img/download.png') }}" alt="" style="border-radius:100%; width: 50px; height: auto;">
                                 <div class="text-download ms-3">
                                     <p class="my-auto text-left" style="width:70%;">Download</p>
                                     <p class="my-auto">Assets Belajar</p>
@@ -72,7 +73,7 @@
                         </div>
                     </div>
                 </div>
-                <button class="btn btn-primary btn-play mb-3 ms-auto">Complete</button>
+                <a href="#" class="btn btn-primary btn-play mb-3 ms-auto">Next</a>
             </div>
 
         </div>

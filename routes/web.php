@@ -32,10 +32,21 @@ use App\Http\Controllers\Member\MemberReviewController;
 |
 */
 
+Route::get('/', [LandingpageController::class, 'index'])->name('home');
+
+// login member
+Route::get('/login', [LoginController::class, 'index'])->name('login');
+Route::post('/login/auth', [LoginController::class, 'login'])->name('login.auth');
+Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
+Route::get('/register', [RegisterController::class, 'index'])->name('register');
+Route::post('/register/store', [RegisterController::class, 'register'])->name('register.auth');
+
+// login admin 
+Route::get('admin/login', [AdminLoginController::class, 'index'])->name('admin.login');
+Route::post('admin/login/auth', [AdminLoginController::class, 'login'])->name('admin.login.auth');
+Route::get('admin/logout', [AdminLoginController::class, 'logout'])->name('admin.logout');
+
 Route::prefix('admin')->group(function() {
-    Route::get('/login', [AdminLoginController::class, 'index'])->name('admin.login');
-    Route::post('/login/auth', [AdminLoginController::class, 'login'])->name('admin.login.auth');
-    Route::get('/logout', [AdminLoginController::class, 'logout'])->name('admin.logout');
 
     // Routes for tools
     Route::prefix('tools')->group(function() {
@@ -128,17 +139,11 @@ Route::prefix('admin')->group(function() {
     });
 });
 
-Route::get('/', [LandingpageController::class, 'index'])->name('home');
-Route::get('/login', [LoginController::class, 'index'])->name('login');
-Route::post('/login', [LoginController::class, 'login'])->name('login.auth');
-Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
-Route::get('/register', [RegisterController::class, 'index'])->name('register');
-Route::post('/register/store', [RegisterController::class, 'register'])->name('register.auth');
 
 
 
 Route::prefix('member')->middleware('student')->group(function() {
-
+    
     Route::get('/course', [MemberCourseController::class, 'index'])->name('member.course');
     Route::get('/course/join/{slug}', [MemberCourseController::class, 'join'])->name('member.course.join');
     Route::get('/course/{slug}/play/episode/{episode}', [MemberCourseController::class, 'play'])->name('member.course.play');
