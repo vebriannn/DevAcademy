@@ -2,9 +2,13 @@
 
 @section('title', 'Landing Pages')
 
+@push('prepend-style')
+    <link rel="stylesheet" href="{{ asset('nemolab/member/css/home.css') }} ">
+@endpush
+
 @section('content')
     <!-- HOME -->
-    <section class="mt-5 pt-5 pb-3" id="home">
+    <section class="mt-5 pt-5 pb-3 w-100" id="home">
         <div class="container">
             <div class="card card-home text-white p-0">
                 <div class="card-body d-flex flex-column justify-content-center p-0">
@@ -18,7 +22,7 @@
                             <a href="#" class="btn btn-started bg-white mb-md-0 mb-sm-3">Get Started</a>
                         </div>
                         <div class="col-lg-6 d-none d-lg-block">
-                            <img class="mx-auto float-end" src="{{ asset('nemolab/assets/image/vero.png') }}"
+                            <img class="mx-auto float-end" src="{{ asset('nemolab/member/img/vero.png') }}"
                                 style="width: 85%;" alt="">
                         </div>
                     </div>
@@ -28,19 +32,19 @@
             <ul class="d-flex mt-5 pb-5 mx-auto align-content-center justify-content-center tools">
                 <li class="card card-tools p-2 ">
                     <div class="mx-auto d-flex justify-content-center my-auto">
-                        <img class="figma" src="{{ asset('nemolab/assets/image/figma.png') }}" alt="">
+                        <img class="figma" src="{{ asset('nemolab/member/img/figma.png') }}" alt="">
                         <h3 class="my-auto ps-3">UI/UX</h3>
                     </div>
                 </li>
                 <li class="card card-tools p-2 ">
-                    <div class="mx-auto d-flex flex-row justify-content-center my-auto">
-                        <img src="{{ asset('nemolab/assets/image/vscode.png') }}" alt="">
+                    <div class="mx-auto d-flex justify-content-center my-auto">
+                        <img src="{{ asset('nemolab/member/img/vscode.png') }}" alt="">
                         <h3 class="my-auto ps-3">Frontend</h3>
                     </div>
                 </li>
                 <li class="card card-tools p-2 ">
-                    <div class="mx-auto d-flex flex-row justify-content-center my-auto">
-                        <img src="{{ asset('nemolab/assets/image/server.png') }}" alt="">
+                    <div class="mx-auto d-flex justify-content-center my-auto">
+                        <img src="{{ asset('nemolab/member/img/server.png') }}" alt="">
                         <h3 class="my-auto ps-3">Backend</h3>
                     </div>
                 </li>
@@ -48,13 +52,13 @@
         </div>
     </section>
 
-    <section id="course"class="container">
+    <section id="course"class="container" style="height: max-content">
         <p class="text-center pt-4">Course</p>
         <h2 class="text-center fw-bolder">Our Course</h2>
-        <p class="text-center pt-4 mx-auto" style="width: 50%;">Lörem ipsum astrobel sar direlig. Kronde est konfoni med
+        <p class="text-center pt-4 mx-auto deskripsi-course">Lörem ipsum astrobel sar direlig. Kronde est konfoni med
             kelig. Terabel pov astrobel sar direlig.Lörem ipsum astrobel sar direlig. Kronde est </p>
         <div class="row row-course mx-auto mt-5 px-5">
-            <div class="col-6">
+            <div class="col-lg-6 col-sm-12">
                 <div class="card px-4 d-flex justify-content-end align-content-end image-course-1"
                     style=" height: 100%; border-radius: 24px;">
                     <div class="row">
@@ -66,20 +70,20 @@
                                 konfoni med kelig. Terabel pov astrobel sar</p>
                         </div>
                         <div
-                            class="col-lg-5 col-md-12 mb-lg-0 mb-md-4 d-lg-flex d-md-block justify-content-center align-content-center">
-                            @if (Auth::check())
-                                <a href="{{ route('member.course') }}" class="btn btn-join text-white bg-transparent my-auto">Join Us</a>
-                            @else
-                                <a href="{{ route('login') }}" class="btn btn-join text-white bg-transparent my-auto">Join Us</a>
-                            @endif
+                        class="col-lg-5 col-md-12 mb-lg-0 mb-md-4 d-lg-flex d-md-block justify-content-center align-content-center">
+                        @if (Auth::check())
+                            <a href="{{ route('member.course') }}" class="btn btn-join text-white bg-transparent my-auto">Join Us</a>
+                        @else
+                            <a href="{{ route('login') }}" class="btn btn-join text-white bg-transparent my-auto">Join Us</a>
+                        @endif
 
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-6" style="height: 100%;">
-                <div class="row d-flex flex-column" style="height: 100%;">
-                    <div class="col-12 pb-2" style="height: 50%;">
+            <div class="col-lg-6 col-sm-12" style="height: 100%;">
+                <div class="row d-flex" style="height: 100%;">
+                    <div class="col-lg-12 col-sm-6 pb-2" style="height: 50%;">
                         <div class="card px-4 py-3 d-flex justify-content-end align-content-end image-course-2"
                             style="height: 100%; border-radius: 24px;">
                             <div class="row">
@@ -93,7 +97,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-12 pt-2" style="height: 50%;">
+                    <div class="col-lg-12 col-sm-6 pt-2" style="height: 50%;">
                         <div class="card p-4 px-4 py-3 d-flex justify-content-end align-content-end image-course-3"
                             style="height: 100%; border-radius: 24px;">
                             <div class="row">
@@ -120,82 +124,80 @@
 
     <section id="testimonial">
         <div class="container p-0">
-            <p class="text-center text-gray" style="margin-top: 120px;">What our customer say</p>
+            <p class="text-center text-gray">What our customer say</p>
             <h2 class="text-center mt-4 fw-bold" style="color: ;">Testimonial</h2>
             <p class="text-center text-gray mt-4">Lörem ipsum astrobel sar direlig. Kronde est konfoni med kelig.</p>
-            <div class="row d-flex justify-content-center align-item-center">
+            <div class="row d-flex justify-content-center align-item-center row-marque">
                 <!-- First marquee (scrolling up) -->
-                <div class="marquee-container col-3 d-flex flex-column">
-                    <div class="scroll d-flex flex-column align-item-center justify-content-center">
-                        <!-- Original set of cards -->
-                        @foreach ($reviews as $review)
-                            <div class="card card-testimonial p-4">
-                                <div class="profile d-flex">
-                                    @if ($review->user->avatar)
-                                        <img src="{{ asset('storage/images/avatars/' . $review->user->avatar) }}"
-                                            alt="">
-                                    @else
-                                        <img src="{{ asset('nemolab/assets/image/profile-img.png') }}" alt="">
-                                    @endif
-                                    <p class="ms-2 my-auto text-white">{{ $review->user->name }}</p>
-                                </div>
-                                <div class="comment">
-                                    {{ $review->note }}
-                                </div>
-                            </div>
-                        @endforeach
+                <div class="marquee-container col-3 d-lg-flex flex-column d-sm-none first-marque">
+                  <div class="scroll d-flex flex-column align-item-center justify-content-center">
+                    <!-- Original set of cards -->
+                    @foreach ($reviews as $review)
+                    <div class="card card-testimonial p-4">
+                        <div class="profile d-flex">
+                            @if ($review->user->avatar)
+                                <img src="{{ asset('storage/images/avatars/' . $review->user->avatar) }}"
+                                    alt="">
+                            @else
+                                <img src="{{ asset('nemolab/member/img/profile-img.png') }}" alt="">
+                            @endif
+                            <p class="ms-2 my-auto text-white">{{ $review->user->name }}</p>
+                        </div>
+                        <div class="comment">
+                            {{ $review->note }}
+                        </div>
                     </div>
-                </div>
-
-
-                <!-- Second marquee (scrolling down) -->
-                <div class="marquee-container col-3 d-flex flex-column">
-                    <div class="scroll-reverse mx-auto">
-                        <!-- Original set of cards -->
-                        @foreach ($reviews as $review)
-                            <div class="card card-testimonial p-4">
-                                <div class="profile d-flex">
-                                    @if ($review->user->avatar)
-                                        <img src="{{ asset('storage/images/avatars/' . $review->user->avatar) }}"
-                                            alt="">
-                                    @else
-                                        <img src="{{ asset('nemolab/assets/image/profile-img.png') }}" alt="">
-                                    @endif
-                                    <p class="ms-2 my-auto text-white">{{ $review->user->name }}</p>
-                                </div>
-                                <div class="comment">
-                                    {{ $review->note }}
-                                </div>
-                            </div>
-                        @endforeach
-                    </div>
-                </div>
-
-                <!-- Third marquee (scrolling up) -->
-                <div class="marquee-container col-3 d-flex flex-column">
-                    <div class="scroll d-flex flex-column align-item-center justify-content-center">
-                        <!-- Original set of cards -->
-
-                        @foreach ($reviews as $review)
-                            <div class="card card-testimonial p-4">
-                                <div class="profile d-flex">
-                                    @if ($review->user->avatar)
-                                        <img src="{{ asset('storage/images/avatars/' . $review->user->avatar) }}"
-                                            alt="">
-                                    @else
-                                        <img src="{{ asset('nemolab/assets/image/profile-img.jpg') }}" alt="">
-                                    @endif
-                                    <p class="ms-2 my-auto text-white">{{ $review->user->name }}</p>
-                                </div>
-                                <div class="comment">
-                                    {{ $review->note }}
-                                </div>
-                            </div>
-                        @endforeach
-                    </div>
-                </div>
-
+                @endforeach
             </div>
+        </div>
+          
+                <!-- Second marquee (scrolling down) -->
+                <div class="marquee-container col-lg-3 col-sm-6 second-marque">
+                  <div class="scroll-reverse mx-auto">
+                    <!-- Original set of cards -->
+                    @foreach ($reviews as $review)
+                    <div class="card card-testimonial p-4">
+                        <div class="profile d-flex">
+                            @if ($review->user->avatar)
+                                <img src="{{ asset('storage/images/avatars/' . $review->user->avatar) }}"
+                                    alt="">
+                            @else
+                                <img src="{{ asset('nemolab/member/img/profile-img.png') }}" alt="">
+                            @endif
+                            <p class="ms-2 my-auto text-white">{{ $review->user->name }}</p>
+                        </div>
+                        <div class="comment">
+                            {{ $review->note }}
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+          
+                <!-- Third marquee (scrolling up) -->
+                <div class="marquee-container col-lg-3 col-sm-6 d-flex flex-column third-marque">
+                          <div class="scroll d-flex flex-column align-item-center justify-content-center">
+                            <!-- Original set of cards -->
+                            @foreach ($reviews as $review)
+                            <div class="card card-testimonial p-4">
+                                <div class="profile d-flex">
+                                    @if ($review->user->avatar)
+                                        <img src="{{ asset('storage/images/avatars/' . $review->user->avatar) }}"
+                                            alt="">
+                                    @else
+                                        <img src="{{ asset('nemolab/member/img/profile-img.jpg') }}" alt="">
+                                    @endif
+                                    <p class="ms-2 my-auto text-white">{{ $review->user->name }}</p>
+                                </div>
+                                <div class="comment">
+                                    {{ $review->note }}
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+          
+                </div>
         </div>
     </section>
 
@@ -237,24 +239,24 @@
         </div>
     </section>
 
-    <section id="contactus" class="mt-5 pt-3 px-5 container">
+    <section id="contactus" class="mt-5 py-3 px-5 container">
         <div class="row mt-3">
             <div class="col-lg-4 col-md-12">
                 <h3 class="fw-bold">Contact Us</h3>
                 <p>email, call, or fill out the form to find out how Nemolab
                     can solve your messaging problems.</p>
                 <div class="card-contact py-3 px-4">
-                    <img src="{{ asset('nemolab/assets/image/whatsapp.png') }}" alt="">
+                    <img src="{{ asset('nemolab/member/img/whatsapp.png') }}" alt="">
                     <p class="mt-1 mb-0 contact-platform">Contact WhatsApp</p>
                     <p class="value-platform mb-0">WhatsApp : 0813997374343 ( Admin Nemolab )</p>
                 </div>
                 <div class="card-contact py-3 px-4 mt-4">
-                    <img src="{{ asset('nemolab/assets/image/white-instagram.png') }}" alt="">
+                    <img src="{{ asset('nemolab/member/img/white-instagram.png') }}" alt="">
                     <p class="mt-1 mb-0 contact-platform">Contact Instagram</p>
                     <p class="value-platform mb-0">Instagram : nemolab.studio</p>
                 </div>
                 <div class="card-contact py-3 px-4 mt-4">
-                    <img src="{{ asset('nemolab/assets/image/email.png') }}" alt="">
+                    <img src="{{ asset('nemolab/member/img/email.png') }}" alt="">
                     <p class="mt-1 mb-0 contact-platform">Contact Email</p>
                     <p class="value-platform mb-0">Email : nemolab.studio@gmail.com</p>
                 </div>
