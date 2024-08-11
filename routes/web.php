@@ -97,16 +97,26 @@ Route::prefix('admin')->group(function() {
             Route::get('/', [AdminStudentController::class, 'index'])->name('admin.member');
             Route::get('/create', [AdminStudentController::class, 'create'])->name('admin.member.create');
             Route::post('/create/store', [AdminStudentController::class, 'store'])->name('admin.member.store');
+            Route::get('/edit/{id}', [AdminStudentController::class, 'edit'])->name('admin.member.edit');
+            Route::put('/edit/update/{id}', [AdminStudentController::class, 'update'])->name('admin.member.update');
+            Route::get('/delete/{id}', [AdminStudentController::class, 'destroy'])->name('admin.member.destroy');
         });
+        
         Route::prefix('mentor')->middleware('superadmin')->group(function() {
             Route::get('/', [AdminMentorController::class, 'index'])->name('admin.mentor');
             Route::get('/create', [AdminMentorController::class, 'create'])->name('admin.mentor.create');
             Route::post('/create/store', [AdminMentorController::class, 'store'])->name('admin.mentor.store');
+            Route::get('/edit/{id}', [AdminMentorController::class, 'edit'])->name('admin.mentor.edit');
+            Route::put('/edit/update/{id}', [AdminMentorController::class, 'update'])->name('admin.mentor.update');
+            Route::get('/delete/{id}', [AdminMentorController::class, 'destroy'])->name('admin.mentor.destroy');
         });
         Route::prefix('superadmin')->middleware('superadmin')->group(function() {
             Route::get('/', [AdminSuperadminController::class, 'index'])->name('admin.superadmin');
             Route::get('/create', [AdminSuperadminController::class, 'create'])->name('admin.superadmin.create');
             Route::post('/create/store', [AdminSuperadminController::class, 'store'])->name('admin.superadmin.store');
+            Route::get('/edit/{id}', [AdminSuperadminController::class, 'edit'])->name('admin.superadmin.edit');
+            Route::put('/edit/update/{id}', [AdminSuperadminController::class, 'update'])->name('admin.superadmin.update');
+            Route::get('/delete/{id}', [AdminSuperadminController::class, 'destroy'])->name('admin.superadmin.destroy');
         });
     });
     
@@ -158,7 +168,3 @@ Route::prefix('member')->middleware('student')->group(function() {
 
     Route::get('course/payment', [MemberTransactionController::class, 'index']);
 });
-
-// Route::get('/admin/dashboard', [SuperadminController::class, 'index'])->name('admin.dashboard')->middleware('auth', 'role:superadmin');
-// Route::get('/mentor/dashboard', [MentorController::class, 'index'])->name('mentor.dashboard')->middleware('auth', 'role:mentor');
-// Route::get('/student/dashboard', [StudentController::class, 'index'])->name('student.dashboard')->middleware('auth');

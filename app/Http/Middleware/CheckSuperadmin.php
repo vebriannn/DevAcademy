@@ -21,6 +21,6 @@ class CheckSuperadmin
             return $next($request);
         }
 
-        // return redirect()->route('login')->with('error', 'You do not have access.');
+        return redirect()->route('home')->with('error', 'You do not have access.');
     }
 }
