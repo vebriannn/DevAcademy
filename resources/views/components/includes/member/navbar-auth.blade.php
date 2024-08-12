@@ -42,6 +42,10 @@
                     @endif
                     <!-- Profile Menu -->
                     <div class="profile-user border border-2 rounded-2 overflow-hidden" id="profileMenu">
+                        <a href="{{route('member.dashboard')}}"
+                            class="bg-white px-3 py-2 d-flex align-items-center text-decoration-none text-black-50 item fw-semibold m-0 w-100 fw-bold">
+                            Dashboard
+                        </a>
                         <a href="#"
                             class="bg-white px-3 py-2 d-flex align-items-center text-decoration-none text-black-50 item fw-semibold m-0 w-100 fw-bold">
                             Setting

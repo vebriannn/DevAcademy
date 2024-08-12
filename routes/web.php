@@ -166,5 +166,9 @@ Route::prefix('member')->middleware('student')->group(function() {
         Route::delete('/{id}', [MemberReviewController::class, 'destroy'])->name('member.reviews.destroy');
     });
 
+    Route::prefix('dashboard')->group(function() {
+        Route::view('/porto', 'member.dashboard.mycourse')->name('member.dashboard');
+    }) ;
+
     Route::get('course/payment', [MemberTransactionController::class, 'index']);
 });

@@ -31,7 +31,7 @@
                                             <a href="{{ route('member.course.play', ['slug' => $slug, 'episode' => $lesson->episode]) }}"
                                                 class="btn btn-primary btn-video mx-auto mt-3 d-flex justify-content-between">
                                                 <div class="d-flex play">
-                                                    <img src="{{ asset('nemolab\assets\image\play.png') }}" alt="">
+                                                    <img src="{{ asset('nemolab\member\img\play.png') }}" alt="">
                                                     <p class="ms-2 my-auto opacity-75">{{ $lesson->name }}</p>
                                                 </div>
                                                 <div class="bg-white rounded-circle check"></div>
@@ -57,14 +57,16 @@
                         <p>Materi bagian: {{ $play->name }}</p>
                     </div>
                     <div class="profile-mentor d-flex align-items-center">
-                        <img src="{{ asset('storage/images/avatars/'.$user->avatar) }}" alt="" style="border-radius:100%; width: 50px; height: auto;">
-                        <p class="m-0 ms-2 fs-5">{{$user->name}}</p>
+                        <img src="{{ asset('storage/images/avatars/' . $user->avatar) }}" alt=""
+                            style="border-radius:100%; width: 50px; height: auto;">
+                        <p class="m-0 ms-2 fs-5">{{ $user->name }}</p>
                     </div>
                     <div class="resource">
                         <h4 class="fw-bold mt-3">Resource</h4>
                         <div class="d-flex course-option mt-3">
                             <a href="#" class="btn btn-download d-flex align-item-center">
-                                <img src="{{ asset('nemolab/member/img/download.png') }}" alt="" style="border-radius:100%; width: 50px; height: auto;">
+                                <img src="{{ asset('nemolab/member/img/download.png') }}" alt=""
+                                    style="border-radius:100%; width: 50px; height: auto;">
                                 <div class="text-download ms-3">
                                     <p class="my-auto text-left" style="width:70%;">Download</p>
                                     <p class="my-auto">Assets Belajar</p>
