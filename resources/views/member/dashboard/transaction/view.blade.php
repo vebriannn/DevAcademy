@@ -67,11 +67,26 @@
                 <div class="d-flex justify-content-between p-1">
                     <p class="show">Showing {{ $transactions->count() }} of {{ $transactions->total() }}</p>
                     <div class="d-flex gap-3">
-                        
+                        <button class="pagination mx-1 {{ $transactions->onFirstPage() ? 'disabled' : '' }}" id="prev-button" {{ $transactions->onFirstPage() ? 'disabled' : '' }} data-url="{{ $transactions->previousPageUrl() }}">Previous</button>
+                        <button class="pagination mx-1 {{ $transactions->hasMorePages() ? '' : 'disabled' }}" id="next-button" {{ $transactions->hasMorePages() ? '' : 'disabled' }} data-url="{{ $transactions->nextPageUrl() }}">Next</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<script>
+    document.getElementById('prev-button').addEventListener('click', function() {
+        if (!this.classList.contains('disabled')) {
+            window.location.href = this.getAttribute('data-url');
+        }
+    });
+
+    document.getElementById('next-button').addEventListener('click', function() {
+        if (!this.classList.contains('disabled')) {
+            window.location.href = this.getAttribute('data-url');
+        }
+    });
+</script>
 @endsection
