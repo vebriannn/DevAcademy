@@ -18,8 +18,10 @@ use App\Http\Controllers\Member\Auth\RegisterController;
 use App\Http\Controllers\Member\LandingpageController;
 use App\Http\Controllers\Member\Auth\LoginController;
 use App\Http\Controllers\Member\MemberCourseController;
+use App\Http\Controllers\Member\MemberPaymentController;
 use App\Http\Controllers\Member\MemberTransactionController;
 use App\Http\Controllers\Member\MemberReviewController;
+use App\Http\Controllers\Member\MemberSettingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -165,6 +167,21 @@ Route::prefix('member')->middleware('student')->group(function() {
         Route::put('/{id}', [MemberReviewController::class, 'update'])->name('member.reviews.update');
         Route::delete('/{id}', [MemberReviewController::class, 'destroy'])->name('member.reviews.destroy');
     });
+    // Dashboard
+    Route::prefix('dashboard')->group(function() {
+        // setting
+        Route::prefix('setting')->group(function() {
+            Route::get('/', [MemberSettingController::class, 'index'])->name('member.dashboard.setting');
+            Route::get('/edit/profile/', [MemberSettingController::class, 'editProfile'])->name('member.dashboard.edit-profile');
+            Route::post('/update/profile', [MemberSettingController::class, 'updateProfile'])->name('member.dashboard.update-profile');
+            Route::get('/edit/password/', [MemberSettingController::class, 'editPassword'])->name('member.dashboard.edit-password');
+            Route::post('/update/password', [MemberSettingController::class, 'updatePassword'])->name('member.dashboard.update-password');
+        });
+        Route::prefix('transaction')->group(function() {
+            Route::get('/', [MemberTransactionController::class, 'index'])->name('member.dashboard.transaction');
+            Route::delete('/cancel/{id}', [MemberTransactionController::class, 'cancel'])->name('member.transaction.cancel');
+        });
+    });
 
-    Route::get('course/payment', [MemberTransactionController::class, 'index']);
+    Route::get('course/payment', [MemberPaymentController::class, 'index']);
 });

@@ -55,6 +55,12 @@ class User extends Authenticatable
         return $this->hasMany(Course::class, 'mentor_id', 'id');
     }
 
+    public function transactions()
+    {
+        return $this->hasMany(Transaction::class, 'user_id');
+    }
+
+
     /**
      * Set the user's password and hash it.
      *

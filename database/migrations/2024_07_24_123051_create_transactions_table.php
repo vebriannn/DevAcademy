@@ -13,11 +13,13 @@ return new class extends Migration
     {
         Schema::create('tbl_transactions', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('course_id');
-            $table->enum('status', ['success', 'pending', 'failed']);
+            $table->enum('status', ['success', 'pending', 'failed'])->default('pending');
             $table->timestamps();
 
             $table->foreign('course_id')->references('id')->on('tbl_courses')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

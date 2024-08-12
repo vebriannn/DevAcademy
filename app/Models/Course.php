@@ -5,13 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Cviebrock\EloquentSluggable\Sluggable;
-use Illuminate\Support\Str;
 
 class Course extends Model
 {
-    use HasFactory;
-    use Sluggable;
-    
+    use HasFactory, Sluggable;
+
     protected $table = 'tbl_courses';
     protected $fillable = [
         'category',
@@ -36,10 +34,13 @@ class Course extends Model
         ];
     }
 
-    // updae slug
-
-    public function users() {
+    public function users()
+    {
         return $this->belongsTo(User::class, 'mentor_id', 'id');
     }
-    
+
+    public function transactions()
+    {
+        return $this->hasMany(Transaction::class, 'course_id');
+    }
 }
