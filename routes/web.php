@@ -169,6 +169,7 @@ Route::prefix('member')->middleware('student')->group(function() {
     });
     // Dashboard
     Route::prefix('dashboard')->group(function() {
+        Route::view('/porto', 'member.dashboard.mycourse')->name('member.dashboard');
         // setting
         Route::prefix('setting')->group(function() {
             Route::get('/', [MemberSettingController::class, 'index'])->name('member.dashboard.setting');
