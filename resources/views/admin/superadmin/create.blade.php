@@ -17,26 +17,26 @@
 
                     <div class="row col-12 mb-3">
                         <div class="entryarea">
-                            <input type="text" id="name" name="name" placeholder="Username" required />
-                            <div class="labelline" for="name">Username</div>
+                            <input type="text" id="name" name="name" placeholder="" required />
+                            <div class="labelline" for="name">Name</div>
                         </div>
                     </div>
 
                     <div class="row col-12 mb-3">
                         <div class="entryarea">
-                            <input type="email" id="email" name="email" placeholder="Email" required />
+                            <input type="email" id="email" name="email" placeholder="" required />
                             <div class="labelline" for="email">Email</div>
                         </div>
                     </div>
 
                     <div class="row col-12 mb-3">
                         <div class="entryarea col-6">
-                            <input type="password" id="password" name="password" placeholder="Password" required />
+                            <input type="password" id="password" name="password" placeholder="" required />
                             <div class="labelline" for="password">Password</div>
                         </div>
                         <div class="entryarea col-6">
                             <input type="password" id="password_confirmation" name="password_confirmation"
-                                placeholder="Confirm Password" required />
+                                placeholder="" required />
                             <div class="labelline" for="password_confirmation">Confirm Password</div>
                         </div>
                     </div>

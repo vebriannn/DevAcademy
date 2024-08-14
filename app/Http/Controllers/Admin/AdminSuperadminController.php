@@ -14,9 +14,7 @@ class AdminSuperadminController extends Controller
     {
         $perPage = $request->get('entries', 10);
         $superadmins = User::where('role', 'superadmin')->paginate($perPage);
-        return view('admin.superadmin.view', [
-            'superadmins' => $superadmins
-        ]);
+        return view('admin.superadmin.view', compact('superadmins'));
     }
 
     public function create()
@@ -34,9 +32,10 @@ class AdminSuperadminController extends Controller
 
         User::create([
             'name' => $request->name,
+            'username' => $request->name, 
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'role' => 'superadmin', 
+            'role' => 'superadmin',
         ]);
 
         return redirect()->route('admin.superadmin')->with('success', 'Super Admin created successfully.');
@@ -58,14 +57,12 @@ class AdminSuperadminController extends Controller
             'password' => 'nullable|string|min:8|confirmed',
         ]);
 
-        $superadmin->name = $request->input('name');
-        $superadmin->email = $request->input('email');
-
-        if ($request->filled('password')) {
-            $superadmin->password = Hash::make($request->input('password'));
-        }
-
-        $superadmin->save();
+        $superadmin->update([
+            'name' => $request->name,
+            'username' => $request->name,
+            'email' => $request->email,
+            'password' => $request->filled('password') ? Hash::make($request->password) : $superadmin->password,
+        ]);
 
         return redirect()->route('admin.superadmin')->with('success', 'Super Admin updated successfully.');
     }
@@ -78,25 +75,14 @@ class AdminSuperadminController extends Controller
             $avatarPath = 'public/images/avatars/' . $superadmin->avatar;
             
             if (Storage::exists($avatarPath)) {
-                if (Storage::delete($avatarPath)) {
-                    $message = 'superadmin and avatar deleted successfully';
-                } else {
-                    return response()->json([
-                        'message' => 'Failed to delete avatar'
-                    ], 500);
-                }
-            } else {
-                $message = 'superadmin deleted successfully, but avatar does not exist';
+                Storage::delete($avatarPath);
             }
-        } else {
-            $message = 'superadmin deleted successfully';
         }
     
         $superadmin->delete();
-        return response()->json([
-            'message' => $message
-        ], 200);
 
-        // return redirect()->route('admin.superadmin')->with('success', 'Super Admin deleted successfully.');
+        return response()->json([
+            'message' => 'Super Admin deleted successfully' . ($superadmin->avatar ? ', and avatar removed' : ''),
+        ], 200);
     }
 }

@@ -14,9 +14,7 @@ class AdminMentorController extends Controller
     {
         $perPage = $request->get('entries', 10);
         $mentors = User::where('role', 'mentor')->paginate($perPage);
-        return view('admin.mentor.view', [
-            'mentors' => $mentors
-        ]);
+        return view('admin.mentor.view', compact('mentors'));
     }
 
     public function create()
@@ -33,9 +31,10 @@ class AdminMentorController extends Controller
         ]);
 
         User::create([
-            'name' => $request->input('name'),
-            'email' => $request->input('email'),
-            'password' => Hash::make($request->input('password')),
+            'name' => $request->name,
+            'username' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
             'role' => 'mentor',
         ]);
 
@@ -58,14 +57,12 @@ class AdminMentorController extends Controller
             'password' => 'nullable|string|min:6|confirmed',
         ]);
 
-        $mentor->name = $request->input('name');
-        $mentor->email = $request->input('email');
-
-        if ($request->filled('password')) {
-            $mentor->password = Hash::make($request->input('password'));
-        }
-
-        $mentor->save();
+        $mentor->update([
+            'name' => $request->name,
+            'username' => $request->name,
+            'email' => $request->email,
+            'password' => $request->filled('password') ? Hash::make($request->password) : $mentor->password,
+        ]);
 
         return redirect()->route('admin.mentor')->with('success', 'Mentor updated successfully.');
     }
@@ -78,25 +75,14 @@ class AdminMentorController extends Controller
             $avatarPath = 'public/images/avatars/' . $mentor->avatar;
             
             if (Storage::exists($avatarPath)) {
-                if (Storage::delete($avatarPath)) {
-                    $message = 'mentor and avatar deleted successfully';
-                } else {
-                    return response()->json([
-                        'message' => 'Failed to delete avatar'
-                    ], 500);
-                }
-            } else {
-                $message = 'mentor deleted successfully, but avatar does not exist';
+                Storage::delete($avatarPath);
             }
-        } else {
-            $message = 'mentor deleted successfully';
         }
     
         $mentor->delete();
-        return response()->json([
-            'message' => $message
-        ], 200);
 
-        // return redirect()->route('admin.mentor')->with('success', 'Mentor deleted successfully.');
+        return response()->json([
+            'message' => 'Mentor deleted successfully' . ($mentor->avatar ? ', and avatar removed' : ''),
+        ], 200);
     }
 }

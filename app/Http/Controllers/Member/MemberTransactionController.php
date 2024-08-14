@@ -31,6 +31,6 @@ class MemberTransactionController extends Controller
 
         $transaction->delete();
 
-        return redirect()->route('member.dashboard.transaction')->with('success', 'Transaction cancelled successfully.');
+        return redirect()->route('member.transaction')->with('success', 'Transaction cancelled successfully.');
     }
 }

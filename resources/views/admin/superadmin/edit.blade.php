@@ -19,7 +19,7 @@
                         <div class="entryarea">
                             <input type="text" id="name" name="name" value="{{ old('name', $superadmin->name) }}"
                                 placeholder="" required />
-                            <div class="labelline" for="name">Username</div>
+                            <div class="labelline" for="name">Name</div>
                         </div>
                     </div>
                     <div class="col-12 mb-3">

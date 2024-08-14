@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
+
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -32,8 +33,9 @@ class AdminStudentController extends Controller
 
         User::create([
             'name' => $request->name,
+            'username' => $request->name,
             'email' => $request->email,
-            'password' => bcrypt($request->password), 
+            'password' => bcrypt($request->password),
             'role' => 'students',
         ]);
 
@@ -56,9 +58,10 @@ class AdminStudentController extends Controller
 
         $student = User::findOrFail($id);
         $student->name = $request->name;
+        $student->username = $request->name;
         $student->email = $request->email;
         if ($request->password) {
-            $student->password = bcrypt($request->password); 
+            $student->password = bcrypt($request->password);
         }
         $student->save();
 
@@ -91,8 +94,5 @@ class AdminStudentController extends Controller
         return response()->json([
             'message' => $message
         ], 200);
-
-        // return redirect()->route('admin.member')->with('success', 'Member deleted successfully.');
     }
-    
 }
