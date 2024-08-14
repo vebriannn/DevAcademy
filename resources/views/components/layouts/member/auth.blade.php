@@ -41,21 +41,6 @@
                 a = 1;
             }
         }
-
-        function updateFileName() {
-            const fileInput = document.getElementById('fileInput');
-            const avatarPreview = document.getElementById('avatarPreview');
-
-            if (fileInput.files && fileInput.files[0]) {
-                const reader = new FileReader();
-
-                reader.onload = function(e) {
-                    avatarPreview.src = e.target.result;
-                };
-
-                reader.readAsDataURL(fileInput.files[0]);
-            }
-        }
     </script>
     @stack('addon-script')
 

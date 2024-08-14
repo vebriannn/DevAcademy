@@ -8,7 +8,7 @@
         <div class="col-12 mt-4 d-flex justify-content-center">
             <div class="box bg-white rounded-4">
                 <h4 class="fw-semibold" style="color: #faa907; margin-bottom: 2rem">Edit Password</h4>
-                <form action="{{ route('member.dashboard.update-password') }}" method="POST">
+                <form action="{{ route('member.update-password') }}" method="POST">
                     @csrf
                     <div class="input">
                         <label for="old-password">Old Password</label><br />

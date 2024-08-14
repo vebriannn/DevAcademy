@@ -1,7 +1,7 @@
 @extends('components.layouts.admin.create-update')
 
 @push('prepend-style')
-    <link rel="stylesheet" href="{{ asset('nemolab/admin/css/create.css') }}">
+    <link rel="stylesheet" href="{{ asset('nemolab/admin/css/create-update.css') }}">
 @endpush
 
 @section('title', 'Edit Course')
@@ -14,7 +14,8 @@
             <a href="{{ route('admin.course') }}" class="btn btn-orange"> Back </a>
         </div>
         <div class="card-body pt-2">
-            <form class="col-12" action="{{ route('admin.course.edit.update', $course->id) }}" method="post" enctype="multipart/form-data">
+            <form class="col-12" action="{{ route('admin.course.edit.update', $course->id) }}" method="post"
+                enctype="multipart/form-data">
                 @csrf
                 @method('put')
                 <div class="row">
@@ -22,7 +23,9 @@
                         <div class="custom-entryarea">
                             <select id="category" name="category">
                                 @forelse ($category as $item)
-                                    <option value="{{ $item->name }}"  {{ $item->name == $course->category ? 'selected' : '' }}> {{ $item->name }}</option>
+                                    <option value="{{ $item->name }}"
+                                        {{ $item->name == $course->category ? 'selected' : '' }}> {{ $item->name }}
+                                    </option>
                                 @empty
                                     <option value="">Tidak Ada Kategori</option>
                                 @endforelse
@@ -34,7 +37,8 @@
                     </div>
                     <div class="col-6">
                         <div class="entryarea">
-                            <input type="text" id="name" name="name" placeholder="" value="{{ $course->name }}"/>
+                            <input type="text" id="name" name="name" placeholder=""
+                                value="{{ $course->name }}" />
                             <div class="labelline" for="name">Title</div>
                             @error('name')
                                 <span style="color: red">{{ $message }}</span>
@@ -75,7 +79,8 @@
                     </div>
                     <div class="col-6">
                         <div class="entryarea">
-                            <input type="text" id="link" name="price" placeholder=" " value="{{$course->price}}">
+                            <input type="text" id="link" name="price" placeholder=" "
+                                value="{{ $course->price }}">
                             <div class="labelline" for="link">Price</div>
                             @error('price')
                                 <span style="color: red">{{ $message }}</span>
@@ -92,8 +97,10 @@
                     <div class="col-12">
                         <div class="custom-entryarea">
                             <select id="category" name="level">
-                                <option value="beginner" {{ $course->level == 'beginner' ? 'selected' : '' }}>Beginner</option>
-                                <option value="intermediate" {{ $course->level == 'intermediate' ? 'selected' : '' }}>Intermediate</option>
+                                <option value="beginner" {{ $course->level == 'beginner' ? 'selected' : '' }}>Beginner
+                                </option>
+                                <option value="intermediate" {{ $course->level == 'intermediate' ? 'selected' : '' }}>
+                                    Intermediate</option>
                                 <option value="expert" {{ $course->level == 'expert' ? 'selected' : '' }}>Expert</option>
                             </select>
                             @error('level')

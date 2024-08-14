@@ -46,11 +46,11 @@
                             class="bg-white px-3 py-2 d-flex align-items-center text-decoration-none text-black-50 item fw-semibold m-0 w-100 fw-bold">
                             Dashboard
                         </a>
-                        <a href="#"
+                        <a href="{{route('member.setting')}}"
                             class="bg-white px-3 py-2 d-flex align-items-center text-decoration-none text-black-50 item fw-semibold m-0 w-100 fw-bold">
                             Setting
                         </a>
-                        <a href="{{ route('logout') }}"
+                        <a href="{{ route('admin.logout') }}"
                             class="bg-white px-3 py-2 d-flex align-items-center text-decoration-none text-black-50 item fw-semibold m-0 w-100 fw-bold">
                             Logout
                         </a>

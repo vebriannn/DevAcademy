@@ -41,14 +41,13 @@ class MemberSettingController extends Controller
                 Storage::delete('public/images/avatars/' . $user->avatar);
             }
 
-           
             $avatar = $request->file('avatar')->store('images/avatars', 'public');
             $user->avatar = basename($avatar);
         }
 
         $user->save();
 
-        return redirect()->route('member.dashboard.setting')->with('success', 'Profile updated successfully.');
+        return redirect()->route('member.setting')->with('success', 'Profile updated successfully.');
     }
 
     public function updatePassword(Request $request){
@@ -59,14 +58,14 @@ class MemberSettingController extends Controller
 
         $user = User::findOrFail(Auth::id()); 
         if (!Hash::check($request->input('old_password'), $user->password)) {
-            return redirect()->route('member.dashboard.edit-password')
-                             ->withErrors(['old_password' => 'The old password is incorrect.'])
-                             ->withInput();
+            return redirect()->route('member.edit-password')
+            ->withErrors(['old_password' => 'The old password is incorrect.'])
+            ->withInput();
         }
 
         $user->password = $request->input('new_password');
         $user->save();
 
-        return redirect()->route('member.dashboard.setting')->with('success', 'Password updated successfully.');
+        return redirect()->route('member.setting')->with('success', 'Password updated successfully.');
     }
 }

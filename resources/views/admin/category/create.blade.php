@@ -1,7 +1,7 @@
 @extends('components.layouts.admin.create-update')
 
 @push('prepend-style')
-    <link rel="stylesheet" href="{{ asset('nemolab/admin/css/create.css') }}">
+    <link rel="stylesheet" href="{{ asset('nemolab/admin/css/create-update.css') }}">
 @endpush
 
 @section('title', 'Create Category')

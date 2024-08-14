@@ -8,8 +8,9 @@
         <div class="col-12 d-flex justify-content-center">
             <div class="box bg-white rounded-4">
                 <h4 class="fw-semibold" style="color: #faa907; margin-bottom: 2rem">Edit Profile</h4>
-                <form action="{{ route('member.dashboard.update-profile') }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('member.update-profile') }}" method="POST" enctype="multipart/form-data">
                     @csrf
+                    @method('put')
                     <div class="input text-center">
                         <img src="{{ Auth::user()->avatar ? asset('storage/images/avatars/' . Auth::user()->avatar) : asset('nemolab/member/img/avatar.png') }}" id="preview" alt="" class="rounded-circle" width="90" height="90"/>
                     </div>

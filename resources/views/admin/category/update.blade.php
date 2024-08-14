@@ -1,7 +1,7 @@
 @extends('components.layouts.admin.create-update')
 
 @push('prepend-style')
-    <link rel="stylesheet" href="{{ asset('nemolab/admin/css/create.css') }}">
+    <link rel="stylesheet" href="{{ asset('nemolab/admin/css/create-update.css') }}">
 @endpush
 
 @section('title', 'Edit Category')
@@ -18,7 +18,7 @@
                 @csrf
                 @method('put')
                 <div class="entryarea">
-                    <input type="text" id="name" name="name" value="{{$category->name}}"/>
+                    <input type="text" id="name" name="name" value="{{ $category->name }}" />
                     <div class="labelline" for="name">Kategori</div>
                     @error('name')
                         <span style="color: red">{{ $message }}</span>

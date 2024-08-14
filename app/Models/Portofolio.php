@@ -12,9 +12,9 @@ class Portofolio extends Model
     protected $table = 'tbl_portofolio';
     
     protected $fillable = [
-        'portofolio_name',
+        'user_id',
+        'name',
         'description',
-        'link_portofolio',
-        'course_id'
+        'link',
     ];
 }

@@ -41,6 +41,6 @@ class Course extends Model
 
     public function transactions()
     {
-        return $this->hasMany(Transaction::class, 'course_id');
+        return $this->hasMany(Transaction::class, 'user_id');
     }
 }

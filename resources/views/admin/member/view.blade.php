@@ -1,7 +1,9 @@
 @extends('components.layouts.admin.app')
+
 @push('prepend-style')
-    <link rel="stylesheet" href="{{ asset('nemolab/admin/css/category.css') }}">
+    <link rel="stylesheet" href="{{ asset('nemolab/admin/css/tabel-content.css') }}">
 @endpush
+
 @section('title', 'View Member-Data')
 
 @section('content')
