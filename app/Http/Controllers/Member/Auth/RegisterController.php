@@ -33,7 +33,6 @@ class RegisterController extends Controller
             'password.regex' => 'Password harus berisi kombinasi huruf dan angka',
         ]);
 
-        $imagesGetNewName = 'default.png';
         
         // Upload avatar dengan nama acak dan ekstensi asli
         if($request->avatar) {
