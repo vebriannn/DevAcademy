@@ -25,6 +25,12 @@ use App\Http\Controllers\Member\MemberSettingController;
 use App\Http\Controllers\Member\Dashboard\MemberMyCourseController;
 use App\Http\Controllers\Member\Dashboard\MemberPortofolioController;
 
+
+
+Route::get('member/ebook', function(){
+    return view('member.ebook');
+});
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
