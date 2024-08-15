@@ -132,7 +132,7 @@
         getDataCourse();
         
         function getDataCourse() {
-            fetch('http://127.0.0.1:8000/api/v1/course/category?q=' + query)
+            fetch('https://testlms.nemolab.id/api/v1/course/category?q=' + query)
                 .then(response => response.json())
                 .then(data => {
                     const courses = data.data;
@@ -167,13 +167,13 @@
                                             </div>
                                             <div class="status d-flex">
                                                 <div class="left d-flex">
-                                                    <img src="http://127.0.0.1:8000/nemolab/member/img/lesson.png" alt="">
+                                                    <img src="https://testlms.nemolab.id/nemolab/member/img/lesson.png" alt="">
                                                     <p class="text-black mb-0 ms-1">1 Lesson</p>
-                                                    <img src="http://127.0.0.1:8000/nemolab/member/img/hours.png" style="height: 20px; margin-top: -1px; margin-left: 10px;" alt="">
+                                                    <img src="https://testlms.nemolab.id/nemolab/member/img/hours.png" style="height: 20px; margin-top: -1px; margin-left: 10px;" alt="">
                                                     <p class="text-black mb-0 ms-1">1 Hours</p>
                                                 </div>
                                                 <div class="right d-flex">
-                                                    <img src="http://127.0.0.1:8000/nemolab/member/img/star.png" style="height: 20px; margin-top: -1px;" alt="">
+                                                    <img src="https://testlms.nemolab.id/nemolab/member/img/star.png" style="height: 20px; margin-top: -1px;" alt="">
                                                     <p class="text-black mb-0 ms-1">4,6</p>
                                                 </div>
                                             </div>
