@@ -1,7 +1,7 @@
 @extends('components.layouts.admin.app')
 
 @push('prepend-style')
-    <link rel="stylesheet" href="{{ asset('nemolab/admin/css/category.css') }}">
+    <link rel="stylesheet" href="{{ asset('nemolab/admin/css/tabel-content.css') }}">
 @endpush
 
 @section('title', 'View Chapter')
@@ -28,8 +28,8 @@
                     </select>
                     <p class="mb-0 me-2 text-center mx-2">entries</p>
                 </div>
-                <a href="{{ route('admin.chapter.create', ['slug' => $slug, 'id_course' => $id]) }}" class="tambah-data pt-2 pb-2 px-4 fw-semibold"
-                    style="width: max=content; !important">Tambah</a>
+                <a href="{{ route('admin.chapter.create', ['slug' => $slug, 'id_course' => $id]) }}"
+                    class="tambah-data pt-2 pb-2 px-4 fw-semibold" style="width: max=content; !important">Tambah</a>
             </div>
 
             <table class="table table-sm">
@@ -44,10 +44,12 @@
                         <tr>
                             <td>{{ $chapter->name }}</td>
                             <td>
-                                <a href="{{ route('admin.lesson', ['slug' => $slug, 'id_chapter' => $chapter->id]) }}" class="btn btn-success">
+                                <a href="{{ route('admin.lesson', ['slug' => $slug, 'id_chapter' => $chapter->id]) }}"
+                                    class="btn btn-success">
                                     View Lesson
                                 </a>
-                                <a href="{{ route('admin.chapter.edit', ['slug' => $slug, 'id_chapter' => $chapter->id]) }}" class="me-2">
+                                <a href="{{ route('admin.chapter.edit', ['slug' => $slug, 'id_chapter' => $chapter->id]) }}"
+                                    class="me-2">
                                     <img src="{{ asset('nemolab/admin/img/edit.png') }}" alt="" width="30"
                                         height="30">
                                 </a>
@@ -58,9 +60,9 @@
                             </td>
                         </tr>
                     @empty
-                    <tr>
-                        <td colspan="2">Data Belum Ada</td>
-                    </tr>
+                        <tr>
+                            <td colspan="2">Data Belum Ada</td>
+                        </tr>
                     @endforelse
                 </tbody>
             </table>

@@ -1,20 +1,20 @@
 @extends('components.layouts.admin.create-update')
 
 @push('prepend-style')
-    <link rel="stylesheet" href="{{ asset('nemolab/admin/css/create.css') }}">
+    <link rel="stylesheet" href="{{ asset('nemolab/admin/css/create-update.css') }}">
 @endpush
 
 @section('title', 'Create Course')
 
 @section('content')
-
     <div class="card w-75 mt-5 mb-5" style="border: none !important;">
         <div class="card-header d-flex justify-content-between bg-transparent pb-0" style="border: none !important;">
             <h2 class="fw-semibold fs-4 mb-4" style="color: #faa907">Tambah Data</h2>
             <a href="{{ route('admin.course') }}" class="btn btn-orange"> Back </a>
         </div>
         <div class="card-body pt-2">
-            <form class="col-12" action="{{ route('admin.course.create.store') }}" method="post" enctype="multipart/form-data">
+            <form class="col-12" action="{{ route('admin.course.create.store') }}" method="post"
+                enctype="multipart/form-data">
                 @csrf
                 <div class="row">
                     <div class="col-6">

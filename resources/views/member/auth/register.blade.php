@@ -16,7 +16,7 @@
                     </div>
                     <div>
                         <img src="{{ asset('nemolab/member/img/avatar.png') }}" alt="avatar" width="105" height="105"
-                            style="border-radius: 50%; object-fit: cover" id="avatarPreviews"/>
+                            style="border-radius: 50%; object-fit: cover" id="avatarPreview" />
                     </div>
                     <form action="{{ route('register.auth') }}" method="POST" enctype="multipart/form-data">
                         @csrf
@@ -66,3 +66,21 @@
         </div>
     </div>
 @endsection
+@push('addon-script')
+    <script>
+        function updateFileName() {
+            const fileInput = document.getElementById('fileInput');
+            const avatarPreview = document.getElementById('avatarPreview');
+
+            if (fileInput.files && fileInput.files[0]) {
+                const reader = new FileReader();
+
+                reader.onload = function(e) {
+                    avatarPreview.src = e.target.result;
+                };
+
+                reader.readAsDataURL(fileInput.files[0]);
+            }
+        }
+    </script>
+@endpush

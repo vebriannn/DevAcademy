@@ -65,27 +65,20 @@ a {
     border: none !important;
     color: #3d5963 !important;
     font-size: 17px;
-    width: 261px;
-    height: 50px;
+    padding: 10px 10px;
+    background-color: var(--c-brand-contact);
+    width: 100%;
     border-radius: 20px !important;
     align-items: center;
-}
-
-.btn-video:hover {
-    background-color: var(--c-brand-contact);
-    color: #3d5963;
-}
-
-.btn-video {
-    background-color: var(--c-brand-contact);
-    color: #383131;
-    width: 80%;
+    height: max-content;
 }
 
 .btn-video img {
-    width: auto;
-    height: 70%;
-    margin: auto 0;
+    max-height: 30px;
+}
+
+.btn-video img:hover{
+    margin: 0 !important;
 }
 
 .play {
@@ -147,6 +140,19 @@ a {
     background-color: #fff47b !important;
 }
 
+.lesson-text{
+    white-space: nowrap;
+    overflow: hidden;       
+    text-overflow: ellipsis;
+    width: 120px;
+    text-align: justify;
+}
+
+.lesson-text:hover, .lesson-text:active{
+    white-space: normal;
+    text-overflow: unset;
+}
+
 iframe {
     border-radius: 10px;
 }
@@ -159,26 +165,43 @@ iframe {
 .course-option {
     background-color: #e1e1e1;
     border-radius: 20px;
-    width: 60%;
+    width: max-content;
 }
 
 .btn-download {
     padding: 15px;
-    width: 100%;
 }
 
 .btn-download img {
-    width: 25%;
+    width: 50px;
+    height: auto;
 }
 
 @media only screen and (max-width: 1200px) {
+
+    .sidebar{
+        padding: 0 !important;
+    }
+
     .costum-card {
         height: 410px !important;
+    }
+
+    .lesson-text{
+        width: 100px;
     }
 }
 @media only screen and (max-width: 992px) {
     .costum-card {
         height: 304px !important;
+    }
+
+    .lesson-text{
+        width: 50px;
+    }
+
+    .course-option{
+        width: max-content;
     }
 }
 
@@ -186,10 +209,36 @@ iframe {
     .costum-card {
         margin-bottom: 20px;
     }
+    
+    .lesson-text{
+        width: 400px;
+    }
 }
 
 @media only screen and (max-width: 576px) {
-    .logo {
-        display: none;
+
+    .sidebar{
+        padding: 0 12px !important;
+    }
+
+    .course-option{
+        width: max-content;
+    }
+
+    .lesson-text{
+        max-width: 350px;
     }
 }
+
+@media only screen and (max-width: 480px){
+    .lesson-text{
+        max-width: 250px;
+    }
+}
+
+@media only screen and (max-width: 390px){
+    .lesson-text{
+        max-width: 160px;
+    }
+}
+

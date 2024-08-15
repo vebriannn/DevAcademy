@@ -44,12 +44,16 @@
                         Category
                     </a>
 
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">ALL</a></li>
-                        <li><a class="dropdown-item" href="#">Design Grafis</a></li>
-                        <li><a class="dropdown-item" href="#">UI/UX Design</a></li>
-                        <li><a class="dropdown-item" href="#">Designer Web</a></li>
-                        <li><a class="dropdown-item" href="#">Soft Skills</a></li>
+                    <ul class="dropdown-menu" id="dropdown">
+                        @foreach ($sortedCategory as $item)
+                            <div class="form-check">
+                                <input class="form-check-input radiofilter-mobile" type="radio"
+                                    id="radiofilter-{{ $loop->iteration }}">
+                                <label class="form-check-label" for="radiofilter-{{ $loop->iteration }}">
+                                    {{ $item->name }}
+                                </label>
+                            </div>
+                        @endforeach
                     </ul>
                 </div>
 
@@ -82,13 +86,31 @@
     <script>
         // variabel
         var btnRadio = document.querySelectorAll('.radiofilter');
+        var btnRadioMobile = document.querySelectorAll('.radiofilter-mobile');
 
         // const starImagePath = "{{ asset('nemolab/assets/image/star.png') }}";
         // const lessonImagePath = "{{ asset('nemolab/assets/image/lesson.png') }}";
         // const hourseImagePath = "{{ asset('nemolab/assets/image/hours.png') }}";
         var query = "all";
 
-        getDataCourse();
+        btnRadioMobile.forEach(btnMobile => {
+            if (btnMobile.checked == false) {
+                btnRadioMobile[0].checked = true
+            }
+
+            btnMobile.addEventListener('click', function() {
+                btnRadioMobile.forEach(radioMobile => {
+                    radioMobile.checked = false;
+                })
+
+                this.checked = true;
+
+                // ubah value query
+                query = query = document.querySelector(`label[for="${this.id}"]`)
+                    .textContent;
+                getDataCourse();
+            })
+        });
 
         // check radio aktif
         btnRadio.forEach(btn => {
@@ -107,6 +129,8 @@
             })
         });
 
+        getDataCourse();
+        
         function getDataCourse() {
             fetch('http://127.0.0.1:8000/api/v1/course/category?q=' + query)
                 .then(response => response.json())
@@ -169,13 +193,13 @@
 
                 })
                 .catch(error => console.error('Error fetching courses:', error));
-        }
+        };
 
         function setCourseUrl(element) {
             var slugCourse = element.getAttribute('data-slug-course');
             var url = "{{ route('member.course.join', ':slug_course') }}";
             url = url.replace(':slug_course', slugCourse);
             window.location.href = url;
-        }
+        };
     </script>
 @endpush

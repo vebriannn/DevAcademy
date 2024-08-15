@@ -10,9 +10,20 @@ class Transaction extends Model
     use HasFactory;
 
     protected $table = 'tbl_transactions';
-    
+
     protected $fillable = [
         'status',
-        'course_id'
+        'course_id',
+        'user_id',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function course()
+    {
+        return $this->belongsTo(Course::class, 'user_id');
+    }
 }

@@ -22,6 +22,7 @@ class CheckMentor
             return $next($request);
         }
 
-        return redirect()->route('admin.login')->with('error', 'You do not have access.');
+        return redirect()->route('home')->with('error', 'You do not have access.');
+        // return redirect()->route('admin.login')->with('error', 'You do not have access.');
     }
 }
