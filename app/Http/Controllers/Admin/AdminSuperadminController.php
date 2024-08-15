@@ -33,6 +33,7 @@ class AdminSuperadminController extends Controller
         User::create([
             'name' => $request->name,
             'username' => $request->name, 
+            'avatar' => 'default.png',
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'role' => 'superadmin',

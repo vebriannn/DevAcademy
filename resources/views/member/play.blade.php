@@ -27,7 +27,7 @@
                                 <div id="panelsStayOpen-collapse-{{ $loop->iteration }}"
                                     class="accordion-collapse collapse">
                                     @foreach ($chapter->lessons as $lesson)
-                                        <div class="accordion-body">
+                                        <div class="accordion-body" style="background-color: #ffefce">
                                             <a href="{{ route('member.course.play', ['slug' => $slug, 'episode' => $lesson->episode]) }}"
                                                 class="btn btn-primary btn-video mx-auto mt-3 d-flex justify-content-between">
                                                 <div class="d-flex play">

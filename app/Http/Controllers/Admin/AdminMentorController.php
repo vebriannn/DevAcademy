@@ -34,6 +34,7 @@ class AdminMentorController extends Controller
             'name' => $request->name,
             'username' => $request->name,
             'email' => $request->email,
+            'avatar' => 'default.png',
             'password' => Hash::make($request->password),
             'role' => 'mentor',
         ]);

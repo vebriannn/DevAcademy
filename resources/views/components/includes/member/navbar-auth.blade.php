@@ -28,12 +28,10 @@
                 </ul>
                 <hr />
                 <div class="user-login d-flex align-items-center gap-3">
-                    <img src="img/avatar.png" alt="" width="40"
-                        class="d-md-block d-lg-none border border-2 rounded-circle" />
-                    <p class="fw-semibold m-0">{{ Auth::user()->name }}</p>
+                    <p class="fw-semibold m-0 order-last order-lg-first">{{ Auth::user()->name }}</p>
                     @if (Auth::user()->avatar != 'default.png')
                         <img src="{{ asset('storage/images/avatars/' . Auth::user()->avatar) }}" alt=""
-                            width="45" class="d-none d-lg-block border border-2 rounded-circle" id="myProfile"
+                            width="45" class="border border-2 rounded-circle" id="myProfile"
                             style="cursor: pointer" />
                     @else
                         <img src="{{ asset('nemolab/admin/img/avatar.png') }}" alt="" width="45"
@@ -42,11 +40,11 @@
                     @endif
                     <!-- Profile Menu -->
                     <div class="profile-user border border-2 rounded-2 overflow-hidden" id="profileMenu">
-                        <a href="{{route('member.dashboard')}}"
+                        <a href="{{ route('member.dashboard') }}"
                             class="bg-white px-3 py-2 d-flex align-items-center text-decoration-none text-black-50 item fw-semibold m-0 w-100 fw-bold">
                             Dashboard
                         </a>
-                        <a href="{{route('member.setting')}}"
+                        <a href="{{ route('member.setting') }}"
                             class="bg-white px-3 py-2 d-flex align-items-center text-decoration-none text-black-50 item fw-semibold m-0 w-100 fw-bold">
                             Setting
                         </a>

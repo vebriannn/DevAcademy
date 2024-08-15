@@ -14,7 +14,6 @@
                 @csrf
                 <div class="row">
                     <h2 class="fw-semibold mb-4" style="color: #faa907">Tambah Data Mentor</h2>
-
                     <div class="row col-12 mb-3">
                         <div class="entryarea">
                             <input type="text" id="name" name="name" placeholder="" required />
@@ -30,15 +29,15 @@
                     </div>
 
                     <div class="row col-12 mb-3">
-                        <div class="entryarea col-6">
+                        <div class="entryarea col-12">
                             <input type="password" id="password" name="password" placeholder="" required />
                             <div class="labelline" for="password">Password</div>
                         </div>
-                        <div class="entryarea col-6">
+                        {{-- <div class="entryarea col-6">
                             <input type="password" id="password_confirmation" name="password_confirmation"
                                 placeholder="" required />
                             <div class="labelline" for="password_confirmation">Confirm Password</div>
-                        </div>
+                        </div> --}}
                     </div>
 
                     <div class="row col-12 mb-3">

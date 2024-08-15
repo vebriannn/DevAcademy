@@ -34,6 +34,7 @@ class AdminStudentController extends Controller
         User::create([
             'name' => $request->name,
             'username' => $request->name,
+            'avatar' => 'default.png',
             'email' => $request->email,
             'password' => bcrypt($request->password),
             'role' => 'students',
