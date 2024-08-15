@@ -102,7 +102,6 @@
   .card-tools {
     border: 3px solid var(--c-brand);
     border-radius: 20px;
-    width: 25%;
     box-shadow: 0px 0px 5px var(--c-brand);
   }
   
@@ -494,9 +493,7 @@
       border-radius: 18px;
     }
   
-    .card-title {
-      font-size: 20px;
-    }
+
   
     .card-tools {
       border: 3px solid var(--c-brand);
@@ -594,16 +591,6 @@
     .image-course-2{
       background-position-x: -140px;
     }
-    
-  
-    .card-title{
-      font-size: 16px;
-    }
-  
-    .card-text{
-      font-size: 10px !important;
-    }
-  
   
     /* ABOUT US */
     .stat{
@@ -617,21 +604,33 @@
     #home .col-lg-6{
       padding: 20px;
     }
-  
-    .btn-started{
-      font-size: 10px;
-      padding: 5px 8px;
+    
+    .tools{
+      display: block !important;
+      margin: 0;
+      padding: 0 !important;
+      margin-bottom: 10px;
     }
-  
-    .card-tools img{
-      display: none;
+
+
+    .card-tools {
+      width: 100%;
+      margin-bottom: 20px;
+      margin-right: auto;
+      margin-left: auto;
     }
   
     .card-tools h3{
-      font-size: 10px;
+      font-size: 20px;
       width: max-content;
-      padding: 0 !important;
-      color: var(--c-brand);
+    }
+
+    .figma{
+      width: 30px !important;
+    }
+
+    .card-tools img{
+      width: 40px;
     }
   
     /* COURSE */
