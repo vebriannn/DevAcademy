@@ -12,7 +12,6 @@
         <div class="row">
             <div class="col-12 text-center justify-content-center">
                 <h4 class="fw-semibold">{{ $course->name }}</h4>
-                {{-- <p class="fw-light mt-3" style="font-size: 15px">Learn how to design Management from scratch</p> --}}
                 <div class="d-flex align-items-center justify-content-center" style="margin-top: -6px; font-size: 15px">
                     <p class="m-0 ms-2 fw-light" style="font-size: 14px">Release Date
                         {{ $course->created_at->format('d F Y') }} </p>
@@ -51,9 +50,21 @@
                             </div>
                         @endforeach
                     </div>
-                    <a href="{{ route('member.course.play', ['slug' => $course->slug, 'episode' => $lesson->episode]) }}">
-                        <div class="button">Start Learning</div>
-                    </a>
+
+                    @if ($transaction && $transaction->status == 'pending')
+                        <div class="alert alert-warning mt-3" role="alert">
+                            Pembayaran anda sedang diproses.
+                        </div>
+                    @elseif ($transaction && $transaction->status == 'success')
+                        <a href="{{ route('member.course.play', ['slug' => $course->slug, 'episode' => $lesson->episode]) }}">
+                            <div class="button">Start Learning</div>
+                        </a>
+                    @else
+                        <a href="{{ route('member.payment', ['course_id' => $course->id]) }}">
+                            <div class="button">Start Learning</div>
+                        </a>
+                    
+                    @endif
                 @else
                     <p class="fw-bold">0 Chapter</p>
                 @endif
@@ -68,46 +79,8 @@
                 </p>
             </div>
         </div>
-        <!-- Tools -->
-        {{-- <div class="row d-none">
-            <div class="col-12">
-                <h4 class="fw-semibold mb-4">Tools</h4>
-            </div>
-            <div class="col-lg-3 col-md-6 my-2 my-sm-2">
-                <div class="tools p-4 border border-2 rounded-4 shadow-sm">
-                    <div class="d-flex align-items-center d-md-block">
-                        <div class="col-6 text-center text-md-start">
-                            <img src="{{ asset('nemolab/member/img/xd.png') }}" alt="" width="70" />
-                        </div>
-                        <div class="col-6 col-md-12">
-                            <p class="fw-semibold mt-4">
-                                Adobe XD <br />
-                                Software Gratis
-                            </p>
-                            <button class="btn rounded-5 mt-md-4 px-3 py-2 text-white fw-semibold">Download Now</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-3 col-md-6 my-2 my-sm-2">
-                <div class="tools p-4 border border-2 rounded-4 shadow-sm">
-                    <div class="d-flex align-items-center d-md-block">
-                        <div class="col-6 text-center text-md-start">
-                            <img src="{{ asset('nemolab/assets/image/adobe.png') }}" alt="" width="70" />
-                        </div>
-                        <div class="col-6 col-md-12">
-                            <p class="fw-semibold mt-4">
-                                Adobe Premier <br />
-                                Software Gratis
-                            </p>
-                            <button class="btn rounded-5 mt-md-4 px-3 py-2 text-white fw-semibold">Download Now</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div> --}}
         <!-- Payment -->
+        @if (!isset($transaction) || ($transaction && $transaction->status == 'failed'))
         <div class="row my-5">
             <div class="col-12">
                 <h4 class="fw-semibold">Payment</h4>
@@ -144,8 +117,11 @@
                         <p>Kesempatan Karier Bergengsi</p>
                     </div>
                 </div>
-                <button class="btn mx-auto d-flex px-5 py-2 mt-3 text-white fw-semibold rounded-3">Beli Kelas</button>
+                <a href="{{ route('member.payment', ['course_id' => $course->id]) }}" class="text-decoration-none">
+                    <button class="btn mx-auto d-flex px-5 py-2 mt-3 text-white fw-semibold rounded-3">Beli Kelas</button>
+                </a>
             </div>
         </div>
+        @endif
     </div>
 @endsection

@@ -49,6 +49,7 @@ class VerifyCsrfToken extends Middleware
         'admin/submission/edit/update/*',
         'admin/submission/delete/*',
         // Member review routes
+        'member/course/payment/store',
         'member/reviews',
         'member/reviews/*',
         'register/store'

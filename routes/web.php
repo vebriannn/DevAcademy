@@ -195,5 +195,6 @@ Route::prefix('member')->middleware('student')->group(function () {
         Route::delete('/cancel/{id}', [MemberTransactionController::class, 'cancel'])->name('member.transaction.cancel');
     });
 
-    Route::get('course/payment', [MemberPaymentController::class, 'index']);
+    Route::get('course/payment', [MemberPaymentController::class, 'index'])->name('member.payment');
+    Route::post('course/payment/store', [MemberPaymentController::class, 'store'])->name('member.transaction.store');
 });
