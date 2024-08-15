@@ -165,12 +165,10 @@
                                             <div class="price mt-1">
                                                 <p class="text-black mb-0 fw-lighter">Rp. ${course.price_course}</p>
                                             </div>
-                                            <div class="status d-flex">
-                                                <div class="left d-flex">
-                                                    <img src="http://127.0.0.1:8000/nemolab/member/img/lesson.png" alt="">
-                                                    <p class="text-black mb-0 ms-1">1 Lesson</p>
-                                                    <img src="http://127.0.0.1:8000/nemolab/member/img/hours.png" style="height: 20px; margin-top: -1px; margin-left: 10px;" alt="">
-                                                    <p class="text-black mb-0 ms-1">1 Hours</p>
+                                            <div class="status d-flex justify-content-between">
+                                                <div class="left d-inline-flex gap-2">
+                                                    <p>Video</p>
+                                                    <p>Book</p>
                                                 </div>
                                                 <div class="right d-flex">
                                                     <img src="http://127.0.0.1:8000/nemolab/member/img/star.png" style="height: 20px; margin-top: -1px;" alt="">

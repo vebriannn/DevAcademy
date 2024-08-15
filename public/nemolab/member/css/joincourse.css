@@ -88,7 +88,12 @@ body::-webkit-scrollbar {
 .btn:hover {
     background-color: #a56e00;
 }
-@media (max-width: 768px) {
+@media (min-width: 768px) {
+    .col-custom {
+        flex: 0 0 auto;
+        width: 30%;
+        flex-wrap: wrap;
+    }
     .tools img {
         width: 120px;
     }

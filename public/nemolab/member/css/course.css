@@ -53,7 +53,6 @@ body::-webkit-scrollbar {
     height: auto;
 }
 
-
 /* alert */
 .disini {
     border: 1px solid var(--c-dark);
@@ -127,7 +126,7 @@ body::-webkit-scrollbar {
     overflow: hidden;
     text-overflow: ellipsis;
 }
-.left {
+/* .left {
     height: 15px;
     padding-left: 0px;
     margin-top: 15px;
@@ -150,6 +149,23 @@ body::-webkit-scrollbar {
 }
 .right p {
     margin-left: 5px;
+    font-size: 12px;
+    height: 100%;
+    width: 100%;
+    font-weight: normal;
+} */
+.left p {
+    margin-left: 0px;
+    border-radius: 6px;
+    display: block;
+    padding: 0 5px;
+    background: transparent;
+    color: #faa907;
+    border: 1px solid #faa907;
+    font-size: 13px;
+}
+.right p {
+    /* margin-left: 5px; */
     font-size: 12px;
     height: 100%;
     width: 100%;
