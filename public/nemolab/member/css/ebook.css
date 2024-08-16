@@ -73,3 +73,29 @@ input[type="number"]:focus {
 #ebook .col-12{
     height: 900px !important;
 }
+
+@media only screen and (max-width: 576px) {
+    #ebook{
+        width: 100%;
+    }
+
+    .tools{
+        padding: 10px 25px !important;
+    }
+
+
+    .zoom{
+        flex-direction: column;
+    }
+
+    .zoom img{
+        margin-left: 0px !important;
+        margin-top: 10px;
+    }
+
+    canvas {
+        transform: scale(0.9); /* Scale down the canvas */
+        transform-origin: 0 0; /* Ensure scaling is from the top-left */
+    }
+
+}

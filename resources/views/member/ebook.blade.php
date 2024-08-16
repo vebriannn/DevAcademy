@@ -44,9 +44,9 @@
       <div class="row">
           <div class="col-12 rounded-3 position-relative p-0 overflow-hidden shadow">
               <!-- Tools -->
-              <div class="p-4 px-5 w-100 d-flex justify-content-between align-items-center"
+              <div class="tools p-4 px-5 w-100 d-flex justify-content-between align-items-center"
                   style="background-color: #faa907">
-                  <div>
+                  <div class="d-flex zoom">
                       <img src="{{ asset('nemolab/member/img/zoomin.png') }}" id="zoom-in" alt=""
                           width="30" />
                       <img src="{{ asset('nemolab/member/img/zoomout.png') }}" id="zoom-out" alt=""
@@ -62,11 +62,11 @@
                     </span>
                 </div>
                   <div class="d-flex align-items-center">
-                      <div class="search rounded-1 px-2">
+                      {{-- <div class="search rounded-1 px-2">
                           <label for="search"><img src="{{ asset('nemolab/member/img/search-ebook.png') }}"
                                   alt="" width="25" /></label>
                           <input type="text" id="search" />
-                      </div>
+                      </div> --}}
                       <div class="ms-5">
                           <img src="{{ asset('nemolab/member/img/fullscreen.png') }}" id="pdf-fullscreen" alt=""
                               width="30" />

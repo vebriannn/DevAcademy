@@ -38,7 +38,7 @@
                 </li>
                 <li class="card card-tools p-2 ">
                     <div class="mx-auto d-flex justify-content-center my-auto">
-                        <img src="{{ asset('nemolab/member/img/vscode.png') }}" alt="">
+                        <img src="{{ asset('nemolab/member/img/Vscode.png') }}" alt="">
                         <h3 class="my-auto ps-3">Frontend</h3>
                     </div>
                 </li>
@@ -276,17 +276,6 @@
                         <div class="entryarea">
                             <input type="text" required>
                             <div class="labelline">Username</div>
-                        </div>
-                    </div>
-                    <div class="col-6">
-                        <div class="entryarea">
-                            <input type="number" required>
-                            <div class="labelline">Phone Number</div>
-                        </div>
-                    </div>
-                    <div class="col-6">
-                        <div class="entryarea">
-                            <input type="date" required>
                         </div>
                     </div>
                     <div class="col-12 mt-3" style="height: 190px;">
