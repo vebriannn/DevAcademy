@@ -26,4 +26,50 @@ body::-webkit-scrollbar {
     padding-left: 10px;
     width: 100%;
     background-color: transparent;
+    color: white;
+}
+.zoom img{
+    cursor: pointer;
+}
+.page-info img{
+    cursor: pointer;
+}
+.pdf-height{
+    height: 800px;
+    background-color: #333;
+    overflow-y: scroll;
+}
+.pdf-preview{
+    overflow-y: scroll;
+}
+.pdf-preview::-webkit-scrollbar{
+    display: none;
+}
+
+#ebook{
+    width: 950px;
+}
+
+#pdf-fullscreen{
+    cursor: pointer;
+}
+
+#zoom-in, #zoom-out{
+    cursor: pointer;
+}
+
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"]:focus {
+    outline: 2px solid #ffffff;
+    border-radius: 3px;
+  }
+
+#ebook .col-12{
+    height: 900px !important;
 }
