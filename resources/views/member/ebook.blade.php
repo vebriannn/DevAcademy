@@ -41,48 +41,53 @@
 
     <!-- Content -->
     <div class="container" id="ebook">
-      <div class="row">
-          <div class="col-12 rounded-3 position-relative p-0 overflow-hidden shadow">
-              <!-- Tools -->
-              <div class="tools p-4 px-5 w-100 d-flex justify-content-between align-items-center"
-                  style="background-color: #faa907">
-                  <div class="d-flex zoom">
-                      <img src="{{ asset('nemolab/member/img/zoomin.png') }}" id="zoom-in" alt=""
-                          width="30" />
-                      <img src="{{ asset('nemolab/member/img/zoomout.png') }}" id="zoom-out" alt=""
-                          width="30" class="ms-3" />
-                  </div>
-                  <div>
-                    <span class="page-info text-white">
-                        <img src="{{ asset('nemolab/member/img/chevron-left-white.png') }}" id="prev-page" alt="" width="20">
-                        <input type="number" id="page-input" min="1" style="width: 30px; border: none; background: none; color: white; text-align: center;" />
-                        <span>/</span>
-                        <span id="page-count" style="margin-left:20px;"></span>
-                        <img class="ms-2" src="{{ asset('nemolab/member/img/chevron-right-white.png') }}" id="next-page" alt="" width="20">
-                    </span>
-                </div>
-                  <div class="d-flex align-items-center">
-                      {{-- <div class="search rounded-1 px-2">
+        <div class="row">
+            <div class="col-12 rounded-3 position-relative p-0 overflow-hidden shadow">
+                <!-- Tools -->
+                <div class="tools p-4 px-5 w-100 d-flex justify-content-between align-items-center"
+                    style="background-color: #faa907">
+                    <div class="d-flex zoom">
+                        <img src="{{ asset('nemolab/member/img/zoomin.png') }}" id="zoom-in" alt=""
+                            width="30" />
+                        <img src="{{ asset('nemolab/member/img/zoomout.png') }}" id="zoom-out" alt=""
+                            width="30" class="ms-3" />
+                        <img src="{{ asset('nemolab/member/img/reset.png') }}" id="reset-zoom" alt="" width="30"
+                            class="ms-3" />
+                    </div>
+                    <div>
+                        <span class="page-info text-white">
+                            <img src="{{ asset('nemolab/member/img/chevron-left-white.png') }}" id="prev-page"
+                                alt="" width="20">
+                            <input type="number" id="page-input" min="1"
+                                style="width: 30px; border: none; background: none; color: white; text-align: center;" />
+                            <span>/</span>
+                            <span id="page-count" style="margin-left:20px;"></span>
+                            <img class="ms-2" src="{{ asset('nemolab/member/img/chevron-right-white.png') }}"
+                                id="next-page" alt="" width="20">
+                        </span>
+                    </div>
+                    <div class="d-flex align-items-center">
+                        {{-- <div class="search rounded-1 px-2">
                           <label for="search"><img src="{{ asset('nemolab/member/img/search-ebook.png') }}"
                                   alt="" width="25" /></label>
                           <input type="text" id="search" />
                       </div> --}}
-                      <div class="ms-5">
-                          <img src="{{ asset('nemolab/member/img/fullscreen.png') }}" id="pdf-fullscreen" alt=""
-                              width="30" />
-                      </div>
-                  </div>
-              </div>
-              <!-- PDF -->
-              <div class="pdf-height">
-                <div class="pdf-preview d-flex" id="pdf-scrollable-container">
-                    <canvas class="mx-auto" id="pdf-render"></canvas>
+                        <div class="ms-5">
+                            <img src="{{ asset('nemolab/member/img/fullscreen.png') }}" id="pdf-fullscreen" alt=""
+                                width="30" />
+                        </div>
+                    </div>
                 </div>
-              </div>
-          </div>
-      </div>
-  </div>
-  
+                <!-- PDF -->
+                <div class="pdf-height">
+                    <div class="pdf-preview d-flex" id="pdf-scrollable-container">
+                        <canvas class="pdf-render mx-auto" id="pdf-render"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
 @endsection
 
