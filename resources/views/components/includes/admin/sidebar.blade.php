@@ -34,4 +34,8 @@
         <img src="{{ asset(request()->is('admin/category') ? 'nemolab/admin/img/datacourses-active.png' : 'nemolab/admin/img/datacourses.png') }}" alt="" width="30" />
         <p class="m-0">Category</p>
     </a>
+    <a href="{{ route('admin.transaction') }}" class="list-sidebar {{ request()->is('admin/course/transaction') ? 'active' : '' }}">
+        <img src="{{ asset(request()->is('admin/course/transaction') ? 'nemolab/admin/img/datacourses-active.png' : 'nemolab/admin/img/datacourses.png') }}" alt="" width="30" />
+        <p class="m-0">Transaction</p>
+    </a>
 </div>

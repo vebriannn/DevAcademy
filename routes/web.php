@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\AdminCategoryController;
 use App\Http\Controllers\Admin\AdminMentorController;
 use App\Http\Controllers\Admin\AdminStudentController;
 use App\Http\Controllers\Admin\AdminSuperadminController;
+use App\Http\Controllers\Admin\AdminTransactionController;
 use App\Http\Controllers\Admin\SubmissionController;
 
 use App\Http\Controllers\Member\Auth\RegisterController;
@@ -68,7 +69,7 @@ Route::prefix('admin')->group(function () {
     });
 
     // Routes for courses
-    Route::get('/', [AdminCourseController::class, 'index'])->name('admin.course');
+    Route::get('/', [AdminCourseController::class, 'index'])->middleware('mentor')->name('admin.course');
     Route::prefix('course')->middleware('mentor')->group(function () {
         Route::get('/create', [AdminCourseController::class, 'create'])->name('admin.course.create');
         Route::post('/create/store', [AdminCourseController::class, 'store'])->name('admin.course.create.store');
@@ -91,6 +92,12 @@ Route::prefix('admin')->group(function () {
         Route::get('{slug}/chapter/{id_chapter}/lesson/edit/{id_lesson}', [AdminLessonController::class, 'edit'])->name('admin.lesson.edit');
         Route::put('chapter/lesson/edit/update/{id_lesson}', [AdminLessonController::class, 'update'])->name('admin.lesson.edit.update');
         Route::get('chapter/lesson/delete/{id_lesson}', [AdminLessonController::class, 'delete'])->name('admin.lesson.delete');
+
+        Route::prefix('transaction')->group(function () {
+            Route::get('/', [AdminTransactionController::class, 'index'])->name('admin.transaction');
+            Route::post('transactions/{id}/accept', [AdminTransactionController::class, 'accept'])->name('admin.transactions.accept');
+            Route::delete('transactions/{id}/cancel', [AdminTransactionController::class, 'cancel'])->name('admin.transactions.cancel');
+        });
     });
 
 
