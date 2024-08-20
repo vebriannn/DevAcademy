@@ -40,4 +40,9 @@ a{
     text-decoration: none !important;
 }
 
+.scroll-sidebar{
+    overflow-y: scroll;
+    height: 400px;
+}
+
 /* End Sidebar */

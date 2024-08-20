@@ -5,7 +5,7 @@ let pdfDoc = null,
     pageIsRendering = false,
     pageNumIsPending = null;
 
-let zoom = 1.0, // Default zoom level
+let scale = 1.0, // Default zoom scale
     canvas = document.querySelector('#pdf-render'),
     ctx = canvas.getContext('2d');
 
@@ -14,7 +14,7 @@ const renderPage = num => {
     pageIsRendering = true;
 
     pdfDoc.getPage(num).then(page => {
-        const viewport = page.getViewport({ scale: zoom }); // Use zoom for both render and transform
+        const viewport = page.getViewport({ scale });
         canvas.height = viewport.height;
         canvas.width = viewport.width;
 
@@ -82,24 +82,16 @@ const showPageByInput = () => {
 
 // Zoom In
 const zoomIn = () => {
-    if (zoom < 3) { // Maximum zoom level
-        zoom += 0.1; // Increase zoom level
-        updateZoom(); // Update zoom and re-render
-    }
+    scale += 0.1; // Increase zoom level
+    queueRenderPage(pageNum); // Re-render the current page
 };
 
 // Zoom Out
 const zoomOut = () => {
-    if (zoom > 0.5) { // Minimum zoom level
-        zoom -= 0.1; // Decrease zoom level
-        updateZoom(); // Update zoom and re-render
+    if (scale > 0.5) { // Prevent zooming out too much
+        scale -= 0.1; // Decrease zoom level
+        queueRenderPage(pageNum); // Re-render the current page
     }
-};
-
-// Update Zoom: Sync the zoom level across canvas rendering and CSS transform
-const updateZoom = () => {
-    queueRenderPage(pageNum); // Re-render the current page with the new zoom level
-    zoomElement.style.transform = `scale(${zoom})`; // Apply the same zoom level to the CSS transform
 };
 
 // Fullscreen Functionality for the entire content container
@@ -159,7 +151,8 @@ document.querySelector('#page-input').addEventListener('change', showPageByInput
 document.querySelector('#page-input').value = pageNum;
 
 // Zoom element reference
-const zoomElement = document.querySelector(".pdf-render");
+const zoomElement = document.querySelector("#pdf-render"); // Updated selector to match the canvas
+let zoom = 1;
 const ZOOM_SPEED = 0.1;
 const MIN_ZOOM = 0.5; // Minimum zoom level
 const MAX_ZOOM = 3;   // Maximum zoom level
@@ -167,32 +160,36 @@ const DEFAULT_ZOOM = 1; // Default zoom level
 
 // Event listener for wheel zoom
 document.addEventListener("wheel", function (e) {
-  e.preventDefault(); // Prevent the default scroll behavior
+    e.preventDefault(); // Prevent the default scroll behavior
 
-  if (!zoomElement.contains(e.target)) return;
+    if (!zoomElement.contains(e.target)) return;
 
-  const rect = zoomElement.getBoundingClientRect();
-  const offsetX = (e.clientX - rect.left) / rect.width;
-  const offsetY = (e.clientY - rect.top) / rect.height;
+    const rect = zoomElement.getBoundingClientRect();
+    const offsetX = (e.clientX - rect.left) / rect.width;
+    const offsetY = (e.clientY - rect.top) / rect.height;
 
-  zoomElement.style.transformOrigin = `${offsetX * 100}% ${offsetY * 100}%`;
+    zoomElement.style.transformOrigin = `${offsetX * 100}% ${offsetY * 100}%`;
 
-  if (e.deltaY > 0) {
-    if (zoom > MIN_ZOOM) {
-      zoom -= ZOOM_SPEED;
+    if (e.deltaY > 0) {
+        if (zoom > MIN_ZOOM) {
+            zoom -= ZOOM_SPEED;
+        }
+    } else {
+        if (zoom < MAX_ZOOM) {
+            zoom += ZOOM_SPEED;
+        }
     }
-  } else {
-    if (zoom < MAX_ZOOM) {
-      zoom += ZOOM_SPEED;
-    }
-  }
 
-  zoom = Math.max(MIN_ZOOM, Math.min(zoom, MAX_ZOOM)); // Constrain zoom level
-  updateZoom(); // Sync zoom and re-render
+    zoom = Math.max(MIN_ZOOM, zoom);
+    zoomElement.style.transform = `scale(${zoom})`;
 });
 
 // Reset zoom button functionality
-document.querySelector("#reset-zoom").addEventListener("click", function () {
-  zoom = DEFAULT_ZOOM; // Reset to the default zoom level
-  updateZoom(); // Sync zoom and re-render
+document.querySelector("#reset-zoom").addEventListener("click", function () {   
+    scale = DEFAULT_ZOOM; // Reset the scale variable to the default zoom level
+    zoom = DEFAULT_ZOOM;  // Reset the zoom variable to the default zoom level
+    zoomElement.style.transform = `scale(${zoom})`;
+
+    // Re-render the current page to apply the reset scale
+    queueRenderPage(pageNum);
 });

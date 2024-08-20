@@ -86,4 +86,11 @@ table {
     width: 70px;
     border-radius: 10px;
 }
+
+.link {
+    max-width: 80px; /* Sesuaikan dengan kebutuhan Anda */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 /* END TABLE DATA */

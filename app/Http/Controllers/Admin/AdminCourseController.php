@@ -20,12 +20,12 @@ class AdminCourseController extends Controller
     public function index() {
         $user = Auth::user();
         $courses = Course::where('mentor_id', $user->id)->get();
-        return view('admin.courses.view', compact('courses'));
+        return view('admin.coursesvideo.view', compact('courses'));
     }
 
     public function create() {
         $category = Category::all();
-        return view('admin.courses.create', compact('category'));
+        return view('admin.coursesvideo.create', compact('category'));
     }
 
     /**
@@ -66,7 +66,7 @@ class AdminCourseController extends Controller
     public function edit($id) {
         $category = Category::all();
         $course = Course::where('id', $id)->first();
-        return view('admin.courses.update', compact('course', 'category'));
+        return view('admin.coursesvideo.update', compact('course', 'category'));
     }
 
     /**

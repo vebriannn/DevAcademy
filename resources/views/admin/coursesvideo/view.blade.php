@@ -9,7 +9,7 @@
 @section('content')
     <main role="main" class="col-md-9 ml-sm-auto col-lg-9 px-4">
         <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-1">
-            <h1 class="judul-table">Courses</h1>
+            <h1 class="judul-table">Courses Video</h1>
         </div>
 
         <div class="table-responsive px-3 py-3">
@@ -36,10 +36,12 @@
                         <th>Deskripsi</th>
                         <th>Mentor</th>
                         <th>images</th>
+                        <th>Link</th>
                         <th>price</th>
                         <th>status</th>
                         <th>type</th>
                         <th>level</th>
+                        <th>ebook</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -54,13 +56,19 @@
                                 <img src="{{ asset('storage/images/covers/' . $course->cover) }}" alt=""
                                     width="150" height="100">
                             </td>
+                            <td class="link"><a href="">//backend link//</a></td>
                             <td>{{ $course->price }}</td>
                             <td>{{ $course->status }}</td>
                             <td>{{ $course->type }}</td>
                             <td>{{ $course->level }}</td>
+                            <td>
+                                <a href="" class="btn btn-warning text-white mb-2">
+                                    Tambah ebook
+                                </a>
+                            </td>
 
                             <td class="">
-                                <a href="{{ route('admin.chapter', $course->slug) }}" class="btn btn-success">
+                                <a href="{{ route('admin.chapter', $course->slug) }}" class="btn btn-success mb-2">
                                     View Chapter
                                 </a>
                                 <a href="{{ route('admin.course.edit', $course->id) }}" class="me-2">
