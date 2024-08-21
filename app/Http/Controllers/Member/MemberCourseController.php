@@ -32,32 +32,40 @@ class MemberCourseController extends Controller
     }
 
     public function join($slug)
-    {
-        $course = Course::where('slug', $slug)->first();
-        $user = auth()->user();
-    
-        if ($course) {
-            $chapters = Chapter::with('lessons')->where('course_id', $course->id)->get();
-    
-            if ($chapters->isNotEmpty()) {
-                $lesson = Lesson::with('chapters')->where('chapter_id', $chapters->first()->id)->first();
-            } else {
-                $lesson = null;
-            }
-    
-            // Cek transaksi pengguna untuk kursus ini
-            $transaction = Transaction::where('user_id', $user->id)
-                ->where('course_id', $course->id)
+{
+    $course = Course::where('slug', $slug)->first();
+    $user = auth()->user();
+
+    if ($course) {
+        $chapters = Chapter::with('lessons')->where('course_id', $course->id)->get();
+
+        if ($chapters->isNotEmpty()) {
+            $lesson = Lesson::with('chapters')->where('chapter_id', $chapters->first()->id)->first();
+        } else {
+            $lesson = null;
+        }
+
+        $transaction = Transaction::where('user_id', $user->id)
+            ->where('course_id', $course->id)
+            ->orderBy('created_at', 'desc')
+            ->first();
+
+        $transactionForEbook = null;
+        if ($course->ebook) {
+            $transactionForEbook = Transaction::where('user_id', $user->id)
+                ->where('ebook_id', $course->ebook->id)
                 ->orderBy('created_at', 'desc')
                 ->first();
-        } else {
-            $chapters = collect();
-            $lesson = null;
-            $transaction = null;
         }
-    
-        return view('member.joincourse', compact('chapters', 'course', 'lesson', 'transaction'));
+    } else {
+        $chapters = collect();
+        $lesson = null;
+        $transaction = null;
+        $transactionForEbook = null;
     }
+
+    return view('member.joincourse', compact('chapters', 'course', 'lesson', 'transaction', 'transactionForEbook'));
+}
     
 
 

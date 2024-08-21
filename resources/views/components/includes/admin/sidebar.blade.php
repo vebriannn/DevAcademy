@@ -62,8 +62,8 @@
         <img src="{{ asset(request()->is('admin') ? 'nemolab/admin/img/datacourses-active.png' : 'nemolab/admin/img/datacourses.png') }}" alt="" width="30" />
         <p class="m-0">Courses Video</p>
     </a>
-    <a href="" class="list-sidebar">
-        <img src="{{ asset('nemolab/admin/img/datacourses.png') }}" alt="" width="30" />
+    <a href="{{ route('admin.ebook') }}" class="list-sidebar {{ request()->is('admin/course/ebook') ? 'active' : '' }}">
+        <img src="{{ asset(request()->is('admin/course/ebook') ? 'nemolab/admin/img/datacourses-active.png' : 'nemolab/admin/img/datacourses.png') }}" alt="" width="30" />
         <p class="m-0">Courses Ebook</p>
     </a>
     <a href="{{ route('admin.category') }}" class="list-sidebar {{ request()->is('admin/category') ? 'active' : '' }}">

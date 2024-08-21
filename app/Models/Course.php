@@ -43,4 +43,9 @@ class Course extends Model
     {
         return $this->hasMany(Transaction::class, 'user_id');
     }
+    public function ebook()
+    {
+        return $this->hasOne(Ebook::class, 'course_id', 'id');
+    }
+
 }

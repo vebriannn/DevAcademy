@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\AdminCourseController;
 use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\Admin\AdminReviewController;
 use App\Http\Controllers\Admin\AdminCategoryController;
+use App\Http\Controllers\Admin\AdminEbookController;
 use App\Http\Controllers\Admin\AdminMentorController;
 use App\Http\Controllers\Admin\AdminStudentController;
 use App\Http\Controllers\Admin\AdminSuperadminController;
@@ -25,11 +26,13 @@ use App\Http\Controllers\Member\MemberReviewController;
 use App\Http\Controllers\Member\MemberSettingController;
 use App\Http\Controllers\Member\Dashboard\MemberMyCourseController;
 use App\Http\Controllers\Member\Dashboard\MemberPortofolioController;
-
-
+use App\Http\Controllers\Member\MemberEbookController;
 
 Route::get('member/ebook', function(){
     return view('member.ebook');
+});
+Route::get('member/joinebook', function(){
+    return view('member.joinebook');
 });
 
 /*
@@ -76,6 +79,16 @@ Route::prefix('admin')->group(function () {
         Route::get('/edit/{id}', [AdminCourseController::class, 'edit'])->name('admin.course.edit');
         Route::put('/edit/update/{id}', [AdminCourseController::class, 'update'])->name('admin.course.edit.update');
         Route::get('/delete/{id}', [AdminCourseController::class, 'delete'])->name('admin.course.delete');
+
+        // routes for Ebook
+        Route::prefix('ebook')->group(function () {
+            Route::get('/', [AdminEbookController::class, 'index'])->name('admin.ebook');
+            Route::get('/create', [AdminEbookController::class, 'create'])->name('admin.ebook.create');
+            Route::post('/store', [AdminEbookController::class, 'store'])->name('admin.ebook.create.store');
+            Route::get('/edit/{ebook}', [AdminEbookController::class, 'edit'])->name('admin.ebook.edit');
+            Route::put('/update/{ebook}', [AdminEbookController::class, 'update'])->name('admin.ebook.edit.update');
+            Route::get('/delete/{ebook}', [AdminEbookController::class, 'destroy'])->name('admin.ebook.delete');
+        });
 
         // Routes for chapters
         Route::get('{slug}/chapter', [AdminChapterController::class, 'index'])->name('admin.chapter');
@@ -170,7 +183,6 @@ Route::prefix('admin')->group(function () {
 
 
 Route::prefix('member')->middleware('student')->group(function () {
-
     Route::get('/course', [MemberCourseController::class, 'index'])->name('member.course');
     Route::get('/course/join/{slug}', [MemberCourseController::class, 'join'])->name('member.course.join');
     Route::get('/course/{slug}/play/episode/{episode}', [MemberCourseController::class, 'play'])->name('member.course.play');

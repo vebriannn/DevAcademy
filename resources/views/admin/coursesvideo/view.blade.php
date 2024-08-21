@@ -36,12 +36,10 @@
                         <th>Deskripsi</th>
                         <th>Mentor</th>
                         <th>images</th>
-                        <th>Link</th>
                         <th>price</th>
                         <th>status</th>
                         <th>type</th>
                         <th>level</th>
-                        <th>ebook</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -56,18 +54,14 @@
                                 <img src="{{ asset('storage/images/covers/' . $course->cover) }}" alt=""
                                     width="150" height="100">
                             </td>
-                            <td class="link"><a href="">//backend link//</a></td>
                             <td>{{ $course->price }}</td>
                             <td>{{ $course->status }}</td>
                             <td>{{ $course->type }}</td>
                             <td>{{ $course->level }}</td>
-                            <td>
-                                <a href="" class="btn btn-warning text-white mb-2">
+                            <td class="">
+                                <a href="{{ route('admin.ebook.create') }}" class="btn btn-warning text-white mb-2">
                                     Tambah ebook
                                 </a>
-                            </td>
-
-                            <td class="">
                                 <a href="{{ route('admin.chapter', $course->slug) }}" class="btn btn-success mb-2">
                                     View Chapter
                                 </a>

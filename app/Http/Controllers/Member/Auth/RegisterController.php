@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers\Member\Auth;
 
 use App\Http\Controllers\Controller;
@@ -33,33 +32,29 @@ class RegisterController extends Controller
             'password.regex' => 'Password harus berisi kombinasi huruf dan angka',
         ]);
 
-
-        // Upload avatar dengan nama acak dan ekstensi asli
-        if($request->avatar) {
-            $images = $request->avatar;
+        $imagesGetNewName = null;
+        if($request->hasFile('avatar')) {
+            $images = $request->file('avatar');
             $imagesGetNewName = Str::random(10).$images->getClientOriginalName();
-            $images->storeAs('public/images/avatars/'.$imagesGetNewName);
-    
+            $images->storeAs('public/images/avatars', $imagesGetNewName);
         }
+
         $email = $request->input('email');
         $password = $request->input('password');
         
         // Cek apakah email sudah ada
         $cekEmail = User::where('email', $email)->first();
         if (!$cekEmail) {
-            // Buat pengguna baru
             $user = User::create([
                 'name' => $request->input('name'),
                 'username' => $request->input('name'),
                 'email' => $email,
-                'password' => $password,
+                'password' => bcrypt($password),
                 'avatar' => $imagesGetNewName,
                 'role' => 'students',
             ]);
 
             auth()->login($user);
-
-            // Redirect ke halaman yang diinginkan
             return redirect()->route('home')->with('success', 'Registration successful.');
         } else {
             // Log::warning('Email sudah terdaftar: ' . $email);

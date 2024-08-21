@@ -82,6 +82,13 @@
                         </div>
                     </div>
                     <div class="col-6">
+                        <input type="file" id="imageUpload" name="cover" accept="image/*" class="custom-file-input" />
+                        <label for="imageUpload" class="custom-file-label">Choose File</label>
+                        @error('cover')
+                            <span style="color: red">{{ $message }}</span>
+                        @enderror
+                    </div>
+                    <div class="col-12">
                         <div class="custom-entryarea">
                             <select id="category" name="level">
                                 <option value="beginner">Beginner</option>
@@ -93,25 +100,12 @@
                             @enderror
                         </div>
                     </div>
-                    <div class="col-6">
-                        <div class="custom-entryarea">
-                            <input type="text" id="link" name="link" placeholder=" " />
-                            <div class="labelline" for="link">Link</div>
-                        </div>
-                    </div>
-                    <div class="col-6">
-                        <input type="file" id="imageUpload" name="cover" accept="image/*" class="custom-file-input" />
-                        <label for="imageUpload" class="custom-file-label">Choose File</label>
-                        @error('cover')
-                            <span style="color: red">{{ $message }}</span>
-                        @enderror
-                    </div>
-                    </div>
                     <div class="col-12">
                         <button type="submit"
                             class="d-block w-100 text-center text-decoration-none py-2 rounded-3 text-white fw-semibold btn-kirim"
                             style="background-color: #faa907">Kirim</button>
                     </div>
+
                 </div>
             </form>
         </div>

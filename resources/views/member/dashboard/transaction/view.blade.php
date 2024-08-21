@@ -31,7 +31,7 @@
                     <thead>
                         <tr>
                             <th>Cover</th>
-                            <th>Name</th>
+                            <th>Product Name</th>
                             <th>Type</th>
                             <th>Price</th>
                             <th>Date</th>
@@ -45,9 +45,9 @@
                                 <td>
                                     <img src="{{ asset('storage/images/covers/' . $transaction->course->cover) }}" alt="Cover" width="90" height="auto" />
                                 </td>
-                                <td>{{ $transaction->course->name }}</td>
+                                <td>{{ $transaction->name }}</td>
                                 <td>{{ $transaction->course->type }}</td>
-                                <td>Rp {{ number_format($transaction->course->price, 2, ',', '.') }}</td>
+                                <td>Rp {{ number_format($transaction->price, 2, ',', '.') }}</td>
                                 <td>{{ $transaction->created_at->format('d-M-Y') }}</td>
                                 <td>{{ ucfirst($transaction->status) }}</td>
                                 <td>

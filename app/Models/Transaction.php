@@ -15,7 +15,11 @@ class Transaction extends Model
         'status',
         'course_id',
         'user_id',
+        'ebook_id',
+        'name',
+        'price',
     ];
+    
 
     public function user()
     {
@@ -24,6 +28,12 @@ class Transaction extends Model
 
     public function course()
     {
-        return $this->belongsTo(Course::class, 'user_id');
+        return $this->belongsTo(Course::class, 'course_id');
+    }
+
+    // Relasi dengan model Ebook
+    public function ebook()
+    {
+        return $this->belongsTo(Ebook::class, 'ebook_id');
     }
 }
