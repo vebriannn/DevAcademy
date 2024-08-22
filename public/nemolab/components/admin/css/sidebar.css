@@ -45,4 +45,8 @@ a{
     height: 400px;
 }
 
+.scroll-sidebar::-webkit-scrollbar{
+    display: none;
+}
+
 /* End Sidebar */
