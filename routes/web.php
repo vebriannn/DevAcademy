@@ -26,6 +26,7 @@ use App\Http\Controllers\Member\MemberReviewController;
 use App\Http\Controllers\Member\MemberSettingController;
 use App\Http\Controllers\Member\Dashboard\MemberMyCourseController;
 use App\Http\Controllers\Member\Dashboard\MemberPortofolioController;
+<<<<<<< Updated upstream
 use App\Http\Controllers\Member\MemberEbookController;
 
 Route::get('member/ebook', function(){
@@ -34,6 +35,9 @@ Route::get('member/ebook', function(){
 Route::get('member/joinebook', function(){
     return view('member.joinebook');
 });
+=======
+
+>>>>>>> Stashed changes
 
 /*
 |--------------------------------------------------------------------------
@@ -218,6 +222,11 @@ Route::prefix('member')->middleware('student')->group(function () {
     Route::prefix('transaction')->group(function () {
         Route::get('/', [MemberTransactionController::class, 'index'])->name('member.transaction');
         Route::delete('/cancel/{id}', [MemberTransactionController::class, 'cancel'])->name('member.transaction.cancel');
+    });
+
+    
+    Route::get('ebook', function(){
+        return view('member.ebook');
     });
 
     Route::get('course/payment', [MemberPaymentController::class, 'index'])->name('member.payment');

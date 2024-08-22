@@ -13,7 +13,7 @@
             <a href="{{ route('admin.course') }}" class="btn btn-orange"> Back </a>
         </div>
         <div class="card-body pt-2">
-            <form class="col-12" action="{{ route('admin.course.create.store') }}" method="post"
+            <form class="col-12" id="formAction" action="{{ route('admin.course.create.store') }}" method="post"
                 enctype="multipart/form-data">
                 @csrf
                 <div class="row">
@@ -63,9 +63,9 @@
 
                     <div class="col-6">
                         <div class="custom-entryarea">
-                            <select id="category" name="type">
-                                <option value="free">Free</option>
-                                <option value="premium">Premium</option>
+                            <select id="type" name="type">
+                                <option value="free" class="value_type">Free</option>
+                                <option value="premium" class="value_type">Premium</option>
                             </select>
                             @error('type')
                                 <span style="color: red">{{ $message }}</span>
@@ -73,15 +73,15 @@
                         </div>
                     </div>
                     <div class="col-6">
-                        <div class="entryarea">
-                            <input type="text" id="link" name="price" placeholder=" ">
+                        <div class="entryarea d-none" id="price">
+                            <input type="text" name="price" value="">
                             <div class="labelline" for="link">Price</div>
                             @error('price')
                                 <span style="color: red">{{ $message }}</span>
                             @enderror
                         </div>
                     </div>
-                    <div class="col-6">
+                    <div class="col-12 mb-4" id="upImages">
                         <input type="file" id="imageUpload" name="cover" accept="image/*" class="custom-file-input" />
                         <label for="imageUpload" class="custom-file-label">Choose File</label>
                         @error('cover')
@@ -113,9 +113,32 @@
 
 @endsection
 
-{{-- @push('addon-script')
+@push('addon-script')
     <script>
-        document.getElementById('sidebar-id').remove();
-        document.getElementById('navbar-id').remove();
+        const type = document.getElementById('type');
+        const price = document.getElementById('price');
+        const uploadImages = document.getElementById('upImages');
+
+        price.querySelector('input[name="price"]').setAttribute('value', '0'); // Ganti dengan nilai yang diinginkan
+
+        type.addEventListener('change', (e) => {
+            if (e.target.value == 'premium') {
+                price.classList.remove('d-none')
+                price.classList.add('d-block')
+
+                uploadImages.classList.remove('col-12')
+                uploadImages.classList.add('col-6')
+                
+            } else {
+                price.classList.remove('d-block')
+                price.classList.add('d-none')
+
+                uploadImages.classList.remove('col-6')
+                uploadImages.classList.add('col-12')
+
+                price.querySelector('input[name="price"]').setAttribute('value', '0');
+            }
+        })
+
     </script>
-@endpush --}}
+@endpush

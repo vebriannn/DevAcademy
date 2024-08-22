@@ -51,8 +51,11 @@
                             width="30" />
                         <img src="{{ asset('nemolab/member/img/zoomout.png') }}" id="zoom-out" alt=""
                             width="30" class="ms-3" />
+<<<<<<< Updated upstream
                         <img src="{{ asset('nemolab/member/img/reset.png') }}" id="reset-zoom" alt="" width="30"
                             class="ms-3" />
+=======
+>>>>>>> Stashed changes
                     </div>
                     <div>
                         <span class="page-info text-white">
@@ -81,7 +84,11 @@
                 <!-- PDF -->
                 <div class="pdf-height">
                     <div class="pdf-preview d-flex" id="pdf-scrollable-container">
+<<<<<<< Updated upstream
                         <canvas class="pdf-render mx-auto" id="pdf-render"></canvas>
+=======
+                        <canvas class="mx-auto" id="pdf-render"></canvas>
+>>>>>>> Stashed changes
                     </div>
                 </div>
             </div>

@@ -68,7 +68,7 @@
                     </div>
                     <div class="col-6">
                         <div class="custom-entryarea">
-                            <select id="category" name="type">
+                            <select id="type" name="type">
                                 <option value="free" {{ $course->type == 'free' ? 'selected' : '' }}>Free</option>
                                 <option value="premium" {{ $course->type == 'premium' ? 'selected' : '' }}>Premium</option>
                             </select>
@@ -77,7 +77,7 @@
                             @enderror
                         </div>
                     </div>
-                    <div class="col-6">
+                    <div class="col-6 d-none" id="price">
                         <div class="entryarea">
                             <input type="text" id="link" name="price" placeholder=" "
                                 value="{{ $course->price }}">
@@ -87,7 +87,18 @@
                             @enderror
                         </div>
                     </div>
+<<<<<<< Updated upstream:resources/views/admin/coursesvideo/update.blade.php
                     <div class="col-6">
+=======
+                    <div class="col-12 mb-4" id="upImages">
+                        <input type="file" id="imageUpload" name="cover" accept="image/*" class="custom-file-input" />
+                        <label for="imageUpload" class="custom-file-label">Choose File</label>
+                        @error('cover')
+                            <span style="color: red">{{ $message }}</span>
+                        @enderror
+                    </div>
+                    <div class="col-12">
+>>>>>>> Stashed changes:resources/views/admin/courses/update.blade.php
                         <div class="custom-entryarea">
                             <select id="category" name="level">
                                 <option value="beginner" {{ $course->level == 'beginner' ? 'selected' : '' }}>Beginner
@@ -126,9 +137,30 @@
 
 @endsection
 
-{{-- @push('addon-script')
+@push('addon-script')
     <script>
-        document.getElementById('sidebar-id').remove();
-        document.getElementById('navbar-id').remove();
+        const type = document.getElementById('type');
+        const price = document.getElementById('price');
+        const uploadImages = document.getElementById('upImages');
+
+        type.addEventListener('change', (e) => {
+            if (e.target.value == 'premium') {
+                price.classList.remove('d-none')
+                price.classList.add('d-block')
+
+                uploadImages.classList.remove('col-12')
+                uploadImages.classList.add('col-6')
+
+            } else {
+                price.classList.remove('d-block')
+                price.classList.add('d-none')
+
+                uploadImages.classList.remove('col-6')
+                uploadImages.classList.add('col-12')
+
+                price.querySelector('input[name="price"]').setAttribute('value', '0');
+            }
+        })
+
     </script>
-@endpush --}}
+@endpush
