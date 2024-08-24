@@ -4,45 +4,32 @@ namespace App\Http\Controllers\Member\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Log; // Import Log facade
+
 use App\Models\User;
 
-class LoginController extends Controller
+class MemberLoginController extends Controller
 {
-    public function index()
-    {
+    public function index() {
         return view('member.auth.login');
     }
 
-    public function login(Request $request)
-    {
-        // Validasi input
-        $request->validate([
+    public function login(Request $requests) {
+        
+        $requests->validate([
             'email' => 'required|email',
             'password' => 'required',
         ]);
 
-        $email = $request->input('email');
-        $password = $request->input('password');
-
-        // JANGAN DIGUNAKAN DI PRODUCTION
-        // Log::info('Login attempt:', [
-        //     'email' => $email,
-        //     'password' => $password
-        // ]);
-
         // Cek apakah email ada di database
-        $user = User::where('email', $email)->first();
+        $user = User::where('email', $requests->email)->first();
+        $credentials = $requests->only('email', 'password');
 
         if ($user) {
-            // Log user ditemukan
-            // Log::info('User ditemukan:', ['user' => $user]);
-
             // Jika email ada, periksa password
-            if (Auth::attempt(['email' => $email, 'password' => $password])) {
-                $request->session()->regenerate();
-                // Log::info('Login berhasil untuk email: ' . $email);
+            if (Auth::attempt($credentials)) {
+                $requests->session()->regenerate();
                 return redirect()->route('home')->with('success', 'Login successful.');
             } else {
                 // Log::warning('Login gagal: Password salah untuk email: ' . $email);
@@ -53,7 +40,7 @@ class LoginController extends Controller
             return redirect()->back()->withErrors(['email' => 'Email tidak terdaftar.'])->withInput();
         }
     }
-
+    
     public function logout(Request $request)
     {
         Auth::logout();

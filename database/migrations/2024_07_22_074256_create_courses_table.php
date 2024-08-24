@@ -23,10 +23,11 @@ return new class extends Migration
             $table->enum('level', ['beginner', 'intermediate', 'expert']);
             $table->text('description')->nullable();
             $table->text('resources')->nullable();
-            $table->unsignedBigInteger('mentor_id');
             $table->timestamps();
-            // Foreign key constraint (assuming 'users' table exists)
-            $table->foreign('mentor_id')->references('id')->on('users')->onDelete('cascade');
+            
+            // Foreign key constraint
+            $table->foreignId('mentor_id')->constrained('users')->onDelete('cascade');
+            
         });
     }
 

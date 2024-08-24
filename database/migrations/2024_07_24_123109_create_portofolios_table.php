@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('name', 255)->nullable(false);
             $table->text('description')->nullable(true);
             $table->string('link', 255)->nullable(true);
+            $table->enum('status', ['check', 'deaccepted','accepted']);
             $table->unsignedBigInteger('user_id');
             // $table->unsignedBigInteger('course_id');
             $table->timestamps();

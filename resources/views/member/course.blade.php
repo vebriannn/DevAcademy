@@ -9,14 +9,6 @@
 @section('content')
     <!-- CONTENT -->
     <div class="container-sm ">
-        {{-- <div class="container position-fixed w-100">
-            <div class="alert alert-warning alert-dismissible fade show text-black" role="alert">
-                Ingin jadi Mentor? klik <a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal"
-                    class="disini text-decoratiom-none text-black px-2 py-1"> Disini</a>
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        </div> --}}
-
         <!-- alert -->
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">

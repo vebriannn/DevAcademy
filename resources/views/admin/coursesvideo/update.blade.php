@@ -87,18 +87,7 @@
                             @enderror
                         </div>
                     </div>
-<<<<<<< Updated upstream:resources/views/admin/coursesvideo/update.blade.php
                     <div class="col-6">
-=======
-                    <div class="col-12 mb-4" id="upImages">
-                        <input type="file" id="imageUpload" name="cover" accept="image/*" class="custom-file-input" />
-                        <label for="imageUpload" class="custom-file-label">Choose File</label>
-                        @error('cover')
-                            <span style="color: red">{{ $message }}</span>
-                        @enderror
-                    </div>
-                    <div class="col-12">
->>>>>>> Stashed changes:resources/views/admin/courses/update.blade.php
                         <div class="custom-entryarea">
                             <select id="category" name="level">
                                 <option value="beginner" {{ $course->level == 'beginner' ? 'selected' : '' }}>Beginner
@@ -125,6 +114,25 @@
                             <span style="color: red">{{ $message }}</span>
                         @enderror
                     </div>
+                    @if ($coursetool->isNotEmpty())
+                        <p class="m-0 mb-1">Pilih Tools</p>
+                        <div class="col-12 d-flex align-items-center mb-3">
+                            @foreach ($coursetool->tools as $tool)
+                                <div class="form-check d-flex align-items-center ms-2">
+                                    <input class="form-check-input p-0 p-2 border-0"
+                                        style="float: none; border: 2px solid #faa907 !important;" type="checkbox"
+                                        value="{{ $tool->id }}" id="flexCheckDefault" name="tools[]">
+                                    <label class="form-check-label ms-2" for="flexCheckDefault">
+                                        {{ $tool->name_tools }}
+                                    </label>
+                                </div>
+                            @endforeach
+                        </div>
+                        @error('tools')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
+
+                    @endif
                     <div class="col-12">
                         <button type="submit"
                             class="d-block w-100 text-center text-decoration-none py-2 rounded-3 text-white fw-semibold btn-kirim"
@@ -161,6 +169,5 @@
                 price.querySelector('input[name="price"]').setAttribute('value', '0');
             }
         })
-
     </script>
 @endpush

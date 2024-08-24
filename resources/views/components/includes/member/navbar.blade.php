@@ -28,9 +28,9 @@
                 </ul>
                 <hr />
                 <div class="r-nav align-items-center ">
-                    <a type="button" class="btn btn-login me-lg-2 me-md-0" href="{{ route('login') }}">Log In</a>
+                    <a type="button" class="btn btn-login me-lg-2 me-md-0" href="{{ route('member.login') }}">Log In</a>
                     <a type="button" class="btn btn-signup text-white mt-lg-0 mt-md-2"
-                        href="{{ route('register') }}">Sign Up</a>
+                        href="{{ route('member.register') }}">Sign Up</a>
                 </div>
             </div>
         </div>

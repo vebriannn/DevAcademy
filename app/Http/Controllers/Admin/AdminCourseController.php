@@ -11,6 +11,7 @@ use Illuminate\Support\Str;
 
 use App\Models\Category;
 use App\Models\Course;
+use App\Models\Tools;
 
 class AdminCourseController extends Controller
 {
@@ -25,7 +26,8 @@ class AdminCourseController extends Controller
 
     public function create() {
         $category = Category::all();
-        return view('admin.coursesvideo.create', compact('category'));
+        $tools = Tools::all();
+        return view('admin.coursesvideo.create', compact('category', 'tools'));
     }
 
     /**
@@ -41,8 +43,10 @@ class AdminCourseController extends Controller
             'status' => 'required|in:draft,published',
             'price' => 'required|integer',
             'level' => 'required|in:beginner,intermediate,expert',
-            'description' => 'required|string'
+            'description' => 'required|string',
+            'tools.*' => 'exists:tbl_tools,id',
         ]); 
+
 
         $images = $request->cover;
         $imagesGetNewName = Str::random(10).$images->getClientOriginalName();
@@ -59,6 +63,9 @@ class AdminCourseController extends Controller
             'description' => $request->description,
             'mentor_id' => Auth::user()->id,
         ]);
+
+        // Simpan relasi dengan tools
+        $course->tools()->sync($request->tools);
         
         return response()->json(['message' => 'Course created successfully', 'course' => $course], 201);
     }
@@ -66,7 +73,8 @@ class AdminCourseController extends Controller
     public function edit($id) {
         $category = Category::all();
         $course = Course::where('id', $id)->first();
-        return view('admin.coursesvideo.update', compact('course', 'category'));
+        $coursetool = Course::with('tools')->get();
+        return view('admin.coursesvideo.update', compact('course', 'category', 'coursetool'));
     }
 
     /**

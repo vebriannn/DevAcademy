@@ -53,7 +53,7 @@
                             </select>
                             <p class="mb-0 ms-2">entries</p>
                         </div>
-                        <a href="{{route('member.portofolio.create')}}">Tambah</a>
+                        <a href="{{ route('member.portofolio.create') }}">Tambah</a>
                     </div>
 
                     <table class="table">
@@ -62,6 +62,7 @@
                                 <th>Name</th>
                                 <th>Description</th>
                                 <th>Link portofolio</th>
+                                <th>Status</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -69,23 +70,30 @@
                             @forelse ($portofolio as $porto)
                                 <tr>
                                     <td>
-                                        {{$porto->name}}
+                                        {{ $porto->name }}
                                     </td>
                                     <td>
-                                        {{$porto->description}}
+                                        {{ $porto->description }}
                                     </td>
                                     <td>
-                                        {{$porto->link}}
+                                        {{ $porto->link }}
                                     </td>
                                     <td>
-                                        <a href="{{route('member.portofolio.edit', $porto->id)}}" class="me-2">
-                                            <img src="{{ asset('nemolab/member/img/edit.png') }}" alt=""
-                                                width="35" height="35">
-                                        </a>
-                                        <a href="{{route('member.portofolio.delete', $porto->id)}}">
-                                            <img src="{{ asset('nemolab/member/img/delete.png') }}" alt=""
-                                                width="35" height="35">
-                                        </a>
+                                        {{ $porto->status }}
+                                    </td>
+                                    <td>
+                                        @if ($porto->status == 'check')
+                                            <a href="{{ route('member.portofolio.edit', $porto->id) }}" class="me-2">
+                                                <img src="{{ asset('nemolab/member/img/edit.png') }}" alt=""
+                                                    width="35" height="35">
+                                            </a>
+                                            <a href="{{ route('member.portofolio.delete', $porto->id) }}">
+                                                <img src="{{ asset('nemolab/member/img/delete.png') }}" alt=""
+                                                    width="35" height="35">
+                                            </a>
+                                        @else
+                                            <p>No Action</p>
+                                        @endif
                                     </td>
                                 </tr>
                             @empty

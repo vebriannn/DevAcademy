@@ -13,6 +13,7 @@ use App\Models\Chapter;
 use App\Models\Lesson;
 use App\Models\User;
 use App\Models\Transaction;
+use App\Models\CourseTools;
 
 
 class MemberCourseController extends Controller
@@ -64,7 +65,9 @@ class MemberCourseController extends Controller
         $transactionForEbook = null;
     }
 
-    return view('member.joincourse', compact('chapters', 'course', 'lesson', 'transaction', 'transactionForEbook'));
+    $coursetools = Course::with('tools')->findOrFail($course->id);
+
+    return view('member.joincourse', compact('chapters', 'course', 'lesson', 'transaction', 'transactionForEbook', 'coursetools'));
 }
     
 

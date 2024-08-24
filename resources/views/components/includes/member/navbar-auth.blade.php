@@ -48,7 +48,7 @@
                             class="bg-white px-3 py-2 d-flex align-items-center text-decoration-none text-black-50 item fw-semibold m-0 w-100 fw-bold">
                             Setting
                         </a>
-                        <a href="{{ route('admin.logout') }}"
+                        <a href="{{ route('member.logout') }}"
                             class="bg-white px-3 py-2 d-flex align-items-center text-decoration-none text-black-50 item fw-semibold m-0 w-100 fw-bold">
                             Logout
                         </a>

@@ -209,3 +209,13 @@ textarea:not(:placeholder-shown) + .labelline-textarea {
     color: white !important;
     height: max-content;
 }
+
+.form-check-input:checked {
+    background-color: #faa907 !important;
+}
+
+.form-check-input:focus {
+    box-shadow: none !important;
+}
+
+

@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 
 use App\Models\Course;
 use App\Models\Transaction;
+use App\Models\Submission;
 
 class MemberMyCourseController extends Controller
 {
@@ -16,6 +17,24 @@ class MemberMyCourseController extends Controller
             $query->where('user_id', Auth::user()->id);
             $query->where('status', 'success');
         }])->get();
-        return view('member.dashboard.mycourse', compact('courses'));
+        
+        $total_course = Transaction::where('user_id', Auth::user()->id)->count();
+
+        $submission = Submission::where('user_id', Auth::user()->id)->first();
+        return view('member.dashboard.mycourse', compact('courses', 'submission', 'total_course'));
+    }
+
+    public function reqMentor(Request $requests, $id) {
+
+        $user = Submission::where('user_id', $id)->first();
+
+        if(!$user) {
+            Submission::create([
+                'status' => 'pending',
+                'user_id' => $id
+            ]);
+        }
+
+        return redirect()->route('member.dashboard');
     }
 }

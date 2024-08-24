@@ -59,9 +59,9 @@
                             <td>{{ $course->type }}</td>
                             <td>{{ $course->level }}</td>
                             <td class="">
-                                <a href="{{ route('admin.ebook.create') }}" class="btn btn-warning text-white mb-2">
+                                {{-- <a href="{{ route('admin.ebook.create') }}" class="btn btn-warning text-white mb-2">
                                     Tambah ebook
-                                </a>
+                                </a> --}}
                                 <a href="{{ route('admin.chapter', $course->slug) }}" class="btn btn-success mb-2">
                                     View Chapter
                                 </a>

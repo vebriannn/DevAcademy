@@ -23,24 +23,17 @@ class AdminLoginController extends Controller
             'password' => 'required',
         ]);
 
-        $email = $request->input('email');
-        $password = $request->input('password');
-
-        // JANGAN DIGUNAKAN DI PRODUCTION
-        // Log::info('Login attempt:', [
-        //     'email' => $email,
-        //     'password' => $password
-        // ]);
-
         // Cek apakah email ada di database
-        $user = User::where('email', $email)->first();
+        $user = User::where('email', $request)->first();
 
         if ($user) {
             // Log user ditemukan
             // Log::info('User ditemukan:', ['user' => $user]);
 
+            $credentials = $request->only('email', 'password');
+
             // Jika email ada, periksa password
-            if (Auth::attempt(['email' => $email, 'password' => $password])) {
+            if (Auth::attempt($credentials)) {
                 $request->session()->regenerate();
                 return redirect()->route('admin.course')->with('success', 'Login successful.');
             } else {

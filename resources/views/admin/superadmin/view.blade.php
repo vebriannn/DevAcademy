@@ -33,8 +33,8 @@
                         </form>
                         <p class="mb-0 me-2 text-center mx-2">entries</p>
                     </div>
-                    <a href="{{ route('admin.superadmin.create') }}" class="tambah-data pt-2 pb-2 px-4 fw-semibold"
-                        style="width: max=content; !important">Tambah</a>
+                    {{-- <a href="{{ route('admin.superadmin.create') }}" class="tambah-data pt-2 pb-2 px-4 fw-semibold"
+                        style="width: max=content; !important">Tambah</a> --}}
                 </div>
 
                 <table class="table table-sm">
@@ -43,7 +43,7 @@
                             <th>Name</th>
                             <th>Email</th>
                             <th>Password</th>
-                            <th>Actions</th>
+                            {{-- <th>Actions</th> --}}
                         </tr>
                     </thead>
                     <tbody>
@@ -52,7 +52,7 @@
                                 <td>{{ $superadmin->name }}</td>
                                 <td>{{ $superadmin->email }}</td>
                                 <td>****</td>
-                                <td>
+                                {{-- <td>
                                     <a href="{{ route('admin.superadmin.edit', $superadmin->id) }}" class="me-2">
                                         <img src="{{ asset('nemolab/admin/img/edit.png') }}" alt="" width="35"
                                             height="35">
@@ -61,7 +61,7 @@
                                         <img src="{{ asset('nemolab/admin/img/delete.png') }}" alt=""width="35"
                                             height="35">
                                     </a>
-                                </td>
+                                </td> --}}
                             </tr>
                         @empty
                             <tr>

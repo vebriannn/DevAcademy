@@ -15,7 +15,7 @@
                         <img src="{{ asset('nemolab/member/img/logo.png') }}" alt="logo" width="130" />
                     </div>
                     <h3 class="fw-bold">Login To <span>Nemolab</span></h3>
-                    <form method="POST" action="{{ route('login.auth') }}">
+                    <form method="POST" action="{{ route('member.login.auth') }}">
                         @csrf
                         <div class="input-col position-relative">
                             <input type="email" name="email" placeholder="Email address" value="{{ old('email') }}" />
@@ -39,7 +39,7 @@
                         </div>
                         <div class="d-grid gap-2 mt-3">
                             <button type="submit" class="btn text-white fw-semibold">Login</button>
-                            <a href="{{ route('register') }}" class="btn text-white fw-semibold">Create New Account</a>
+                            <a href="{{ route('member.register') }}" class="btn text-white fw-semibold">Create New Account</a>
                         </div>
                     </form>
                 </div>

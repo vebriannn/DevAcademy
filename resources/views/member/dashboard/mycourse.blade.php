@@ -8,7 +8,21 @@
 @endpush
 
 @section('content')
+
     <div class="container" style="margin-top: 150px;">
+        @if (!$submission && $total_course > 5)
+            <div class="alert alert-warning alert-dismissible fade show text-black position-fixed fixed-top" role="alert">
+                Ingin jadi Mentor? klik
+                <form action="{{ route('member.pengajuan', Auth::user()->id) }}" method="post">
+                    @csrf
+                    <button type="submit" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                        class="disini text-black px-2 py-1" style="text-decoration: underline !important">Disini
+                    </button>
+                </form>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
+
         <div class="row">
             <!-- Sidebar -->
             <div class="col-3 d-none d-xl-block p-4 rounded-4 text-white px-5"
@@ -22,7 +36,7 @@
                         <img src="{{ asset('nemolab/member/img/course active.png') }}" alt="" width="30" />
                         <p class="m-0">My Courses</p>
                     </a>
-                    <a href="{{route('member.portofolio')}}" class="list-sidebar">
+                    <a href="{{ route('member.portofolio') }}" class="list-sidebar">
                         <img src="{{ asset('nemolab/member/img/portofolio.png') }}" alt="" width="30" />
                         <p class="m-0">My Portofolio</p>
                     </a>
@@ -77,6 +91,7 @@
             </div>
         </div>
     </div>
+    
 @endsection
 @push('addon-script')
     <script>

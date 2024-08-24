@@ -15,4 +15,9 @@ class Tools extends Model
         'name_tools',
         'logo_tools'
     ];
+
+    public function courses()
+    {
+        return $this->belongsToMany(Course::class, 'tbl_course_tools', 'tool_id', 'course_id');
+    }
 }

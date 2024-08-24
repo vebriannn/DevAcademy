@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 use App\Models\Portofolio;
+use App\Models\User;
 
 class MemberPortofolioController extends Controller
 {
@@ -24,6 +25,7 @@ class MemberPortofolioController extends Controller
             'name' => 'required',
             'link' => 'required',
             'description' => 'required',
+            'status' => 'check',
         ]);
 
         $data = $requests->except('_token');

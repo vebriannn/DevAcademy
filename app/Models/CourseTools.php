@@ -5,20 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Portofolio extends Model
+class CourseTools extends Model
 {
     use HasFactory;
 
-    protected $table = 'tbl_portofolio';
-    
+    protected $table = 'tbl_course_tools';
+
     protected $fillable = [
-        'user_id',
-        'name',
-        'description',
-        'link',
-        'status',
+        'course_id',
+        'tool_id'
     ];
-
-
-
 }

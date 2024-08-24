@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Cviebrock\EloquentSluggable\Sluggable;
 
+use App\Models\Tools;
 class Course extends Model
 {
     use HasFactory, Sluggable;
@@ -43,9 +44,15 @@ class Course extends Model
     {
         return $this->hasMany(Transaction::class, 'user_id');
     }
+    
     public function ebook()
     {
         return $this->hasOne(Ebook::class, 'course_id', 'id');
+    }
+
+    public function tools()
+    {
+        return $this->belongsToMany(Tools::class, 'tbl_course_tools', 'course_id', 'tool_id');
     }
 
 }

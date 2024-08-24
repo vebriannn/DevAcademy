@@ -88,6 +88,25 @@
                             <span style="color: red">{{ $message }}</span>
                         @enderror
                     </div>
+                    @if ($tools->isNotEmpty())
+                        <p class="m-0 mb-1">Pilih Tools</p>
+                        <div class="col-12 d-flex align-items-center mb-3">
+                            @foreach ($tools as $tool)
+                                <div class="form-check d-flex align-items-center ms-2">
+                                    <input class="form-check-input p-0 p-2 border-0"
+                                        style="float: none; border: 2px solid #faa907 !important;" type="checkbox"
+                                        value="{{ $tool->id }}" id="flexCheckDefault" name="tools[]">
+                                    <label class="form-check-label ms-2" for="flexCheckDefault">
+                                        {{ $tool->name_tools }}
+                                    </label>
+                                </div>
+                            @endforeach
+                        </div>
+                        @error('tools')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
+
+                    @endif
                     <div class="col-12">
                         <div class="custom-entryarea">
                             <select id="category" name="level">
@@ -105,12 +124,10 @@
                             class="d-block w-100 text-center text-decoration-none py-2 rounded-3 text-white fw-semibold btn-kirim"
                             style="background-color: #faa907">Kirim</button>
                     </div>
-
                 </div>
             </form>
         </div>
     </div>
-
 @endsection
 
 @push('addon-script')
@@ -128,7 +145,7 @@
 
                 uploadImages.classList.remove('col-12')
                 uploadImages.classList.add('col-6')
-                
+
             } else {
                 price.classList.remove('d-block')
                 price.classList.add('d-none')
@@ -139,6 +156,5 @@
                 price.querySelector('input[name="price"]').setAttribute('value', '0');
             }
         })
-
     </script>
 @endpush

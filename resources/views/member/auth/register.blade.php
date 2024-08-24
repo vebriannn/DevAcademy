@@ -19,7 +19,7 @@
                             style="border-radius: 50%; object-fit: cover" id="avatarPreview" />
                     </div>
 
-                    <form action="{{ route('register.auth') }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('member.register.auth') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="input-col position-relative">
                             <input type="text" name="name" placeholder="Name" value="{{ old('name') }}" />
@@ -61,7 +61,7 @@
                         </div>
                         <div class="d-grid gap-2 mt-3">
                             <button type="submit" class="btn text-white fw-semibold">Create</button>
-                            <a href="{{ route('login') }}" class="btn text-white fw-semibold">Login Account</a>
+                            <a href="{{ route('member.login') }}" class="btn text-white fw-semibold">Login Account</a>
                         </div>
                     </form>
 

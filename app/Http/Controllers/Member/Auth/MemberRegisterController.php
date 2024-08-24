@@ -1,23 +1,23 @@
 <?php
+
 namespace App\Http\Controllers\Member\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
-use App\Models\User;
-use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Hash;
 
-class RegisterController extends Controller
+use App\Models\User;
+
+class MemberRegisterController extends Controller
 {
-    public function index()
-    {
+    public function index() {
         return view('member.auth.register');
     }
 
-    public function register(Request $request)
-    {
-        // Validasi input tanpa konfirmasi password
-        $request->validate([
+    public function store(Request $requests) {
+          // Validasi input tanpa konfirmasi password
+        $requests->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email',
             'password' => [
@@ -32,24 +32,22 @@ class RegisterController extends Controller
             'password.regex' => 'Password harus berisi kombinasi huruf dan angka',
         ]);
 
-        $imagesGetNewName = null;
-        if($request->hasFile('avatar')) {
-            $images = $request->file('avatar');
+        $imagesGetNewName = 'default.png';
+        if($requests->hasFile('avatar')) {
+            $images = $requests->file('avatar');
             $imagesGetNewName = Str::random(10).$images->getClientOriginalName();
             $images->storeAs('public/images/avatars', $imagesGetNewName);
         }
 
-        $email = $request->input('email');
-        $password = $request->input('password');
-        
         // Cek apakah email sudah ada
-        $cekEmail = User::where('email', $email)->first();
+        $cekEmail = User::where('email', $requests->email)->first();
         if (!$cekEmail) {
+            
             $user = User::create([
-                'name' => $request->input('name'),
-                'username' => $request->input('name'),
-                'email' => $email,
-                'password' => bcrypt($password),
+                'name' => $requests->name,
+                'username' => $requests->name,
+                'email' => $requests->email,
+                'password' => Hash::make($requests->password),
                 'avatar' => $imagesGetNewName,
                 'role' => 'students',
             ]);

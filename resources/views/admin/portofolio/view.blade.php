@@ -4,7 +4,7 @@
     <link rel="stylesheet" href="{{ asset('nemolab/admin/css/tabel-content.css') }}">
 @endpush
 
-@section('title', 'View Pengajuan-Portofolio')
+@section('title', 'View Portofolio')
 
 @section('content')
 
@@ -40,30 +40,51 @@
                         <tr>
                             <th>Name Member</th>
                             <th>Name Course</th>
-                            <th>Date</th>
+                            {{-- <th>Date</th> --}}
                             <th>Status</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @forelse ($mentors as $mentor)
+                        @forelse ($portofolio as $porto)
                             <tr>
-                                <td>{{ $mentor->name }}</td>
-                                <td>Course Name</td>
-                                <td>Date</td>
-                                <td>
-                                    <a href="" class="btn btn-success me-2">
-                                        Accept
-                                    </a>
-                                    <a href="" class="btn btn-danger">
-                                        Reject
-                                    </a>
-                                </td>
+                                <td>{{ $porto->name_user }}</td>
+                                <td>{{ $porto->name }}</td>
+                                <td>{{ $porto->status }}</td>
+                                @if ($porto->status == 'pending')
+                                    <td>
+                                        <form action="{{ route('admin.portofolio.edit.update', $porto->id) }}"
+                                            method="post">
+                                            @csrf
+                                            @method('put')
+                                            <button type="submit" name="action" value="accepted"
+                                                class="btn btn-success me-2">
+                                                Accept Portofolio
+                                            </button>
+                                            <button type="submit" name="action" value="deaccepted" class="btn btn-danger">
+                                                Reject Portofolio
+                                            </button>
+                                        </form>
+                                    </td>
+                                @elseif ($porto->status == 'accepted')
+                                    <td >
+                                        <p class="btn btn-success me-2 disabled m-0">
+                                            Accepted
+                                        </p>
+                                    </td>
+                                @else
+                                    <td>
+                                        <p class="btn btn-danger disabled m-0">
+                                            Rejected
+                                        </p>
+                                    </td>
+                                @endif
                             </tr>
                         @empty
                             <tr>
                                 <td colspan="4">No mentors found.</td>
                             </tr>
-                        @endforelse 
+                        @endforelse
                     </tbody>
                 </table>
 

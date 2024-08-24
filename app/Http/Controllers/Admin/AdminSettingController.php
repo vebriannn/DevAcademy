@@ -1,5 +1,6 @@
 <?php
-namespace App\Http\Controllers\Member;
+
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -8,19 +9,19 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use App\Models\User;
 
-class MemberSettingController extends Controller
+class AdminSettingController extends Controller
 {
-    public function index(){
-        return view('member.dashboard.setting.view');
-    }
+    // public function index(){
+    //     return view('admin.dashboard.setting.view');
+    // }
 
-    public function editProfile(){
-        return view('member.dashboard.setting.edit_profile');
-    }
+    // public function editProfile(){
+    //     return view('admin.dashboard.setting.edit_profile');
+    // }
 
-    public function editPassword(){
-        return view('member.dashboard.setting.edit_password');
-    }
+    // public function editPassword(){
+    //     return view('admin.dashboard.setting.edit_password');
+    // }
 
     public function updateProfile(Request $request){
         $request->validate([
@@ -47,7 +48,7 @@ class MemberSettingController extends Controller
 
         $user->save();
 
-        return redirect()->route('member.setting')->with('success', 'Profile updated successfully.');
+        return redirect()->route('admin.setting')->with('success', 'Profile updated successfully.');
     }
 
     public function updatePassword(Request $request){
@@ -63,9 +64,9 @@ class MemberSettingController extends Controller
             ->withInput();
         }
 
-        $user->password = Hash::make($request->input('new_password'));
+        $user->password = $request->input('new_password');
         $user->save();
 
-        return redirect()->route('member.setting')->with('success', 'Password updated successfully.');
+        return redirect()->route('admin.setting')->with('success', 'Password updated successfully.');
     }
 }

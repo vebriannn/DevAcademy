@@ -19,8 +19,8 @@
                 alt="" width="30" />
             <p class="m-0">Data Super Admin</p>
         </a>
-        <a href="" class="list-sidebar">
-            <img src="{{ asset('nemolab/admin/img/datapengajuanmentor.png') }}" alt="" width="30" />
+        <a href="{{route('admin.submissions')}}" class="list-sidebar {{ request()->is('admin/submission') ? 'active' : '' }}">
+            <img src="{{ asset(request()->is('admin/submission') ? 'nemolab/admin/img/datamember-active.png' : 'nemolab/admin/img/datamember.png') }}" alt="" width="30" />
             <p class="m-0">Pengajuan Mentor</p>
         </a>
         {{-- <p class="tittle-list-sidebar mt-4 mb-4">Learn</p>
@@ -62,10 +62,10 @@
         <img src="{{ asset(request()->is('admin') ? 'nemolab/admin/img/datacourses-active.png' : 'nemolab/admin/img/datacourses.png') }}" alt="" width="30" />
         <p class="m-0">Courses Video</p>
     </a>
-    <a href="{{ route('admin.ebook') }}" class="list-sidebar {{ request()->is('admin/course/ebook') ? 'active' : '' }}">
+    {{-- <a href="{{ route('admin.ebook') }}" class="list-sidebar {{ request()->is('admin/course/ebook') ? 'active' : '' }}">
         <img src="{{ asset(request()->is('admin/course/ebook') ? 'nemolab/admin/img/datacourses-active.png' : 'nemolab/admin/img/datacourses.png') }}" alt="" width="30" />
         <p class="m-0">Courses Ebook</p>
-    </a>
+    </a> --}}
     <a href="{{ route('admin.category') }}" class="list-sidebar {{ request()->is('admin/category') ? 'active' : '' }}">
         <img src="{{ asset(request()->is('admin/category') ? 'nemolab/admin/img/datacourses-active.png' : 'nemolab/admin/img/datacourses.png') }}" alt="" width="30" />
         <p class="m-0">Category</p>
@@ -75,7 +75,7 @@
         <p class="m-0">Transaction</p>
     </a>
     <p class="tittle-list-sidebar mt-5">View Data</p>
-    <a href="{{ route('admin.superadmin') }}"
+    <a href="{{ route('admin.portofolio') }}"
     class="list-sidebar {{ request()->is('admin/user/superadmin') ? 'active' : '' }}">
     <img src="{{ asset(request()->is('admin/user/superadmin') ? 'nemolab/admin/img/datamember-active.png' : 'nemolab/admin/img/datamember.png') }}"
         alt="" width="30" />

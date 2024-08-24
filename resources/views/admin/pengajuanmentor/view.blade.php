@@ -4,7 +4,7 @@
     <link rel="stylesheet" href="{{ asset('nemolab/admin/css/tabel-content.css') }}">
 @endpush
 
-@section('title', 'View Pengajuan-Mentor')
+@section('title', 'View Pengajuan Mentor')
 
 @section('content')
 
@@ -40,33 +40,51 @@
                         <tr>
                             <th>Name</th>
                             <th>Total Course</th>
+                            <th>Status</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {{-- @forelse ($mentors as $mentor)
+                        @forelse ($mentors as $mentor)
                             <tr>
-                                <td>{{ $mentor->name }}</td>
-                                <td></td>
+                                <td class="text-capitalize">{{ $mentor->user->name }}</td>
+                                <td class="text-capitalize">{{ $total_course }}</td>
+                                <td class="text-capitalize">{{ $mentor->status }}</td>
                                 <td>
-                                    <a href="" class="btn btn-success me-2">
-                                        Accept
-                                    </a>
-                                    <a href="" class="btn btn-danger">
-                                        Reject
-                                    </a>
+                                    <form action="{{ route('admin.submissions.edit.update', $mentor->user->id) }}"
+                                        method="post">
+                                        @csrf
+                                        @method('put')
+                                        @if ($mentor->status == 'pending')
+                                            <button type="submit" name="action" value="accept"
+                                                class="btn btn-success me-2">
+                                                Accept
+                                            </button>
+                                            <button type="submit" name="action" value="deaccept" class="btn btn-danger">
+                                                Reject
+                                            </button>
+                                        @elseif ($mentor->status == 'accept')
+                                            <button disabled class="btn btn-success me-2">
+                                                Accepted
+                                            </button>
+                                        @elseif ($mentor->status == 'deaccept')
+                                            <button disabled class="btn btn-danger me-2">
+                                                Rejected
+                                            </button>
+                                        @endif
+                                    </form>
                                 </td>
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="4">No mentors found.</td>
+                                <td colspan="4">Tidak Ada Pengajuan Mentor.</td>
                             </tr>
-                        @endforelse --}}
+                        @endforelse
                     </tbody>
                 </table>
 
-                {{-- <div class="d-flex justify-content-between px-1 py-1">
-                    <p class="show">Showing {{ $mentors->firstItem() }} to {{ $mentors->lastItem() }} of
+                <div class="d-flex justify-content-between px-1 py-1">
+                    {{-- <p class="show">Showing {{ $mentors->firstItem() }} to {{ $mentors->lastItem() }} of
                         {{ $mentors->total() }}</p>
                     <div class="d-flex">
                         <!-- Custom Pagination -->
@@ -76,9 +94,9 @@
                         <button class="pagination mx-1 {{ $mentors->hasMorePages() ? '' : 'disabled' }}" id="next-button"
                             {{ $mentors->hasMorePages() ? '' : 'disabled' }}
                             data-url="{{ $mentors->nextPageUrl() }}">Next</button>
-                    </div>
+                    </div> --}}
                 </div>
-            </div> --}}
+            </div>
         </main>
 
         <script>

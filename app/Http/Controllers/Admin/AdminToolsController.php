@@ -15,11 +15,11 @@ class AdminToolsController extends Controller
 {
     public function index() {
         $tools = Tools::all();
-        dd($tools);
+        return view('admin.tools.view', compact('tools'));
     }
 
     public function create() {
-        
+        return view('admin.tools.create');
     }
 
     public function store(Request $requests) {
@@ -42,8 +42,9 @@ class AdminToolsController extends Controller
         ], 200);
     }
 
-    public function edit() {
-        
+    public function edit($id) {
+        $tools = Tools::where('id',$id)->first();
+        return view('admin.tools.update', compact('tools'));
     }
 
     public function update(Request $requests, $id) {

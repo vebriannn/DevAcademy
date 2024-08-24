@@ -15,8 +15,8 @@ class ToolsSeeder extends Seeder
     public function run(): void
     {
         Tools::create([
-            'name_tools' => 'Vscode',
-            'logo_tools' => 'vs.png'
+            'name_tools' => 'Alok Bhijer',
+            'logo_tools' => 'vsgedang.png'
         ]);
     }
 }

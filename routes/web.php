@@ -9,16 +9,18 @@ use App\Http\Controllers\Admin\AdminCourseController;
 use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\Admin\AdminReviewController;
 use App\Http\Controllers\Admin\AdminCategoryController;
+use App\Http\Controllers\Member\AdminSettingController;
 use App\Http\Controllers\Admin\AdminEbookController;
 use App\Http\Controllers\Admin\AdminMentorController;
+use App\Http\Controllers\Admin\AdminPortofolioController;
 use App\Http\Controllers\Admin\AdminStudentController;
 use App\Http\Controllers\Admin\AdminSuperadminController;
 use App\Http\Controllers\Admin\AdminTransactionController;
-use App\Http\Controllers\Admin\SubmissionController;
+use App\Http\Controllers\Admin\AdminSubmissionController;
 
-use App\Http\Controllers\Member\Auth\RegisterController;
+use App\Http\Controllers\Member\Auth\MemberRegisterController;
+use App\Http\Controllers\Member\Auth\MemberLoginController;
 use App\Http\Controllers\Member\LandingpageController;
-use App\Http\Controllers\Member\Auth\LoginController;
 use App\Http\Controllers\Member\MemberCourseController;
 use App\Http\Controllers\Member\MemberPaymentController;
 use App\Http\Controllers\Member\MemberTransactionController;
@@ -26,19 +28,7 @@ use App\Http\Controllers\Member\MemberReviewController;
 use App\Http\Controllers\Member\MemberSettingController;
 use App\Http\Controllers\Member\Dashboard\MemberMyCourseController;
 use App\Http\Controllers\Member\Dashboard\MemberPortofolioController;
-<<<<<<< Updated upstream
 use App\Http\Controllers\Member\MemberEbookController;
-
-Route::get('member/ebook', function(){
-    return view('member.ebook');
-});
-Route::get('member/joinebook', function(){
-    return view('member.joinebook');
-});
-=======
-
->>>>>>> Stashed changes
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -53,11 +43,11 @@ Route::get('member/joinebook', function(){
 Route::get('/', [LandingpageController::class, 'index'])->name('home');
 
 // login member
-Route::get('/login', [LoginController::class, 'index'])->name('login');
-Route::post('/login/auth', [LoginController::class, 'login'])->name('login.auth');
-Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
-Route::get('/register', [RegisterController::class, 'index'])->name('register');
-Route::post('/register/store', [RegisterController::class, 'register'])->name('register.auth');
+Route::get('/login', [MemberLoginController::class, 'index'])->name('member.login');
+Route::post('/login/auth', [MemberLoginController::class, 'login'])->name('member.login.auth');
+Route::get('/logout', [MemberLoginController::class, 'logout'])->name('member.logout');
+Route::get('/register', [MemberRegisterController::class, 'index'])->name('member.register');
+Route::post('/register/store', [MemberRegisterController::class, 'store'])->name('member.register.auth');
 
 // login admin 
 Route::get('admin/login', [AdminLoginController::class, 'index'])->name('admin.login');
@@ -71,6 +61,7 @@ Route::prefix('admin')->group(function () {
         Route::get('/', [AdminToolsController::class, 'index'])->name('admin.tools');
         Route::get('/create', [AdminToolsController::class, 'create'])->name('admin.tools.create');
         Route::post('/create/store', [AdminToolsController::class, 'store'])->name('admin.tools.create.store');
+        Route::get('/edit/{id}', [AdminToolsController::class, 'edit'])->name('admin.tools.edit');
         Route::put('/edit/update/{id}', [AdminToolsController::class, 'update'])->name('admin.tools.edit.update');
         Route::get('/delete/{id}', [AdminToolsController::class, 'delete'])->name('admin.tools.delete');
     });
@@ -85,14 +76,14 @@ Route::prefix('admin')->group(function () {
         Route::get('/delete/{id}', [AdminCourseController::class, 'delete'])->name('admin.course.delete');
 
         // routes for Ebook
-        Route::prefix('ebook')->group(function () {
-            Route::get('/', [AdminEbookController::class, 'index'])->name('admin.ebook');
-            Route::get('/create', [AdminEbookController::class, 'create'])->name('admin.ebook.create');
-            Route::post('/store', [AdminEbookController::class, 'store'])->name('admin.ebook.create.store');
-            Route::get('/edit/{ebook}', [AdminEbookController::class, 'edit'])->name('admin.ebook.edit');
-            Route::put('/update/{ebook}', [AdminEbookController::class, 'update'])->name('admin.ebook.edit.update');
-            Route::get('/delete/{ebook}', [AdminEbookController::class, 'destroy'])->name('admin.ebook.delete');
-        });
+        // Route::prefix('ebook')->group(function () {
+        //     Route::get('/', [AdminEbookController::class, 'index'])->name('admin.ebook');
+        //     Route::get('/create', [AdminEbookController::class, 'create'])->name('admin.ebook.create');
+        //     Route::post('/store', [AdminEbookController::class, 'store'])->name('admin.ebook.create.store');
+        //     Route::get('/edit/{ebook}', [AdminEbookController::class, 'edit'])->name('admin.ebook.edit');
+        //     Route::put('/update/{ebook}', [AdminEbookController::class, 'update'])->name('admin.ebook.edit.update');
+        //     Route::get('/delete/{ebook}', [AdminEbookController::class, 'destroy'])->name('admin.ebook.delete');
+        // });
 
         // Routes for chapters
         Route::get('{slug}/chapter', [AdminChapterController::class, 'index'])->name('admin.chapter');
@@ -116,6 +107,15 @@ Route::prefix('admin')->group(function () {
             Route::delete('transactions/{id}/cancel', [AdminTransactionController::class, 'cancel'])->name('admin.transactions.cancel');
         });
     });
+
+    // setting admin
+    // Route::prefix('setting')->group(function () {
+    //     Route::get('/', [AdminSettingController, 'index'])->name('admin.setting');
+    //     Route::get('/edit/profile/', [AdminSettingController::class, 'editProfile'])->name('admin.edit-profile');
+    //     Route::put('/update/profile', [AdminSettingController::class, 'updateProfile'])->name('admin.update-profile');
+    //     Route::get('/edit/password/', [AdminSettingController::class, 'editPassword'])->name('admin.edit-password');
+    //     Route::post('/update/password', [AdminSettingController::class, 'updatePassword'])->name('admin.update-password');
+    // });
 
 
     // Routes for users
@@ -155,16 +155,18 @@ Route::prefix('admin')->group(function () {
     });
 
     // Routes for reviews
-    Route::prefix('review')->group(function () {
-        Route::get('/', [AdminReviewController::class, 'index'])->name('admin.review');
-        Route::get('/create', [AdminReviewController::class, 'create'])->name('admin.review.create');
-        Route::post('/create/store', [AdminReviewController::class, 'store'])->name('admin.review.create.store');
-        Route::get('/edit/{id}', [AdminReviewController::class, 'edit'])->name('admin.review.edit');
-        Route::put('/edit/update/{id}', [AdminReviewController::class, 'update'])->name('admin.review.edit.update');
-        Route::get('/delete/{id}', [AdminReviewController::class, 'delete'])->name('admin.review.delete');
-    });
+    // Route::prefix('review')->group(function () {
+    //     Route::get('/', [AdminReviewController::class, 'index'])->name('admin.review');
+    //     Route::get('/create', [AdminReviewController::class, 'create'])->name('admin.review.create');
+    //     Route::post('/create/store', [AdminReviewController::class, 'store'])->name('admin.review.create.store');
+    //     Route::get('/edit/{id}', [AdminReviewController::class, 'edit'])->name('admin.review.edit');
+    //     Route::put('/edit/update/{id}', [AdminReviewController::class, 'update'])->name('admin.review.edit.update');
+    //     Route::get('/delete/{id}', [AdminReviewController::class, 'delete'])->name('admin.review.delete');
+    // });
+    
+    
     // Routes for categories
-    Route::prefix('category')->group(function () {
+    Route::prefix('category')->middleware('mentor')->group(function () {
         Route::get('/', [AdminCategoryController::class, 'index'])->name('admin.category');
         Route::get('/create', [AdminCategoryController::class, 'create'])->name('admin.category.create');
         Route::post('/create/store', [AdminCategoryController::class, 'store'])->name('admin.category.create.store');
@@ -172,21 +174,26 @@ Route::prefix('admin')->group(function () {
         Route::put('/edit/update/{id}', [AdminCategoryController::class, 'update'])->name('admin.category.edit.update');
         Route::get('/delete/{id}', [AdminCategoryController::class, 'delete'])->name('admin.category.delete');
     });
+    
     // Routes for submissions
-    Route::prefix('submission')->group(function () {
-        Route::get('/', [SubmissionController::class, 'index'])->name('admin.submissions');
-        Route::get('/create', [SubmissionController::class, 'create'])->name('admin.submissions.create');
-        Route::post('/create/store', [SubmissionController::class, 'store'])->name('admin.submissions.create.store');
-        Route::get('/edit/{id}', [SubmissionController::class, 'edit'])->name('admin.submissions.edit');
-        Route::put('/edit/update/{id}', [SubmissionController::class, 'update'])->name('admin.submissions.edit.update');
-        Route::get('/delete/{id}', [SubmissionController::class, 'delete'])->name('admin.submissions.delete');
+    Route::prefix('submission')->middleware('superadmin')->group(function () {
+        Route::get('/', [AdminSubmissionController::class, 'index'])->name('admin.submissions');
+        Route::put('/edit/update/{id}', [AdminSubmissionController::class, 'update'])->name('admin.submissions.edit.update');
+        Route::get('/delete/{id}', [AdminSubmissionController::class, 'delete'])->name('admin.submissions.delete');
+    });
+
+    Route::prefix('portofolio')->group(function () {
+        Route::get('/', [AdminPortofolioController::class, 'index'])->name('admin.portofolio');
+        Route::put('/edit/update/{id}', [AdminPortofolioController::class, 'update'])->name('admin.portofolio.edit.update');
     });
 });
 
 
-
-
 Route::prefix('member')->middleware('student')->group(function () {
+
+    // pengajuan member
+    Route::post('/request/mentor/{id}', [MemberMyCourseController::class, 'reqMentor'])->name('member.pengajuan');
+    
     Route::get('/course', [MemberCourseController::class, 'index'])->name('member.course');
     Route::get('/course/join/{slug}', [MemberCourseController::class, 'join'])->name('member.course.join');
     Route::get('/course/{slug}/play/episode/{episode}', [MemberCourseController::class, 'play'])->name('member.course.play');
@@ -202,7 +209,7 @@ Route::prefix('member')->middleware('student')->group(function () {
     // Dashboard
     Route::get('/', [MemberMyCourseController::class, 'index'])->name('member.dashboard');
 
-    Route::prefix('portofolio')->group(function () {
+    Route::prefix('portofolio')->middleware('student')->group(function () {
         Route::get('/', [MemberPortofolioController::class, 'index'])->name('member.portofolio');
         Route::get('/create', [MemberPortofolioController::class, 'create'])->name('member.portofolio.create');
         Route::post('/create/store', [MemberPortofolioController::class, 'store'])->name('member.portofolio.create.store');
@@ -223,12 +230,7 @@ Route::prefix('member')->middleware('student')->group(function () {
         Route::get('/', [MemberTransactionController::class, 'index'])->name('member.transaction');
         Route::delete('/cancel/{id}', [MemberTransactionController::class, 'cancel'])->name('member.transaction.cancel');
     });
-
     
-    Route::get('ebook', function(){
-        return view('member.ebook');
-    });
-
     Route::get('course/payment', [MemberPaymentController::class, 'index'])->name('member.payment');
     Route::post('course/payment/store', [MemberPaymentController::class, 'store'])->name('member.transaction.store');
 });

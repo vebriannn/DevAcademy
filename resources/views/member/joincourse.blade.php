@@ -12,15 +12,19 @@
         <div class="row">
             <div class="col-12 text-center">
                 <h4 class="fw-semibold">{{ $course->name }}</h4>
-                <div class="d-flex align-items-center justify-content-center flex-md-row flex-column" style="margin-top: -6px; font-size: 15px">
+                <div class="d-flex align-items-center justify-content-center flex-md-row flex-column"
+                    style="margin-top: -6px; font-size: 15px">
                     <div class="d-flex align-items-center">
-                        <img src="{{ asset('nemolab/member/img/global.png') }}" alt="" width="18" height="18" />
-                        <p class="m-0 ms-2 fw-light" style="font-size: 14px">Release Date: {{ $course->created_at->format('d F Y') }}</p>
+                        <img src="{{ asset('nemolab/member/img/global.png') }}" alt="" width="18"
+                            height="18" />
+                        <p class="m-0 ms-2 fw-light" style="font-size: 14px">Release Date:
+                            {{ $course->created_at->format('d F Y') }}</p>
                     </div>
                     <div class="rating d-flex ms-1 my-1 my-0 align-items-center">
                         <p class="m-0 ms-0 ms-md-5 me-2 fw-medium" style="font-size: 14px">4.9</p>
                         @for ($i = 0; $i < 5; $i++)
-                            <img src="{{ asset('nemolab/member/img/star.png') }}" alt="" width="19" height="19"/>
+                            <img src="{{ asset('nemolab/member/img/star.png') }}" alt="" width="19"
+                                height="19" />
                         @endfor
                     </div>
                 </div>
@@ -43,7 +47,8 @@
                         @foreach ($chapters as $chapter)
                             <div class="play">
                                 <div class="title d-flex">
-                                    <img src="{{ asset('nemolab/member/img/play.png') }}" alt="" width="25" height="25" />
+                                    <img src="{{ asset('nemolab/member/img/play.png') }}" alt="" width="25"
+                                        height="25" />
                                     <p class="ms-3 m-0">{{ $chapter->name }}</p>
                                 </div>
                             </div>
@@ -56,7 +61,8 @@
                                 Pembayaran anda sedang diproses.
                             </div>
                         @elseif ($transaction->status == 'success')
-                            <a href="{{ route('member.course.play', ['slug' => $course->slug, 'episode' => $lesson->episode]) }}">
+                            <a
+                                href="{{ route('member.course.play', ['slug' => $course->slug, 'episode' => $lesson->episode]) }}">
                                 <div class="button">Start Learning</div>
                             </a>
                         @else
@@ -83,87 +89,134 @@
                     {{ $course->description }}
                 </p>
             </div>
-        @if ($course->ebook)
-            <div class="col-12 mt-4">
-                <h4 class="fw-semibold">About eBook</h4>
-                <p class="mt-4" style="font-size: 14px">
-                    eBook adalah buku elektronik yang memungkinkan Anda untuk membaca dan belajar kapan saja dan di mana saja melalui perangkat digital Anda. Dengan format yang fleksibel, eBook menawarkan cara baru yang praktis untuk mengakses informasi dan konten pendidikan.
-                </p>
-                <a href="/member/joinebook"><button class="btn px-4 py-2 fw-medium text-white">Start Learning</button></a>
+            {{-- @if ($course->ebook)
+                <div class="col-12 mt-4">
+                    <h4 class="fw-semibold">About eBook</h4>
+                    <p class="mt-4" style="font-size: 14px">
+                        eBook adalah buku elektronik yang memungkinkan Anda untuk membaca dan belajar kapan saja dan di mana
+                        saja melalui perangkat digital Anda. Dengan format yang fleksibel, eBook menawarkan cara baru yang
+                        praktis untuk mengakses informasi dan konten pendidikan.
+                    </p>
+                    <a href="/member/joinebook"><button class="btn px-4 py-2 fw-medium text-white">Start
+                            Learning</button></a>
+                </div>
+            @endif --}}
+        </div>
+
+        <!-- Tools -->
+        <div class="row">
+            <div class="col-12">
+                <h4 class="fw-semibold mb-4">Tools</h4>
             </div>
-        @endif
+            @foreach ($course->tools as $tool)
+                <div class="col-lg-3 col-md-6 my-2 my-sm-2">
+                    <div class="tools p-4 border border-2 rounded-4 shadow-sm">
+                        <div class="d-flex align-items-center d-md-block">
+                            <div class="col-6 text-center text-md-start">
+                                <img src="{{ asset('storage/images/logoTools/'.$tool->logo_tools) }}" alt="" width="70" height="auto" />
+                            </div>
+                            <div class="col-6 col-md-12">
+                                <p class="fw-semibold mt-4">
+                                    {{$tool->name_tools}} <br />
+                                    Software Gratis
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endforeach
 
         </div>
 
-    <!-- Payment -->
-    <div class="row my-5">
-        <div class="col-12">
-            <h4 class="fw-semibold">Payment</h4>
-        </div>
-        <div class="d-flex justify-content-md-between w-100" style="flex-wrap: wrap">
-            @if (!isset($transaction) || ($transaction && $transaction->status == 'failed'))
-            <div class="col-custom col-12 border border-2 rounded-4 p-4 ms-lg-2 mt-4 shadow-sm">
-                <img src="{{ asset('nemolab/member/img/payment-img.png') }}" alt="" width="70" />
-                <p class="mt-4 fw-light mb-1" style="font-size: 15px">Video</p>
-                <h5 class="fw-semibold">Rp {{ number_format($course->price, 0) }}</h5>
-                <p>Raih Akses Premium Seumur Hidup dan Bangun Proyek Nyata Anda Sendiri</p>
-                <hr class="mb-4 border-2" />
-                <div>
-                    @foreach(['Akses Eksklusif Seumur Hidup', 'Raih Premium Istimewa', 'Konsultasi Karier Pribadi', 'Sertifikat Kelulusan Prestisius', 'Kesempatan Karier Bergengsi'] as $item)
-                        <div class="profit">
-                            <img src="{{ asset('nemolab/member/img/check.png') }}" alt="" width="25" height="25" />
-                            <p>{{ $item }}</p>
-                        </div>
-                    @endforeach
-                </div>
-                <a href="{{ route('member.payment', ['course_id' => $course->id]) }}" class="text-decoration-none">
-                    <button class="btn mx-auto d-flex px-5 py-2 mt-3 text-white fw-semibold rounded-3">Beli Kelas</button>
-                </a>
+        <!-- Payment -->
+        <div class="row my-5">
+            <div class="col-12">
+                <h4 class="fw-semibold">Payment</h4>
             </div>
-            @endif
+            <div class="d-flex justify-content-md-between w-100" style="flex-wrap: wrap">
+                <div class="col-custom col-12 border border-2 rounded-4 p-4 ms-lg-2 mt-4 shadow-sm">
+                    <img src="{{ asset('nemolab/member/img/payment-img.png') }}" alt="" width="70" />
+                    <p class="mt-4 fw-light mb-1" style="font-size: 15px">Video</p>
+                    <h5 class="fw-semibold">Rp {{ number_format($course->price, 0) }}</h5>
+                    <p>Raih Akses Premium Seumur Hidup dan Bangun Proyek Nyata Anda Sendiri</p>
+                    <hr class="mb-4 border-2" />
+                    <div>
+                        @foreach (['Akses Eksklusif Seumur Hidup', 'Raih Premium Istimewa', 'Konsultasi Karier Pribadi', 'Sertifikat Kelulusan Prestisius', 'Kesempatan Karier Bergengsi'] as $item)
+                            <div class="profit">
+                                <img src="{{ asset('nemolab/member/img/check.png') }}" alt="" width="25"
+                                    height="25" />
+                                <p>{{ $item }}</p>
+                            </div>
+                        @endforeach
+                    </div>
+                    @if (!isset($transaction) || $transaction->status == 'failed')
+                        <a href="{{ route('member.payment', ['course_id' => $course->id]) }}"
+                            class="text-decoration-none disabled">
+                            <button class="btn mx-auto d-flex px-5 py-2 mt-3 text-white fw-semibold rounded-3">Beli
+                                Kelas</button>
+                        </a>
+                    @else
+                        <p
+                            class="btn text-center px-5 py-2 mt-3 text-white fw-semibold rounded-3 w-100 text-capitalize opacity-75">
+                            {{ $transaction->status }}</p>
+                    @endif
+                    {{-- <a href="{{ route('member.payment', ['course_id' => $course->id]) }}"
+                        class="text-decoration-none">
+                        <button class="btn mx-auto d-flex px-5 py-2 mt-3 text-white fw-semibold rounded-3">Beli
+                            Kelas</button>
+                    </a> --}}
+                </div>
 
-            @if ($course->ebook && (!isset($transactionForEbook) || ($transactionForEbook && $transactionForEbook->status == 'failed')))
-            <div class="col-custom col-12 border border-2 rounded-4 p-4 ms-lg-2 mt-4 shadow-sm">
-                <img src="{{ asset('nemolab/member/img/payment-img.png') }}" alt="" width="70" />
-                <p class="mt-4 fw-light mb-1" style="font-size: 15px">eBook</p>
-                <h5 class="fw-semibold">Rp {{ number_format($course->ebook->price, 0) }}</h5>
-                <p>Raih Akses Premium Seumur Hidup dan Bangun Proyek Nyata Anda Sendiri</p>
-                <hr class="mb-4 border-2" />
-                <div>
-                    @foreach(['Akses Eksklusif Seumur Hidup', 'Raih Premium Istimewa', 'Konsultasi Karier Pribadi', 'Sertifikat Kelulusan Prestisius', 'Kesempatan Karier Bergengsi'] as $item)
-                        <div class="profit">
-                            <img src="{{ asset('nemolab/member/img/check.png') }}" alt="" width="25" height="25" />
-                            <p>{{ $item }}</p>
+                @if (
+                    $course->ebook &&
+                        (!isset($transactionForEbook) || ($transactionForEbook && $transactionForEbook->status == 'failed')))
+                    <div class="col-custom col-12 border border-2 rounded-4 p-4 ms-lg-2 mt-4 shadow-sm">
+                        <img src="{{ asset('nemolab/member/img/payment-img.png') }}" alt="" width="70" />
+                        <p class="mt-4 fw-light mb-1" style="font-size: 15px">eBook</p>
+                        <h5 class="fw-semibold">Rp {{ number_format($course->ebook->price, 0) }}</h5>
+                        <p>Raih Akses Premium Seumur Hidup dan Bangun Proyek Nyata Anda Sendiri</p>
+                        <hr class="mb-4 border-2" />
+                        <div>
+                            @foreach (['Akses Eksklusif Seumur Hidup', 'Raih Premium Istimewa', 'Konsultasi Karier Pribadi', 'Sertifikat Kelulusan Prestisius', 'Kesempatan Karier Bergengsi'] as $item)
+                                <div class="profit">
+                                    <img src="{{ asset('nemolab/member/img/check.png') }}" alt="" width="25"
+                                        height="25" />
+                                    <p>{{ $item }}</p>
+                                </div>
+                            @endforeach
                         </div>
-                    @endforeach
-                </div>
-                <a href="{{ route('member.payment', ['ebook_id' => $course->ebook->id]) }}" class="text-decoration-none">
-                    <button class="btn mx-auto d-flex px-5 py-2 mt-3 text-white fw-semibold rounded-3">Beli eBook</button>
-                </a>
-            </div>
-            @endif
+                        <a href="{{ route('member.payment', ['ebook_id' => $course->ebook->id]) }}"
+                            class="text-decoration-none">
+                            <button class="btn mx-auto d-flex px-5 py-2 mt-3 text-white fw-semibold rounded-3">Beli
+                                eBook</button>
+                        </a>
+                    </div>
+                @endif
 
-            @if ($course->ebook && !isset($transaction) && !isset($transactionForEbook))
-            <div class="col-custom col-12 border border-2 rounded-4 p-4 ms-lg-2 mt-4 shadow-sm">
-                <img src="{{ asset('nemolab/member/img/payment-img.png') }}" alt="" width="70" />
-                <p class="mt-4 fw-light mb-1" style="font-size: 15px">Video & eBook</p>
-                <h5 class="fw-semibold">Rp {{ number_format($course->price + $course->ebook->price, 0) }}</h5>
-                <p>Raih Akses Premium Seumur Hidup dan Bangun Proyek Nyata Anda Sendiri</p>
-                <hr class="mb-4 border-2" />
-                <div>
-                    @foreach(['Akses Eksklusif Seumur Hidup', 'Raih Premium Istimewa', 'Konsultasi Karier Pribadi', 'Sertifikat Kelulusan Prestisius', 'Kesempatan Karier Bergengsi'] as $item)
-                        <div class="profit">
-                            <img src="{{ asset('nemolab/member/img/check.png') }}" alt="" width="25" height="25" />
-                            <p>{{ $item }}</p>
+                @if ($course->ebook && !isset($transaction) && !isset($transactionForEbook))
+                    <div class="col-custom col-12 border border-2 rounded-4 p-4 ms-lg-2 mt-4 shadow-sm">
+                        <img src="{{ asset('nemolab/member/img/payment-img.png') }}" alt="" width="70" />
+                        <p class="mt-4 fw-light mb-1" style="font-size: 15px">Video & eBook</p>
+                        <h5 class="fw-semibold">Rp {{ number_format($course->price + $course->ebook->price, 0) }}</h5>
+                        <p>Raih Akses Premium Seumur Hidup dan Bangun Proyek Nyata Anda Sendiri</p>
+                        <hr class="mb-4 border-2" />
+                        <div>
+                            @foreach (['Akses Eksklusif Seumur Hidup', 'Raih Premium Istimewa', 'Konsultasi Karier Pribadi', 'Sertifikat Kelulusan Prestisius', 'Kesempatan Karier Bergengsi'] as $item)
+                                <div class="profit">
+                                    <img src="{{ asset('nemolab/member/img/check.png') }}" alt="" width="25"
+                                        height="25" />
+                                    <p>{{ $item }}</p>
+                                </div>
+                            @endforeach
                         </div>
-                    @endforeach
-                </div>
-                <a href="{{ route('member.payment', ['course_id' => $course->id, 'ebook_id' => $course->ebook->id]) }}" class="text-decoration-none">
-                    <button class="btn mx-auto d-flex px-5 py-2 mt-3 text-white fw-semibold rounded-3">Beli Paket</button>
-                </a>
+                        <a href="{{ route('member.payment', ['course_id' => $course->id, 'ebook_id' => $course->ebook->id]) }}"
+                            class="text-decoration-none">
+                            <button class="btn mx-auto d-flex px-5 py-2 mt-3 text-white fw-semibold rounded-3">Beli
+                                Paket</button>
+                        </a>
+                    </div>
+                @endif
             </div>
-            @endif
         </div>
-    </div>
     </div>
 @endsection

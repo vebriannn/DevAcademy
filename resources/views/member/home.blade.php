@@ -74,7 +74,7 @@
                         @if (Auth::check())
                             <a href="{{ route('member.course') }}" class="btn btn-join text-white bg-transparent my-auto">Join Us</a>
                         @else
-                            <a href="{{ route('login') }}" class="btn btn-join text-white bg-transparent my-auto">Join Us</a>
+                            <a href="{{ route('member.login') }}" class="btn btn-join text-white bg-transparent my-auto">Join Us</a>
                         @endif
 
                         </div>
@@ -117,7 +117,7 @@
             @if (Auth::check())
                 <a href="{{ route('member.course') }}" class="btn btn-more bg-white fw-bolder mb-3">Learn More</a>
             @else
-                <a href="{{ route('login') }}" class="btn btn-more bg-white fw-bolder mb-3">Learn More</a>
+                <a href="{{ route('member.login') }}" class="btn btn-more bg-white fw-bolder mb-3">Learn More</a>
             @endif
         </div>
     </section>
