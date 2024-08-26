@@ -9,13 +9,13 @@
 @endpush
 
 @section('content')
-    <div class="container">
+    <div class="container" style="margin-top: 5rem;">
         <div class="row">
             <!-- Sidebar -->
-            <div class="col-3 d-none d-xl-block p-4 rounded-4 text-white px-5"
+            <div class="col-3 d-none d-xl-block p-4 pb-5 rounded-4 text-white px-5"
                 style="background-color: #faa907; width: max-content;">
                 <img src="{{ asset('storage/images/avatars/' . Auth::user()->avatar) }}" style="border-radius: 100%;"
-                    alt="" width="70" class="d-flex mx-lg-auto mt-3" />
+                    alt="" width="70" height="70" class="d-flex mx-lg-auto mt-3" />
                 <h4 class="m-0 mt-lg-5 mt-3 fw-semibold">{{ Auth::user()->name }}</h4>
                 <p class="m-0 fw-light">Status {{ Auth::user()->role }}</p>
                 <div class="mt-5">
@@ -56,7 +56,7 @@
                             </form>
                             <p class="mb-0 me-2 text-center mx-2">entries</p>
                         </div>
-                        <a href="{{ route('member.portofolio.create') }}" class="tambah-data pt-2 pb-2 px-4 fw-semibold"
+                        <a href="{{ route('member.portofolio.create') }}" class="tambah-data py-2 fw-semibold text-center"
                         style="width: max=content; !important">Tambah</a>
                     </div>
 

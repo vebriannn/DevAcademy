@@ -9,7 +9,7 @@
 
 @section('content')
 
-    <div class="container" style="margin-top: 150px;">
+    <div class="container" style="margin-top: 5rem;">
         @if (!$submission && $total_course > 5)
             <div class="alert alert-warning alert-dismissible fade show text-black position-fixed fixed-top" role="alert">
                 Ingin jadi Mentor? klik
@@ -25,10 +25,10 @@
 
         <div class="row">
             <!-- Sidebar -->
-            <div class="col-3 d-none d-xl-block p-4 rounded-4 text-white px-5"
+            <div class="col-3 d-none d-xl-block p-4 pb-5 rounded-4 text-white px-5"
                 style="background-color: #faa907; width: max-content;">
                 <img src="{{ asset('storage/images/avatars/' . Auth::user()->avatar) }}" style="border-radius: 100%;"
-                    alt="" width="70" class="d-flex mx-lg-auto mt-3" />
+                    alt="" width="70" height="70" class="d-flex mx-lg-auto mt-3" />
                 <h4 class="m-0 mt-lg-5 mt-3 fw-semibold">{{ Auth::user()->name }}</h4>
                 <p class="m-0 fw-light">Status {{ Auth::user()->role }}</p>
                 <div class="mt-5">

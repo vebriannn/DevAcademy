@@ -1,16 +1,20 @@
 @extends('components.layouts.member.app')
 
-@section('content')
-    <link rel="stylesheet" href="{{ asset('nemolab/components/member/css/sidebar.css') }}">
-    <link rel="stylesheet" href="{{ asset('nemolab/admin/css/tabel-content.css') }}">
+@section('title', 'Transactions')
 
-    <div class="container">
+@push('prepend-style')
+    <link rel="stylesheet" href="{{ asset('nemolab/components/member/css/dashboard/sidebar.css') }} ">
+    <link rel="stylesheet" href="{{ asset('nemolab/admin/css/tabel-content.css') }}">
+@endpush
+
+@section('content')
+    <div class="container" style="margin-top: 5rem;">
         <div class="row">
            <!-- Sidebar -->
-            <div class="col-3 d-none d-xl-block p-4 rounded-4 text-white px-5"
+            <div class="col-3 d-none d-xl-block p-4 pb-5 rounded-4 text-white px-5"
                 style="background-color: #faa907; width: max-content;">
                 <img src="{{ asset('storage/images/avatars/' . Auth::user()->avatar) }}" style="border-radius: 100%;"
-                    alt="" width="70" class="d-flex mx-lg-auto mt-3" />
+                    alt="" width="70" height="70" class="d-flex mx-lg-auto mt-3" />
                 <h4 class="m-0 mt-lg-5 mt-3 fw-semibold">{{ Auth::user()->name }}</h4>
                 <p class="m-0 fw-light">Status {{ Auth::user()->role }}</p>
                 <div class="mt-5">
@@ -18,12 +22,12 @@
                         <img src="{{ asset('nemolab/member/img/course.png') }}" alt="" width="30" />
                         <p class="m-0">My Courses</p>
                     </a>
-                    <a href="#" class="list-sidebar active">
-                        <img src="{{ asset('nemolab/member/img/portofolio active.png') }}" alt="" width="30" />
+                    <a href="{{ route('member.portofolio') }}" class="list-sidebar">
+                        <img src="{{ asset('nemolab/member/img/portofolio.png') }}" alt="" width="30" />
                         <p class="m-0">My Portofolio</p>
                     </a>
-                    <a href="{{ route('member.transaction') }}" class="list-sidebar">
-                        <img src="{{ asset('nemolab/member/img/transaksi.png') }}" alt="" width="30" />
+                    <a href="{{ route('member.transaction') }}" class="list-sidebar active">
+                        <img src="{{ asset('nemolab/member/img/transaksi active.png') }}" alt="" width="30" />
                         <p class="m-0">Transactions</p>
                     </a>
                 </div>

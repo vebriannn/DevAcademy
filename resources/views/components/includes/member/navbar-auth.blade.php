@@ -31,10 +31,10 @@
                     <p class="fw-semibold m-0 order-last order-lg-first">{{ Auth::user()->name }}</p>
                     @if (Auth::user()->avatar != 'default.png')
                         <img src="{{ asset('storage/images/avatars/' . Auth::user()->avatar) }}" alt=""
-                            width="45" class="border border-2 rounded-circle" id="myProfile"
+                            width="45" height="45" class="border border-2 rounded-circle" id="myProfile"
                             style="cursor: pointer" />
                     @else
-                        <img src="{{ asset('nemolab/admin/img/avatar.png') }}" alt="" width="45"
+                        <img src="{{ asset('nemolab/admin/img/avatar.png') }}" alt="" width="45" height="45"
                             class="d-none d-lg-block border border-2 rounded-circle" id="myProfile"
                             style="cursor: pointer" />
                     @endif
