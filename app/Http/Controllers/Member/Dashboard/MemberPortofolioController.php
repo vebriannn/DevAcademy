@@ -11,10 +11,12 @@ use App\Models\User;
 
 class MemberPortofolioController extends Controller
 {
-    public function index() {
-        $portofolio = Portofolio::where('user_id', Auth::user()->id)->get(); 
+    public function index(Request $request) {
+        $perPage = $request->get('entries', 10);
+        $portofolio = Portofolio::where('user_id', Auth::user()->id)->paginate($perPage);
         return view('member.dashboard.portofolio.view', compact('portofolio'));
     }
+    
 
     public function create() {
         return view('member.dashboard.portofolio.create');

@@ -5,7 +5,7 @@
 
 @push('prepend-style')
     <link rel="stylesheet" href="{{ asset('nemolab/components/member/css/dashboard/sidebar.css') }} ">
-    <link rel="stylesheet" href="{{ asset('nemolab/member/dashboard/css/myportofolio.css') }} ">
+    <link rel="stylesheet" href="{{ asset('nemolab/admin/css/tabel-content.css') }}">
 @endpush
 
 @section('content')
@@ -27,7 +27,7 @@
                         <img src="{{ asset('nemolab/member/img/portofolio active.png') }}" alt="" width="30" />
                         <p class="m-0">My Portofolio</p>
                     </a>
-                    <a href="dashboard-transactions.html" class="list-sidebar">
+                    <a href="{{ route('member.transaction') }}" class="list-sidebar">
                         <img src="{{ asset('nemolab/member/img/transaksi.png') }}" alt="" width="30" />
                         <p class="m-0">Transactions</p>
                     </a>
@@ -43,17 +43,21 @@
 
                 <div class="table-responsive p-3 rounded-5 border border-2">
                     <div class="d-flex justify-content-between align-items-center mb-3">
-                        <div class="d-flex align-items-center ms-3 mt-2">
-                            <p class="mb-0 me-2">Show</p>
-                            <select id="entries" class="form-select form-select-sm rounded-3">
-                                <option value="10">10</option>
-                                <option value="25">25</option>
-                                <option value="50">50</option>
-                                <option value="100">100</option>
-                            </select>
-                            <p class="mb-0 ms-2">entries</p>
+                        <div class="d-flex align-items-center">
+                            <p class="mb-0 me-2 text-center">Show</p>
+                            <form method="GET" action="{{ route('admin.member') }}" id="entries-form">
+                                <select id="entries" name="entries" class="form-select form-select-sm"
+                                    onchange="this.form.submit()">
+                                    <option value="10" {{ request('entries') == 10 ? 'selected' : '' }}>10</option>
+                                    <option value="25" {{ request('entries') == 25 ? 'selected' : '' }}>25</option>
+                                    <option value="50" {{ request('entries') == 50 ? 'selected' : '' }}>50</option>
+                                    <option value="100" {{ request('entries') == 100 ? 'selected' : '' }}>100</option>
+                                </select>
+                            </form>
+                            <p class="mb-0 me-2 text-center mx-2">entries</p>
                         </div>
-                        <a href="{{ route('member.portofolio.create') }}">Tambah</a>
+                        <a href="{{ route('member.portofolio.create') }}" class="tambah-data pt-2 pb-2 px-4 fw-semibold"
+                        style="width: max=content; !important">Tambah</a>
                     </div>
 
                     <table class="table">
@@ -98,7 +102,7 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="4">
+                                    <td colspan="5">
                                         <p style="text-align: center">Maaf Belum Ada Portofolio Yang Di Upload </p>
                                     </td>
                                 </tr>
@@ -108,14 +112,33 @@
                     </table>
 
                     <div class="d-flex justify-content-between p-1">
-                        <p class="show">Showing 10 of 10</p>
+                        <p class="show">Showing {{  $portofolio->firstItem() }} to {{  $portofolio->lastItem() }} of
+                            {{  $portofolio->total() }}</p>
                         <div class="d-flex gap-3">
-                            <button class="pagination" id="prev-button">Previous</button>
-                            <button class="pagination" id="next-button">Next</button>
+                        <!-- Custom Pagination -->
+                        <button class="pagination mx-1 {{ $portofolio->onFirstPage() ? 'disabled' : '' }}" id="prev-button"
+                            {{ $portofolio->onFirstPage() ? 'disabled' : '' }}
+                            data-url="{{ $portofolio->previousPageUrl() }}">Previous</button>
+                        <button class="pagination mx-1 {{ $portofolio->hasMorePages() ? '' : 'disabled' }}" id="next-button"
+                            {{ $portofolio->hasMorePages() ? '' : 'disabled' }}
+                            data-url="{{ $portofolio->nextPageUrl() }}">Next</button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <script>
+        document.getElementById('prev-button').addEventListener('click', function() {
+            if (!this.classList.contains('disabled')) {
+                window.location.href = this.getAttribute('data-url');
+            }
+        });
+
+        document.getElementById('next-button').addEventListener('click', function() {
+            if (!this.classList.contains('disabled')) {
+                window.location.href = this.getAttribute('data-url');
+            }
+        });
+    </script>
 @endsection

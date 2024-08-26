@@ -40,7 +40,7 @@
                         <img src="{{ asset('nemolab/member/img/portofolio.png') }}" alt="" width="30" />
                         <p class="m-0">My Portofolio</p>
                     </a>
-                    <a href="dashboard-transactions.html" class="list-sidebar">
+                    <a href="{{ route('member.transaction') }}" class="list-sidebar">
                         <img src="{{ asset('nemolab/member/img/transaksi.png') }}" alt="" width="30" />
                         <p class="m-0">Transactions</p>
                     </a>
