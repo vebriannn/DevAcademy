@@ -18,14 +18,15 @@ use App\Models\CourseTools;
 
 class MemberCourseController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         $category = Category::orderBy('id', 'DESC')->get();
-        
+
         $addData = [
             'id' => 0,
-            'name' => 'All' 
+            'name' => 'All'
         ];
-        
+
         $newCategory = $category->push((object)$addData);
         $sortedCategory = $newCategory->sortBy('id');
 
@@ -33,51 +34,52 @@ class MemberCourseController extends Controller
     }
 
     public function join($slug)
-{
-    $course = Course::where('slug', $slug)->first();
-    $user = auth()->user();
+    {
+        $course = Course::where('slug', $slug)->first();
+        $user = auth()->user();
 
-    if ($course) {
-        $chapters = Chapter::with('lessons')->where('course_id', $course->id)->get();
+        if ($course) {
+            $chapters = Chapter::with('lessons')->where('course_id', $course->id)->get();
 
-        if ($chapters->isNotEmpty()) {
-            $lesson = Lesson::with('chapters')->where('chapter_id', $chapters->first()->id)->first();
-        } else {
-            $lesson = null;
-        }
+            if ($chapters->isNotEmpty()) {
+                $lesson = Lesson::with('chapters')->where('chapter_id', $chapters->first()->id)->first();
+            } else {
+                $lesson = null;
+            }
 
-        $transaction = Transaction::where('user_id', $user->id)
-            ->where('course_id', $course->id)
-            ->orderBy('created_at', 'desc')
-            ->first();
-
-        $transactionForEbook = null;
-        if ($course->ebook) {
-            $transactionForEbook = Transaction::where('user_id', $user->id)
-                ->where('ebook_id', $course->ebook->id)
+            $transaction = Transaction::where('user_id', $user->id)
+                ->where('course_id', $course->id)
                 ->orderBy('created_at', 'desc')
                 ->first();
+
+            $transactionForEbook = null;
+            if ($course->ebook) {
+                $transactionForEbook = Transaction::where('user_id', $user->id)
+                    ->where('ebook_id', $course->ebook->id)
+                    ->orderBy('created_at', 'desc')
+                    ->first();
+            }
+        } else {
+            $chapters = collect();
+            $lesson = null;
+            $transaction = null;
+            $transactionForEbook = null;
         }
-    } else {
-        $chapters = collect();
-        $lesson = null;
-        $transaction = null;
-        $transactionForEbook = null;
+
+        $coursetools = Course::with('tools')->findOrFail($course->id);
+
+        return view('member.joincourse', compact('chapters', 'course', 'lesson', 'transaction', 'transactionForEbook', 'coursetools'));
     }
 
-    $coursetools = Course::with('tools')->findOrFail($course->id);
-
-    return view('member.joincourse', compact('chapters', 'course', 'lesson', 'transaction', 'transactionForEbook', 'coursetools'));
-}
-    
 
 
-    public function play($slug, $episode){
+    public function play($slug, $episode)
+    {
         $course = Course::where('slug', $slug)->first();
         $user = User::where('id', $course->mentor_id)->first();
         $chapters = Chapter::with('lessons')->where('course_id', $course->id)->get();
         $play = Lesson::where('episode', $episode)->first();
-        
+
         return view('member.play', compact('play', 'chapters', 'slug', 'course', 'user'));
     }
 }

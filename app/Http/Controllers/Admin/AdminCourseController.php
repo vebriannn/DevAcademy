@@ -44,6 +44,7 @@ class AdminCourseController extends Controller
             'price' => 'required|integer',
             'level' => 'required|in:beginner,intermediate,expert',
             'description' => 'required|string',
+            'tools' => 'required',
             'tools.*' => 'exists:tbl_tools,id',
         ]); 
 
@@ -73,8 +74,9 @@ class AdminCourseController extends Controller
     public function edit($id) {
         $category = Category::all();
         $course = Course::where('id', $id)->first();
-        $coursetool = Course::with('tools')->get();
-        return view('admin.coursesvideo.update', compact('course', 'category', 'coursetool'));
+        $tools = Tools::all();
+        $coursetool = Course::with('tools')->findOrFail($course->id);
+        return view('admin.coursesvideo.update', compact('course', 'category', 'coursetool', 'tools'));
     }
 
     /**
@@ -91,7 +93,9 @@ class AdminCourseController extends Controller
             'status' => 'required|in:draft,published',
             'price' => 'required|integer',
             'level' => 'required|in:beginner,intermediate,expert',
-            'description' => 'required|string'
+            'description' => 'required|string',
+            'tools' => 'required',
+            'tools.*' => 'exists:tbl_tools,id',
         ]);
 
         $images = $request->cover;
@@ -119,6 +123,8 @@ class AdminCourseController extends Controller
             'level' => $request->level,
             'description' => $request->description,
         ]);  
+
+        $course->tools()->sync($request->tools);
 
         return response()->json([
             'message' => 'Data berhasil diedit',

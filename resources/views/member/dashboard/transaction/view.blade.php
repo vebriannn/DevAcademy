@@ -10,7 +10,7 @@
 @section('content')
     <div class="container" style="margin-top: 5rem;">
         <div class="row">
-           <!-- Sidebar -->
+            <!-- Sidebar -->
             <div class="col-3 d-none d-xl-block p-4 pb-5 rounded-4 text-white px-5"
                 style="background-color: #faa907; width: max-content;">
                 <img src="{{ asset('storage/images/avatars/' . Auth::user()->avatar) }}" style="border-radius: 100%;"
@@ -73,20 +73,44 @@
                             @foreach ($transactions as $transaction)
                                 <tr>
                                     <td>
-                                        <img src="{{ asset('storage/images/covers/' . $transaction->course->cover) }}" alt="Cover" width="90" height="auto" />
+                                        <img src="{{ asset('storage/images/covers/' . $transaction->course->cover) }}"
+                                            alt="Cover" width="90" height="auto" />
                                     </td>
-                                    <td>{{ $transaction->name }}</td>
-                                    <td>{{ $transaction->course->type }}</td>
-                                    <td>Rp {{ number_format($transaction->price, 2, ',', '.') }}</td>
-                                    <td>{{ $transaction->created_at->format('d-M-Y') }}</td>
-                                    <td>{{ ucfirst($transaction->status) }}</td>
+                                    <td class="text-capitalize">{{ $transaction->name }}</td>
+                                    <td class="text-capitalize">{{ $transaction->course->type }}</td>
+                                    <td class="text-capitalize">Rp {{ number_format($transaction->price, 2, ',', '.') }}
+                                    </td>
+                                    <td class="text-capitalize">{{ $transaction->created_at->format('d-M-Y') }}</td>
+                                    @if ($transaction->status === 'success')
+                                        <td class="text-capitalize text-success">{{ ucfirst($transaction->status) }}</td>
+                                    @elseif($transaction->status === 'failed')
+                                        <td class="text-capitalize text-danger">{{ ucfirst($transaction->status) }}</td>
+                                    @else
+                                        <td class="text-capitalize text-warning">{{ ucfirst($transaction->status) }}</td>
+                                    @endif
                                     <td>
                                         @if ($transaction->status === 'pending')
-                                            <form action="{{ route('member.transaction.cancel', $transaction->id) }}" method="POST" onsubmit="return confirm('Apa anda yakin ingin membatalkan transaksi?');">
+                                            <form action="{{ route('member.transaction.cancel', $transaction->id) }}"
+                                                method="POST"
+                                                onsubmit="return confirm('Apa anda yakin ingin membatalkan transaksi?');">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="btn btn-danger btn-sm">Cancel</button>
+                                                <button type="submit" class="btn btn-danger btn-sm">Batalkan
+                                                    Pembelian</button>
                                             </form>
+                                        @elseif ($transaction->status === 'failed')
+                                            <form action="{{ route('member.transaction.cancel', $transaction->id) }}"
+                                                method="POST"
+                                                onsubmit="return confirm('Apa anda yakin ingin membatalkan transaksi?');">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-danger btn-sm">Hapus
+                                                    Transaksi</button>
+                                            </form>
+                                        @else
+                                            <div>
+                                                -
+                                            </div>
                                         @endif
                                     </td>
                                 </tr>
@@ -95,11 +119,16 @@
                     </table>
 
                     <div class="d-flex justify-content-between p-1">
-                        <p class="show">Showing {{  $transactions->firstItem() }} to {{  $transactions->lastItem() }} of {{  $transactions->total() }}</p>
+                        <p class="show">Showing {{ $transactions->firstItem() }} to {{ $transactions->lastItem() }} of
+                            {{ $transactions->total() }}</p>
                         <div class="d-flex gap-3">
                             <!-- Custom Pagination -->
-                            <button class="pagination mx-1 {{ $transactions->onFirstPage() ? 'disabled' : '' }}" id="prev-button" {{ $transactions->onFirstPage() ? 'disabled' : '' }} data-url="{{ $transactions->previousPageUrl() }}">Previous</button>
-                            <button class="pagination mx-1 {{ $transactions->hasMorePages() ? '' : 'disabled' }}" id="next-button" {{ $transactions->hasMorePages() ? '' : 'disabled' }} data-url="{{ $transactions->nextPageUrl() }}">Next</button>
+                            <button class="pagination mx-1 {{ $transactions->onFirstPage() ? 'disabled' : '' }}"
+                                id="prev-button" {{ $transactions->onFirstPage() ? 'disabled' : '' }}
+                                data-url="{{ $transactions->previousPageUrl() }}">Previous</button>
+                            <button class="pagination mx-1 {{ $transactions->hasMorePages() ? '' : 'disabled' }}"
+                                id="next-button" {{ $transactions->hasMorePages() ? '' : 'disabled' }}
+                                data-url="{{ $transactions->nextPageUrl() }}">Next</button>
                         </div>
                     </div>
                 </div>

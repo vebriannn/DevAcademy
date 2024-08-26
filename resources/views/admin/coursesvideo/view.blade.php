@@ -54,7 +54,7 @@
                                 <img src="{{ asset('storage/images/covers/' . $course->cover) }}" alt=""
                                     width="150" height="100">
                             </td>
-                            <td>{{ $course->price }}</td>
+                            <td>Rp. {{ number_format($course->price, 0) }}</td>
                             <td>{{ $course->status }}</td>
                             <td>{{ $course->type }}</td>
                             <td>{{ $course->level }}</td>

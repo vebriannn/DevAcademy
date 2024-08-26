@@ -42,14 +42,14 @@ class MemberPaymentController extends Controller
     
         $name = '';
         $price = 0;
+        $status = 'pending';
+        $course = Course::where('id', $courseId)->first();
     
         if ($courseId && $ebookId) {
-            $course = Course::find($courseId);
             $ebook = Ebook::find($ebookId);
             $name = 'Paket Bundle' . $course->name;
             $price = $course->price + $ebook->price;
         } elseif ($courseId) {
-            $course = Course::find($courseId);
             $name = $course->name . ' (video)';
             $price = $course->price;
         } elseif ($ebookId) {
@@ -58,6 +58,10 @@ class MemberPaymentController extends Controller
             $price = $ebook->price;
         }
     
+        if($course->price == 0) {
+            $status = 'success';
+        }
+        
         // Save transaction
         $transaction = Transaction::create([
             'user_id' => $userId,
@@ -65,9 +69,8 @@ class MemberPaymentController extends Controller
             'ebook_id' => $ebookId,
             'name' => $name,
             'price' => $price,
-            'status' => 'pending',
+            'status' => $status,
         ]);
-    
         return response()->json([
             'message' => 'Transaksi berhasil, pembayaran sedang diproses.',
             'transaction' => $transaction,

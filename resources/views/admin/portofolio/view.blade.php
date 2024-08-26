@@ -51,7 +51,7 @@
                                 <td>{{ $porto->name_user }}</td>
                                 <td>{{ $porto->name }}</td>
                                 <td>{{ $porto->status }}</td>
-                                @if ($porto->status == 'pending')
+                                @if ($porto->status == 'check')
                                     <td>
                                         <form action="{{ route('admin.portofolio.edit.update', $porto->id) }}"
                                             method="post">

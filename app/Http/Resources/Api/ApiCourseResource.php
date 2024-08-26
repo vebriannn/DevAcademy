@@ -27,7 +27,7 @@ class ApiCourseResource extends JsonResource
                     'description_course' => $course->description,
                     'level_course' => $course->level,
                     'type_course' => $course->type,
-                    'price_course' => number_format($course->price, 2),
+                    'price_course' => number_format($course->price, 0),
                     // Add other properties you need from the Course model
                 ];
             }),

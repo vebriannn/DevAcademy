@@ -57,7 +57,7 @@
                             <p class="mb-0 me-2 text-center mx-2">entries</p>
                         </div>
                         <a href="{{ route('member.portofolio.create') }}" class="tambah-data py-2 fw-semibold text-center"
-                        style="width: max=content; !important">Tambah</a>
+                            style="width: max=content; !important">Tambah</a>
                     </div>
 
                     <table class="table">
@@ -73,17 +73,29 @@
                         <tbody>
                             @forelse ($portofolio as $porto)
                                 <tr>
-                                    <td>
+                                    <td class="text-capitalize">
                                         {{ $porto->name }}
                                     </td>
-                                    <td>
+                                    <td class="text-capitalize">
                                         {{ $porto->description }}
                                     </td>
-                                    <td>
+                                    <td class="text-capitalize">
                                         {{ $porto->link }}
                                     </td>
-                                    <td>
-                                        {{ $porto->status }}
+                                    <td class="text-capitalize">
+                                        @if ($porto->status == 'accepted')
+                                            <p class="m-0 text-success ">
+                                                {{ $porto->status }}
+                                            </p>
+                                        @elseif($porto->status == 'deaccepted')
+                                            <p class="m-0 text-danger">
+                                                {{ $porto->status }}
+                                            </p>
+                                        @else
+                                            <p class="m-0">
+                                                {{ $porto->status }}
+                                            </p>
+                                        @endif
                                     </td>
                                     <td>
                                         @if ($porto->status == 'check')
@@ -96,7 +108,7 @@
                                                     width="35" height="35">
                                             </a>
                                         @else
-                                            <p>No Action</p>
+                                            <p>-</p>
                                         @endif
                                     </td>
                                 </tr>
@@ -112,16 +124,16 @@
                     </table>
 
                     <div class="d-flex justify-content-between p-1">
-                        <p class="show">Showing {{  $portofolio->firstItem() }} to {{  $portofolio->lastItem() }} of
-                            {{  $portofolio->total() }}</p>
+                        <p class="show">Showing {{ $portofolio->firstItem() }} to {{ $portofolio->lastItem() }} of
+                            {{ $portofolio->total() }}</p>
                         <div class="d-flex gap-3">
-                        <!-- Custom Pagination -->
-                        <button class="pagination mx-1 {{ $portofolio->onFirstPage() ? 'disabled' : '' }}" id="prev-button"
-                            {{ $portofolio->onFirstPage() ? 'disabled' : '' }}
-                            data-url="{{ $portofolio->previousPageUrl() }}">Previous</button>
-                        <button class="pagination mx-1 {{ $portofolio->hasMorePages() ? '' : 'disabled' }}" id="next-button"
-                            {{ $portofolio->hasMorePages() ? '' : 'disabled' }}
-                            data-url="{{ $portofolio->nextPageUrl() }}">Next</button>
+                            <!-- Custom Pagination -->
+                            <button class="pagination mx-1 {{ $portofolio->onFirstPage() ? 'disabled' : '' }}"
+                                id="prev-button" {{ $portofolio->onFirstPage() ? 'disabled' : '' }}
+                                data-url="{{ $portofolio->previousPageUrl() }}">Previous</button>
+                            <button class="pagination mx-1 {{ $portofolio->hasMorePages() ? '' : 'disabled' }}"
+                                id="next-button" {{ $portofolio->hasMorePages() ? '' : 'disabled' }}
+                                data-url="{{ $portofolio->nextPageUrl() }}">Next</button>
                         </div>
                     </div>
                 </div>

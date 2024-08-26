@@ -77,7 +77,7 @@
                             @enderror
                         </div>
                     </div>
-                    <div class="col-6 d-none" id="price">
+                    <div class="col-6 {{$course->price == 0 ? 'd-none' : ''}}" id="price">
                         <div class="entryarea">
                             <input type="text" id="link" name="price" placeholder=" "
                                 value="{{ $course->price }}">
@@ -88,6 +88,30 @@
                         </div>
                     </div>
                     <div class="col-6">
+                        <input type="file" id="imageUpload" name="cover" accept="image/*" class="custom-file-input" />
+                        <label for="imageUpload" class="custom-file-label">Choose File</label>
+                        @error('cover')
+                            <span style="color: red">{{ $message }}</span>
+                        @enderror
+                    </div>
+                    <p class="m-0 mb-1 mt-3">Pilih Tools</p>
+                    <div class="col-12 d-flex align-items-center mb-3">
+                        @foreach ($tools as $toolall)
+                            <div class="form-check d-flex align-items-center ms-2">
+                                <input class="form-check-input p-0 p-2 border-0"
+                                    style="float: none; border: 2px solid #faa907 !important;" type="checkbox"
+                                    value="{{ $toolall->id }}" id="flexCheckDefault" name="tools[]"
+                                    {{ in_array($toolall->id, $coursetool->tools->pluck('id')->toArray()) ? 'checked' : '' }}>
+                                <label class="form-check-label ms-2" for="flexCheckDefault">
+                                    {{ $toolall->name_tools }}
+                                </label>
+                            </div>
+                        @endforeach
+                    </div>
+                    @error('tools')
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror
+                    <div class="col-12">
                         <div class="custom-entryarea">
                             <select id="category" name="level">
                                 <option value="beginner" {{ $course->level == 'beginner' ? 'selected' : '' }}>Beginner
@@ -101,38 +125,6 @@
                             @enderror
                         </div>
                     </div>
-                    <div class="col-6">
-                        <div class="custom-entryarea">
-                            <input type="text" id="link" name="link" placeholder=" " />
-                            <div class="labelline" for="link">Link</div>
-                        </div>
-                    </div>
-                    <div class="col-6">
-                        <input type="file" id="imageUpload" name="cover" accept="image/*" class="custom-file-input" />
-                        <label for="imageUpload" class="custom-file-label">Choose File</label>
-                        @error('cover')
-                            <span style="color: red">{{ $message }}</span>
-                        @enderror
-                    </div>
-                    @if ($coursetool->isNotEmpty())
-                        <p class="m-0 mb-1">Pilih Tools</p>
-                        <div class="col-12 d-flex align-items-center mb-3">
-                            @foreach ($coursetool->tools as $tool)
-                                <div class="form-check d-flex align-items-center ms-2">
-                                    <input class="form-check-input p-0 p-2 border-0"
-                                        style="float: none; border: 2px solid #faa907 !important;" type="checkbox"
-                                        value="{{ $tool->id }}" id="flexCheckDefault" name="tools[]">
-                                    <label class="form-check-label ms-2" for="flexCheckDefault">
-                                        {{ $tool->name_tools }}
-                                    </label>
-                                </div>
-                            @endforeach
-                        </div>
-                        @error('tools')
-                            <span class="text-danger">{{ $message }}</span>
-                        @enderror
-
-                    @endif
                     <div class="col-12">
                         <button type="submit"
                             class="d-block w-100 text-center text-decoration-none py-2 rounded-3 text-white fw-semibold btn-kirim"
@@ -148,7 +140,6 @@
 @push('addon-script')
     <script>
         const type = document.getElementById('type');
-        const price = document.getElementById('price');
         const uploadImages = document.getElementById('upImages');
 
         type.addEventListener('change', (e) => {
@@ -163,10 +154,8 @@
                 price.classList.remove('d-block')
                 price.classList.add('d-none')
 
-                uploadImages.classList.remove('col-6')
+                uploadImages.classList.remove('col-12')
                 uploadImages.classList.add('col-12')
-
-                price.querySelector('input[name="price"]').setAttribute('value', '0');
             }
         })
     </script>

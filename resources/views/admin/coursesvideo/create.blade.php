@@ -88,25 +88,37 @@
                             <span style="color: red">{{ $message }}</span>
                         @enderror
                     </div>
-                    @if ($tools->isNotEmpty())
-                        <p class="m-0 mb-1">Pilih Tools</p>
-                        <div class="col-12 d-flex align-items-center mb-3">
-                            @foreach ($tools as $tool)
-                                <div class="form-check d-flex align-items-center ms-2">
-                                    <input class="form-check-input p-0 p-2 border-0"
-                                        style="float: none; border: 2px solid #faa907 !important;" type="checkbox"
-                                        value="{{ $tool->id }}" id="flexCheckDefault" name="tools[]">
-                                    <label class="form-check-label ms-2" for="flexCheckDefault">
-                                        {{ $tool->name_tools }}
-                                    </label>
-                                </div>
-                            @endforeach
-                        </div>
-                        @error('tools')
-                            <span class="text-danger">{{ $message }}</span>
-                        @enderror
+                    <p class="m-0 mb-1">Pilih Tools</p>
+                    <div class="col-12 d-block mb-3">
+                        @if ($tools->isNotEmpty())
+                            <div class="d-flex align-items-center">
+                                @foreach ($tools as $tool)
+                                    <div class="form-check d-flex align-items-center ms-2">
+                                        <input class="form-check-input p-0 p-2 border-0"
+                                            style="float: none; border: 2px solid #faa907 !important;" type="checkbox"
+                                            value="{{ $tool->id }}" id="flexCheckDefault" name="tools[]">
+                                        <label class="form-check-label ms-2" for="flexCheckDefault">
+                                            {{ $tool->name_tools }}
+                                        </label>
+                                    </div>
+                                @endforeach
+                            </div>
+                            @error('tools')
+                                <p class="m-0 text-danger d-block mb-3">
+                                    {{ $message }}
+                                </p>
+                            @enderror
+                        @else
+                            <p class="m-0 text-danger">
+                                @if ($errors->has('tools'))
+                                    {{ $errors->first('tools') }}
+                                @else
+                                    Maaf Tools Course Belum Tersedia, Silahkan Untuk Buat Tools Terlebih Dahulu
+                                @endif
+                            </p>
+                        @endif
+                    </div>
 
-                    @endif
                     <div class="col-12">
                         <div class="custom-entryarea">
                             <select id="category" name="level">
