@@ -62,6 +62,9 @@ body::-webkit-scrollbar {
 .mins {
     width: 30%;
 }
+.tools img {
+    width: 100px;
+}
 .button {
     position: absolute;
     bottom: 0;
@@ -94,9 +97,6 @@ body::-webkit-scrollbar {
         width: 30%;
         flex-wrap: wrap;
     }
-    .tools img {
-        width: 120px;
-    }
 }
 @media (max-width: 576px) {
     .tools .d-flex {
@@ -110,7 +110,7 @@ body::-webkit-scrollbar {
     }
 
     .tools img {
-        width: 120px;
+        width: 80px;
         display: block;
         margin: 0 auto;
     }

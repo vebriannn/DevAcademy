@@ -110,19 +110,21 @@
             </div>
             @foreach ($course->tools as $tool)
                 <div class="col-lg-3 col-md-6 my-2 my-sm-2">
-                    <div class="tools p-4 border border-2 rounded-4 shadow-sm">
-                        <div class="d-flex align-items-center d-md-block">
-                            <div class="col-6 text-center text-md-start">
-                                <img src="{{ asset('storage/images/logoTools/'.$tool->logo_tools) }}" alt="" width="70" height="auto" />
-                            </div>
-                            <div class="col-6 col-md-12">
-                                <p class="fw-semibold mt-4">
-                                    {{$tool->name_tools}} <br />
-                                    Software Gratis
-                                </p>
-                            </div>
+                    <a href="" class="text-decoration-none text-black">
+                      <div class="tools p-4 pt-lg-5 border border-2 rounded-4 shadow-sm">
+                        <div class="d-flex align-items-center justify-content-center text-center d-md-block">
+                          <div class="col-6 col-md-12">
+                            <img src="{{ asset('storage/images/logoTools/'.$tool->logo_tools) }}" alt="" height="auto" class="rounded-3" />
+                          </div>
+                          <div class="col-6 col-md-12">
+                            <p class="fw-semibold m-0 mt-md-4" style="font-size: 20px">
+                                {{$tool->name_tools}} <br />
+                                Software Gratis
+                            </p>
+                          </div>
                         </div>
-                    </div>
+                      </div>
+                    </a>
                 </div>
             @endforeach
 
