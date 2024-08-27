@@ -12,7 +12,7 @@
     <div class="container pe-0 col-9" id="datasuperadmin">
 
         <!-- Content -->
-        <main role="main" class="col-lg-12 col-sm-12 ps-lg-5 ps-sm-0">
+        <main role="main" class="col-lg-12 col-sm-12 px-4">
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-1">
                 <h1 class="judul-table">Data Super Admin</h1>
             </div>

@@ -114,3 +114,11 @@ body::-webkit-scrollbar {
 .profile-user.menu {
     display: block;
 }
+
+.navbar-toggler{
+    border: none;
+}
+
+.navbar-toggler:focus{
+    box-shadow: none;
+}

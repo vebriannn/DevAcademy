@@ -42,7 +42,7 @@ a{
 
 .scroll-sidebar{
     overflow-y: scroll;
-    height: 400px;
+    height: 600px;
 }
 
 .scroll-sidebar::-webkit-scrollbar{

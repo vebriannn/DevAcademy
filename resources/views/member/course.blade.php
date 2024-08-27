@@ -49,7 +49,7 @@
                     </ul>
                 </div>
 
-                <div class="col-lg-3 col-md-4 col-sm-12">
+                <div class="col-lg-3 col-md-4 col-sm-12 mt-3 category">
                     <div class="card-category d-flex flex-column full-width-border">
                         <p class="mx-auto text-center pt-2 pb-1 border-bottom mt-3 mb-4">Category</p>
                         <div class="checkbox ms-3">
@@ -138,7 +138,7 @@
                             courseData.course.forEach(course => {
                                 const courseElement = document.createElement('div');
                                 courseElement.className =
-                                    'col-xl-4 col-lg-6 col-md-12 col-sm-12 mb-lg-4 m-mobile first-card';
+                                    'col-xl-4 col-lg-6 col-md-12 col-sm-12 mt-3  m-mobile first-card';
                                 courseElement.innerHTML = `
                                 <a href="#" data-slug-course="${course.slug_course}" onclick="setCourseUrl(this)">
                                     <div class="card-course">

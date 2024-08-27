@@ -19,9 +19,22 @@ body {
 body::-webkit-scrollbar {
     display: none;
 }
+a{
+    text-decoration: none;
+}
 .col-lg-3 {
     background-color: var(--c-brand);
     border-radius: 10px;
+}
+.category{
+    height: 590px;
+}
+#course-container{
+    height: 550px !important;
+    overflow-y: scroll;
+}
+#course-container::-webkit-scrollbar {
+    display: none;
 }
 .btn-alert {
     background-color: var(--c-brand);
@@ -85,6 +98,7 @@ body::-webkit-scrollbar {
 }
 .form-check {
     margin-top: 10px;
+    margin-left: 15px;
 }
 .border-bottom {
     width: 100%;
@@ -104,11 +118,11 @@ body::-webkit-scrollbar {
 }
 .card-course {
     border: none;
-    height: 350px;
+    height: max-content;
     width: 100%;
     border-radius: 10px;
     box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.345);
-    padding: 0;
+    padding-bottom: 0;
     transition: box-shadow 0.5s linear;
 }
 .card-course:hover {
@@ -214,11 +228,9 @@ body::-webkit-scrollbar {
 }
 /* end footer */
 @media only screen and (max-width: 1400px) {
-    .card-course {
-        width: 100%;
-        height: 380px;
+    .category{
+        height: 490px;
     }
-
     .img-a {
         width: 20%;
     }
@@ -236,8 +248,7 @@ body::-webkit-scrollbar {
 }
 @media only screen and (max-width: 1200px) {
     .card-course {
-        width: 270px;
-        height: 350px;
+        width: 260px;
     }
 
     .img-a {
@@ -259,6 +270,9 @@ body::-webkit-scrollbar {
     }
 }
 @media only screen and (min-width: 991.5px) {
+    .category{
+        height: 550px;
+    }
     .login-tab {
         display: none;
     }
@@ -298,12 +312,6 @@ body::-webkit-scrollbar {
     .footer {
         margin-top: 90px !important;
     }
-    .card-course {
-        height: 345px;
-    }
-    .first-card {
-        margin-bottom: 20px;
-    }
     .r-nav {
         display: block;
     }
@@ -311,7 +319,7 @@ body::-webkit-scrollbar {
 
 @media only screen and (max-width: 767.5px) {
     .card-course {
-        width: 300px;
+        width: 250px;
         margin: auto;
     }
     .img-m {
@@ -375,16 +383,8 @@ body::-webkit-scrollbar {
     .media {
         margin-top: 20px;
     }
-    .card-course {
-        height: 390px;
-    }
     .alert {
         width: 80%;
-    }
-}
-@media only screen and (max-width: 400px) {
-    .card-course {
-        width: 255px;
     }
 }
 @media only screen and (max-width: 320px) {
