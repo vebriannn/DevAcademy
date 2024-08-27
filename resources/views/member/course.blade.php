@@ -160,7 +160,6 @@
                                             <div class="status d-flex justify-content-between">
                                                 <div class="left d-inline-flex gap-2">
                                                     <p>Video</p>
-                                                    <p>Book</p>
                                                 </div>
                                                 <div class="right d-flex">
                                                     <img src="http://127.0.0.1:8000/nemolab/member/img/star.png" style="height: 20px; margin-top: -1px;" alt="">

@@ -55,35 +55,38 @@
                     @foreach ($courses as $course)
                         @if ($course->transactions->isNotEmpty())
                             <div class="col-lg-4 col-sm-6 col-course mt-1 mb-2">
-                                <div class="card-course h-100 d-flex flex-column">
-                                    <div class="img-card">
-                                        <img src="{{ asset('storage/images/covers/' . $course->cover) }}" alt="">
-                                    </div>
-                                    <div class="deskripsi px-3 ">
-                                        <div class="category">
-                                            <p class="m-0">{{ $course->category }}</p>
+                                <a href="{{route('member.course.join', $course->slug)}}" class="text-black">
+                                    <div class="card-course h-100 d-flex flex-column">
+                                        <div class="img-card">
+                                            <img src="{{ asset('storage/images/covers/' . $course->cover) }}"
+                                                alt="">
                                         </div>
-                                        <div class="tittle-card fw-semibold">
-                                            {{ $course->name }}
-                                        </div>
-                                        <div class="profile-card mt-2">
-                                            <a href="">
-                                                <img class="me-2"
-                                                    src="{{ asset('storage/images/avatars/' . $course->users->avatar) }}"
-                                                    alt="" width="30" style="border-radius: 100%" />
-                                                {{ $course->users->name }}
-                                            </a>
-                                        </div>
-                                        <div class="status d-flex mt-3">
-                                            <div class="d-flex flex-direction-costum">
-                                                <p class="txt-start">Sudah Di Bayar</p>
+                                        <div class="deskripsi px-3 ">
+                                            <div class="category">
+                                                <p class="m-0">{{ $course->category }}</p>
                                             </div>
-                                            <img class="ms-auto me-0 "
-                                                src="{{ asset('nemolab/member/img/check-mycourse.png') }}" alt=""
-                                                width="30" height="30">
+                                            <div class="tittle-card fw-semibold">
+                                                {{ $course->name }}
+                                            </div>
+                                            <div class="profile-card mt-2">
+                                                <a href="">
+                                                    <img class="me-2"
+                                                        src="{{ asset('storage/images/avatars/' . $course->users->avatar) }}"
+                                                        alt="" width="30" style="border-radius: 100%" />
+                                                    {{ $course->users->name }}
+                                                </a>
+                                            </div>
+                                            <div class="status d-flex mt-3">
+                                                <div class="d-flex flex-direction-costum">
+                                                    <p class="txt-start">Sudah Di Bayar</p>
+                                                </div>
+                                                <img class="ms-auto me-0 "
+                                                    src="{{ asset('nemolab/member/img/check-mycourse.png') }}"
+                                                    alt="" width="30" height="30">
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
+                                </a>
                             </div>
                         @endif
                     @endforeach
@@ -91,7 +94,7 @@
             </div>
         </div>
     </div>
-    
+
 @endsection
 @push('addon-script')
     <script>

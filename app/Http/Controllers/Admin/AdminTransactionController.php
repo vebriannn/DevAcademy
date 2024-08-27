@@ -35,8 +35,11 @@ class AdminTransactionController extends Controller
 
     public function cancel($id)
     {
+        // $transaction = Transaction::findOrFail($id);
+        // $transaction->delete();
         $transaction = Transaction::findOrFail($id);
-        $transaction->delete();
+        $transaction->status = 'failed';
+        $transaction->save();
 
         return redirect()->route('admin.transaction')->with('success', 'Transaction canceled successfully.');
     }

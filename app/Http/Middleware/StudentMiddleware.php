@@ -19,5 +19,7 @@ class StudentMiddleware
         if (Auth::check()) {
             return $next($request);
         }
+
+        return redirect()->route('member.login')->with('error', 'You do not have access.');
     }
 }

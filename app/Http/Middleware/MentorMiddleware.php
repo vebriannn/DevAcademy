@@ -19,5 +19,7 @@ class MentorMiddleware
         if (Auth::check() && Auth::user()->role != 'students') {
             return $next($request);
         }
+
+        return redirect()->route('admin.login')->with('error', 'You do not have access.');
     }
 }
