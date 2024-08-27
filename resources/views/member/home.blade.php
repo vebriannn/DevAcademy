@@ -8,7 +8,7 @@
 
 @section('content')
     <!-- HOME -->
-    <section class="mt-5 pt-5 pb-3 w-100" id="home">
+    <section class="pb-3 w-100" id="home" style="margin-top: 5rem">
         <div class="container">
             <div class="card card-home text-white p-0">
                 <div class="card-body d-flex flex-column justify-content-center p-0">
@@ -19,7 +19,7 @@
                             <p class="card-text">Nemolab menawarkan kelas UI/UX Design, Web Development, dan Freelancer untuk
                                 pemula, membantu Anda memulai karier dengan fondasi yang kuat dan keterampilan yang praktis.
                             </p>
-                            <a href="#" class="btn btn-started bg-white mb-md-0 mb-sm-3">Get Started</a>
+                            <a href="#" class="btn-started d-inline-block px-4 mb-md-0 mb-sm-3 rounded-3">Get Started</a>
                         </div>
                         <div class="col-lg-6 d-none d-lg-block">
                             <img class="mx-auto float-end" src="{{ asset('nemolab/member/img/vero.png') }}"
@@ -115,9 +115,9 @@
         </div>
         <div class="text-center mt-5 pb-3">
             @if (Auth::check())
-                <a href="{{ route('member.course') }}" class="btn btn-more bg-white fw-bolder mb-3">Learn More</a>
+                <a href="{{ route('member.course') }}" class="btn-more fw-bolder d-inline-block mb-3 shadow-sm">Learn More</a>
             @else
-                <a href="{{ route('member.login') }}" class="btn btn-more bg-white fw-bolder mb-3">Learn More</a>
+                <a href="{{ route('member.login') }}" class="btn-more fw-bolder d-inline-block mb-3 shadow-sm">Learn More</a>
             @endif
         </div>
     </section>
@@ -239,7 +239,7 @@
         </div>
     </section>
 
-    <section id="contactus" class="mt-5 py-3 px-5 container">
+    <section id="contactus" class="mt-5 py-4 px-5 container">
         <div class="row mt-3">
             <div class="col-lg-4 col-md-12">
                 <h3 class="fw-bold">Contact Us</h3>
@@ -255,7 +255,7 @@
                     <p class="mt-1 mb-0 contact-platform">Contact Instagram</p>
                     <p class="value-platform mb-0">Instagram : nemolab.studio</p>
                 </div>
-                <div class="card-contact py-3 px-4 mt-4">
+                <div class="card-contact py-3 px-4 my-4">
                     <img src="{{ asset('nemolab/member/img/email.png') }}" alt="">
                     <p class="mt-1 mb-0 contact-platform">Contact Email</p>
                     <p class="value-platform mb-0">Email : nemolab.studio@gmail.com</p>
@@ -278,14 +278,14 @@
                             <div class="labelline">Username</div>
                         </div>
                     </div>
-                    <div class="col-12 mt-3" style="height: 190px;">
+                    <div class="col-12 mt-lg-3" style="height: 190px;">
                         <div class="entryarea">
-                            <textarea name="" id=""></textarea>
+                            <textarea name="" id="" required></textarea>
                             <div class="labelline-textarea">Message</div>
                         </div>
                     </div>
                 </div>
-                <a href="#" class="btn btn-kirim fw-bolder mt-4 mb-4 float-end">Kirim Pesan</a>
+                <a href="#" class="btn-kirim fw-semibold text-white rounded-3 my-4 float-start float-lg-end">Kirim Pesan</a>
             </div>
             <div class="col-1"></div>
         </div>

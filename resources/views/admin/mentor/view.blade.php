@@ -9,10 +9,9 @@
 @section('content')
 
     <link rel="stylesheet" href="{{ asset('nemolab/assets/css/components/sidebar.css') }}">
-    <div class="container pe-0 col-9" id="datamentor">
 
         <!-- Content -->
-        <main role="main" class="col-lg-12 col-sm-12 ">
+        <main role="main" class="col-md-12 ml-sm-auto col-lg-9 ps-4">
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-1">
                 <h1 class="judul-table">Data Mentor</h1>
             </div>

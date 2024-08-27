@@ -10,9 +10,9 @@
 @section('content')
     <div class="container" style="margin-top: 5rem;">
         <div class="row">
-            <!-- Sidebar -->
-            <div class="col-3 d-none d-xl-block p-4 pb-5 rounded-4 text-white px-5"
-                style="background-color: #faa907; width: max-content;">
+           <!-- Sidebar -->
+            <div class="col-3 d-none d-xl-block p-4 pb-5 rounded-4 text-white px-5 flex-wrap"
+                style="background-color: #faa907; ">
                 <img src="{{ asset('storage/images/avatars/' . Auth::user()->avatar) }}" style="border-radius: 100%;"
                     alt="" width="70" height="70" class="d-flex mx-lg-auto mt-3" />
                 <h4 class="m-0 mt-lg-5 mt-3 fw-semibold">{{ Auth::user()->name }}</h4>
