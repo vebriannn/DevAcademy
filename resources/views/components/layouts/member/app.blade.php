@@ -38,6 +38,12 @@
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
     </script>
     <script>
+        document.getElementById('menuToggle').addEventListener('click', function() {
+            this.classList.toggle('on');
+            document.getElementById('navbarContent').classList.toggle('show');
+        });
+
+
         const navLink = document.querySelectorAll('.nav-link');
         var hash = window.location.hash.substr(1);
 

@@ -248,7 +248,7 @@
                 <div class="card-contact py-3 px-4">
                     <img src="{{ asset('nemolab/member/img/whatsapp.png') }}" alt="">
                     <p class="mt-1 mb-0 contact-platform">Contact WhatsApp</p>
-                    <p class="value-platform mb-0">WhatsApp : 0813997374343 ( Admin Nemolab )</p>
+                    <p class="value-platform mb-0">WhatsApp : +62 813-9973-74343</p>
                 </div>
                 <div class="card-contact py-3 px-4 mt-4">
                     <img src="{{ asset('nemolab/member/img/white-instagram.png') }}" alt="">

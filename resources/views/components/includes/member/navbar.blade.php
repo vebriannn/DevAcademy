@@ -6,14 +6,14 @@
                 <img src="{{ asset('nemolab/admin/img/Logo Nemolab.png') }}" alt="Logo" width="100"
                     class="d-inline-block align-text-top">
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <div class="menu-toggle d-inline-flex d-lg-none" id="menuToggle">
+                <div class="bar1 rounded-3"></div>
+                <div class="bar2 rounded-3"></div>
+                <div class="bar3 rounded-3"></div>
+            </div>
+            <div class="navtoggle navbar-collapse" id="navbarContent">
                 <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
-                    <li class="nav-item pt-lg-0 pt-sm-4">
+                    <li class="nav-item pt-lg-0 pt-4">
                         <a class="nav-link" aria-current="page" href="{{ route('home') }}#home">Home</a>
                     </li>
                     <li class="nav-item">
@@ -27,9 +27,9 @@
                     </li>
                 </ul>
                 <hr />
-                <div class="r-nav align-items-center ">
+                <div class="r-nav align-items-center gap-2 my-3 my-md-1">
                     <a type="button" class="btn btn-login me-lg-2 me-md-0" href="{{ route('member.login') }}">Log In</a>
-                    <a type="button" class="btn btn-signup text-white mt-lg-0 mt-md-2"
+                    <a type="button" class="btn btn-signup text-white mt-md-0"
                         href="{{ route('member.register') }}">Sign Up</a>
                 </div>
             </div>

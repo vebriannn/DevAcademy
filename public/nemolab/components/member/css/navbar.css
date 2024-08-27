@@ -24,7 +24,7 @@ body::-webkit-scrollbar {
     height: 40px;
 }
 .navbar-nav {
-    gap: 2rem;
+    gap: 1.2rem;
 }
 .nav-link {
     font-weight: normal;
@@ -94,32 +94,75 @@ body::-webkit-scrollbar {
     height: 40px;
     border: 1px solid gray;
 }
+/* .profile-ikon img {
+    width: 25px;
+} */
 
-.profile-user {
-    display: none;
-    position: absolute;
-    top: 85px;
-    right: 40px;
-}
-.profile-user a img {
-    width: 35px;
-    background-color: #e5e5e5;
-    border-radius: 50%;
-    padding: 6px;
-    margin-right: 10px;
-}
-.profile-user a:hover {
-    transition: 0.3s all;
-    background-color: rgb(179, 179, 179) !important;
-}
-.profile-user.menu {
-    display: block;
-}
-
-.navbar-toggler {
-    border: none;
+@media (min-width: 992px) {
+    .profile-user {
+        display: none;
+        position: absolute;
+        top: 85px;
+        right: 40px;
+    }
+    .profile-user a img {
+        width: 35px;
+        background-color: #e5e5e5;
+        border-radius: 50%;
+        padding: 6px;
+        margin-right: 10px;
+    }
+    .profile-user a:hover {
+        transition: 0.3s all;
+        background-color: rgb(179, 179, 179) !important;
+    }
+    .profile-user.menu {
+        display: block;
+    }
 }
 
-.navbar-toggler:focus {
-    box-shadow: none;
+@media (max-width: 992px) {
+    .profile-user {
+        display: none;
+    }
+    .navtoggle {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.4s ease-in-out;
+    }
+
+    .navtoggle.show {
+        max-height: 1000px;
+    }
+}
+
+.menu-toggle {
+    width: 30px;
+    height: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    cursor: pointer;
+}
+
+.menu-toggle div {
+    height: 3px;
+    background-color: black;
+    transition: all 0.2s ease;
+}
+.menu-toggle .bar1 {
+    width: 50%;
+    margin-left: 50%;
+}
+.menu-toggle .bar3 {
+    width: 50%;
+}
+
+/* Animasi untuk perubahan */
+.menu-toggle.on .bar1 {
+    transform: translateX(-100%);
+}
+
+.menu-toggle.on .bar3 {
+    transform: translateX(100%);
 }
