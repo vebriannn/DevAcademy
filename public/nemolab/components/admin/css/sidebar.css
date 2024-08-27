@@ -49,4 +49,27 @@ a{
     display: none;
 }
 
+/* DROPDOWN */
+.form-check-input {
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    background-color: #f9f9f9;
+    cursor: pointer;
+}
+.form-check-input:checked {
+    background-color: var(--c-dark);
+}
+.form-check {
+    margin-top: 10px;
+    margin-left: 15px;
+}
+.border-bottom {
+    width: 100%;
+}
+.dropdown {
+    display: none;
+}
+
 /* End Sidebar */

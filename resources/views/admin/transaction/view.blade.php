@@ -11,12 +11,12 @@
     <link rel="stylesheet" href="{{ asset('nemolab/member/css/tabel.css') }}">
 
     <!-- Tabel -->
-    <div class="col-lg-9 col-md-9 col-12 mx-auto mx-lg-0 ps-lg-5 ps-3">
+    <div class="col-lg-9 col-sm-12 px-4">
         <div class="my-4">
-            <h3 class="fw-semibold text-center text-lg-start" style="color: #faa907">Transactions</h3>
+            <h3 class="fw-semibold" style="color: #faa907">Transactions</h3>
         </div>
 
-        <div class="table-responsive p-3 rounded-5 border border-2">
+        <div class="table-responsive p-3 border border-2">
             <div class="d-flex justify-content-between align-items-center mb-3">
                 <div class="d-flex align-items-center ms-3 mt-2">
                     <p class="mb-0 me-2">Show</p>
