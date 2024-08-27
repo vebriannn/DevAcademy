@@ -57,7 +57,7 @@ Route::get('admin/logout', [AdminLoginController::class, 'logout'])->name('admin
 Route::prefix('admin')->group(function () {
 
     // Routes for tools
-    Route::prefix('tools')->group(function () {
+    Route::prefix('tools')->middleware('mentor')->group(function () {
         Route::get('/', [AdminToolsController::class, 'index'])->name('admin.tools');
         Route::get('/create', [AdminToolsController::class, 'create'])->name('admin.tools.create');
         Route::post('/create/store', [AdminToolsController::class, 'store'])->name('admin.tools.create.store');

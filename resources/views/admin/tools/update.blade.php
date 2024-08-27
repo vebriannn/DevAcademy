@@ -25,6 +25,13 @@
                         <span style="color: red">{{ $message }}</span>
                     @enderror
                 </div>
+                <div class="entryarea">
+                    <input type="text" id="name" name="link" value="{{$tools->link}}" />
+                    <div class="labelline" for="name">Link</div>
+                    @error('link')
+                        <span style="color: red">{{ $message }}</span>
+                    @enderror
+                </div>
                 <div class="col-12 mt-2">
                     <p class="m-0">Image Tools</p>
                     <input type="file" id="imageUpload" name="logo_tools" accept="image/*" class="" />

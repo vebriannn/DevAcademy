@@ -8,9 +8,10 @@ use App\Models\Category;
 
 class AdminCategoryController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $categories = Category::all();
+        $perPage = $request->get('entries', 10);
+        $categories = Category::paginate($perPage);
         return view('admin.category.view', compact('categories'));
     }
 

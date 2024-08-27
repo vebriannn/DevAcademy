@@ -62,9 +62,7 @@ body::-webkit-scrollbar {
 .mins {
     width: 30%;
 }
-.tools img {
-    width: 80px;
-}
+
 .button {
     position: absolute;
     bottom: 0;

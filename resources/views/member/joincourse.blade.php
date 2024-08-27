@@ -112,12 +112,12 @@
                 <div class="row">
                     @foreach ($course->tools as $tool)
                         <div class="col-6 col-lg-3 mb-4">
-                            {{-- <a href="" class="text-decoration-none text-black"> --}}
+                            <a href="{{ $tool->link }}" class="text-decoration-none text-black">
                             <div class="tools p-4 pt-lg-5 border border-2 rounded-4 shadow-sm">
                                 <div class="d-flex align-items-center justify-content-center text-center d-md-block">
                                     <div class="col-6 col-md-12">
                                         <img src="{{ asset('storage/images/logoTools/' . $tool->logo_tools) }}"
-                                            alt="" height="auto" class="rounded-3" />
+                                            alt="" height="100" width="100" class="rounded-3 object-fit-cover" />
                                     </div>
                                     <div class="col-6 col-md-12">
                                         <p class="fw-semibold m-0 mt-md-4" style="font-size: 16px">
@@ -128,7 +128,7 @@
 
                                 </div>
                             </div>
-                            {{-- </a> --}}
+                            </a>
                         </div>
                     @endforeach
                 </div>

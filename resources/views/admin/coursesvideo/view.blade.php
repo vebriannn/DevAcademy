@@ -14,15 +14,18 @@
 
         <div class="table-responsive px-3 py-3">
             <div class="btn-group mr-2 w-100 d-flex justify-content-between align-items-center mb-3">
-                <div class="d-flex align-items-center">
-                    <p class="mb-0 me-2 text-center">Show</p>
-                    <select id="entries" class="form-select form-select-sm">
-                        <option value="10">10</option>
-                        <option value="25">25</option>
-                        <option value="50">50</option>
-                        <option value="100">100</option>
-                    </select>
-                    <p class="mb-0 me-2 text-center mx-2">entries</p>
+                <div class="d-flex align-items-center ms-3 mt-2">
+                    <p class="mb-0 me-2">Show</p>
+                    <form method="GET" action="{{ route('admin.course') }}" id="entries-form">
+                        <select id="entries" name="per_page" class="form-select form-select-sm rounded-3"
+                            onchange="document.getElementById('entries-form').submit();">
+                            <option value="10" {{ request('per_page') == 10 ? 'selected' : '' }}>10</option>
+                            <option value="25" {{ request('per_page') == 25 ? 'selected' : '' }}>25</option>
+                            <option value="50" {{ request('per_page') == 50 ? 'selected' : '' }}>50</option>
+                            <option value="100" {{ request('per_page') == 100 ? 'selected' : '' }}>100</option>
+                        </select>
+                    </form>
+                    <p class="mb-0 ms-2">entries</p>
                 </div>
                 <a href="{{ route('admin.course.create') }}" class="tambah-data pt-2 pb-2 px-4 fw-semibold"
                     style="width: max=content; !important">Tambah</a>
@@ -83,13 +86,30 @@
                     </tbody>
                 </table>
 
-                <div class="d-flex justify-content-between px-1 py-1">
-                    <p class="show">Showing 10 of 10</p>
-                    <div class="d-flex">
-                        <button class="pagination mx-1" id="prev-button">Previous</button>
-                        <button class="pagination mx-1" id="next-button">Next</button>
+                <div class="d-flex justify-content-between p-1">
+                    <p class="show">Showing {{ $courses->count() }} of {{ $courses->total() }}</p>
+                    <div class="d-flex gap-3">
+                        <button class="pagination mx-1 {{ $courses->onFirstPage() ? 'disabled' : '' }}" id="prev-button"
+                            {{ $courses->onFirstPage() ? 'disabled' : '' }}
+                            data-url="{{ $courses->previousPageUrl() }}">Previous</button>
+                        <button class="pagination mx-1 {{ $courses->hasMorePages() ? '' : 'disabled' }}" id="next-button"
+                            {{ $courses->hasMorePages() ? '' : 'disabled' }}
+                            data-url="{{ $courses->nextPageUrl() }}">Next</button>
                     </div>
                 </div>
             </div>
         </main>
+        <script>
+            document.getElementById('prev-button').addEventListener('click', function() {
+                if (!this.classList.contains('disabled')) {
+                    window.location.href = this.getAttribute('data-url');
+                }
+            });
+    
+            document.getElementById('next-button').addEventListener('click', function() {
+                if (!this.classList.contains('disabled')) {
+                    window.location.href = this.getAttribute('data-url');
+                }
+            });
+        </script>
     @endsection

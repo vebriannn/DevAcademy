@@ -18,11 +18,18 @@ class AdminCourseController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index() {
+    public function index(Request $request) {
         $user = Auth::user();
-        $courses = Course::where('mentor_id', $user->id)->get();
+        $perPage = $request->input('per_page', 10);
+        if ($user->role === 'superadmin') {
+            $courses = Course::paginate($perPage);
+        } else {
+            $courses = Course::where('mentor_id', $user->id)->paginate($perPage);
+        }
         return view('admin.coursesvideo.view', compact('courses'));
     }
+    
+
 
     public function create() {
         $category = Category::all();

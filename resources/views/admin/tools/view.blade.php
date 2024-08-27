@@ -11,15 +11,18 @@
         <h2 class="fw-semibold mb-4" style="color: #faa907;">Tools</h2>
         <div class="table-responsive p-3">
             <div class="btn-group mr-2 w-100 d-flex justify-content-between align-items-center mb-3">
-                <div class="d-flex align-items-center">
-                    <p class="mb-0 me-2 text-center">Show</p>
-                    <select id="entries" class="form-select form-select-sm">
-                        <option value="10">10</option>
-                        <option value="25">25</option>
-                        <option value="50">50</option>
-                        <option value="100">100</option>
-                    </select>
-                    <p class="mb-0 me-2 text-center mx-2">entries</p>
+                <div class="d-flex align-items-center ms-3 mt-2">
+                    <p class="mb-0 me-2">Show</p>
+                    <form method="GET" action="{{ route('admin.course') }}" id="entries-form">
+                        <select id="entries" name="per_page" class="form-select form-select-sm rounded-3"
+                            onchange="document.getElementById('entries-form').submit();">
+                            <option value="10" {{ request('per_page') == 10 ? 'selected' : '' }}>10</option>
+                            <option value="25" {{ request('per_page') == 25 ? 'selected' : '' }}>25</option>
+                            <option value="50" {{ request('per_page') == 50 ? 'selected' : '' }}>50</option>
+                            <option value="100" {{ request('per_page') == 100 ? 'selected' : '' }}>100</option>
+                        </select>
+                    </form>
+                    <p class="mb-0 ms-2">entries</p>
                 </div>
                 <a href="{{ route('admin.tools.create') }}" class="tambah-data pt-2 pb-2 px-4 fw-semibold"
                     style="width: max=content; !important">Tambah</a>
@@ -29,6 +32,7 @@
                 <thead>
                     <tr>
                         <th>Title</th>
+                        <th>Link</th>
                         <th>Images</th>
                         <th>Action</th>
                     </tr>
@@ -37,9 +41,10 @@
                     @forelse ($tools as $item)
                         <tr>
                             <td>{{ $item->name_tools }}</td>
+                            <td>{{ $item->link }}</td>
                             <td>
                                 <img src="{{ asset('storage/images/logoTools/' . $item->logo_tools) }}" alt=""
-                                    width="35" height="35">
+                                    width="50" height="50" class="rounded-2 object-fit-cover">
                             </td>
                             <td>
                                 <a href="{{ route('admin.tools.edit', $item->id) }}" class="me-2">
@@ -54,19 +59,36 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="2">Data Belum Ada</td>
+                            <td colspan="5">Data Belum Ada</td>
                         </tr>
                     @endforelse
                 </tbody>
             </table>
 
             <div class="d-flex justify-content-between p-1">
-                <p class="show">Showing 10 of 10</p>
-                <div class="d-flex">
-                    <button class="pagination mx-1" id="prev-button">Previous</button>
-                    <button class="pagination mx-1" id="next-button">Next</button>
+                <p class="show">Showing {{ $tools->count() }} of {{ $tools->total() }}</p>
+                <div class="d-flex gap-3">
+                    <button class="pagination mx-1 {{ $tools->onFirstPage() ? 'disabled' : '' }}" id="prev-button"
+                        {{ $tools->onFirstPage() ? 'disabled' : '' }}
+                        data-url="{{ $tools->previousPageUrl() }}">Previous</button>
+                    <button class="pagination mx-1 {{ $tools->hasMorePages() ? '' : 'disabled' }}" id="next-button"
+                        {{ $tools->hasMorePages() ? '' : 'disabled' }}
+                        data-url="{{ $tools->nextPageUrl() }}">Next</button>
                 </div>
             </div>
         </div>
     </main>
+    <script>
+        document.getElementById('prev-button').addEventListener('click', function() {
+            if (!this.classList.contains('disabled')) {
+                window.location.href = this.getAttribute('data-url');
+            }
+        });
+
+        document.getElementById('next-button').addEventListener('click', function() {
+            if (!this.classList.contains('disabled')) {
+                window.location.href = this.getAttribute('data-url');
+            }
+        });
+    </script>
 @endsection
