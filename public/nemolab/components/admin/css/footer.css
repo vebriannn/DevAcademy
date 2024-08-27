@@ -13,15 +13,25 @@
     margin: 0 3px;
 }
 .footer .social-icons img {
-    max-height: 35px; /* Ensure icons have a consistent size */
+    height: 35px;
 }
 
-@media screen and (max-width: 768px) {
+@media (max-width: 576px) {
     .company-name p {
-        font-size: 14px;
+        font-size: 15px;
     }
 
     .footer .social-icons img {
-        max-height: 23px; /* Ensure icons have a consistent size */
+        width: 32px;
+        height: 32px;
+    }
+}
+@media (max-width: 992px) {
+    .company-name p {
+        font-size: 14px;
+    }
+    .footer .social-icons img {
+        width: 30px;
+        height: 30px;
     }
 }

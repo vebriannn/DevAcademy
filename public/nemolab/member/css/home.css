@@ -4,21 +4,21 @@
     --c-brand-rgb: rgb(250, 169, 7);
     --font-base: "Poppins", sans-serif;
     --transition: all 0.5s ease;
-    --box-shadow-card:rgba(0, 0, 0, 0.35) 0px 5px 15px;;
-  }
-  
-  body {
+    --box-shadow-card: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+body {
     font-family: var(--font-base);
     line-height: 1.7;
     height: 100vh;
     overflow-y: auto;
-  }
-  
-  body::-webkit-scrollbar {
+}
+
+body::-webkit-scrollbar {
     display: none;
-  }
-  
-  /* NAVBAR */
+}
+
+/* NAVBAR
   .navbar-brand img {
     width: auto;
     height: 40px;
@@ -65,10 +65,10 @@
   
   .btn-signup:hover {
     background-color: var(--c-brand);
-  }
-  
-  /* HOME */
-  .card-home {
+  } */
+
+/* HOME */
+.card-home {
     width: 100%;
     height: auto;
     border-radius: 50px;
@@ -77,148 +77,151 @@
     background-repeat: no-repeat;
     box-shadow: var(--box-shadow-card);
     background-image: url("/nemolab/member/img/Frame223.png") !important;
-  }
-  
-  .card-title {
+}
+
+.card-title {
     font-size: 32px;
-  }
-  
-  .btn-started {
+}
+
+.btn-started {
     border: none;
+    background-color: #fff;
+    text-decoration: none;
+    padding: 10px 0;
     color: var(--c-brand);
     font-weight: bold;
-  }
-  
-  .btn-started:hover {
-    background-color: var(--c-brand);
-    transition: var(--transition);
-    color: var(--c-brand);
-  }
-  
-  .tools {
+}
+
+.btn-started:hover {
+    background-color: #f1f0f0;
+    transition: 0.2s all;
+}
+
+.tools {
     gap: 6rem;
-  }
-  
-  .card-tools {
+}
+
+.card-tools {
     border: 3px solid var(--c-brand);
     border-radius: 20px;
     box-shadow: 0px 0px 5px var(--c-brand);
-  }
-  
-  .figma{
+}
+
+.figma {
     width: 15% !important;
-  }
-  
-  .card-tools img {
+}
+
+.card-tools img {
     width: 18%;
-  }
-  
-  .card-tools h3 {
+}
+
+.card-tools h3 {
     font-weight: bold;
-  }
-  
-  /* COURSE */
-  #course {
+}
+
+/* COURSE */
+#course {
     background-color: var(--c-brand);
     color: white;
     border-radius: 50px;
-  }
-  
-  .deskripsi-course{
+}
+
+.deskripsi-course {
     width: 50%;
-  }
-  
-  .row-course{
+}
+
+.row-course {
     height: 35rem;
-  }
-  
-  .image-course-1 {
+}
+
+.image-course-1 {
     background-image: linear-gradient(
-        to bottom,
-        transparent,
-        rgba(0, 0, 0, 0.438)
-      ),
-      url("/nemolab/member/img/img-course-1.png");
+            to bottom,
+            transparent,
+            rgba(0, 0, 0, 0.438)
+        ),
+        url("/nemolab/member/img/img-course-1.png");
     background-size: cover;
     border: none !important;
-  }
-  
-  .image-course-2 {
+}
+
+.image-course-2 {
     background-image: linear-gradient(
-        to bottom,
-        transparent,
-        rgba(0, 0, 0, 0.438)
-      ),
-      url("/nemolab/member/img/img-course-2.png");
+            to bottom,
+            transparent,
+            rgba(0, 0, 0, 0.438)
+        ),
+        url("/nemolab/member/img/img-course-2.png");
     background-size: cover;
     border: none !important;
-  }
-  
-  .image-course-3 {
+}
+
+.image-course-3 {
     background-image: linear-gradient(
-        to bottom,
-        transparent,
-        rgba(0, 0, 0, 0.438)
-      ),
-      url("/nemolab/member/img/img-course-3.png");
+            to bottom,
+            transparent,
+            rgba(0, 0, 0, 0.438)
+        ),
+        url("/nemolab/member/img/img-course-3.png");
     background-size: cover;
     border: none !important;
-  }
-  
-  .btn-join {
+}
+
+.btn-join {
     border: 1px solid white;
     border-radius: 30px;
     padding: 15px 35px;
-  }
-  
-  .btn-join:hover {
+}
+
+.btn-join:hover {
     border: 1px solid var(--c-brand);
     transition: var(--transition);
-  }
-  
-  .btn-more {
+}
+
+.btn-more {
+    text-decoration: none;
+    background-color: #fff;
     color: var(--c-brand);
     border-radius: 30px;
     padding: 15px 35px;
-  }
-  
-  .btn-more:hover {
+    transition: 0.2s all;
+    /* padding: 12px 30px; */
+}
+
+.btn-more:hover {
+    background-color: #f1f0f0;
     color: var(--c-brand);
-  }
-  
-  /* TESTIMONIAL */
-  
-  #testimonial{
+}
+
+/* TESTIMONIAL */
+
+#testimonial {
     margin-top: 120px;
-  }
-  
-  .text-gray {
+}
+
+.text-gray {
     color: #a7abb6;
-  }
-  
-  .marquee-container {
+}
+
+.marquee-container {
     overflow-y: auto;
-  }
-  
-  .marquee-container::-webkit-scrollbar{
+}
+
+.marquee-container::-webkit-scrollbar {
     display: none;
-  }
-  
-  .scroll {
+}
+
+.scroll {
     animation: scroll-up 24s linear infinite;
     height: 100vh;
-  }
-  
-  
-  .scroll-reverse {
+}
+
+.scroll-reverse {
     animation: scroll-down 25s linear infinite;
     height: 100vh;
-  }
-  
-  
-  
-  
-  .card-testimonial {
+}
+
+.card-testimonial {
     width: 80%;
     height: auto;
     border-radius: 15px;
@@ -226,125 +229,123 @@
     background-color: var(--c-brand);
     margin-top: 1rem; /* Add some space between the cards */
     flex-shrink: 0; /* Prevent flex items from shrinking */
-  }
-  
-  .card-testimonial p{
+}
+
+.card-testimonial p {
     font-weight: 500;
     font-size: 16px;
-  }
-  
-  
-  .profile img {
+}
+
+.profile img {
     height: 40px;
     margin: auto 0;
-  }
-  
-  .comment {
+}
+
+.comment {
     font-size: 12px;
     color: white;
     text-align: justify;
-  }
-  
-  @keyframes scroll-up {
+}
+
+@keyframes scroll-up {
     0% {
-      transform: translateY(0);
+        transform: translateY(0);
     }
     100% {
-      transform: translateY(-50%);
+        transform: translateY(-50%);
     }
-  }
-  
-  @keyframes scroll-down {
+}
+
+@keyframes scroll-down {
     0% {
-      transform: translateY(-50%);
+        transform: translateY(-50%);
     }
     100% {
-      transform: translateY(0);
+        transform: translateY(0);
     }
-  }
-  
-  .scroll:hover,
-  .scroll-reverse:hover {
+}
+
+.scroll:hover,
+.scroll-reverse:hover {
     animation-play-state: paused;
-  }
-  
-  
-  /* ABOUT US */
-  #aboutus {
+}
+
+/* ABOUT US */
+#aboutus {
     margin-top: 120px;
-  }
-  
-  .text-gradient {
+}
+
+.text-gradient {
     color: var(--c-brand);
     font-weight: bold;
     background: -webkit-linear-gradient(
-      0deg,
-      rgba(250, 169, 7, 1) 1%,
-      rgba(255, 119, 0, 1) 100%
+        0deg,
+        rgba(250, 169, 7, 1) 1%,
+        rgba(255, 119, 0, 1) 100%
     );
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-  }
-  
-  .stats-container {
+}
+
+.stats-container {
     display: flex;
     justify-content: center;
     align-items: center;
-  }
-  
-  .stat {
+}
+
+.stat {
     text-align: center;
     font-size: 3.6rem;
     padding: 0 2em; /* Adjust the padding to control the space around the vertical line */
-  }
-  
-  .stat-line {
+}
+
+.stat-line {
     border-right: 1px solid black;
-  }
-  
-  .stat-label {
+}
+
+.stat-label {
     font-size: 1.2rem;
     white-space: nowrap;
-  }
-  
-  /* CONTACTUS */
-  #contactus {
+}
+
+/* CONTACTUS */
+#contactus {
     border: 1px solid rgba(0, 0, 0, 0.455);
     border-radius: 20px;
     color: black;
-  }
-  
-  #contactus h3{
+}
+
+#contactus h3 {
     color: var(--c-brand);
-  }
-  
-  .card-contact{
+}
+
+.card-contact {
     background-color: var(--c-brand);
     color: white;
     border-radius: 20px;
-  }
-  
-  .card-contact img{
+}
+
+.card-contact img {
     max-width: 30px;
-  }
-  
-  .contact-platform{
+}
+
+.contact-platform {
+    font-size: 17px;
+    font-weight: 500;
+}
+
+.value-platform {
     font-size: 14px;
-  }
-  
-  .value-platform{
-    font-size: 10px;
-  }
-  
-  
-  .entryarea {
+}
+
+.entryarea {
     position: relative;
     height: 50px;
     margin-bottom: 1rem;
-  }
-  
-  input,
-  textarea {
+}
+
+input,
+textarea {
     position: absolute;
     width: 100%;
     outline: none;
@@ -356,10 +357,10 @@
     transition: 0.1s ease;
     z-index: 1;
     color: rgb(0, 0, 0);
-  }
-  
-  .labelline,
-  .labelline-textarea {
+}
+
+.labelline,
+.labelline-textarea {
     position: absolute;
     color: rgb(0, 0, 0);
     padding: 0 10px;
@@ -368,339 +369,332 @@
     transition: 0.2s ease;
     pointer-events: none;
     line-height: 50px;
-  }
-  
-  input:focus,
-  input:valid,
-  textarea:focus {
+}
+
+input:focus,
+input:valid,
+textarea:focus,
+textarea:valid {
     border: 2px solid rgb(0, 0, 0);
-  }
-  
-  input:focus + .labelline,
-  input:valid + .labelline,
-  textarea:focus + .labelline-textarea {
+}
+
+input:focus + .labelline,
+input:valid + .labelline,
+textarea:focus + .labelline-textarea,
+textarea:valid + .labelline-textarea {
     color: rgb(0, 0, 0);
     height: 20px;
     line-height: 20px;
     padding: 0 10px;
     transform: translate(-10px, -15px) scale(0.88);
     z-index: 1;
-  }
-  
-  textarea {
+}
+
+input[type="email"]:focus + .labelline,
+input[type="email"]:valid + .labelline {
+    color: rgb(0, 0, 0);
+    height: 20px;
+    line-height: 20px;
+    padding: 0 10px;
+    transform: translate(-10px, -15px) scale(0.88);
+    z-index: 1;
+}
+
+textarea {
     line-height: 1.5;
     height: 190px; /* Adjusted height for better textarea fit */
     padding-top: 10px;
-  }
-  
-  .entryarea-textarea {
+}
+
+.entryarea-textarea {
     height: auto; /* Adjust height for textarea container */
-  }
-  
-  textarea::-webkit-scrollbar {
+}
+
+textarea::-webkit-scrollbar {
     display: none;
-  }
-  
-  /* Chrome, Safari, Edge, Opera */
-  input::-webkit-outer-spin-button,
-  input::-webkit-inner-spin-button {
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
-  }
-  
-  /* Firefox */
-  input[type=number] {
-    -moz-appearance: textfield;
-  }
-  
-  .btn-kirim {
-    background-color: var(--c-brand);
-    color: white;
-    border-radius: 10px;
-    padding: 5px 13px;
-  }
-  
-  .btn-kirim:hover {
-    color: var(--c-brand);
-  }
+}
 
-  
-  @media screen and (max-width: 1200px) {
+/* Firefox */
+
+.btn-kirim {
+    text-decoration: none;
+    background-color: var(--c-brand);
+    font-size: 16px;
+    padding: 9px 15px;
+}
+
+.btn-kirim:hover {
+    transition: 0.2s all;
+    background-color: #fa9d07;
+}
+
+@media screen and (max-width: 1200px) {
     /* HOME */
     .card-tools {
-      border: 3px solid var(--c-brand);
-      border-radius: 20px;
-      width: 25%;
-      box-shadow: 0px 0px 5px var(--c-brand);
+        border: 3px solid var(--c-brand);
+        border-radius: 20px;
+        width: 25%;
+        box-shadow: 0px 0px 5px var(--c-brand);
     }
-  
+
     .card-tools img {
-      width: 50px;
+        width: 50px;
     }
-  
+
     .card-tools h3 {
-      font-size: 16px;
+        font-size: 16px;
     }
-  
+
     /* COURSE */
-      .row-course{
-      height: 28rem !important;
+    .row-course {
+        height: 28rem !important;
     }
-  
-    .card-title{
-      font-size: 26px;
+
+    .card-title {
+        font-size: 26px;
     }
-  
-    #course .card-text{
-      font-size: 12px;
-      width: 100%;
+
+    #course .card-text {
+        font-size: 12px;
+        width: 100%;
     }
-    
+
     /* TESTTIMONIAL */
     .card-testimonial {
-      width: 100%;
+        width: 100%;
     }
-  
+
     /* ABOUT US */
     .stat {
-      text-align: center;
-      font-size: 3.3rem;
-      padding: 0 2em; /* Adjust the padding to control the space around the vertical line */
+        text-align: center;
+        font-size: 3.3rem;
+        padding: 0 2em; /* Adjust the padding to control the space around the vertical line */
     }
-  
-    .stat-label{
-      font-size: 0.9rem;
+
+    .stat-label {
+        font-size: 0.9rem;
     }
-  
-    #aboutus h1{
-      font-size: 30px;
+
+    #aboutus h1 {
+        font-size: 30px;
     }
-  
-    #aboutus h5{
-      font-size: 20px;
+
+    #aboutus h5 {
+        font-size: 20px;
     }
-  }
-  
-  @media screen and (max-width: 992px) {
+}
+
+@media screen and (max-width: 992px) {
     /* NAVBAR */
     .navbar-nav {
-      gap: 0;
+        gap: 0;
     }
-  
+
     /* HOME */
     .card-home {
-      background-image: url("/nemolab/member/img/bg-card-home2.png") !important;
-      border-radius: 18px;
+        background-image: url("/nemolab/member/img/bg-card-home2.png") !important;
+        border-radius: 18px;
     }
-  
 
-  
     .card-tools {
-      border: 3px solid var(--c-brand);
-      border-radius: 20px;
-      width: 25%;
-      box-shadow: 0px 0px 5px var(--c-brand);
+        border: 3px solid var(--c-brand);
+        border-radius: 20px;
+        width: 25%;
+        box-shadow: 0px 0px 5px var(--c-brand);
     }
-  
+
     .card-tools img {
-      width: 30px;
+        width: 30px;
     }
-  
+
     .card-tools h3 {
-      font-size: 16px;
-    }
-  
-  
-    /* COURSE */
-    .row-course{
-      height: max-content !important;
-    }
-  
-    .image-course-1{
-      height: 300px !important;
-    }
-  
-    .image-course-2{
-      height: 200px !important;
-      margin-top: 20px;
-    }
-  
-    .image-course-3{
-      height: 200px !important;
-      margin-top: 20px;
-    }
-  
-  
-    .btn-join {
-      border: 1px solid white;
-      border-radius: 30px;
-      padding: 8px 28px;
-    }
-  
-    .btn-more{
-      padding: 12px 30px;
-    }
-  
-  
-    /* ABOUT US */
-    #aboutus h1{
-      font-size: 28px;
-    }
-  
-      #aboutus h5{
         font-size: 16px;
-      }
-  
-    .stat {
-      text-align: center;
-      font-size: 2.5rem;
-      padding: 0 2em; /* Adjust the padding to control the space around the vertical line */
     }
-  
+
+    /* COURSE */
+    .row-course {
+        height: max-content !important;
+    }
+
+    .image-course-1 {
+        height: 300px !important;
+    }
+
+    .image-course-2 {
+        height: 200px !important;
+        margin-top: 20px;
+    }
+
+    .image-course-3 {
+        height: 200px !important;
+        margin-top: 20px;
+    }
+
+    .btn-join {
+        border: 1px solid white;
+        border-radius: 30px;
+        padding: 8px 28px;
+    }
+
+    /* ABOUT US */
+    #aboutus h1 {
+        font-size: 28px;
+    }
+
+    #aboutus h5 {
+        font-size: 16px;
+    }
+
+    .stat {
+        text-align: center;
+        font-size: 2.5rem;
+        padding: 0 2em; /* Adjust the padding to control the space around the vertical line */
+    }
+
     /* CONTACT US */
-    #contactus .col-lg-7 h3{
-      margin-top: 40px;
+    #contactus .col-lg-7 h3 {
+        margin-top: 40px;
     }
-
 }
 
-  
-  @media screen and (max-width: 768px) {
+@media screen and (max-width: 768px) {
     /* HOME */
     .card-tools {
-      width: 100% ; 
+        width: 100%;
     }
-  
+
     .tools {
-      gap: 2rem;
+        gap: 2rem;
     }
-  
+
     .card-tools img {
-      width: 30px;
+        width: 30px;
     }
-  
+
     .card-tools h3 {
-      font-size: 16px;
+        font-size: 16px;
     }
-  
+
     /* COURSE */
-    .image-course-1{
-      background-position: center;
-    }
-  
-    .image-course-2{
-      background-position-x: -140px;
-    }
-  
-    /* ABOUT US */
-    .stat{
-      padding: 0 40px;
-    }
-}
-  
-  @media screen and (max-width:576px) {
-  
-    /* HOME */
-    #home .col-lg-6{
-      padding: 20px;
-    }
-    
-    .tools{
-      display: block !important;
-      margin: 0;
-      padding: 0 !important;
-      margin-bottom: 10px;
+    .image-course-1 {
+        background-position: center;
     }
 
-
-    .card-tools {
-      width: 100%;
-      margin-bottom: 20px;
-      margin-right: auto;
-      margin-left: auto;
-    }
-  
-    .card-tools h3{
-      font-size: 20px;
-      width: max-content;
+    .image-course-2 {
+        background-position-x: -140px;
     }
 
-    .figma{
-      width: 30px !important;
-    }
-
-    .card-tools img{
-      width: 40px;
-    }
-  
-    /* COURSE */
-    #course{
-      border-radius: 0px;
-    }
-  
-    #course p{
-      width: 100% !important;
-      text-align: justify;
-    }
-  
-    .row-course{
-      padding: 0 !important;
-    }
-  
-    .deskripsi-course{
-      width: 100% !important;
-    }
-    
-    .image-course-2{
-      height: 300px !important;
-    }
-  
-    .image-course-3{
-      height: 300px !important;
-    }
-  
-    .btn-join{
-      margin-bottom: 20px !important;
-    }
-  
-    /* TESTIMONIAL */
-    #testimonial{
-      margin-top: 50px;
-    }
-  
-    .row-marque{
-      width:90% ;
-      margin: 0 auto;
-    }
-  
-    .first-marque{
-      display: none;
-    }
-  
-    .second-marque{
-      display: none ;
-    }
-  
-  
     /* ABOUT US */
     .stat {
-      display: none;
+        padding: 0 40px;
     }
-  
-      /* CONTACTUS */
-      #contactus{
+}
+
+@media screen and (max-width: 576px) {
+    /* HOME */
+    #home .col-lg-6 {
+        padding: 20px;
+    }
+
+    .tools {
+        display: block !important;
+        margin: 0;
+        padding: 0 !important;
+        margin-bottom: 10px;
+    }
+
+    .card-tools {
+        width: 100%;
+        margin-bottom: 20px;
+        margin-right: auto;
+        margin-left: auto;
+    }
+
+    .card-tools h3 {
+        font-size: 20px;
+        width: max-content;
+    }
+
+    .figma {
+        width: 30px !important;
+    }
+
+    .card-tools img {
+        width: 40px;
+    }
+
+    /* COURSE */
+    #course {
+        border-radius: 0px;
+    }
+
+    #course p {
+        width: 100% !important;
+        text-align: justify;
+    }
+
+    .row-course {
+        padding: 0 !important;
+    }
+
+    .deskripsi-course {
+        width: 100% !important;
+    }
+
+    .image-course-2 {
+        height: 300px !important;
+    }
+
+    .image-course-3 {
+        height: 300px !important;
+    }
+
+    .btn-join {
+        margin-bottom: 20px !important;
+    }
+
+    /* TESTIMONIAL */
+    #testimonial {
+        margin-top: 50px;
+    }
+
+    .row-marque {
+        width: 90%;
+        margin: 0 auto;
+    }
+
+    .first-marque {
+        display: none;
+    }
+
+    .second-marque {
+        display: none;
+    }
+
+    /* ABOUT US */
+    .stat {
+        display: none;
+    }
+
+    /* CONTACTUS */
+    #contactus {
         border-radius: 0px;
         border: none;
         margin-top: 0px !important;
         padding: 0px 12px !important ;
-      }
-  
-      #contactus .col-6{
+    }
+
+    #contactus .col-6 {
         width: 100%;
-      }
-  
-  }
-  
-  @media screen and(max-width:460px) {
-  
-  }
+    }
+}
+
+@media screen and(max-width:460px) {
+}
