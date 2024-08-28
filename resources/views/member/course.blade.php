@@ -147,7 +147,11 @@
                                             <p class="produck-title text-black" style="">${course.title_course}</p>
                                             <div class="profile-card d-flex mt-lg-3 mt-sm-0">
                                                 <a href="" class="img-a my-auto">
-                                                    <img src="${courseData.avatars_mentor}" alt="${courseData.name_mentor}" class="card-img-profile" style="border-radius: 100%;">
+                                                    @if (Auth::user()->avatar != 'default.png')
+                                                    <img src="{{ asset('storage/images/avatars/' . Auth::user()->avatar) }}" alt="${courseData.name_mentor}" class="card-img-profile" style="border-radius: 100%;">
+                                                    @else
+                                                    <img src="{{ asset('nemolab/admin/img/avatar.png') }}" alt="${courseData.name_mentor}" class="card-img-profile" style="border-radius: 100%;">
+                                                    @endif
                                                 </a>
                                                 <a href="#" class="kurung text-a text-decoration-none">
                                                     <p class="profile-mentor text-black my-2">${courseData.name_mentor}</p>

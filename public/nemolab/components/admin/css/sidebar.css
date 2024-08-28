@@ -11,6 +11,10 @@
     font-weight: bold;
 }
 
+*::-webkit-scrollbar {
+    display: none;
+  }
+
 .list-sidebar {
     text-decoration: none;
     color: #fff;

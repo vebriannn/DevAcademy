@@ -7,7 +7,6 @@
 @section('title', 'View Transaction')
 
 @section('content')
-    <link rel="stylesheet" href="{{ asset('nemolab/components/member/css/sidebar.css') }}">
     <link rel="stylesheet" href="{{ asset('nemolab/member/css/tabel.css') }}">
 
     <!-- Tabel -->
