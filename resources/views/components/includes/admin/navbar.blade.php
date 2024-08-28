@@ -13,11 +13,11 @@
                 class="d-md-block d-lg-none border border-2 rounded-circle" /> --}}
             <p class="fw-semibold m-0">{{ Auth::user()->name }}</p>
             @if (Auth::user()->avatar != 'default.png')
-                <img src="{{ asset('storage/images/avatars/' . Auth::user()->avatar) }}" alt="" width="45" height="45"
-                    class="d-block border border-2 rounded-circle" id="myProfile" style="cursor: pointer" />
+                <img src="{{ asset('storage/images/avatars/' . Auth::user()->avatar) }}" alt="" width="45"
+                    class="d-none d-lg-block border border-2 rounded-circle" id="myProfile" style="cursor: pointer" />
             @else
-                <img src="{{ asset('nemolab/admin/img/avatar.png') }}" alt="" width="45" height="45"
-                    class="d-block border border-2 rounded-circle" id="myProfile" style="cursor: pointer" />
+                <img src="{{ asset('nemolab/admin/img/avatar.png') }}" alt="" width="45"
+                    class="d-none d-lg-block border border-2 rounded-circle" id="myProfile" style="cursor: pointer" />
             @endif
             <!-- Profile Menu -->
             <div class="profile-user border border-2 rounded-2 overflow-hidden" id="profileMenu">

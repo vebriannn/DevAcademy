@@ -209,13 +209,11 @@ a{
     width: 70%;
 }
 .card-img-profile {
-    width: 100%;
+    width: 40px;
+    height: 40px;
 }
 .text-a {
     margin-left: 15px;
-}
-.img-a {
-    width: 15%;
 }
 /* end course */
 
@@ -230,9 +228,6 @@ a{
 @media only screen and (max-width: 1400px) {
     .category{
         height: 490px;
-    }
-    .img-a {
-        width: 20%;
     }
 
     .text-a {
@@ -249,10 +244,6 @@ a{
 @media only screen and (max-width: 1200px) {
     .card-course {
         width: 260px;
-    }
-
-    .img-a {
-        width: 15%;
     }
 
     .text-a {
@@ -281,9 +272,6 @@ a{
     }
 }
 @media only screen and (max-width: 991.5px) {
-    .img-a {
-        width: 9%;
-    }
     .login {
         display: none;
     }

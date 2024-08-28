@@ -4,7 +4,7 @@
     --c-brand-rgb: rgb(250, 169, 7);
     --font-base: "Poppins", sans-serif;
     --transition: all 0.5s ease;
-    --box-shadow-card: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    --box-f-card: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
 body {
@@ -55,7 +55,7 @@ a {
     height: auto;
     flex-shrink: 0;
 }
-
+    
 .img-card img {
     width: 100%;
 }

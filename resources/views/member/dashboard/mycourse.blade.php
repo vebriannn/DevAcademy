@@ -25,7 +25,7 @@
 
         <div class="row">
             <!-- Sidebar -->
-            <div class="col-3 d-none d-xl-block p-4 pb-5 rounded-4 text-white px-5 flex-wrap"
+            <div class="col-3 d-none d-lg-block p-4 pb-5 rounded-4 text-white px-5 flex-wrap"
                 style="background-color: #faa907;">
                 <img src="{{ asset('storage/images/avatars/' . Auth::user()->avatar) }}" style="border-radius: 100%;"
                     alt="" width="70" height="70" class="d-flex mx-lg-auto mt-3" />
@@ -46,6 +46,47 @@
                     </a>
                 </div>
             </div>
+
+            {{-- SIDEBAR RESPONSIVE --}}
+            <div class="container-sm pt-3 pb-3 d-block d-lg-none" style="height: auto;">
+                <div class="content2 row top justify-content-between mx-auto mt-1">
+                    <div class="dropdown d-block d-lg-none">
+                        <a class="dropdown-toggle text-black fs-5" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Sidebar
+                        </a>
+
+                        <ul class="dropdown-menu" id="dropdown">
+                            <img src="{{ asset('storage/images/avatars/' . Auth::user()->avatar) }}"
+                                style="border-radius: 100%;" alt="" width="70" height="70"
+                                class="d-flex mx-auto mt-3" />
+                            <h4 class="text-center mt-3 fw-semibold px-3">{{ Auth::user()->name }}</h4>
+                            <p class="m-0 fw-light text-center">Status {{ Auth::user()->role }}</p>
+                            <div class="ms-3 me-3">
+                                <a href="#"
+                                    class="list-sidebar active-sidebar-responsive text-black ms-3 mt-4 text-decoration-none text-black {{ request()->is('admin/user/member') ? 'active' : '' }}">
+                                    <img src="{{ asset('nemolab/member/img/course active.png') }}"
+                                        alt="" width="30" />
+                                    <p class="m-0">My Courses</p>
+                                </a>
+                                <a href="{{ route('member.portofolio') }}"
+                                    class="list-sidebar ms-3 text-decoration-none text-black {{ request()->is('admin/user/mentor') ? 'active' : '' }}">
+                                    <img src="{{ asset(request()->is('admin/user/mentor') ? 'nemolab/admin/img/datamember-active.png' : 'nemolab/admin/img/datamember-active.png') }}"
+                                        alt="" width="30" />
+                                    <p class="m-0">My Portofolio</p>
+                                </a>
+                                <a href="{{ route('member.transaction') }}"
+                                    class="list-sidebar ms-3 text-decoration-none text-black {{ request()->is('admin/course/transaction') ? 'active' : '' }}">
+                                    <img src="{{ asset(request()->is('admin/course/transaction') ? 'nemolab/admin/img/datacourses-active.png' : 'nemolab/admin/img/datacourses-active.png') }}"
+                                        alt="" width="30" />
+                                    <p class="m-0">Transaction</p>
+                                </a>
+                            </div>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
             <!-- End Sidebar -->
 
             <!-- Content -->
@@ -55,7 +96,7 @@
                     @foreach ($courses as $course)
                         @if ($course->transactions->isNotEmpty())
                             <div class="col-lg-4 col-sm-6 col-course mt-1 mb-2">
-                                <a href="{{route('member.course.join', $course->slug)}}" class="text-black">
+                                <a href="{{ route('member.course.join', $course->slug) }}" class="text-black">
                                     <div class="card-course h-100 d-flex flex-column">
                                         <div class="img-card">
                                             <img src="{{ asset('storage/images/covers/' . $course->cover) }}"
@@ -72,7 +113,8 @@
                                                 <a href="">
                                                     <img class="me-2"
                                                         src="{{ asset('storage/images/avatars/' . $course->users->avatar) }}"
-                                                        alt="" width="30" style="border-radius: 100%" />
+                                                        alt="" width="35" height="35"
+                                                        style="border-radius: 100%" />
                                                     {{ $course->users->name }}
                                                 </a>
                                             </div>

@@ -7,7 +7,7 @@
 @section('title', 'View Tools')
 
 @section('content')
-    <main class="col-md-9 ml-sm-auto col-lg-9 px-4">
+    <main class="col-md-12 ml-sm-auto col-lg-9 ps-4">
         <h2 class="fw-semibold mb-4" style="color: #faa907;">Tools</h2>
         <div class="table-responsive p-3">
             <div class="btn-group mr-2 w-100 d-flex justify-content-between align-items-center mb-3">

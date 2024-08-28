@@ -36,4 +36,10 @@
     font-weight: 600;
 }
 
+.active-sidebar-responsive{
+    padding: 8px 10px;
+    font-weight: 600;
+    color: black;
+}
+
 /* End Sidebar */

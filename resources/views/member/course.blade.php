@@ -133,8 +133,7 @@
                     // Menghapus semua elemen anak dari courseContainer
                     courseContainer.innerHTML = '';
 
-                    if (courses.message != "notfound") {
-                        courses.forEach(courseData => {
+                    if (courses.message != "notfound") {                        courses.forEach(courseData => {
                             courseData.course.forEach(course => {
                                 const courseElement = document.createElement('div');
                                 courseElement.className =
