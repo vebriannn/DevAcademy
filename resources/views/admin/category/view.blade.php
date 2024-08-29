@@ -44,44 +44,73 @@
                                     <img src="{{ asset('nemolab/admin/img/edit.png') }}" alt="" width="35"
                                         height="35">
                                 </a>
-                                <a href="{{ route('admin.category.delete', $item->id) }}">
+                                <a href="{{ route('admin.category.delete', $item->id) }} " id="btn-delete">
                                     <img src="{{ asset('nemolab/admin/img/delete.png') }}" alt=""width="35"
-                                        height="35">
+                                        height="35" id="btn-delete">
                                 </a>
                             </td>
                         </tr>
-                        @empty
-                            <tr>
-                                <td colspan="2">Data Belum Ada</td>
-                            </tr>
-                        @endforelse
-                    </tbody>
-                </table>
+                    @empty
+                        <tr>
+                            <td colspan="2">Data Belum Ada</td>
+                        </tr>
+                    @endforelse
+                </tbody>
+            </table>
 
-                <div class="d-flex justify-content-between p-1">
-                    <p class="show">Showing {{ $categories->count() }} of {{ $categories->total() }}</p>
-                    <div class="d-flex gap-3">
-                        <button class="pagination mx-1 {{ $categories->onFirstPage() ? 'disabled' : '' }}" id="prev-button"
-                            {{ $categories->onFirstPage() ? 'disabled' : '' }}
-                            data-url="{{ $categories->previousPageUrl() }}">Previous</button>
-                        <button class="pagination mx-1 {{ $categories->hasMorePages() ? '' : 'disabled' }}" id="next-button"
-                            {{ $categories->hasMorePages() ? '' : 'disabled' }}
-                            data-url="{{ $categories->nextPageUrl() }}">Next</button>
-                    </div>
+            <div class="d-flex justify-content-between p-1">
+                <p class="show">Showing {{ $categories->count() }} of {{ $categories->total() }}</p>
+                <div class="d-flex gap-3">
+                    <button class="pagination mx-1 {{ $categories->onFirstPage() ? 'disabled' : '' }}" id="prev-button"
+                        {{ $categories->onFirstPage() ? 'disabled' : '' }}
+                        data-url="{{ $categories->previousPageUrl() }}">Previous</button>
+                    <button class="pagination mx-1 {{ $categories->hasMorePages() ? '' : 'disabled' }}" id="next-button"
+                        {{ $categories->hasMorePages() ? '' : 'disabled' }}
+                        data-url="{{ $categories->nextPageUrl() }}">Next</button>
                 </div>
             </div>
-        </main>
-        <script>
-            document.getElementById('prev-button').addEventListener('click', function() {
-                if (!this.classList.contains('disabled')) {
-                    window.location.href = this.getAttribute('data-url');
-                }
+        </div>
+    </main>
+
+@endsection
+
+@push('addon-script')
+    <script>
+        document.getElementById('prev-button').addEventListener('click', function() {
+            if (!this.classList.contains('disabled')) {
+                window.location.href = this.getAttribute('data-url');
+            }
+        });
+
+        document.getElementById('next-button').addEventListener('click', function() {
+            if (!this.classList.contains('disabled')) {
+                window.location.href = this.getAttribute('data-url');
+            }
+        });
+    </script>
+    <script>
+        const btnDelete = document.querySelectorAll('#btn-delete')
+        btnDelete.forEach(e => {
+            e.addEventListener('click', function(event) {
+                event.preventDefault(); // Prevent the default anchor click behavior
+
+                const url = this.href; // Get the URL from the button's href attribute
+                Swal.fire({
+                    title: 'Delete',
+                    text: "Apakah Anda Yakin Delete Kategori?",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes',
+                    cancelButtonText: 'No'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // If confirmed, redirect to the delete URL
+                        window.location.href = url;
+                    }
+                });
             });
-    
-            document.getElementById('next-button').addEventListener('click', function() {
-                if (!this.classList.contains('disabled')) {
-                    window.location.href = this.getAttribute('data-url');
-                }
-            });
-        </script>
-    @endsection
+        });
+    </script>
+@endpush

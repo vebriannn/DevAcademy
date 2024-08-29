@@ -14,23 +14,28 @@
             <a href="{{ route('admin.tools') }}" class="btn btn-orange"> Back </a>
         </div>
         <div class="card-body pt-2">
-            <form class="col-12" action="{{ route('admin.tools.create.store') }}" method="post" enctype="multipart/form-data">
+            <form class="col-12" action="{{ route('admin.tools.create.store') }}" method="post"
+                enctype="multipart/form-data">
                 @csrf
-                <div class="entryarea">
-                    <input type="text" id="name" name="name_tools" />
-                    <div class="labelline" for="name">Nama Tools</div>
-                    @error('name_tools')
-                        <span style="color: red">{{ $message }}</span>
-                    @enderror
+                <div class="col-12">
+                    <div class="entryarea">
+                        <input type="text" id="name" name="name_tools" />
+                        <div class="labelline" for="name">Nama Tools</div>
+                        @error('name_tools')
+                            <span style="color: red">{{ $message }}</span>
+                        @enderror
+                    </div>
                 </div>
-                <div class="entryarea">
-                    <input type="text" id="name" name="link" />
-                    <div class="labelline" for="name">Link</div>
-                    @error('link')
-                        <span style="color: red">{{ $message }}</span>
-                    @enderror
+                <div class="col-12 mt-4 pt-1">
+                    <div class="entryarea">
+                        <input type="text" id="name" name="link" />
+                        <div class="labelline" for="name">Link</div>
+                        @error('link')
+                            <span style="color: red">{{ $message }}</span>
+                        @enderror
+                    </div>
                 </div>
-                <div class="col-12 mt-2">
+                <div class="col-12 ">
                     <p class="m-0">Image Tools</p>
                     <input type="file" id="imageUpload" name="logo_tools" accept="image/*" class="" />
                     @error('logo_tools')

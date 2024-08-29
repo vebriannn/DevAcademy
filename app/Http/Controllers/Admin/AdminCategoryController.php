@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 use App\Models\Category;
 
 class AdminCategoryController extends Controller
@@ -33,16 +34,13 @@ class AdminCategoryController extends Controller
                 'name' => $request->name,
             ]);
             
-            return response()->json([
-                'message' => 'Category created successfully',
-                'data' => $category
-            ], 200);
+            Alert::success('Success', 'Category Berhasil Di Buat');
         } else {
-            return response()->json([
-                'message' => 'Maaf Kategori Yang Anda Inputkan Sudah Ada!'
-                ], 201);
+            Alert::error('Error', 'Maaf Kategori Sudah Pernah Dibuat!');
+            return redirect()->route('admin.category.create');
         }
         
+        return redirect()->route('admin.category');
     }
 
     public function edit($id)
@@ -64,10 +62,7 @@ class AdminCategoryController extends Controller
                 'name' => $request->name,
             ]);
     
-            return response()->json([
-                'message' => 'Category updated successfully',
-                'data' => $category
-            ], 200);
+            Alert::success('Success', 'Category Berhasil Di Update');
         }
         else {
             $check = Category::where('name', $request->name)->first();
@@ -76,24 +71,15 @@ class AdminCategoryController extends Controller
                     'name' => $request->name,
                 ]);
         
-                return response()->json([
-                    'message' => 'Category updated successfully',
-                    'data' => $category
-                ], 200);
+                Alert::success('Success', 'Category Berhasil Di Update');
             }
             else {
-                return response()->json([
-                    'message' => 'Maaf Kategori Yang Anda Inputkan Sudah Ada!',
-                    'data' => $category
-                ], 200);
+                Alert::error('Error', 'Maaf Kategori Sudah Pernah Dibuat!');
+                return redirect()->route('admin.category.edit', $id);
             }
         }
         
-
-        return response()->json([
-            'message' => 'Category updated successfully',
-            'data' => $category
-        ], 200);
+        return redirect()->route('admin.category');
     }
 
     public function delete($id)
@@ -101,8 +87,7 @@ class AdminCategoryController extends Controller
         $category = Category::findOrFail($id);
         $category->delete();
 
-        return response()->json([
-            'message' => 'Category deleted successfully'
-        ], 200);
+        Alert::success('Success', 'Category Berhasil Di Hapus');
+        return redirect()->route('admin.category');
     }
 }

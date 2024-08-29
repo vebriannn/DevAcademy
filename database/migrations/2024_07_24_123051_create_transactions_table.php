@@ -16,7 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('course_id')->nullable();
             $table->unsignedBigInteger('ebook_id')->nullable();
-            $table->string('code_transaction');
+            // $table->string('code_transaction');
             $table->string('name')->nullable(false);
             $table->integer('price')->nullable(false);
             $table->enum('status', ['success', 'pending', 'failed'])->default('pending');

@@ -8,10 +8,13 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
+use RealRashid\SweetAlert\Facades\Alert;
 
 use App\Models\Category;
 use App\Models\Course;
 use App\Models\Tools;
+use App\Models\Chapter;
+use App\Models\Lesson;
 
 class AdminCourseController extends Controller
 {
@@ -75,7 +78,8 @@ class AdminCourseController extends Controller
         // Simpan relasi dengan tools
         $course->tools()->sync($request->tools);
         
-        return response()->json(['message' => 'Course created successfully', 'course' => $course], 201);
+        Alert::success('Success', 'Course Berhasil Di Buat');
+        return redirect()->route('admin.course');
     }
 
     public function edit($id) {
@@ -133,10 +137,8 @@ class AdminCourseController extends Controller
 
         $course->tools()->sync($request->tools);
 
-        return response()->json([
-            'message' => 'Data berhasil diedit',
-            'course' => $course
-        ], 200);
+        Alert::success('Success', 'Course Berhasil Di Update');
+        return redirect()->route('admin.course');
     }
 
     /**
@@ -144,7 +146,7 @@ class AdminCourseController extends Controller
      */
     public function delete($id)
     {
-        $course = Course::find($id);
+        $course = Course::where('id', $id)->first();
 
         if (!$course) {
             return response()->json(['error' => 'Course not found'], 404);
@@ -155,7 +157,15 @@ class AdminCourseController extends Controller
             Storage::delete('public/images/covers/' . $course->cover);
         }
 
+        $chapters = Chapter::where('course_id', $id)->get();
+
+        foreach ($chapters as $chapter) {
+            Lesson::where('chapter_id', $chapter->id)->delete();
+            $chapter->delete();
+        }
+        
         $course->delete();
-        return response()->json(['message' => 'Course deleted successfully']);
+        Alert::success('Success', 'Course Berhasil Di Delete');
+        return redirect()->route('admin.course');
     }
 }

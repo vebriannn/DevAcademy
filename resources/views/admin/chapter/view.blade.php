@@ -53,7 +53,7 @@
                                     <img src="{{ asset('nemolab/admin/img/edit.png') }}" alt="" width="30"
                                         height="30">
                                 </a>
-                                <a href="{{ route('admin.chapter.delete', $chapter->id) }}">
+                                <a href="{{ route('admin.chapter.delete', $chapter->id) }}" id="btn-delete">
                                     <img src="{{ asset('nemolab/admin/img/delete.png') }}" alt=""width="30"
                                         height="30">
                                 </a>
@@ -78,3 +78,30 @@
     </main>
 
 @endsection
+@push('addon-script')
+    <script>
+        const btnDelete = document.querySelectorAll('#btn-delete')
+        btnDelete.forEach(e => {
+            e.addEventListener('click', function(event) {
+                event.preventDefault(); // Prevent the default anchor click behavior
+
+                const url = this.href; // Get the URL from the button's href attribute
+                Swal.fire({
+                    title: 'Delete',
+                    text: "Apakah Anda Yakin Delete Chapter?",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes',
+                    cancelButtonText: 'No'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // If confirmed, redirect to the delete URL
+                        window.location.href = url;
+                    }
+                });
+            });
+        });
+    </script>
+@endpush

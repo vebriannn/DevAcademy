@@ -5,8 +5,11 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use RealRashid\SweetAlert\Facades\Alert;
 
 use App\Models\Lesson;
+use App\Models\Chapter;
+use App\Models\Course;
 
 class AdminLessonController extends Controller
 {
@@ -19,22 +22,25 @@ class AdminLessonController extends Controller
         return view('admin.lesson.create', compact('slug', 'id_chapter'));
     }
 
-    public function store(Request $requests, $id) {
+    public function store(Request $requests, $id_chapter) {
         $requests->validate([
             'name' => 'required',
             'video' => 'required|',
         ]);
+        
+        $chapter = Chapter::where('id', $id_chapter)->first();
+        $course = Course::where('id', $chapter->course_id)->first();
 
         Lesson::create([
             'name' => $requests->name,
             'episode' => Str::random(12),
             'video' => $requests->video,
-            'chapter_id' => $id,
+            'chapter_id' => $id_chapter,
         ]);
         
-        return response()->json([
-            'message' => 'Data berhasil dibuat'
-        ], 200);
+        
+        Alert::success('Success', 'Lesson Berhasil Di Buat');
+        return redirect()->route('admin.lesson', ['slug' => $course->slug, 'id_chapter' => $id_chapter]);
     }
 
     public function edit($slug, $id_chapter, $id_lesson) {
@@ -49,8 +55,11 @@ class AdminLessonController extends Controller
         ]);
 
         $lesson = Lesson::findOrFail($id);
+        $chapter = Chapter::where('id', $lesson->first()->chapter_id)->first();
+        $course = Course::where('id', $chapter->course_id)->first();
 
-        if($lesson->first()->video != $requests->video) {
+        if(
+            $lesson->first()->video != $requests->video) {
             $lesson->update([
                 'name' => $requests->name,
                 'episode' => Str::random(12),
@@ -63,19 +72,17 @@ class AdminLessonController extends Controller
             ]);   
         }
 
-        
-
-        return response()->json([
-            'message' => 'Data berhasil diedit'
-        ], 200);
+        Alert::success('Success', 'Lesson Berhasil Di Update');
+        return redirect()->route('admin.lesson', ['slug' => $course->slug, 'id_chapter' => $chapter->id]);
     }
 
     public function delete($id_lesson) {
         $lesson = Lesson::findOrFail($id_lesson); 
+        $chapter = Chapter::where('id', $lesson->first()->chapter_id)->first();
+        $course = Course::where('id', $chapter->course_id)->first();
         $lesson->delete();
         
-        return response()->json([
-            'message' => 'Data berhasil dihapus'
-        ], 200);
+        Alert::success('Success', 'Lesson Berhasil Di Hapus');
+        return redirect()->route('admin.lesson', ['slug' => $course->slug, 'id_chapter' => $chapter->id]);
     }
 }

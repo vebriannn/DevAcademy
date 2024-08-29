@@ -7,6 +7,7 @@ use App\Models\Course;
 use App\Models\Ebook;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class MemberPaymentController extends Controller
 {
@@ -71,10 +72,9 @@ class MemberPaymentController extends Controller
             'price' => $price,
             'status' => $status,
         ]);
-        return response()->json([
-            'message' => 'Transaksi berhasil, pembayaran sedang diproses.',
-            'transaction' => $transaction,
-        ]);
+        
+        Alert::info('Info', 'Pembayaran Sudah Tersimpan, Mohon Tunggu Admin Konfirmasi');
+        return redirect()->route('member.course.join', $course->slug);
     }
     
     

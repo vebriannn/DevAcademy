@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class AdminMentorController extends Controller
 {
@@ -27,7 +28,7 @@ class AdminMentorController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|max:255|unique:users',
-            'password' => 'required|string|min:6|confirmed',
+            'password' => 'required|string|min:6',
         ]);
 
         User::create([
@@ -39,12 +40,14 @@ class AdminMentorController extends Controller
             'role' => 'mentor',
         ]);
 
-        return redirect()->route('admin.mentor')->with('success', 'Mentor created successfully.');
+        Alert::success('Success', 'Data Mentor Berhasil Di Buat');
+        return redirect()->route('admin.mentor');
     }
 
     public function edit($id)
     {
         $mentor = User::findOrFail($id);
+
         return view('admin.mentor.edit', compact('mentor'));
     }
 
@@ -56,16 +59,19 @@ class AdminMentorController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|email|max:255|unique:users,email,' . $mentor->id,
             'password' => 'nullable|string|min:6|confirmed',
+            'role' => 'required'
         ]);
 
         $mentor->update([
             'name' => $request->name,
             'username' => $request->name,
             'email' => $request->email,
+            'role' => $request->role,
             'password' => $request->filled('password') ? Hash::make($request->password) : $mentor->password,
         ]);
 
-        return redirect()->route('admin.mentor')->with('success', 'Mentor updated successfully.');
+        Alert::success('Success', 'Data Mentor Berhasil Di Update');
+        return redirect()->route('admin.mentor');
     }
 
     public function destroy($id)
@@ -82,8 +88,7 @@ class AdminMentorController extends Controller
     
         $mentor->delete();
 
-        return response()->json([
-            'message' => 'Mentor deleted successfully' . ($mentor->avatar ? ', and avatar removed' : ''),
-        ], 200);
+        Alert::success('Success', 'Data Mentor Berhasil Di Hapus');
+        return redirect()->route('admin.mentor');
     }
 }

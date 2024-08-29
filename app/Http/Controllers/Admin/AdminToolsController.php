@@ -6,7 +6,10 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
+use RealRashid\SweetAlert\Facades\Alert;
+
 use App\Models\Tools;
+
 
 class AdminToolsController extends Controller
 {
@@ -37,9 +40,8 @@ class AdminToolsController extends Controller
             'link' => $request->link,
         ]);
         
-        return response()->json([
-            'message' => 'Data berhasil dibuat'
-        ], 200);
+        Alert::success('Success', 'Tools Berhasil Di Buat');
+        return redirect()->route('admin.tools');
     }
 
     public function edit($id) {
@@ -73,9 +75,8 @@ class AdminToolsController extends Controller
             'link' => $request->link,
         ]);
 
-        return response()->json([
-            'message' => 'Data berhasil diedit'
-        ], 200);
+        Alert::success('Success', 'Tools Berhasil Di Update');
+        return redirect()->route('admin.tools');
     }
 
     public function delete($id) {
@@ -83,8 +84,7 @@ class AdminToolsController extends Controller
         Storage::disk('public')->delete('images/logoTools/' . $tools->logo_tools);
         $tools->delete();
         
-        return response()->json([
-            'message' => 'Data berhasil dihapus'
-        ], 200);
+        Alert::success('Success', 'Tools Berhasil Di Hapus');
+        return redirect()->route('admin.tools');
     }
 }

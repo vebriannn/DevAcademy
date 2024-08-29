@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Member\Dashboard;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use RealRashid\SweetAlert\Facades\Alert;
 
 use App\Models\Portofolio;
 use App\Models\User;
@@ -16,7 +17,6 @@ class MemberPortofolioController extends Controller
         $portofolio = Portofolio::where('user_id', Auth::user()->id)->paginate($perPage);
         return view('member.dashboard.portofolio.view', compact('portofolio'));
     }
-    
 
     public function create() {
         return view('member.dashboard.portofolio.create');
@@ -35,10 +35,8 @@ class MemberPortofolioController extends Controller
 
         $porto = Portofolio::create($data);
 
-        return response()->json([
-            'message' => 'Portofolio created successfully',
-            'data' => $porto
-        ], 200);
+        Alert::success('Success', 'Portofolio Berhasil Di Buat');
+        return redirect()->route('member.portofolio');
     } 
 
     public function edit($id) {
@@ -58,18 +56,15 @@ class MemberPortofolioController extends Controller
         $porto = Portofolio::findOrFail($id)->first();
         $porto->update($data);
 
-        return response()->json([
-            'message' => 'Portofolio update successfully',
-            'data' => $porto
-        ], 200);
+        Alert::success('Success', 'Portofolio Berhasil Di Update');
+        return redirect()->route('member.portofolio');
     } 
 
     public function delete($id) {
-        $porto = Portofolio::findOrFail($id)->first();
+        $porto = Portofolio::where('id', $id)->first();
         $porto->delete();
-        
-        return response()->json([
-            'message' => 'Portofolio deleted successfully',
-        ], 200);
+    
+        Alert::success('Success', 'Portofolio Berhasil Di Hapus');
+        return redirect()->route('member.portofolio');
     }
 }

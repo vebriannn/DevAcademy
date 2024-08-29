@@ -8,8 +8,13 @@
             <!-- Sidebar -->
             <div class="col-3 d-none d-xl-block p-4 pb-5 rounded-4 text-white px-5"
                 style="background-color: #faa907; width: max-content;">
-                <img src="{{ asset('storage/images/avatars/' . Auth::user()->avatar) }}" style="border-radius: 100%;"
-                    alt="" width="70" height="70" class="d-flex mx-lg-auto mt-3" />
+                @if (Auth::user()->avatar != 'default.png')
+                    <img src="{{ asset('storage/images/avatars/' . Auth::user()->avatar) }}" style="border-radius: 100%;"
+                        alt="" width="70" height="70" class="d-flex mx-lg-auto mt-3" />
+                @else
+                    <img src="{{ asset('nemolab/admin/img/avatar.png') }}" style="border-radius: 100%;" alt=""
+                        width="70" height="70" class="d-flex mx-lg-auto mt-3" />
+                @endif
                 <h4 class="m-0 mt-lg-5 mt-3 fw-semibold">{{ Auth::user()->name }}</h4>
                 <p class="m-0 fw-light">Status {{ Auth::user()->role }}</p>
                 <div class="mt-5">
@@ -56,7 +61,8 @@
                             <input type="password" id="password" value="{{ Auth::user()->password }}" readonly />
                         </div>
                         <div class="btn-password w-50" style="padding-top: 35px">
-                            <a href="{{ route('member.edit-password') }}" class="edit-pass">Edit Pass<span class="d-none d-md-inline-block">word</span></a>
+                            <a href="{{ route('member.edit-password') }}" class="edit-pass">Edit Pass<span
+                                    class="d-none d-md-inline-block">word</span></a>
                         </div>
                     </div>
                     <div class="input mt-4">

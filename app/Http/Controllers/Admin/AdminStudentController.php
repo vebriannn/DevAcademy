@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use RealRashid\SweetAlert\Facades\Alert;
 use App\Models\User;
 
 class AdminStudentController extends Controller
@@ -40,7 +41,8 @@ class AdminStudentController extends Controller
             'role' => 'students',
         ]);
 
-        return redirect()->route('admin.member')->with('success', 'Member created successfully.');
+        Alert::success('Success', 'Data Member Berhasil Di Buat');
+        return redirect()->route('admin.member');
     }
 
     public function edit($id)
@@ -64,9 +66,11 @@ class AdminStudentController extends Controller
         if ($request->password) {
             $student->password = bcrypt($request->password);
         }
+        
         $student->save();
 
-        return redirect()->route('admin.member')->with('success', 'Member updated successfully.');
+        Alert::success('Success', 'Data Member Berhasil Di Update');
+        return redirect()->route('admin.member');
     }
 
     public function destroy($id)
@@ -92,8 +96,7 @@ class AdminStudentController extends Controller
         }
     
         $student->delete();
-        return response()->json([
-            'message' => $message
-        ], 200);
+        Alert::success('Success', 'Data Member Berhasil Di Hapus');
+        return redirect()->route('admin.member');
     }
 }

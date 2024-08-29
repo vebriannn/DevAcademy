@@ -36,7 +36,7 @@
             <table class="table">
                 <thead>
                     <tr>
-                        <th>User Name</th>
+                        <th>Name</th>
                         <th>Course</th>
                         <th>Date</th>
                         <th>Price</th>
@@ -45,7 +45,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($transactions as $transaction)
+                    @forelse ($transactions as $transaction)
                         <tr>
                             <td>{{ $transaction->user->name }}</td>
                             <td>{{ $transaction->course->name }}</td>
@@ -76,7 +76,11 @@
                                 @endif
                             </td>
                         </tr>
-                    @endforeach
+                    @empty
+                        <tr>
+                            <td colspan="6">Data Belum Ada</td>
+                        </tr>
+                    @endforelse
                 </tbody>
             </table>
 

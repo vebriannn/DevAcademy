@@ -27,6 +27,9 @@
         @yield('content')
 
         @include('components.includes.member.footer')
+
+        {{-- include sweetalert --}}
+        @include('sweetalert::alert')
     </div>
 
     @stack('prepend-script')

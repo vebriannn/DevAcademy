@@ -4,9 +4,11 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
 use App\Models\Chapter;
 use App\Models\Course;
+use App\Models\Lesson;
 
 class AdminChapterController extends Controller
 {
@@ -26,15 +28,16 @@ class AdminChapterController extends Controller
         $requests->validate([
             'name' => 'required',
         ]);
- 
+        
         Chapter::create([
             'name' => $requests->name,
             'course_id' => $id_chapter, 
         ]);
+
+        $course = Course::where('id', $id_chapter)->first();
         
-        return response()->json([
-            'message' => 'Data berhasil dibuat'
-        ], 200);
+        Alert::success('Success', 'Chapter Berhasil Di Buat');
+        return redirect()->route('admin.chapter', $course->slug);
     }
 
     public function edit($slug, $id_chapter) {
@@ -47,24 +50,32 @@ class AdminChapterController extends Controller
             'name' => 'required',
         ]);
 
-        $chapter = Chapter::findOrFail($id);
+        $chapter = Chapter::where('id', $id)->first(); 
         
         $chapter->update([
             'name' => $requests->name,
         ]);     
 
 
-        return response()->json([
-            'message' => 'Data berhasil diedit'
-        ], 200);
+        $course = Course::where('id', $chapter->course_id)->first();
+        
+        Alert::success('Success', 'Chapter Berhasil Di Edit');
+        return redirect()->route('admin.chapter', $course->slug);
     }
 
     public function delete($id) {
-        $chapter = Chapter::findOrFail($id); 
-        $chapter->delete();
+        $getID = Chapter::where('id', $id)->first(); 
+        $course = Course::where('id', $getID->course_id)->first();
+
+
+        $chapters = Chapter::where('course_id', $getID->course_id)->get();
+
+        foreach ($chapters as $chapter) {
+            Lesson::where('chapter_id', $chapter->id)->delete();
+            $chapter->delete();
+        }
         
-        return response()->json([
-            'message' => 'Data berhasil dihapus'
-        ], 200);
+        Alert::success('Success', 'Chapter Berhasil Di Hapus');
+        return redirect()->route('admin.chapter', $course->slug);
     }
 }

@@ -77,10 +77,9 @@
                             @enderror
                         </div>
                     </div>
-                    <div class="col-6 {{$course->price == 0 ? 'd-none' : ''}}" id="price">
+                    <div class="col-6 {{ $course->type == 'free' ? 'd-none' : 'd-block' }}" id="price">
                         <div class="entryarea">
-                            <input type="text" id="link" name="price" placeholder=" "
-                                value="{{ $course->price }}">
+                            <input type="text" name="price" placeholder=" " value="{{ $course->price }}">
                             <div class="labelline" for="link">Price</div>
                             @error('price')
                                 <span style="color: red">{{ $message }}</span>
@@ -140,23 +139,15 @@
 @push('addon-script')
     <script>
         const type = document.getElementById('type');
-        const uploadImages = document.getElementById('upImages');
+        const price = document.getElementById('price');
 
         type.addEventListener('change', (e) => {
             if (e.target.value == 'premium') {
-                price.classList.remove('d-none')
-                price.classList.add('d-block')
-
-                uploadImages.classList.remove('col-12')
-                uploadImages.classList.add('col-6')
-
-            } else {
-                price.classList.remove('d-block')
-                price.classList.add('d-none')
-
-                uploadImages.classList.remove('col-12')
-                uploadImages.classList.add('col-12')
+                price.classList.replace('d-none', 'd-block');
+            } else if (e.target.value == 'free') {
+                price.classList.replace('d-block', 'd-none');
+                price.querySelector('input[name="price"]').value = '0';
             }
-        })
+        });
     </script>
 @endpush

@@ -31,6 +31,9 @@
         @yield('content')
     </div>
     @include('components.includes.member.footer')
+    
+    {{-- include sweetalert --}}
+    @include('sweetalert::alert')
 
     @stack('prepend-script')
     <script src="{{ asset('nemolab/components/admin/js/profile-navbar.js') }}"></script>

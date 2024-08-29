@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
 use App\Models\Portofolio;
 use App\Models\User;
@@ -28,16 +29,15 @@ class AdminPortofolioController extends Controller
             $porto->update([
                 'status' => 'accepted',
             ]);
+            Alert::success('Success', 'Portofolio Berhasil Di Accept');
         }
         else {
             $porto->update([
                 'status' => 'deaccepted',
             ]);
+            Alert::success('Success', 'Portofolio Berhasil Di Rejected');
         }
 
-        return response()->json([
-            'message' => 'Portofolio update successfully',
-            'data' => $porto
-        ], 200);
+        return redirect()->route('admin.portofolio');
     } 
 }

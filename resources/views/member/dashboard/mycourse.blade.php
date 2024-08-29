@@ -27,8 +27,13 @@
             <!-- Sidebar -->
             <div class="col-3 d-none d-lg-block p-4 pb-5 rounded-4 text-white px-5 flex-wrap"
                 style="background-color: #faa907;">
-                <img src="{{ asset('storage/images/avatars/' . Auth::user()->avatar) }}" style="border-radius: 100%;"
-                    alt="" width="70" height="70" class="d-flex mx-lg-auto mt-3" />
+                @if (Auth::user()->avatar != 'default.png')
+                    <img src="{{ asset('storage/images/avatars/' . Auth::user()->avatar) }}" style="border-radius: 100%;"
+                        alt="" width="70" height="70" class="d-flex mx-lg-auto mt-3" />
+                @else
+                    <img src="{{ asset('nemolab/admin/img/avatar.png') }}" style="border-radius: 100%;" alt=""
+                        width="70" height="70" class="d-flex mx-lg-auto mt-3" />
+                @endif
                 <h4 class="m-0 mt-lg-5 mt-3 fw-semibold">{{ Auth::user()->name }}</h4>
                 <p class="m-0 fw-light">Status {{ Auth::user()->role }}</p>
                 <div class="mt-5">
@@ -65,8 +70,8 @@
                             <div class="ms-3 me-3">
                                 <a href="#"
                                     class="list-sidebar active-sidebar-responsive text-black ms-3 mt-4 text-decoration-none text-black {{ request()->is('admin/user/member') ? 'active' : '' }}">
-                                    <img src="{{ asset('nemolab/member/img/course active.png') }}"
-                                        alt="" width="30" />
+                                    <img src="{{ asset('nemolab/member/img/course active.png') }}" alt=""
+                                        width="30" />
                                     <p class="m-0">My Courses</p>
                                 </a>
                                 <a href="{{ route('member.portofolio') }}"

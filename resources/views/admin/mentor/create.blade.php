@@ -19,6 +19,11 @@
                             <input type="text" id="name" name="name" placeholder="" required />
                             <div class="labelline" for="name">Name</div>
                         </div>
+                        @error('name')
+                            <span class="text-danger">
+                                {{ $message }}
+                            </span>
+                        @enderror
                     </div>
 
                     <div class="row col-12 mb-3">
@@ -26,6 +31,11 @@
                             <input type="email" id="email" name="email" placeholder="" required />
                             <div class="labelline" for="email">Email</div>
                         </div>
+                        @error('email')
+                            <span class="text-danger">
+                                {{ $message }}
+                            </span>
+                        @enderror
                     </div>
 
                     <div class="row col-12 mb-3">
@@ -38,6 +48,11 @@
                                 placeholder="" required />
                             <div class="labelline" for="password_confirmation">Confirm Password</div>
                         </div> --}}
+                        @error('password')
+                            <span class="text-danger">
+                                {{ $message }}
+                            </span>
+                        @enderror
                     </div>
 
                     <div class="row col-12 mb-3">

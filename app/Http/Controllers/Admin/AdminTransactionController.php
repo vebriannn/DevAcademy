@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use App\Models\Transaction;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
+
+use App\Models\Transaction;
 
 class AdminTransactionController extends Controller
 {
@@ -30,7 +32,8 @@ class AdminTransactionController extends Controller
         $transaction->status = 'success';
         $transaction->save();
 
-        return redirect()->route('admin.transaction')->with('success', 'Transaction accepted successfully.');
+        Alert::success('Success', 'Transctions Berhasil Di Accept');
+        return redirect()->route('admin.transaction');
     }
 
     public function cancel($id)
@@ -41,6 +44,7 @@ class AdminTransactionController extends Controller
         $transaction->status = 'failed';
         $transaction->save();
 
-        return redirect()->route('admin.transaction')->with('success', 'Transaction canceled successfully.');
+        Alert::success('Success', 'Transctions Berhasil Di Cancel');
+        return redirect()->route('admin.transaction');
     }
 }

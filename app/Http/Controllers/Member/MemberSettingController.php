@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
+use RealRashid\SweetAlert\Facades\Alert;
 use App\Models\User;
 
 class MemberSettingController extends Controller
@@ -47,7 +48,8 @@ class MemberSettingController extends Controller
 
         $user->save();
 
-        return redirect()->route('member.setting')->with('success', 'Profile updated successfully.');
+        Alert::success('Profile Berhasil Di Update');
+        return redirect()->route('member.setting');
     }
 
     public function updatePassword(Request $request){
@@ -66,6 +68,7 @@ class MemberSettingController extends Controller
         $user->password = Hash::make($request->input('new_password'));
         $user->save();
 
-        return redirect()->route('member.setting')->with('success', 'Password updated successfully.');
+        Alert::success('Password Berhasil Di Update');
+        return redirect()->route('member.setting');
     }
 }

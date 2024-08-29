@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Member;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use RealRashid\SweetAlert\Facades\Alert;
 use App\Models\Transaction;
+
 
 class MemberTransactionController extends Controller
 {
@@ -30,7 +32,7 @@ class MemberTransactionController extends Controller
         }
 
         $transaction->delete();
-
-        return redirect()->route('member.transaction')->with('success', 'Transaction cancelled successfully.');
+        Alert::success('Success', 'Transaction Berhasil Di Cancel');
+        return redirect()->route('member.transaction');
     }
 }

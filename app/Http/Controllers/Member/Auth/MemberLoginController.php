@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
+use RealRashid\SweetAlert\Facades\Alert;
 
 use App\Models\User;
 
@@ -30,7 +31,8 @@ class MemberLoginController extends Controller
             // Jika email ada, periksa password
             if (Auth::attempt($credentials)) {
                 $requests->session()->regenerate();
-                return redirect()->route('home')->with('success', 'Login successful.');
+                Alert::success('Success', 'Login Berhasil');
+                return redirect()->route('home');
             } else {
                 // Log::warning('Login gagal: Password salah untuk email: ' . $email);
                 return redirect()->back()->withErrors(['password' => 'Password salah.'])->withInput();
@@ -47,6 +49,7 @@ class MemberLoginController extends Controller
         // Log::info('Logout Berhasil ');
         $request->session()->invalidate();
         $request->session()->regenerateToken();
+        Alert::success('Success', 'Logout Berhasil');
         return redirect()->route('home');
     }
 }

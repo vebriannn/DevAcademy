@@ -12,7 +12,8 @@
                     @csrf
                     @method('put')
                     <div class="input text-center">
-                        <img src="{{ Auth::user()->avatar ? asset('storage/images/avatars/' . Auth::user()->avatar) : asset('nemolab/member/img/avatar.png') }}" id="preview" alt="" class="rounded-circle" width="90" height="90"/>
+    
+                        <img src="{{ Auth::user()->avatar != 'default.png' ? asset('storage/images/avatars/' . Auth::user()->avatar) : asset('nemolab/admin/img/avatar.png') }}" id="preview" alt="" class="rounded-circle" width="90" height="90"/>
                     </div>
                     <div class="input mt-5 mb-2">
                         <input type="file" id="avatar" name="avatar" accept="image/*" class="custom-file-input" /><br />

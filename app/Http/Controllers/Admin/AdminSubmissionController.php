@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
+use RealRashid\SweetAlert\Facades\Alert;
 
 use App\Models\Submission;
 use App\Models\Course;
@@ -16,6 +17,7 @@ class AdminSubmissionController extends Controller
     public function index()
     {
         $mentors = Submission::with('user')->get();
+        $total_course = 0; 
 
         // check total course
         foreach ($mentors as $mentor) {
@@ -24,7 +26,7 @@ class AdminSubmissionController extends Controller
                 $query->where('status', 'success');
             }])->count();
         }
-        // dd($mentors);
+
         return view('admin.pengajuanmentor.view', compact('mentors', 'total_course'));
     }
 
@@ -89,15 +91,16 @@ class AdminSubmissionController extends Controller
                 $user->update([
                     'role' => 'mentor'
                 ]);
+                Alert::success('Success', 'Pengajuan Berhasil Di Accepted');
+            }
+            else {
+                Alert::success('Success', 'Pengajuan Berhasil Di Rejected');
             }
 
             // send mail
             Mail::to($user->email)->send(new MailNotificationMentor($request->action));
 
-            return response()->json([
-                'message' => 'Submission updated successfully',
-                'data' => $submission
-            ], 200);
+            return redirect()->route('admin.submissions');   
         }
     }
 
@@ -113,8 +116,7 @@ class AdminSubmissionController extends Controller
 
         $submission->delete();
 
-        return response()->json([
-            'message' => 'Submission deleted successfully'
-        ], 200);
+        Alert::success('Success', 'Pengajuan Berhasil Di Hapus');
+        return redirect()->route('admin.submissions');
     }
 }

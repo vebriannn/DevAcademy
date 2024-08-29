@@ -34,12 +34,6 @@
         <p class="m-0">Courses Video</p>
     </a>
 
-    <a href="{{ route('admin.tools') }}" class="list-sidebar {{ request()->is('admin/tools') ? 'active' : '' }}">
-        <img src="{{ asset(request()->is('admin/tools') ? 'nemolab/admin/img/datacourses-active.png' : 'nemolab/admin/img/datacourses.png') }}"
-            alt="" width="30" />
-        <p class="m-0">Tools</p>
-    </a>
-
     <a href="{{ route('admin.category') }}"
         class="list-sidebar {{ request()->is('admin/category') ? 'active' : '' }}">
         <img src="{{ asset(request()->is('admin/category') ? 'nemolab/admin/img/datacourses-active.png' : 'nemolab/admin/img/datacourses.png') }}"
@@ -52,8 +46,7 @@
             alt="" width="30" />
         <p class="m-0">Transaction</p>
     </a>
-    <a href="{{ route('admin.tools') }}"
-        class="list-sidebar {{ request()->is('admin/tools') ? 'active' : '' }}">
+    <a href="{{ route('admin.tools') }}" class="list-sidebar {{ request()->is('admin/tools') ? 'active' : '' }}">
         <img src="{{ asset(request()->is('admin/tools') ? 'nemolab/admin/img/datacourses-active.png' : 'nemolab/admin/img/datacourses.png') }}"
             alt="" width="30" />
         <p class="m-0">Tools</p>
@@ -111,13 +104,6 @@
                             alt="" width="30" />
                         <p class="m-0">Courses Video</p>
                     </a>
-                    
-                    <a href="{{ route('admin.tools') }}"
-                        class="list-sidebar ms-3 text-decoration-none text-black {{ request()->is('admin/tools') ? 'active' : '' }}">
-                        <img src="{{ asset(request()->is('admin/tools') ? 'nemolab/admin/img/datacourses-active.png' : 'nemolab/admin/img/datacourses-active.png') }}"
-                            alt="" width="30" />
-                        <p class="m-0">Tools</p>
-                    </a>
 
                     <a href="{{ route('admin.category') }}"
                         class="list-sidebar ms-3 text-decoration-none text-black {{ request()->is('admin/category') ? 'active' : '' }}">
@@ -132,11 +118,11 @@
                         <p class="m-0">Transaction</p>
                     </a>
                     <a href="{{ route('admin.tools') }}"
-                    class="list-sidebar ms-3 text-decoration-none text-black {{ request()->is('admin/tools') ? 'active' : '' }}">
-                    <img src="{{ asset(request()->is('admin/tools') ? 'nemolab/admin/img/datacourses-active.png' : 'nemolab/admin/img/datacourses-active.png') }}"
-                        alt="" width="30" />
-                    <p class="m-0">Tools</p>
-                </a>
+                        class="list-sidebar ms-3 text-decoration-none text-black {{ request()->is('admin/tools') ? 'active' : '' }}">
+                        <img src="{{ asset(request()->is('admin/tools') ? 'nemolab/admin/img/datacourses-active.png' : 'nemolab/admin/img/datacourses-active.png') }}"
+                            alt="" width="30" />
+                        <p class="m-0">Tools</p>
+                    </a>
                     <p class="tittle-list-sidebar mt-5">View Data</p>
                     <a href="{{ route('admin.portofolio') }}"
                         class="list-sidebar ms-3 text-decoration-none text-black {{ request()->is('admin/portofolio') ? 'active' : '' }}">

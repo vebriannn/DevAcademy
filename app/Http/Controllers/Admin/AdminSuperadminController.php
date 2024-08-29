@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class AdminSuperadminController extends Controller
 {
@@ -39,7 +40,8 @@ class AdminSuperadminController extends Controller
             'role' => 'superadmin',
         ]);
 
-        return redirect()->route('admin.superadmin')->with('success', 'Super Admin created successfully.');
+        Alert::success('Success', 'Data Superadmin Berhasil Di Buat');
+        return redirect()->route('admin.superadmin');
     }
 
     public function edit($id)
@@ -65,7 +67,8 @@ class AdminSuperadminController extends Controller
             'password' => $request->filled('password') ? Hash::make($request->password) : $superadmin->password,
         ]);
 
-        return redirect()->route('admin.superadmin')->with('success', 'Super Admin updated successfully.');
+        Alert::success('Success', 'Data Superadmin Berhasil Di Update');
+        return redirect()->route('admin.superadmin');
     }
 
     public function destroy($id)
@@ -82,8 +85,7 @@ class AdminSuperadminController extends Controller
     
         $superadmin->delete();
 
-        return response()->json([
-            'message' => 'Super Admin deleted successfully' . ($superadmin->avatar ? ', and avatar removed' : ''),
-        ], 200);
+        Alert::success('Success', 'Data Superadmin Berhasil Di Hapus');
+        return redirect()->route('admin.superadmin');
     }
 }

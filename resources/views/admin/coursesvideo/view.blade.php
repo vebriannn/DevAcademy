@@ -72,44 +72,72 @@
                                     <img src="{{ asset('nemolab/admin/img/edit.png') }}" alt="" width="30"
                                         height="30">
                                 </a>
-                                <a href="{{ route('admin.course.delete', $course->id) }}">
+                                <a href="{{ route('admin.course.delete', $course->id) }}" id="btn-delete">
                                     <img src="{{ asset('nemolab/admin/img/delete.png') }}" alt=""width="30"
                                         height="30">
                                 </a>
                             </td>
                         </tr>
-                        @empty
-                            <tr>
-                                <td colspan="10">Data Belum Ada</td>
-                            </tr>
-                        @endforelse
-                    </tbody>
-                </table>
+                    @empty
+                        <tr>
+                            <td colspan="10">Data Belum Ada</td>
+                        </tr>
+                    @endforelse
+                </tbody>
+            </table>
 
-                <div class="d-flex justify-content-between p-1">
-                    <p class="show">Showing {{ $courses->count() }} of {{ $courses->total() }}</p>
-                    <div class="d-flex gap-3">
-                        <button class="pagination mx-1 {{ $courses->onFirstPage() ? 'disabled' : '' }}" id="prev-button"
-                            {{ $courses->onFirstPage() ? 'disabled' : '' }}
-                            data-url="{{ $courses->previousPageUrl() }}">Previous</button>
-                        <button class="pagination mx-1 {{ $courses->hasMorePages() ? '' : 'disabled' }}" id="next-button"
-                            {{ $courses->hasMorePages() ? '' : 'disabled' }}
-                            data-url="{{ $courses->nextPageUrl() }}">Next</button>
-                    </div>
+            <div class="d-flex justify-content-between p-1">
+                <p class="show">Showing {{ $courses->count() }} of {{ $courses->total() }}</p>
+                <div class="d-flex gap-3">
+                    <button class="pagination mx-1 {{ $courses->onFirstPage() ? 'disabled' : '' }}" id="prev-button"
+                        {{ $courses->onFirstPage() ? 'disabled' : '' }}
+                        data-url="{{ $courses->previousPageUrl() }}">Previous</button>
+                    <button class="pagination mx-1 {{ $courses->hasMorePages() ? '' : 'disabled' }}" id="next-button"
+                        {{ $courses->hasMorePages() ? '' : 'disabled' }}
+                        data-url="{{ $courses->nextPageUrl() }}">Next</button>
                 </div>
             </div>
-        </main>
-        <script>
-            document.getElementById('prev-button').addEventListener('click', function() {
-                if (!this.classList.contains('disabled')) {
-                    window.location.href = this.getAttribute('data-url');
-                }
+        </div>
+    </main>
+@endsection
+
+@push('addon-script')
+    <script>
+        document.getElementById('prev-button').addEventListener('click', function() {
+            if (!this.classList.contains('disabled')) {
+                window.location.href = this.getAttribute('data-url');
+            }
+        });
+
+        document.getElementById('next-button').addEventListener('click', function() {
+            if (!this.classList.contains('disabled')) {
+                window.location.href = this.getAttribute('data-url');
+            }
+        });
+    </script>
+    <script>
+        const btnDelete = document.querySelectorAll('#btn-delete')
+        btnDelete.forEach(e => {
+            e.addEventListener('click', function(event) {
+                event.preventDefault(); // Prevent the default anchor click behavior
+
+                const url = this.href; // Get the URL from the button's href attribute
+                Swal.fire({
+                    title: 'Delete',
+                    text: "Apakah Anda Yakin Delete Course?",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes',
+                    cancelButtonText: 'No'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // If confirmed, redirect to the delete URL
+                        window.location.href = url;
+                    }
+                });
             });
-    
-            document.getElementById('next-button').addEventListener('click', function() {
-                if (!this.classList.contains('disabled')) {
-                    window.location.href = this.getAttribute('data-url');
-                }
-            });
-        </script>
-    @endsection
+        });
+    </script>
+@endpush

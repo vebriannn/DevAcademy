@@ -22,6 +22,11 @@
                                 placeholder="" required />
                             <div class="labelline" for="name">Name</div>
                         </div>
+                        @error('name')
+                            <span class="text-danger">
+                                {{ $message }}
+                            </span>
+                        @enderror
                     </div>
                     <div class="col-12 mb-3">
                         <div class="entryarea">
@@ -29,12 +34,36 @@
                                 placeholder="" required />
                             <div class="labelline" for="email">Email</div>
                         </div>
+                        @error('email')
+                            <span class="text-danger">
+                                {{ $message }}
+                            </span>
+                        @enderror
+                    </div>
+                    <div class="col-12 mb-3">
+                        <div class="entryarea">
+                            <select class="form-control pt-3 pb-3 shadow-none" name="role" style="border: 1px solid rgb(0, 0, 0) !important;">
+                                <option value="students" {{ $mentor->role == 'students' ? 'selected' : '' }}>Students</option>
+                                <option value="mentor" {{ $mentor->role == 'mentor' ? 'selected' : '' }}>Mentor</option>
+                                <option value="superadmin" {{ $mentor->role == 'superadmin' ? 'selected' : '' }}>Superadmin</option>
+                            </select>
+                        </div>
+                        @error('role')
+                            <span class="text-danger">
+                                {{ $message }}
+                            </span>
+                        @enderror
                     </div>
                     <div class="col-12 mb-3">
                         <div class="entryarea">
                             <input type="password" id="password" name="password" placeholder="" />
                             <div class="labelline" for="password">Password (leave blank if not changing)</div>
                         </div>
+                        @error('password')
+                            <span class="text-danger">
+                                {{ $message }}
+                            </span>
+                        @enderror
                     </div>
                     <div class="row col-12 mt-3">
                         <div class="col-6">

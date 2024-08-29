@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
+use RealRashid\SweetAlert\Facades\Alert;
 
 use App\Models\User;
 
@@ -53,7 +54,8 @@ class MemberRegisterController extends Controller
             ]);
 
             auth()->login($user);
-            return redirect()->route('home')->with('success', 'Registration successful.');
+            Alert::success('Success', 'Register Berhasil');
+            return redirect()->route('home');
         } else {
             // Log::warning('Email sudah terdaftar: ' . $email);
             return redirect()->back()->withErrors(['email' => 'Email sudah terdaftar, silahkan gunakan akun lain'])->withInput();
