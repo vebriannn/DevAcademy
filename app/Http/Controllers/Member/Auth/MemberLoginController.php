@@ -22,6 +22,11 @@ class MemberLoginController extends Controller
             'email' => 'required|email',
             'password' => 'required',
         ]);
+        if (Auth::check()) {
+            Auth::logout();
+            $requests->session()->invalidate();
+            $requests->session()->regenerateToken();
+        }
 
         // Cek apakah email ada di database
         $user = User::where('email', $requests->email)->first();

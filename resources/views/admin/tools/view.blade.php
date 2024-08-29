@@ -41,7 +41,7 @@
                     @forelse ($tools as $item)
                         <tr>
                             <td>{{ $item->name_tools }}</td>
-                            <td>{{ $item->link }}</td>
+                            <td><a href="{{ $item->link }}">Lihat</a></td>
                             <td>
                                 <img src="{{ asset('storage/images/logoTools/' . $item->logo_tools) }}" alt=""
                                     width="50" height="50" class="rounded-2 object-fit-cover">

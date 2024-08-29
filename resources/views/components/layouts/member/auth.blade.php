@@ -12,12 +12,14 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="icon" href="{{ asset('nemolab/member/img/nemolab.ico') }}" type="image/x-icon">
     @stack('addon-script')
 </head>
 
 <body>
     <div id="content">
         {{-- content --}}
+        <div id="mobileNavbar"></div>
         @yield('content')
     </div>
 
@@ -30,6 +32,11 @@
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
     </script>
     <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            if (window.innerWidth <= 767) {
+                document.getElementById('mobileNavbar').innerHTML = `@include('components.includes.member.navbar-play')`;
+            }
+        });
         // input password
         var a;
 

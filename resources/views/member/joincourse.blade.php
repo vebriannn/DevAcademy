@@ -111,16 +111,16 @@
             <div class="col-12">
                 <div class="row">
                     @foreach ($course->tools as $tool)
-                        <div class="col-6 col-lg-3 mb-4">
+                        <div class="col-12 col-md-6 col-lg-3 mb-4">
                             <a href="{{ $tool->link }}" class="text-decoration-none text-black">
-                            <div class="tools p-4 pt-lg-5 border border-2 rounded-4 shadow-sm">
+                            <div class="tools p-3 p-md-5 pt-lg-5 rounded-4">
                                 <div class="d-flex align-items-center justify-content-center text-center d-md-block">
                                     <div class="col-6 col-md-12">
                                         <img src="{{ asset('storage/images/logoTools/' . $tool->logo_tools) }}"
-                                            alt="" height="100" width="100" class="rounded-3 object-fit-cover" />
+                                            alt="" class="rounded-3 object-fit-cover" />
                                     </div>
                                     <div class="col-6 col-md-12">
-                                        <p class="fw-semibold m-0 mt-md-4" style="font-size: 16px">
+                                        <p class="fw-semibold m-0 mt-md-4">
                                             {{ $tool->name_tools }} <br />
                                             Software Gratis
                                         </p>
@@ -142,7 +142,7 @@
                     <h4 class="fw-semibold">Payment</h4>
                 </div>
                 <div class="d-flex justify-content-md-between w-100" style="flex-wrap: wrap">
-                    <div class="col-custom col-12 border border-2 rounded-4 p-4 ms-lg-2 mt-4 shadow-sm">
+                    <div class="col-custom col-md-6 col-12 rounded-4 p-4 ms-lg-2 mt-4">
                         <img src="{{ asset('nemolab/member/img/payment-img.png') }}" alt="" width="70" />
                         <p class="mt-4 fw-light mb-1" style="font-size: 15px">Video</p>
                         <h5 class="fw-semibold">Rp {{ number_format($course->price, 0) }}</h5>

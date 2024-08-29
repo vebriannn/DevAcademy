@@ -62,7 +62,22 @@ body::-webkit-scrollbar {
 .mins {
     width: 30%;
 }
-
+.tools img {
+    width: 100px;
+    height: 100px;
+}
+.tools p {
+    font-size: 16px;
+}
+.tools,
+.col-custom {
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.345);
+    transition: 0.2s all;
+}
+.tools:hover,
+.col-custom:hover {
+    box-shadow: 0px 0px 5px 0.3px #faa907;
+}
 .button {
     position: absolute;
     bottom: 0;
@@ -89,7 +104,7 @@ body::-webkit-scrollbar {
 .btn:hover {
     background-color: #a56e00;
 }
-@media (min-width: 768px) {
+@media (min-width: 992px) {
     .col-custom {
         flex: 0 0 auto;
         width: 30%;
@@ -108,14 +123,15 @@ body::-webkit-scrollbar {
     }
 
     .tools img {
-        width: 80px;
+        width: 70px;
+        height: 70px;
         display: block;
         margin: 0 auto;
     }
 
     .tools p {
         margin-left: 1rem;
-        font-size: 1rem;
+        font-size: 0.9rem;
     }
     .tools button {
         margin-left: 0.7rem;

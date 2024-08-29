@@ -10,7 +10,7 @@
     <div class="container">
         <div class="row">
             <div class="col-12 d-flex justify-content-center">
-                <div class="box rounded-5 bg-white text-center d-flex flex-column justify-content-center shadow-lg">
+                <div class="box rounded-5 bg-white text-center d-flex flex-column justify-content-center">
                     <div>
                         <img src="{{ asset('nemolab/member/img/logo.png') }}" alt="logo" width="130" />
                     </div>

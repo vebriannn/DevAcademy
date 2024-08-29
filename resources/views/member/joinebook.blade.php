@@ -82,7 +82,7 @@
                 <h4 class="fw-semibold">Payment</h4>
             </div>
             <div class="d-flex justify-content-md-between w-100" style="flex-wrap: wrap">
-                <div class="col-custom col-12 border border-2 rounded-4 p-4 ms-lg-2 mt-4 shadow-sm">
+                <div class="col-custom col-md-6 col-12 rounded-4 p-4 ms-lg-2 mt-4">
                     <img src="{{ asset('nemolab/member/img/payment-img.png') }}" alt="" width="70" />
                     <p class="mt-4 fw-light mb-1" style="font-size: 15px">eBook</p>
                     <h5 class="fw-semibold">Rp 100,000</h5>

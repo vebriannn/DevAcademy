@@ -46,11 +46,14 @@
             alt="" width="30" />
         <p class="m-0">Transaction</p>
     </a>
+<<<<<<< HEAD
     <a href="{{ route('admin.tools') }}" class="list-sidebar {{ request()->is('admin/tools') ? 'active' : '' }}">
         <img src="{{ asset(request()->is('admin/tools') ? 'nemolab/admin/img/datacourses-active.png' : 'nemolab/admin/img/datacourses.png') }}"
             alt="" width="30" />
         <p class="m-0">Tools</p>
     </a>
+=======
+>>>>>>> 362969dd865601912ea1f548072f14c2e8ecd27f
     <p class="tittle-list-sidebar mt-5">View Data</p>
     <a href="{{ route('admin.portofolio') }}"
         class="list-sidebar {{ request()->is('admin/portofolio') ? 'active' : '' }}">
