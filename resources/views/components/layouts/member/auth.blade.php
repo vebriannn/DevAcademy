@@ -19,6 +19,7 @@
 <body>
     <div id="content">
         {{-- content --}}
+        <div id="mobileNavbar"></div>
         @yield('content')
     </div>
 
@@ -28,6 +29,11 @@
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
     </script>
     <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            if (window.innerWidth <= 767) {
+                document.getElementById('mobileNavbar').innerHTML = `@include('components.includes.member.navbar-play')`;
+            }
+        });
         // input password
         var a;
 

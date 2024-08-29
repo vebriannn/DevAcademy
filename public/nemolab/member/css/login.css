@@ -11,6 +11,7 @@ body {
     width: 450px;
     padding: 3.2rem;
     gap: 25px;
+    box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.175);
 }
 h3 span {
     font-weight: bold;
@@ -21,7 +22,7 @@ h3 span {
 form input {
     width: 100%;
     border-radius: 11px;
-    padding: 6.5px 0 6.5px 2.6rem;
+    padding: 7px 0 7px 2.6rem;
     border: 2px solid gray;
 }
 form input::placeholder {
@@ -61,4 +62,18 @@ form input:focus {
 .btn:active,
 .btn:focus {
     background: #ff7700;
+}
+@media (max-width: 576px) {
+    body {
+        background: #fff;
+    }
+    .box {
+        box-shadow: none;
+    }
+}
+@media only screen and (min-width: 768px) and (max-width: 992px) {
+    .box {
+        width: 550px;
+        height: 520px;
+    }
 }

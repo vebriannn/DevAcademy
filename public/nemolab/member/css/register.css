@@ -11,11 +11,12 @@ body {
     width: 450px;
     padding: 3rem;
     gap: 25px;
+    box-shadow: 0px 0px 20px -12px rgba(0, 0, 0, 0.75);
 }
 form input {
     width: 100%;
     border-radius: 11px;
-    padding: 4.8px 0 4.8px 2.6rem;
+    padding: 5px 0 5px 2.6rem;
     border: 2px solid gray;
 }
 form input::placeholder {
@@ -72,4 +73,12 @@ form label:active {
 .btn:active,
 .btn:focus {
     background: #ff7700;
+}
+@media (max-width: 576px) {
+    body {
+        background: #fff;
+    }
+    .box {
+        box-shadow: none;
+    }
 }

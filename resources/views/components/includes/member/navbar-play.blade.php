@@ -4,7 +4,7 @@
             <a class="nav-link active fw-semibold d-flex align-items-center" aria-current="page" href="#"
                 style="margin-left: -18px;color:#faa907;" onclick="window.history.back(); return false;">
                 <img class="me-1" src="{{ asset('nemolab/member/img/chevron-left.png') }}"
-                    style="width: 35px; height: 35px;" alt="">
+                    style="width: 25px; height: 25px;" alt="">
                 Back
             </a>
         </div>
