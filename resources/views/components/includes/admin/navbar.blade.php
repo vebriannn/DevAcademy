@@ -16,7 +16,7 @@
                 <img src="{{ asset('storage/images/avatars/' . Auth::user()->avatar) }}" alt="" width="45" height="45"
                     class="d-none d-lg-block border border-2 rounded-circle" id="myProfile" style="cursor: pointer" />
             @else
-                <img src="{{ asset('nemolab/admin/img/avatar.png') }}" alt="" width="45" height="45"
+                <img src="{{ asset('nemolab/admin/img/avatar.png') }}" alt="" width="45" 
                     class="d-none d-lg-block border border-2 rounded-circle" id="myProfile" style="cursor: pointer" />
             @endif
             <!-- Profile Menu -->
