@@ -15,5 +15,40 @@ class Comments extends Model
         'user_id',
         'forum_id',
         'comment',
+        'parent_id',
     ];
+
+    /**
+     * Relasi ke model Forum.
+     * Sebuah komentar terkait dengan satu forum.
+     */
+    public function forum()
+    {
+        return $this->belongsTo(Forum::class);
+    }
+
+    /**
+     * Relasi ke model User (pembuat komentar).
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    /**
+     * Relasi ke komentar parent.
+     */
+    public function parent()
+    {
+        return $this->belongsTo(Comments::class, 'parent_id');
+    }
+
+    /**
+     * Relasi ke balasan komentar.
+     * Reply
+     */
+    public function replies()
+    {
+        return $this->hasMany(Comments::class, 'parent_id');
+    }
 }

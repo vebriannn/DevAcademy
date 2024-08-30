@@ -13,14 +13,16 @@ return new class extends Migration
     {
         Schema::create('tbl_comments', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('forum_id');
-            
-            // foreign key
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('forum_id')->references('id')->on('tbl_forums')->onDelete('cascade');
-            $table->text('comment'); 
+            $table->unsignedBigInteger('user_id');
+            $table->text('comment');
+            $table->unsignedBigInteger('parent_id')->nullable();
             $table->timestamps();
+
+            // foreign keys
+            $table->foreign('forum_id')->references('id')->on('tbl_forums')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('parent_id')->references('id')->on('tbl_comments')->onDelete('cascade');
         });
     }
 

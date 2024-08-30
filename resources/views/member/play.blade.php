@@ -72,6 +72,16 @@
                                 </div>
                             </a>
                         </div>
+                        <div class="d-flex course-option mt-3">
+                            <a href="{{ route('member.course.forum', ['slug' => $course->slug]) }}" class="btn btn-download d-flex align-item-center">
+                                <img src="{{ asset('nemolab/member/img/download.png') }}" alt="" style="border-radius:100%;">
+                                <div class="text-download ms-3">
+                                    <p class="my-auto text-left" style="width:70%;">Konsultasi</p>
+                                    <p class="my-auto">Dengan Mentor</p>
+                                </div>
+                            </a>
+                        </div>
+                        
                     </div>
                 </div>
             </div>

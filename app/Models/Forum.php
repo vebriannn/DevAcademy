@@ -13,5 +13,32 @@ class Forum extends Model
 
     protected $fillable = [
         'course_id',
+        'user_id',
+        'tittle',
     ];
+
+    /**
+     * Relasi ke model Course.
+     */
+    public function course()
+    {
+        return $this->belongsTo(Course::class);
+    }
+
+    /**
+     * Relasi ke model User (pembuat forum).
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    /**
+     * Relasi ke model Comments.
+     * Sebuah forum memiliki banyak komentar.
+     */
+    public function comments()
+    {
+        return $this->hasMany(Comments::class, 'forum_id');
+    }
 }

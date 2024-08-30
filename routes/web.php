@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\AdminReviewController;
 use App\Http\Controllers\Admin\AdminCategoryController;
 use App\Http\Controllers\Member\AdminSettingController;
 use App\Http\Controllers\Admin\AdminEbookController;
+use App\Http\Controllers\Admin\AdminForumController;
 use App\Http\Controllers\Admin\AdminMentorController;
 use App\Http\Controllers\Admin\AdminPortofolioController;
 use App\Http\Controllers\Admin\AdminStudentController;
@@ -29,6 +30,7 @@ use App\Http\Controllers\Member\MemberSettingController;
 use App\Http\Controllers\Member\Dashboard\MemberMyCourseController;
 use App\Http\Controllers\Member\Dashboard\MemberPortofolioController;
 use App\Http\Controllers\Member\MemberEbookController;
+use App\Http\Controllers\Member\MemberCommentController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -92,6 +94,7 @@ Route::prefix('admin')->group(function () {
         Route::get('{slug}/chapter/edit/{id_chapter}', [AdminChapterController::class, 'edit'])->name('admin.chapter.edit');
         Route::put('chapter/edit/update/{id_chapter}', [AdminChapterController::class, 'update'])->name('admin.chapter.edit.update');
         Route::get('chapter/delete/{id_chapter}', [AdminChapterController::class, 'delete'])->name('admin.chapter.delete');
+        Route::get('forum', [AdminForumController::class, 'index'])->name('admin.forum');
 
         // Routes for lessons
         Route::get('{slug}/chapter/{id_chapter}/lesson', [AdminLessonController::class, 'index'])->name('admin.lesson');
@@ -197,6 +200,13 @@ Route::prefix('member')->middleware('student')->group(function () {
     Route::get('/course', [MemberCourseController::class, 'index'])->name('member.course');
     Route::get('/course/join/{slug}', [MemberCourseController::class, 'join'])->name('member.course.join');
     Route::get('/course/{slug}/play/episode/{episode}', [MemberCourseController::class, 'play'])->name('member.course.play');
+    Route::get('/{slug}/forum', [MemberCourseController::class, 'forum'])->name('member.course.forum');
+    Route::post('/{forum_id}/comment/add', [MemberCommentController::class, 'addComment'])->name('member.comment.add');
+    Route::post('/comment/{comment_id}/reply', [MemberCommentController::class, 'replyComment'])->name('member.comment.reply');
+    Route::get('/forum/{forum_id}/comments/polling', [MemberCommentController::class, 'getNewComments'])
+    ->name('member.comment.polling');
+
+
 
     Route::prefix('reviews')->group(function () {
         Route::get('/', [MemberReviewController::class, 'index'])->name('member.reviews');

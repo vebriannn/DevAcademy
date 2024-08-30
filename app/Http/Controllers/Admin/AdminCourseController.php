@@ -15,6 +15,7 @@ use App\Models\Course;
 use App\Models\Tools;
 use App\Models\Chapter;
 use App\Models\Lesson;
+use App\Models\Forum;
 
 class AdminCourseController extends Controller
 {
@@ -44,43 +45,47 @@ class AdminCourseController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {
-        $request->validate([
-            'category' => 'required|string|max:255',
-            'name' => 'required|string|max:255',
-            'cover' => 'required|image|mimes:jpeg,png,jpg',
-            'type' => 'required|in:free,premium',
-            'status' => 'required|in:draft,published',
-            'price' => 'required|integer',
-            'level' => 'required|in:beginner,intermediate,expert',
-            'description' => 'required|string',
-            'tools' => 'required',
-            'tools.*' => 'exists:tbl_tools,id',
-        ]); 
+{
 
+    $request->validate([
+        'category' => 'required|string|max:255',
+        'name' => 'required|string|max:255',
+        'cover' => 'required|image|mimes:jpeg,png,jpg',
+        'type' => 'required|in:free,premium',
+        'status' => 'required|in:draft,published',
+        'price' => 'required|integer',
+        'level' => 'required|in:beginner,intermediate,expert',
+        'description' => 'required|string',
+        'tools' => 'required',
+        'tools.*' => 'exists:tbl_tools,id',
+    ]); 
 
-        $images = $request->cover;
-        $imagesGetNewName = Str::random(10).$images->getClientOriginalName();
-        $images->storeAs('public/images/covers/'.$imagesGetNewName);
+    $images = $request->cover;
+    $imagesGetNewName = Str::random(10) . $images->getClientOriginalName();
+    $images->storeAs('public/images/covers/' . $imagesGetNewName);
 
-        $course = Course::create([
-            'category' => $request->category,
-            'name' => $request->name,
-            'cover' => $imagesGetNewName,
-            'type' => $request->type,
-            'status' => $request->status,
-            'price' => $request->price,
-            'level' => $request->level,
-            'description' => $request->description,
-            'mentor_id' => Auth::user()->id,
-        ]);
+    $course = Course::create([
+        'category' => $request->category,
+        'name' => $request->name,
+        'cover' => $imagesGetNewName,
+        'type' => $request->type,
+        'status' => $request->status,
+        'price' => $request->price,
+        'level' => $request->level,
+        'description' => $request->description,
+        'mentor_id' => Auth::user()->id,
+    ]);
+    $course->tools()->sync($request->tools);
+    // forum
+    Forum::create([
+        'course_id' => $course->id,
+        'user_id' => Auth::user()->id,
+        'tittle' => $request->name,
+    ]);
 
-        // Simpan relasi dengan tools
-        $course->tools()->sync($request->tools);
-        
-        Alert::success('Success', 'Course Berhasil Di Buat');
-        return redirect()->route('admin.course');
-    }
+    Alert::success('Success', 'Course Berhasil Di Buat');
+    return redirect()->route('admin.course');
+}
 
     public function edit($id) {
         $category = Category::all();

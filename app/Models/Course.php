@@ -54,5 +54,12 @@ class Course extends Model
     {
         return $this->belongsToMany(Tools::class, 'tbl_course_tools', 'course_id', 'tool_id');
     }
-
+        /**
+     * Relasi ke model Forum.
+     * Sebuah course memiliki satu forum.
+     */
+    public function forum()
+    {
+        return $this->hasOne(Forum::class);
+    }
 }

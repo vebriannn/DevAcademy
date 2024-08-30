@@ -9,19 +9,11 @@
             <div class="col-3 d-none d-xl-block p-4 pb-5 rounded-4 text-white px-5"
                 style="background-color: #faa907; width: max-content;">
                 @if (Auth::user()->avatar != 'default.png')
-<<<<<<< HEAD
                     <img src="{{ asset('storage/images/avatars/' . Auth::user()->avatar) }}" style="border-radius: 100%;"
                         alt="" width="70" height="70" class="d-flex mx-lg-auto mt-3" />
                 @else
                     <img src="{{ asset('nemolab/admin/img/avatar.png') }}" style="border-radius: 100%;" alt=""
                         width="70" height="70" class="d-flex mx-lg-auto mt-3" />
-=======
-                <img src="{{ asset('storage/images/avatars/' . Auth::user()->avatar) }}" style="border-radius: 100%;"
-                    alt="" width="70" height="70" class="d-flex mx-lg-auto mt-3" />
-                @else
-                <img src="{{ asset('nemolab/admin/img/avatar.png') }}" style="border-radius: 100%;"
-                alt="" width="70" height="70" class="d-flex mx-lg-auto mt-3" />
->>>>>>> 362969dd865601912ea1f548072f14c2e8ecd27f
                 @endif
                 <h4 class="m-0 mt-lg-5 mt-3 fw-semibold">{{ Auth::user()->name }}</h4>
                 <p class="m-0 fw-light">Status {{ Auth::user()->role }}</p>

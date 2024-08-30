@@ -1,24 +1,16 @@
 <?php
 
-// App\Models\User.php
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
-use Illuminate\Support\Facades\Hash;
 
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
     protected $fillable = [
         'name',
         'username',
@@ -28,44 +20,48 @@ class User extends Authenticatable
         'role',
     ];
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
-     */
     protected $hidden = [
         'password',
         'remember_token',
     ];
 
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
 
     /**
-     * Get the courses associated with the user.
+     * Relasi ke model Course.
+     * Seorang user (mentor) dapat memiliki banyak course.
      */
     public function courses()
     {
         return $this->hasMany(Course::class, 'mentor_id', 'id');
     }
 
-    
+    /**
+     * Relasi ke model Transaction.
+     * Seorang user dapat memiliki banyak transaksi.
+     */
     public function transactions()
     {
         return $this->hasMany(Transaction::class, 'user_id');
     }
 
+    /**
+     * Relasi ke model Forum.
+     * Seorang user dapat membuat banyak forum.
+     */
+    public function forums()
+    {
+        return $this->hasMany(Forum::class);
+    }
 
     /**
-     * Set the user's password and hash it.
-     *
-     * @param  string  $password
-     * @return void
+     * Relasi ke model Comments.
+     * Seorang user dapat membuat banyak komentar.
      */
+    public function comments()
+    {
+        return $this->hasMany(Comments::class);
+    }
 }

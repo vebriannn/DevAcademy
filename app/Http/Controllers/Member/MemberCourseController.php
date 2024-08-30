@@ -82,4 +82,15 @@ class MemberCourseController extends Controller
 
         return view('member.play', compact('play', 'chapters', 'slug', 'course', 'user'));
     }
+    public function forum($slug)
+    {
+        $course = Course::where('slug', $slug)->firstOrFail();
+        $forum = $course->forum()->with('comments.replies')->firstOrFail();
+        $comments = $forum->comments()->whereNull('parent_id')->with('replies')->paginate(15);
+
+        return view('member.forum(tes)', [
+            'forum' => $forum,
+            'comments' => $comments,
+        ]);
+    }
 }

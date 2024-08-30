@@ -14,10 +14,13 @@ return new class extends Migration
         Schema::create('tbl_forums', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('course_id');
-            
-            // foreign key
-            $table->foreign('course_id')->references('id')->on('tbl_courses');
+            $table->unsignedBigInteger('user_id');
+            $table->string('tittle', 255);
             $table->timestamps();
+
+            // foreign keys
+            $table->foreign('course_id')->references('id')->on('tbl_courses')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
