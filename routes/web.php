@@ -31,6 +31,8 @@ use App\Http\Controllers\Member\Dashboard\MemberMyCourseController;
 use App\Http\Controllers\Member\Dashboard\MemberPortofolioController;
 use App\Http\Controllers\Member\MemberEbookController;
 use App\Http\Controllers\Member\MemberCommentController;
+use App\Http\Controllers\Member\MemberWebhookTransactionsController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes

@@ -14,6 +14,7 @@ class Transaction extends Model
     protected $fillable = [
         'status',
         'course_id',
+        'transaction_code',
         'user_id',
         'ebook_id',
         'name',

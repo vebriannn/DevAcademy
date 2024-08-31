@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Http;
+use RealRashid\SweetAlert\Facades\Alert;
+use Illuminate\Support\Facades\Auth;
 
 use App\Models\Category;
 use App\Models\Course;
@@ -79,8 +81,15 @@ class MemberCourseController extends Controller
         $user = User::where('id', $course->mentor_id)->first();
         $chapters = Chapter::with('lessons')->where('course_id', $course->id)->get();
         $play = Lesson::where('episode', $episode)->first();
+        $checkTrx = Transaction::where('course_id', $course->id)->where('user_id', Auth::user()->id)->first();
 
-        return view('member.play', compact('play', 'chapters', 'slug', 'course', 'user'));
+        if($checkTrx) {
+            return view('member.play', compact('play', 'chapters', 'slug', 'course', 'user'));
+        } 
+        else {
+            Alert::error('error', 'Maaf Akses Tidak Bisa, Karena Anda belum Beli Kelas!!!');
+            return redirect()->route('member.course.join', $slug);
+        }
     }
     public function forum($slug)
     {

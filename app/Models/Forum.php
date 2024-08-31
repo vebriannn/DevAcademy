@@ -14,7 +14,7 @@ class Forum extends Model
     protected $fillable = [
         'course_id',
         'user_id',
-        'tittle',
+        'title',
     ];
 
     /**

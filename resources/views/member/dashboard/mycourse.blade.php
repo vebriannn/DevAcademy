@@ -11,12 +11,13 @@
 
     <div class="container" style="margin-top: 5rem;">
         @if (!$submission && $total_course > 5)
-            <div class="alert alert-warning alert-dismissible fade show text-black position-fixed fixed-top" role="alert">
+            <div class="alert alert-warning alert-dismissible fade show text-black position-fixed fixed-top d-flex justify-center align-items-center"
+                role="alert">
                 Ingin jadi Mentor? klik
                 <form action="{{ route('member.pengajuan', Auth::user()->id) }}" method="post">
                     @csrf
                     <button type="submit" data-bs-toggle="modal" data-bs-target="#exampleModal"
-                        class="disini text-black px-2 py-1" style="text-decoration: underline !important">Disini
+                        class="disini text-black ps-1 btn p-0 m-0 shadow-none" style="text-decoration: underline !important">Disini
                     </button>
                 </form>
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
@@ -63,13 +64,12 @@
 
                         <ul class="dropdown-menu" id="dropdown">
                             @if (Auth::user()->avatar != 'default.png')
-                            <img src="{{ asset('storage/images/avatars/' . Auth::user()->avatar) }}"
-                                style="border-radius: 100%;" alt="" width="70" height="70"
-                                class="d-flex mx-auto mt-3" />
+                                <img src="{{ asset('storage/images/avatars/' . Auth::user()->avatar) }}"
+                                    style="border-radius: 100%;" alt="" width="70" height="70"
+                                    class="d-flex mx-auto mt-3" />
                             @else
-                            <img src="{{ asset('nemolab/admin/img/avatar.png') }}"
-                            style="border-radius: 100%;" alt="" width="70" height="70"
-                            class="d-flex mx-auto mt-3" />
+                                <img src="{{ asset('nemolab/admin/img/avatar.png') }}" style="border-radius: 100%;"
+                                    alt="" width="70" height="70" class="d-flex mx-auto mt-3" />
                             @endif
                             <h4 class="text-center mt-3 fw-semibold px-3">{{ Auth::user()->name }}</h4>
                             <p class="m-0 fw-light text-center">Status {{ Auth::user()->role }}</p>

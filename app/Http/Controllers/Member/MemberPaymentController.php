@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers\Member;
 
 use App\Http\Controllers\Controller;
@@ -8,6 +9,7 @@ use App\Models\Ebook;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use RealRashid\SweetAlert\Facades\Alert;
+use Illuminate\Support\Str;
 
 class MemberPaymentController extends Controller
 {
@@ -17,7 +19,7 @@ class MemberPaymentController extends Controller
         $ebookId = $request->query('ebook_id');
 
         $course = Course::find($courseId);
-        $ebook = Ebook::find($ebookId); 
+        $ebook = Ebook::find($ebookId);
 
         if (!$course && !$ebook) {
             abort(404, 'Course or eBook not found');
@@ -34,18 +36,20 @@ class MemberPaymentController extends Controller
         $request->validate([
             'course_id' => 'nullable|exists:tbl_courses,id',
             'ebook_id' => 'nullable|exists:tbl_ebooks,id',
+            'price' => 'required',
             'termsCheck' => 'required|accepted',
         ]);
-    
+
         $courseId = $request->input('course_id');
         $ebookId = $request->input('ebook_id');
-        $userId = Auth::id();
-    
+        $User = Auth::user();
+        $transaction_code = 'NEMOLAB-' . strtoupper(Str::random(10));
+
         $name = '';
         $price = 0;
         $status = 'pending';
         $course = Course::where('id', $courseId)->first();
-    
+
         if ($courseId && $ebookId) {
             $ebook = Ebook::find($ebookId);
             $name = 'Paket Bundle' . $course->name;
@@ -58,24 +62,51 @@ class MemberPaymentController extends Controller
             $name = $ebook->name . ' (eBook)';
             $price = $ebook->price;
         }
-    
-        if($course->price == 0) {
+
+        if ($course->price == 0) {
             $status = 'success';
+            
         }
-        
+
         // Save transaction
         $transaction = Transaction::create([
-            'user_id' => $userId,
+            'user_id' => $User->id,
+            'transaction_code' => $transaction_code,
             'course_id' => $courseId,
             'ebook_id' => $ebookId,
             'name' => $name,
-            'price' => $price,
+            'price' => $request->price,
             'status' => $status,
         ]);
-        
-        Alert::info('Info', 'Pembayaran Sudah Tersimpan, Mohon Tunggu Admin Konfirmasi');
-        return redirect()->route('member.course.join', $course->slug);
+
+        if($status == 'success') {
+            Alert::success('success', 'Kelas Berhasil Di Beli');
+            return redirect()->route('member.course.join', $course->slug);
+        }
+
+        // Jangan Hapus
+        // Set your Merchant Server Key
+        \Midtrans\Config::$serverKey = env('MIDTRANS_SERVER_KEY');
+        // Set to Development/Sandbox Environment (default). Set to true for Production Environment (accept real transaction).
+        \Midtrans\Config::$isProduction = false;
+        // Set sanitization on (default)
+        \Midtrans\Config::$isSanitized = true;
+        // Set 3DS transaction for credit card to true
+        \Midtrans\Config::$is3ds = true;
+
+        $params = array(
+            'transaction_details' => array(
+                'order_id' => $transaction_code,
+                'gross_amount' => $price,
+            ),
+            'customer_details' => array(
+                'name' => $User->name,
+                'email' => $User->email,
+            ),
+        );
+
+        $createdTransactionMidtrans = \Midtrans\Snap::createTransaction($params);
+        $midtransRedirectUrl = $createdTransactionMidtrans->redirect_url;
+        return redirect($midtransRedirectUrl);
     }
-    
-    
 }

@@ -76,12 +76,13 @@ class AdminCourseController extends Controller
         'mentor_id' => Auth::user()->id,
     ]);
     $course->tools()->sync($request->tools);
+    
     // forum
-    Forum::create([
-        'course_id' => $course->id,
-        'user_id' => Auth::user()->id,
-        'tittle' => $request->name,
-    ]);
+    // Forum::create([
+    //     'course_id' => $course->id,
+    //     'user_id' => Auth::user()->id,
+    //     'title' => $request->name,
+    // ]);
 
     Alert::success('Success', 'Course Berhasil Di Buat');
     return redirect()->route('admin.course');
