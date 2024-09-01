@@ -40,17 +40,12 @@
                     @forelse ($forums as $forum)
                         <tr>
                             <td>
-                                @if($forum->course && $forum->course->cover)
-                                    <img src="{{ asset('storage/images/covers/' . $forum->course->cover) }}" alt=""
-                                        width="60" height="50">
-                                @else
-                                    <img src="{{ asset('storage/images/covers/default_cover.jpg') }}" alt=""
-                                        width="60" height="50">
-                                @endif
+                                <img src="{{ asset('storage/images/covers/' . $forum->course->cover) }}" alt=""
+                                    width="60" height="50">
                             </td>
                             <td>{{ $forum->tittle }}</td>
                             <td>
-                                <a href="" class="me-2">
+                                <a href="{{ route('member.forum', ['slug' => $forum->course->slug]) }}" class="me-2">
                                     View
                                 </a>
                             </td>

@@ -15,6 +15,7 @@ class Comments extends Model
         'user_id',
         'forum_id',
         'comment',
+        'reply',
         'parent_id',
     ];
 
@@ -26,6 +27,7 @@ class Comments extends Model
     {
         return $this->belongsTo(Forum::class);
     }
+    
 
     /**
      * Relasi ke model User (pembuat komentar).
@@ -45,7 +47,7 @@ class Comments extends Model
 
     /**
      * Relasi ke balasan komentar.
-     * Reply
+     * Balasan adalah komentar yang memiliki parent_id yang sama dengan komentar ini.
      */
     public function replies()
     {

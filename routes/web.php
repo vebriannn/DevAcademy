@@ -97,6 +97,8 @@ Route::prefix('admin')->group(function () {
         Route::put('chapter/edit/update/{id_chapter}', [AdminChapterController::class, 'update'])->name('admin.chapter.edit.update');
         Route::get('chapter/delete/{id_chapter}', [AdminChapterController::class, 'delete'])->name('admin.chapter.delete');
         Route::get('forum', [AdminForumController::class, 'index'])->name('admin.forum');
+        Route::get('/course/forum/{slug}', [AdminForumController::class, 'show'])->name('member.forum');
+        
 
         // Routes for lessons
         Route::get('{slug}/chapter/{id_chapter}/lesson', [AdminLessonController::class, 'index'])->name('admin.lesson');
@@ -195,18 +197,19 @@ Route::prefix('admin')->group(function () {
 
 
 Route::prefix('member')->middleware('student')->group(function () {
-
+    //review
+    Route::post('/review/store', [MemberReviewController::class, 'store'])->name('member.review.store');
     // pengajuan member
     Route::post('/request/mentor/{id}', [MemberMyCourseController::class, 'reqMentor'])->name('member.pengajuan');
     
     Route::get('/course', [MemberCourseController::class, 'index'])->name('member.course');
     Route::get('/course/join/{slug}', [MemberCourseController::class, 'join'])->name('member.course.join');
     Route::get('/course/{slug}/play/episode/{episode}', [MemberCourseController::class, 'play'])->name('member.course.play');
-    Route::get('/{slug}/forum', [MemberCourseController::class, 'forum'])->name('member.course.forum');
-    Route::post('/{forum_id}/comment/add', [MemberCommentController::class, 'addComment'])->name('member.comment.add');
-    Route::post('/comment/{comment_id}/reply', [MemberCommentController::class, 'replyComment'])->name('member.comment.reply');
-    Route::get('/forum/{forum_id}/comments/polling', [MemberCommentController::class, 'getNewComments'])
-    ->name('member.comment.polling');
+    Route::get('/course/forum/{slug}', [MemberCommentController::class, 'index'])->name('member.forum');
+    Route::get('/course/forum/{slug}/search', [MemberCommentController::class, 'search'])->name('member.forum.search');
+    Route::post('/course/forum/{slug}/comment', [MemberCommentController::class, 'storeComment'])->name('member.forum.comment.store');
+    Route::get('//forum/replies/{comment_id}', [MemberCommentController::class, 'getReplies'])->name('member.forum.replies');
+    Route::post('/forum/reply/store', [MemberCommentController::class, 'storeReply'])->name('member.forum.reply.store');
 
 
 

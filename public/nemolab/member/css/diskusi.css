@@ -58,7 +58,7 @@ a{
     border: none;
 }
 .input-comment{
-    width: 700px;
+    width: 600px;
 }
 .form-floating{
     width: 100%;
@@ -74,6 +74,21 @@ a{
 .form-control::-webkit-scrollbar{
     display: none;
 }
+.cari-btn{
+    background-color: transparent;
+    text-decoration: none;
+    border: none;
+}
+.btn-send{
+    background-color: transparent;
+    text-decoration: none;
+    border: none;
+}
+.btn-send-reply{
+    background-color: transparent;
+    border: 2px solid #8F8E8E;
+    border-radius: 15px;
+}
 .btn-kirim {
     text-decoration: none;
     background-color: var(--c-brand);
@@ -85,10 +100,51 @@ a{
     transition: 0.2s all;
     background-color: #fa9d07;
 }
+.badge.bg-warning {
+    background-color: #fd7e14;
+    color: #212529;
+}
+/* pagination */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.pagination .page-link {
+    font-size: 18px;
+}
+
+.pagination .current-page {
+    background-color: transparent; 
+    color: #333; 
+    font-size: 30px;
+    border: none;
+    border-radius: 5px; 
+    font-weight: bold; 
+    pointer-events: none; 
+}
+
+.page-item.disabled .page-link {
+    background-color: #e9ecef;
+    color: #6c757d;
+}
+
+.page-link {
+    background-color: #FFA500;
+    color: #fff;
+}
+.page-link:hover {
+    background-color: #e07b39; 
+    color: #fff;
+}
 
 @media screen and (max-width: 992px) {
     .card-diskusi{
         width: 100%;
+    }
+    .box input{
+        width: 500px;
     }
 }
 
@@ -102,4 +158,15 @@ a{
    .card-diskusi{
     width: 100%;
    }
+   .box input{
+    width: 420px;
 }
+
+}
+@media screen and (max-width: 534px) {
+   .box input{
+    width: 210px;
+    }      
+
+}
+

@@ -14,6 +14,7 @@ use App\Models\Course;
 use App\Models\Chapter;
 use App\Models\Lesson;
 use App\Models\User;
+use App\Models\Comments;
 use App\Models\Transaction;
 use App\Models\CourseTools;
 
@@ -90,16 +91,5 @@ class MemberCourseController extends Controller
             Alert::error('error', 'Maaf Akses Tidak Bisa, Karena Anda belum Beli Kelas!!!');
             return redirect()->route('member.course.join', $slug);
         }
-    }
-    public function forum($slug)
-    {
-        $course = Course::where('slug', $slug)->firstOrFail();
-        $forum = $course->forum()->with('comments.replies')->firstOrFail();
-        $comments = $forum->comments()->whereNull('parent_id')->with('replies')->paginate(15);
-
-        return view('member.forum(tes)', [
-            'forum' => $forum,
-            'comments' => $comments,
-        ]);
-    }
+    }    
 }

@@ -1,54 +1,97 @@
 <?php
-namespace App\Http\Controllers\member;
+
+namespace App\Http\Controllers\Member;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Comments;
+use Illuminate\Support\Facades\Auth;
+use App\Models\Forum;
+use App\Models\Course;
 
 class MemberCommentController extends Controller
-{
-    public function addComment(Request $request, $forum_id)
+{   
+    public function index($slug)
+    {
+        $course = Course::where('slug', $slug)->firstOrFail();
+        $forum = $course->forum()->with('comments.replies')->firstOrFail();
+        $comments = $forum->comments()->whereNull('parent_id')->with('replies')->paginate(10);
+        return view('member.forum', compact('course', 'forum', 'comments'));
+    }
+    
+    public function storeComment(Request $request, $slug)
     {
         $request->validate([
-            'comment' => 'required|string|max:1000',
+            'comment' => 'required|string',
+            'forum_id' => 'required|integer',
         ]);
+        $course = Course::where('slug', $slug)->firstOrFail();
+        $forum = $course->forum;
 
-        Comments::create([
-            'forum_id' => $forum_id,
-            'user_id' => auth()->id(),
-            'comment' => $request->comment,
-        ]);
-
-        return redirect()->back();
+        if ($forum->id !== (int) $request->forum_id) {
+            return redirect()->route('member.forum', ['slug' => $slug])
+                ->with('error', 'Invalid forum ID.');
+        }
+        $comment = new Comments();
+        $comment->forum_id = $request->forum_id;
+        $comment->user_id = Auth::id();
+        $comment->comment = $request->comment;
+        $comment->parent_id = null;
+        $comment->save();
+        return redirect()->route('member.forum', ['slug' => $slug])
+            ->with('success', 'Pertanyaan berhasil dikirim.');
     }
 
-    public function replyComment(Request $request, $comment_id)
+    public function search(Request $request, $slug)
+    {
+        $query = $request->input('query'); 
+        
+        $course = Course::where('slug', $slug)->firstOrFail();
+        $forum = $course->forum;
+    
+        $comments = Comments::where('forum_id', $forum->id)
+                            ->where('comment', 'LIKE', '%' . $query . '%')
+                            ->with('user')
+                            ->whereNull('parent_id') 
+                            ->orderBy('created_at', 'desc')
+                            ->paginate(10);
+    
+        return view('member.forum', [
+            'course' => $course,
+            'forum' => $forum,
+            'comments' => $comments,
+        ]);
+    }
+    
+
+
+    public function getReplies($comment_id)
+    {
+        $replies = Comments::where('parent_id', $comment_id)
+                           ->with('user')
+                           ->orderBy('created_at', 'desc')
+                           ->get();
+
+        return view('member.replies', compact('replies'));
+    }
+
+    // Method to store replies remains unchanged
+
+    public function storeReply(Request $request)
     {
         $request->validate([
-            'reply' => 'required|string|max:1000',
+            'reply' => 'required|string',
+            'comment_id' => 'required|integer',
         ]);
 
-        Comments::create([
-            'forum_id' => Comments::findOrFail($comment_id)->forum_id,
-            'user_id' => auth()->id(),
-            'comment' => $request->reply,
-            'parent_id' => $comment_id,
-        ]);
+        $reply = new Comments();
+        $reply->comment = null; 
+        $reply->reply = $request->reply; 
+        $reply->user_id = Auth::id();
+        $reply->parent_id = $request->comment_id;  
+        $reply->forum_id = Comments::find($request->comment_id)->forum_id;  
+        $reply->save();
 
-        return redirect()->back();
-    }
-
-    // Metode long polling untuk memeriksa komentar baru
-    public function getNewComments(Request $request, $forum_id)
-    {
-        $lastCommentId = $request->input('last_comment_id');
-
-        // Ambil komentar baru beserta balasannya
-        $newComments = Comments::where('forum_id', $forum_id)
-            ->where('id', '>', $lastCommentId)
-            ->with(['user', 'replies.user'])
-            ->get();
-
-        return response()->json($newComments);
+        return response()->json(['success' => true]);
     }
 }

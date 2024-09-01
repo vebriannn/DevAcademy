@@ -51,11 +51,11 @@
             alt="" width="30" />
         <p class="m-0">Tools</p>
     </a>
-    {{-- <a href="{{ route('admin.forum') }}" class="list-sidebar {{ request()->is('admin/course/forum') ? 'active' : '' }}">
+    <a href="{{ route('admin.forum') }}" class="list-sidebar {{ request()->is('admin/course/forum') ? 'active' : '' }}">
         <img src="{{ asset(request()->is('admin/course/forum') ? 'nemolab/admin/img/datacourses-active.png' : 'nemolab/admin/img/datacourses.png') }}"
             alt="" width="30" />
         <p class="m-0">Forum</p>
-    </a> --}}
+    </a>
     <p class="tittle-list-sidebar mt-5">View Data</p>
     <a href="{{ route('admin.portofolio') }}"
         class="list-sidebar {{ request()->is('admin/portofolio') ? 'active' : '' }}">
@@ -128,12 +128,12 @@
                             alt="" width="30" />
                         <p class="m-0">Tools</p>
                     </a>
-                    {{-- <a href="{{ route('admin.forum') }}"
+                    <a href="{{ route('admin.forum') }}"
                     class="list-sidebar ms-3 text-decoration-none text-black {{ request()->is('admin/course/forum') ? 'active' : '' }}">
                     <img src="{{ asset(request()->is('admin/course/forum') ? 'nemolab/admin/img/datacourses-active.png' : 'nemolab/admin/img/datacourses-active.png') }}"
                         alt="" width="30" />
                     <p class="m-0">Forum</p>
-                    </a> --}}
+                    </a>
                     <p class="tittle-list-sidebar mt-5">View Data</p>
                     <a href="{{ route('admin.portofolio') }}"
                         class="list-sidebar ms-3 text-decoration-none text-black {{ request()->is('admin/portofolio') ? 'active' : '' }}">

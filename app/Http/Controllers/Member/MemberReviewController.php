@@ -30,11 +30,12 @@ class MemberReviewController extends Controller
             'rating' => 'required|integer|min:1|max:5',
             'note' => 'nullable|string',
         ]);
-
+    
         $review = Review::create($validated);
+    
         return response()->json([
-            'message' =>'komentar ditambahkan',
-            'data' =>$review,
+            'message' => 'komentar ditambahkan',
+            'data' => $review,
         ]);
     }
 
