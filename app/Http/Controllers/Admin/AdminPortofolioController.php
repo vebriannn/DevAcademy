@@ -23,7 +23,7 @@ class AdminPortofolioController extends Controller
             'action' => 'required',
         ]);
 
-        $porto = Portofolio::findOrFail($id)->first();
+        $porto = Portofolio::where('id', $id)->first();
         
         if($requests->action == 'accepted') {
             $porto->update([

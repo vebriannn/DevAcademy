@@ -14,22 +14,16 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        $faker = Faker::create();
-        
-        $roles = ['superadmin'];
-
         // Seed 20 users
-        foreach (range(1, 15) as $index) {
-            DB::table('users')->insert([
-                'name' => $faker->name,
-                'username' => $faker->unique()->userName,
-                'avatar' => $faker->imageUrl(200, 200, 'people', true, 'avatar'),
-                'email' => $faker->unique()->safeEmail,
-                'password' => Hash::make('password123'), 
-                'role' => $roles[array_rand($roles)], 
-                'created_at' => now(),
-                'updated_at' => now(),
-            ]);
-        }
+        DB::table('users')->insert([
+            'name' => 'vebrian',
+            'username' => 'vebrian',
+            'avatar' => 'fotome.jpg',
+            'email' => 'testing@gmail.com',
+            'password' => Hash::make('password123'),
+            'role' => 'superadmin',
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
     }
 }

@@ -40,7 +40,7 @@ class MemberPortofolioController extends Controller
     } 
 
     public function edit($id) {
-        $porto = Portofolio::findOrFail($id)->first();
+        $porto = Portofolio::where('id', $id)->first();
 
         return view('member.dashboard.portofolio.edit', compact('porto'));
     }

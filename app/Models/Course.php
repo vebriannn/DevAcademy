@@ -7,6 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 use Cviebrock\EloquentSluggable\Sluggable;
 
 use App\Models\Tools;
+use App\Models\Ebook;
+use App\Models\Forum;
+use App\Models\Transaction;
+use App\Models\User;
+
 class Course extends Model
 {
     use HasFactory, Sluggable;

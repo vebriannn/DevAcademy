@@ -5,6 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+use App\Models\Forum;
+use App\Models\User;
+
+
 class Comments extends Model
 {
     use HasFactory;
