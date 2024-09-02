@@ -17,7 +17,7 @@
                         <a class="nav-link" href="{{ route('home') }}#home">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('member.course') }}">Course</a>
+                        <a class="nav-link" href="{{ route('member.course') }}#course">Course</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('home') }}#aboutus">About Us</a>

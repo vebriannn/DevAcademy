@@ -86,10 +86,10 @@
         </div>
     </main>
         <!-- Popup YouTube -->
-        <div id="youtube-popup" class="youtube-popup hidden">
+        {{-- <div id="youtube-popup" class="youtube-popup hidden">
             <iframe id="youtube-iframe"src="" frameborder="0" allowfullscreen></iframe>
             <img id="close-btn" class="close-btn" src="{{asset('nemolab/admin/img/close.png')}}" alt="">
-        </div>
+        </div> --}}
 
 @endsection
 
