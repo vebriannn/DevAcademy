@@ -197,8 +197,6 @@ Route::prefix('admin')->group(function () {
 
 
 Route::prefix('member')->middleware('student')->group(function () {
-    //review
-    Route::post('/review/store', [MemberReviewController::class, 'store'])->name('member.review.store');
     // pengajuan member
     Route::post('/request/mentor/{id}', [MemberMyCourseController::class, 'reqMentor'])->name('member.pengajuan');
     
@@ -213,9 +211,9 @@ Route::prefix('member')->middleware('student')->group(function () {
 
 
 
-    Route::prefix('reviews')->group(function () {
+    Route::prefix('review')->group(function () {
         Route::get('/', [MemberReviewController::class, 'index'])->name('member.reviews');
-        Route::post('/store', [MemberReviewController::class, 'store'])->name('member.reviews.store');
+        Route::post('/store', [MemberReviewController::class, 'store'])->name('member.review.store');
         Route::get('/{id}', [MemberReviewController::class, 'show'])->name('member.reviews.show');
         Route::put('/{id}', [MemberReviewController::class, 'update'])->name('member.reviews.update');
         Route::delete('/{id}', [MemberReviewController::class, 'destroy'])->name('member.reviews.destroy');

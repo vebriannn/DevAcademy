@@ -11,15 +11,15 @@
         @if($comment->user->role === 'mentor' || $comment->replies->contains(function ($reply) {
             return $reply->user->role === 'mentor';
         }))
-            <div class="reply-mentor d-flex mt-2">
+            <div class="reply-mentor d-flex mt-2 align-items-center">
                 <img src="{{ asset('nemolab/member/img/reply-mentor.png') }}" width="25" height="25" alt="">
-                <p class="ms-2">Dijawab Mentor</p>
+                <p class="ms-2 m-0">Dijawab Mentor</p>
             </div>
         @endif
-        <div class="question">
+        <div class="question mt-2">
             {{ $comment->comment }}
         </div>
-        <div class="action-balas">
+        <div class="action-balas mt-2">
             <p class="d-inline-flex gap-1 mb-0">
                 <a class="text-black fw-semibold" data-bs-toggle="collapse" href="#collapsecomment{{ $comment->id }}" role="button" aria-expanded="false" aria-controls="collapseExample" onclick="toggleChevron('chevron{{ $comment->id }}')">
                     <img class="my-auto" id="chevron{{ $comment->id }}" src="{{ asset('nemolab/member/img/chevron-down-orange.png') }}" width="20" height="20" alt="">

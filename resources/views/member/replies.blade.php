@@ -1,5 +1,5 @@
 @foreach($replies as $reply)
-        <div class="profile d-flex">
+        <div class="profile d-flex mt-2">
             <a class="fw-semibold mb-0 text-black">
                 {{ $reply->user->name }}
                 @if($reply->user->role === 'mentor')
