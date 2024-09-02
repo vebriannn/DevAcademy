@@ -16,10 +16,12 @@
                         <div class="col-lg-6 col-md-12 my-auto px-5 py-lg-0 py-md-4">
                             <p class="card-text fw-lighter mt-md-0 mt-sm-3">"Nemolab of Education"</p>
                             <p class="card-title fw-bolder">Mulailah Karier Impian Anda Bersama Kami</p>
-                            <p class="card-text">Nemolab menawarkan kelas UI/UX Design, Web Development, dan Freelancer untuk
+                            <p class="card-text">Nemolab menawarkan kelas UI/UX Design, Web Development, dan Freelancer
+                                untuk
                                 pemula, membantu Anda memulai karier dengan fondasi yang kuat dan keterampilan yang praktis.
                             </p>
-                            <a href="#" class="btn-started d-inline-block px-4 mb-md-0 mb-sm-3 rounded-3">Get Started</a>
+                            <a href="#" class="btn-started d-inline-block px-4 mb-md-0 mb-sm-3 rounded-3">Get
+                                Started</a>
                         </div>
                         <div class="col-lg-6 d-none d-lg-block">
                             <img class="mx-auto float-end" src="{{ asset('nemolab/member/img/vero.png') }}"
@@ -70,12 +72,14 @@
                                 konfoni med kelig. Terabel pov astrobel sar</p>
                         </div>
                         <div
-                        class="col-lg-5 col-md-12 mb-lg-0 mb-md-4 d-lg-flex d-md-block justify-content-center align-content-center">
-                        @if (Auth::check())
-                            <a href="{{ route('member.course') }}" class="btn btn-join text-white bg-transparent my-auto">Join Us</a>
-                        @else
-                            <a href="{{ route('member.login') }}" class="btn btn-join text-white bg-transparent my-auto">Join Us</a>
-                        @endif
+                            class="col-lg-5 col-md-12 mb-lg-0 mb-md-4 d-lg-flex d-md-block justify-content-center align-content-center">
+                            @if (Auth::check())
+                                <a href="{{ route('member.course') }}"
+                                    class="btn btn-join text-white bg-transparent my-auto">Join Us</a>
+                            @else
+                                <a href="{{ route('member.login') }}"
+                                    class="btn btn-join text-white bg-transparent my-auto">Join Us</a>
+                            @endif
 
                         </div>
                     </div>
@@ -115,9 +119,11 @@
         </div>
         <div class="text-center mt-5 pb-3">
             @if (Auth::check())
-                <a href="{{ route('member.course') }}" class="btn-more fw-bolder d-inline-block mb-3 shadow-sm">Learn More</a>
+                <a href="{{ route('member.course') }}" class="btn-more fw-bolder d-inline-block mb-3 shadow-sm">Learn
+                    More</a>
             @else
-                <a href="{{ route('member.login') }}" class="btn-more fw-bolder d-inline-block mb-3 shadow-sm">Learn More</a>
+                <a href="{{ route('member.login') }}" class="btn-more fw-bolder d-inline-block mb-3 shadow-sm">Learn
+                    More</a>
             @endif
         </div>
     </section>
@@ -130,55 +136,54 @@
             <div class="row d-flex justify-content-center align-item-center row-marque">
                 <!-- First marquee (scrolling up) -->
                 <div class="marquee-container col-3 d-lg-flex flex-column d-sm-none first-marque">
-                  <div class="scroll d-flex flex-column align-item-center justify-content-center">
-                    <!-- Original set of cards -->
-                    @foreach ($reviews as $review)
-                    <div class="card card-testimonial p-4">
-                        <div class="profile d-flex">
-                            @if ($review->user->avatar)
-                                <img src="{{ asset('storage/images/avatars/' . $review->user->avatar) }}"
-                                    alt="">
-                            @else
-                                <img src="{{ asset('nemolab/member/img/profile-img.png') }}" alt="">
-                            @endif
-                            <p class="ms-2 my-auto text-white">{{ $review->user->name }}</p>
-                        </div>
-                        <div class="comment">
-                            {{ $review->note }}
-                        </div>
+                    <div class="scroll d-flex flex-column align-item-center justify-content-center">
+                        <!-- Original set of cards -->
+                        @foreach ($reviews as $review)
+                            <div class="card card-testimonial p-4">
+                                <div class="profile d-flex">
+                                    @if ($review->user->avatar)
+                                        <img src="{{ asset('storage/images/avatars/' . $review->user->avatar) }}"
+                                            alt="">
+                                    @else
+                                        <img src="{{ asset('nemolab/member/img/profile-img.png') }}" alt="">
+                                    @endif
+                                    <p class="ms-2 my-auto text-white">{{ $review->user->name }}</p>
+                                </div>
+                                <div class="comment">
+                                    {{ $review->note }}
+                                </div>
+                            </div>
+                        @endforeach
                     </div>
-                @endforeach
-            </div>
-        </div>
-          
+                </div>
                 <!-- Second marquee (scrolling down) -->
                 <div class="marquee-container col-lg-3 col-sm-6 second-marque">
-                  <div class="scroll-reverse mx-auto">
-                    <!-- Original set of cards -->
-                    @foreach ($reviews as $review)
-                    <div class="card card-testimonial p-4">
-                        <div class="profile d-flex">
-                            @if ($review->user->avatar)
-                                <img src="{{ asset('storage/images/avatars/' . $review->user->avatar) }}"
-                                    alt="">
-                            @else
-                                <img src="{{ asset('nemolab/member/img/profile-img.png') }}" alt="">
-                            @endif
-                            <p class="ms-2 my-auto text-white">{{ $review->user->name }}</p>
-                        </div>
-                        <div class="comment">
-                            {{ $review->note }}
-                        </div>
+                    <div class="scroll-reverse mx-auto">
+                        <!-- Original set of cards -->
+                        @foreach ($reviews as $review)
+                            <div class="card card-testimonial p-4">
+                                <div class="profile d-flex">
+                                    @if ($review->user->avatar)
+                                        <img src="{{ asset('storage/images/avatars/' . $review->user->avatar) }}"
+                                            alt="">
+                                    @else
+                                        <img src="{{ asset('nemolab/member/img/profile-img.png') }}" alt="">
+                                    @endif
+                                    <p class="ms-2 my-auto text-white">{{ $review->user->name }}</p>
+                                </div>
+                                <div class="comment">
+                                    {{ $review->note }}
+                                </div>
+                            </div>
+                        @endforeach
                     </div>
-                @endforeach
-            </div>
-        </div>
-          
+                </div>
+
                 <!-- Third marquee (scrolling up) -->
                 <div class="marquee-container col-lg-3 col-sm-6 d-flex flex-column third-marque">
-                          <div class="scroll d-flex flex-column align-item-center justify-content-center">
-                            <!-- Original set of cards -->
-                            @foreach ($reviews as $review)
+                    <div class="scroll d-flex flex-column align-item-center justify-content-center">
+                        <!-- Original set of cards -->
+                        @foreach ($reviews as $review)
                             <div class="card card-testimonial p-4">
                                 <div class="profile d-flex">
                                     @if ($review->user->avatar)
@@ -196,8 +201,8 @@
                         @endforeach
                     </div>
                 </div>
-          
-                </div>
+
+            </div>
         </div>
     </section>
 
@@ -285,7 +290,8 @@
                         </div>
                     </div>
                 </div>
-                <a href="#" class="btn-kirim fw-semibold text-white rounded-3 my-4 float-start float-lg-end">Kirim Pesan</a>
+                <a href="#" class="btn-kirim fw-semibold text-white rounded-3 my-4 float-start float-lg-end">Kirim
+                    Pesan</a>
             </div>
             <div class="col-1"></div>
         </div>

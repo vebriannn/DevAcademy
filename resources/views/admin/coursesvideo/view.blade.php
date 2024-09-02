@@ -42,6 +42,8 @@
                         <th>price</th>
                         <th>status</th>
                         <th>type</th>
+                        <th>Resources</th>
+                        <th>Link Grub</th>
                         <th>level</th>
                         <th>Action</th>
                     </tr>
@@ -60,6 +62,8 @@
                             <td>Rp. {{ number_format($course->price, 0) }}</td>
                             <td>{{ $course->status }}</td>
                             <td>{{ $course->type }}</td>
+                            <td>{{ $course->resources == 'null' ? '-' : $course->resources  }}</td>
+                            <td>{{ $course->link_grub }}</td>
                             <td>{{ $course->level }}</td>
                             <td class="">
                                 {{-- <a href="{{ route('admin.ebook.create') }}" class="btn btn-warning text-white mb-2">
