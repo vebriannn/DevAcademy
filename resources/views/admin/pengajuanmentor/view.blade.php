@@ -20,7 +20,7 @@
                 <div class="btn-group mr-2 w-100 d-flex justify-content-between align-items-center mb-3">
                     <div class="d-flex align-items-center">
                         <p class="mb-0 me-2 text-center">Show</p>
-                        <form method="GET" action="{{ route('admin.mentor') }}" id="entries-form">
+                        <form method="GET" action="{{ route('admin.submissions') }}" id="entries-form">
                             <select id="entries" name="entries" class="form-select form-select-sm"
                                 onchange="document.getElementById('entries-form').submit()">
                                 <option value="10" {{ request('entries') == 10 ? 'selected' : '' }}>10</option>
