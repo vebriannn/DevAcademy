@@ -196,6 +196,7 @@ Route::prefix('admin')->group(function () {
 });
 
 Route::get('/course', [MemberCourseController::class, 'index'])->name('member.course');
+
 Route::prefix('member')->middleware('student')->group(function () {
     // pengajuan member
     Route::post('/request/mentor/{id}', [MemberMyCourseController::class, 'reqMentor'])->name('member.pengajuan');
@@ -246,4 +247,5 @@ Route::prefix('member')->middleware('student')->group(function () {
     
     Route::get('course/payment', [MemberPaymentController::class, 'index'])->name('member.payment');
     Route::post('course/payment/store', [MemberPaymentController::class, 'store'])->name('member.transaction.store');
+
 });

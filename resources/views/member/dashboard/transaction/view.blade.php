@@ -140,11 +140,12 @@
                                     @endif
                                     <td>
                                         @if ($transaction->status === 'pending')
-                                            <form action="{{ route('member.transaction.cancel', $transaction->id) }}"
+                                            <form action="{{ route('member.transaction.cancel', $transaction->id) }}" class="d-flex gap-2"
                                                 method="POST"
                                                 onsubmit="return confirm('Apa anda yakin ingin membatalkan transaksi?');">
                                                 @csrf
                                                 @method('DELETE')
+                                                {{-- <a href="" class="btn btn-success btn-sm">Bayar Kelas</a> --}}
                                                 <button type="submit" class="btn btn-danger btn-sm">Batalkan
                                                     Pembelian</button>
                                             </form>
