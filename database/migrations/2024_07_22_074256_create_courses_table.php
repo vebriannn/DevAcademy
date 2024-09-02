@@ -22,7 +22,8 @@ return new class extends Migration
             $table->integer('price');
             $table->enum('level', ['beginner', 'intermediate', 'expert']);
             $table->text('description')->nullable();
-            $table->text('resources')->nullable();
+            $table->text('resources')->nullable(true);
+            $table->text('link_grub')->nullable(false);
             $table->timestamps();
             
             // Foreign key constraint

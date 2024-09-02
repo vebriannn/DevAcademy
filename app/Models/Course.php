@@ -23,6 +23,7 @@ class Course extends Model
         'level',
         'description',
         'resources',
+        'link_grub',
         'mentor_id',
     ];
 

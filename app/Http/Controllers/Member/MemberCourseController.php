@@ -17,7 +17,7 @@ use App\Models\User;
 use App\Models\Comments;
 use App\Models\Transaction;
 use App\Models\CourseTools;
-
+use App\Models\Review;
 
 class MemberCourseController extends Controller
 {
@@ -84,8 +84,10 @@ class MemberCourseController extends Controller
         $play = Lesson::where('episode', $episode)->first();
         $checkTrx = Transaction::where('course_id', $course->id)->where('user_id', Auth::user()->id)->first();
 
+        $checkReview = Review::where('user_id', Auth::user()->id)->first();
+
         if($checkTrx) {
-            return view('member.play', compact('play', 'chapters', 'slug', 'course', 'user'));
+            return view('member.play', compact('play', 'chapters', 'slug', 'course', 'user', 'checkReview'));
         } 
         else {
             Alert::error('error', 'Maaf Akses Tidak Bisa, Karena Anda belum Beli Kelas!!!');

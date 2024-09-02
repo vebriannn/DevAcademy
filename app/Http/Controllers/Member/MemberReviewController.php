@@ -32,7 +32,7 @@ class MemberReviewController extends Controller
         ]);
     
         $review = Review::create($validated);
-    
+
         return response()->json([
             'message' => 'komentar ditambahkan',
             'data' => $review,

@@ -97,7 +97,7 @@ Route::prefix('admin')->group(function () {
         Route::put('chapter/edit/update/{id_chapter}', [AdminChapterController::class, 'update'])->name('admin.chapter.edit.update');
         Route::get('chapter/delete/{id_chapter}', [AdminChapterController::class, 'delete'])->name('admin.chapter.delete');
         Route::get('forum', [AdminForumController::class, 'index'])->name('admin.forum');
-        Route::get('/course/forum/{slug}', [AdminForumController::class, 'show'])->name('member.forum');
+        // Route::get('/course/forum/{slug}', [AdminForumController::class, 'show'])->name('member.forum');
         
 
         // Routes for lessons

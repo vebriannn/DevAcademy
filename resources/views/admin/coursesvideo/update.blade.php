@@ -110,6 +110,30 @@
                     @error('tools')
                         <span class="text-danger">{{ $message }}</span>
                     @enderror
+                    <div class="col-6 mt-2">
+                        <div class="entryarea">
+                            <input type="text" name="resources" value = "{{ $course->resources != 'null' ? $course->resources : '' }}">
+                            <div class="labelline" for="link">Resources</div>
+                            @error('resources')
+                                <span style="color: red">{{ $message }}</span>
+                            @enderror
+                        </div>
+                    </div>
+                    @error('resources')
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror
+                    <div class="col-6 mt-2">
+                        <div class="entryarea">
+                            <input type="text" name="link_grub" value="{{ $course->link_grub }}">
+                            <div class="labelline" for="link">Link Grub Course</div>
+                            @error('link_grub')
+                                <span style="color: red">{{ $message }}</span>
+                            @enderror
+                        </div>
+                    </div>
+                    @error('link_grub')
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror
                     <div class="col-12">
                         <div class="custom-entryarea">
                             <select id="category" name="level">

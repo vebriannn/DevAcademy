@@ -64,67 +64,84 @@
                     <div class="resource">
                         <h4 class="fw-bold mt-3">Resource</h4>
                         <div class="row">
-                            <div class="d-flex course-option download mt-3">
-                                <a href="#" class="btn btn-download d-flex align-item-center">
-                                    <img src="{{ asset('nemolab/member/img/download.png') }}" alt=""
+                            @if ($course->resources != 'null')
+                                <div class="d-flex course-option download mt-3">
+                                    <a href="{{ $course->resources }}" class="btn btn-download d-flex align-item-center">
+                                        <img src="{{ asset('nemolab/member/img/download.png') }}" alt=""
+                                            style="border-radius:100%;">
+                                        <div class="text-download ms-3">
+                                            <p class="my-auto text-left" style="width:70%;">Download</p>
+                                            <p class="my-auto">Assets Belajar</p>
+                                        </div>
+                                    </a>
+                                </div>
+                            @endif
+                            <div class="d-flex course-option konsultasi ms-3 mt-3">
+                                <a href="{{ $course->link_grub }}" class="btn btn-download d-flex align-items-center">
+                                    <img src="{{ asset('nemolab/member/img/konsultasi.png') }}" alt="Consultation Icon"
                                         style="border-radius:100%;">
-                                    <div class="text-download ms-3">
-                                        <p class="my-auto text-left" style="width:70%;">Download</p>
-                                        <p class="my-auto">Assets Belajar</p>
-                                    </div>
+                                    <p class="ms-3 my-auto text-left" style="padding-right: 25px">Join Grub Diskusi</p>
                                 </a>
                             </div>
                             <div class="d-flex course-option konsultasi ms-3 mt-3">
-                                <a href="{{ route('member.forum', ['slug' => $course->slug]) }}" class="btn btn-download d-flex align-items-center">
-                                    <img src="{{ asset('nemolab/member/img/konsultasi.png') }}" alt="Consultation Icon" style="border-radius:100%;">
-                                    <p class="ms-3 my-auto text-left" style="padding-right: 25px">Konsultasi</p>
+                                <a href="{{ route('member.forum', ['slug' => $course->slug]) }}"
+                                    class="btn btn-download d-flex align-items-center">
+                                    <img src="{{ asset('nemolab/member/img/konsultasi.png') }}" alt="Consultation Icon"
+                                        style="border-radius:100%;">
+                                    <p class="ms-3 my-auto text-left" style="padding-right: 25px">Forum Diskusi</p>
                                 </a>
-                            </div>                            
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
         <!-- Modal -->
-        <div class="modal fade" id="reviewModal" tabindex="-1" aria-labelledby="reviewModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-body">
-                        <div class="wrapper-modal">
-                            <h3 class="mx-auto">Reviews dan rating</h3>
-                            <form id="reviewForm" action="{{ route('member.review.store') }}" method="POST">
-                                @csrf
-                                <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
-                                <input type="hidden" name="course_id" value="{{ $course->id }}">
-                                <div class="rating">
-                                    <input type="number" name="rating" hidden>
-                                    <i class='bx bx-star star' style="--i: 0;"></i>
-                                    <i class='bx bx-star star' style="--i: 1;"></i>
-                                    <i class='bx bx-star star' style="--i: 2;"></i>
-                                    <i class='bx bx-star star' style="--i: 3;"></i>
-                                    <i class='bx bx-star star' style="--i: 4;"></i>
-                                </div>
-                                <textarea name="note" cols="30" rows="5" placeholder="Message"></textarea>
-                                <div class="btn-group">
-                                    <button type="submit" class="btn submit">Kirim</button>
-                                </div>
-                            </form>
+
+        @if ($checkReview == null)
+            <div class="modal fade" id="reviewModal" tabindex="-1" aria-labelledby="reviewModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <div class="wrapper-modal">
+                                <h3 class="mx-auto">Reviews dan rating</h3>
+                                <form id="reviewForm" action="{{ route('member.review.store') }}" method="POST">
+                                    @csrf
+                                    <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
+                                    <input type="hidden" name="course_id" value="{{ $course->id }}">
+                                    <div class="rating">
+                                        <input type="number" name="rating" hidden>
+                                        <i class='bx bx-star star' style="--i: 0;"></i>
+                                        <i class='bx bx-star star' style="--i: 1;"></i>
+                                        <i class='bx bx-star star' style="--i: 2;"></i>
+                                        <i class='bx bx-star star' style="--i: 3;"></i>
+                                        <i class='bx bx-star star' style="--i: 4;"></i>
+                                    </div>
+                                    <textarea name="note" cols="30" rows="5" placeholder="Message"></textarea>
+                                    <div class="btn-group">
+                                        <button type="submit" class="btn submit">Kirim</button>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        @endif
 
     </div>
 @endsection
 
 @push('addon-script')
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             var reviewModal = new bootstrap.Modal(document.getElementById('reviewModal'));
             setTimeout(function() {
                 reviewModal.show();
-            }, 10000); 
+            }, 10000);
             const allStar = document.querySelectorAll('.rating .star');
             const ratingValue = document.querySelector('.rating input[name="rating"]');
             allStar.forEach((item, idx) => {
@@ -145,18 +162,34 @@
                 e.preventDefault();
                 const formData = new FormData(this);
                 fetch(this.action, {
-                    method: 'POST',
-                    body: formData,
-                    headers: {
-                        'X-CSRF-TOKEN': document.querySelector('input[name="_token"]').value
-                    }
-                })
-                .then(response => response.json())
-                .catch(error => {
-                    console.error('Error:', error);
-                });
+                        method: 'POST',
+                        body: formData,
+                        headers: {
+                            'X-CSRF-TOKEN': document.querySelector('input[name="_token"]').value
+                        }
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        // Tampilkan pesan sukses dengan SweetAlert2
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Success',
+                            text: 'Review Berhasil Di Kirim'
+                        });
+
+                        // Tutup modal
+                        $('#reviewModal').modal('hide');
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        // Tampilkan pesan error jika ada
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Something went wrong!'
+                        });
+                    });
             });
         });
     </script>
 @endpush
-

@@ -10,15 +10,16 @@ use App\Models\Forum;
 use App\Models\Course;
 
 class MemberCommentController extends Controller
-{   
+{
     public function index($slug)
     {
+
         $course = Course::where('slug', $slug)->firstOrFail();
         $forum = $course->forum()->with('comments.replies')->firstOrFail();
         $comments = $forum->comments()->whereNull('parent_id')->with('replies')->paginate(10);
         return view('member.forum', compact('course', 'forum', 'comments'));
     }
-    
+
     public function storeComment(Request $request, $slug)
     {
         $request->validate([
@@ -44,33 +45,33 @@ class MemberCommentController extends Controller
 
     public function search(Request $request, $slug)
     {
-        $query = $request->input('query'); 
-        
+        $query = $request->input('query');
+
         $course = Course::where('slug', $slug)->firstOrFail();
         $forum = $course->forum;
-    
+
         $comments = Comments::where('forum_id', $forum->id)
-                            ->where('comment', 'LIKE', '%' . $query . '%')
-                            ->with('user')
-                            ->whereNull('parent_id') 
-                            ->orderBy('created_at', 'desc')
-                            ->paginate(10);
-    
+            ->where('comment', 'LIKE', '%' . $query . '%')
+            ->with('user')
+            ->whereNull('parent_id')
+            ->orderBy('created_at', 'desc')
+            ->paginate(10);
+
         return view('member.forum', [
             'course' => $course,
             'forum' => $forum,
             'comments' => $comments,
         ]);
     }
-    
+
 
 
     public function getReplies($comment_id)
     {
         $replies = Comments::where('parent_id', $comment_id)
-                           ->with('user')
-                           ->orderBy('created_at', 'desc')
-                           ->get();
+            ->with('user')
+            ->orderBy('created_at', 'desc')
+            ->get();
 
         return view('member.replies', compact('replies'));
     }
@@ -85,11 +86,11 @@ class MemberCommentController extends Controller
         ]);
 
         $reply = new Comments();
-        $reply->comment = null; 
-        $reply->reply = $request->reply; 
+        $reply->comment = null;
+        $reply->reply = $request->reply;
         $reply->user_id = Auth::id();
-        $reply->parent_id = $request->comment_id;  
-        $reply->forum_id = Comments::find($request->comment_id)->forum_id;  
+        $reply->parent_id = $request->comment_id;
+        $reply->forum_id = Comments::find($request->comment_id)->forum_id;
         $reply->save();
 
         return response()->json(['success' => true]);
