@@ -67,7 +67,6 @@ class AdminCourseController extends Controller
         $images = $request->cover;
         $imagesGetNewName = Str::random(10) . $images->getClientOriginalName();
         $images->storeAs('public/images/covers/' . $imagesGetNewName);
-
         $resources = 'null';
 
         

@@ -13,7 +13,7 @@
             <div class="btn-group mr-2 w-100 d-flex justify-content-between align-items-center mb-3">
                 <div class="d-flex align-items-center ms-3 mt-2">
                     <p class="mb-0 me-2">Show</p>
-                    <form method="GET" action="{{ route('admin.course') }}" id="entries-form">
+                    <form method="GET" action="{{ route('admin.category') }}" id="entries-form">
                         <select id="entries" name="per_page" class="form-select form-select-sm rounded-3"
                             onchange="document.getElementById('entries-form').submit();">
                             <option value="10" {{ request('per_page') == 10 ? 'selected' : '' }}>10</option>
