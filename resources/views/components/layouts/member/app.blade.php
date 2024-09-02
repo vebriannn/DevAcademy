@@ -81,6 +81,39 @@
                 })
             });
         }
+
+        document.addEventListener("DOMContentLoaded", function() {
+    const sections = document.querySelectorAll("section");
+    const navLinks = document.querySelectorAll(".nav-link");
+
+    function changeActiveLink() {
+        let index = sections.length;
+
+        // Find the currently visible section
+        while (--index && window.scrollY + 50 < sections[index].offsetTop) {}
+
+        navLinks.forEach((link, i) => {
+            // Remove 'active' from all links
+            link.classList.remove("active");
+
+            // Skip adding 'active' class for the 'Course' link (assuming 'Course' is the second link)
+            if (i === 1) {
+                link.classList.remove("active");
+            }
+        });
+
+        // Add 'active' to the link corresponding to the visible section
+        if (index !== 1) { // Skip the 'Course' link
+            navLinks[index].classList.add("active");
+        }
+    }
+
+    changeActiveLink();
+    window.addEventListener("scroll", changeActiveLink);
+});
+
+
+
     </script>
     @stack('addon-script')
 

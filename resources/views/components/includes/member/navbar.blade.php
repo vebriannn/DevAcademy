@@ -17,10 +17,10 @@
                         <a class="nav-link" aria-current="page" href="{{ route('home') }}#home">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#course">Course</a>
+                        <a class="nav-link" href="{{ route('member.course') }}#course">Course</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#aboutus">About Us</a>
+                        <a class="nav-link" href="{{ route('home') }}#aboutus">About Us</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('home') }}#contactus">Contact Us</a>

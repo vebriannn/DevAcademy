@@ -54,7 +54,7 @@
         </div>
     </section>
 
-    <section id="course"class="container" style="height: max-content">
+    {{-- <section id="course"class="container" style="height: max-content">
         <p class="text-center pt-4">Course</p>
         <h2 class="text-center fw-bolder">Our Course</h2>
         <p class="text-center pt-4 mx-auto deskripsi-course">Lörem ipsum astrobel sar direlig. Kronde est konfoni med
@@ -126,7 +126,7 @@
                     More</a>
             @endif
         </div>
-    </section>
+    </section> --}}
 
     <section id="testimonial">
         <div class="container p-0">
