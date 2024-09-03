@@ -54,7 +54,7 @@
                             <td>{{ $course->category }}</td>
                             <td>{{ $course->name }}</td>
                             <td>{{ $course->description }}</td>
-                            <td>{{ Auth::user()->name }}</td>
+                            <td>{{ $course->users->name }}</td>
                             <td>
                                 <img src="{{ asset('storage/images/covers/' . $course->cover) }}" alt=""
                                     width="150" height="100">
