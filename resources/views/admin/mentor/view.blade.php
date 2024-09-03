@@ -13,7 +13,7 @@
     <!-- Content -->
     <main role="main" class="col-md-12 ml-sm-auto col-lg-9 ps-4">
         <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-1">
-            <h1 class="judul-table">Data Mentor</h1>
+            <h1 class="judul-table">Mentor Data</h1>
         </div>
 
         <div class="table-responsive px-3 py-3">
@@ -64,7 +64,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="4">No mentors found.</td>
+                            <td colspan="4">There is no mentor data yet</td>
                         </tr>
                     @endforelse
                 </tbody>

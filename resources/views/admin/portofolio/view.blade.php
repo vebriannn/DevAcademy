@@ -13,7 +13,7 @@
     <!-- Content -->
     <main role="main" class="col-lg-9 col-sm-12 ps-4">
         <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-1">
-            <h1 class="judul-table">Pengajuan Portofolio</h1>
+            <h1 class="judul-table">Portofolio Submission</h1>
         </div>
 
         <div class="table-responsive px-3 py-3">
@@ -37,12 +37,12 @@
             <table class="table table-sm">
                 <thead>
                     <tr>
-                        <th>Name Member</th>
-                        <th>Name Course</th>
+                        <th>Member Name</th>
+                        <th>Course Name</th>
                         <th>Link Project</th>
                         {{-- <th>Date</th> --}}
                         <th>Status</th>
-                        <th>Action</th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -83,7 +83,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="4">Data Belum Ada</td>
+                            <td colspan="4">There is no submission data yet</td>
                         </tr>
                     @endforelse
                 </tbody>

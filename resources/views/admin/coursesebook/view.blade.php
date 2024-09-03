@@ -9,7 +9,7 @@
 @section('content')
     <main role="main" class="col-md-12 ml-sm-auto col-lg-9 ps-4">
         <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-1">
-            <h1 class="judul-table">eBooks</h1>
+            <h1 class="judul-table">eBook Courses</h1>
         </div>
 
         <div class="table-responsive px-3 py-3">
@@ -50,7 +50,7 @@
                         </tr>
                         @empty
                             <tr>
-                                <td colspan="8">No eBooks found</td>
+                                <td colspan="8">There is no ebook data yet</td>
                             </tr>
                         @endforelse
                     </tbody>
