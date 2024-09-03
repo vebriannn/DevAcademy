@@ -61,7 +61,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="3">Data Belum Ada</td>
+                            <td colspan="3">There is no lesson data yet</td>
                         </tr>
                     @endforelse
                 </tbody>

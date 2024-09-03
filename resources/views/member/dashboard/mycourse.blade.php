@@ -106,22 +106,25 @@
                 <div class="course row row-course mt-3 w-100">
                     @foreach ($courses as $course)
                         @if ($course->transactions->isNotEmpty())
-                            <div class="col-lg-4 col-sm-6 col-course mt-1 mb-2">
+                            <div class="col-lg-4 col-md-6 col-lg-4 col-course mt-1 mb-2">
                                 <a href="{{ route('member.course.join', $course->slug) }}" class="text-black">
-                                    <div class="card-course h-100 d-flex flex-column">
+                                    <div class="card-course h-100 d-flex flex-row flex-md-column">
                                         <div class="img-card">
                                             <img src="{{ asset('storage/images/covers/' . $course->cover) }}"
                                                 alt="">
                                         </div>
-                                        <div class="deskripsi px-3 ">
-                                            <div class="category">
+                                        <div class="deskripsi px-3">
+                                            <div class="category my-2 d-none d-md-block">
                                                 <p class="m-0">{{ $course->category }}</p>
                                             </div>
-                                            <div class="tittle-card fw-semibold">
+                                            <div class="tittle-card fw-semibold mt-3 mt-md-0">
                                                 {{ $course->name }}
                                             </div>
+                                            <div class="category my-3 d-block d-md-none">
+                                                <p class="m-0">{{ $course->category }}</p>
+                                            </div>
                                             <div class="profile-card mt-2">
-                                                <a href="">
+                                                <a href="" class="fw-medium">
                                                     <img class="me-2"
                                                         src="{{ asset('storage/images/avatars/' . $course->users->avatar) }}"
                                                         alt="" width="35" height="35"
@@ -129,13 +132,13 @@
                                                     {{ $course->users->name }}
                                                 </a>
                                             </div>
-                                            <div class="status d-flex mt-3">
+                                            <div class="status d-flex justify-content-between my-2">
                                                 <div class="d-flex flex-direction-costum">
-                                                    <p class="txt-start">Sudah Di Bayar</p>
+                                                    <p class="txt-start" style="font-size: 15px">Sudah dibayar</p>
                                                 </div>
-                                                <img class="ms-auto me-0 "
+                                                <img class="ms-0 ms-md-auto me-0 "
                                                     src="{{ asset('nemolab/member/img/check-mycourse.png') }}"
-                                                    alt="" width="30" height="30">
+                                                    alt="" width="25" height="25">
                                             </div>
                                         </div>
                                     </div>
