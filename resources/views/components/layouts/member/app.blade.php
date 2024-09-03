@@ -82,35 +82,40 @@
             });
         }
 
-        document.addEventListener("DOMContentLoaded", function() {
-            const sections = document.querySelectorAll("section");
-            const navLinks = document.querySelectorAll(".nav-link");
+        document.addEventListener('DOMContentLoaded', function() {
+    // Get all sections with an ID attribute
+    const sections = document.querySelectorAll('section[id]');
+    // Get all nav links
+    const navLinks = document.querySelectorAll('.navbar-nav .nav-link');
 
-            function changeActiveLink() {
-                let index = sections.length;
+    function activateNavLink() {
+        let currentSection = '';
 
-                // Find the currently visible section
-                while (--index && window.scrollY + 50 < sections[index].offsetTop) {}
-
-                navLinks.forEach((link, i) => {
-                    // Remove 'active' from all links
-                    link.classList.remove("active");
-
-                    // Skip adding 'active' class for the 'Course' link (assuming 'Course' is the second link)
-                    if (i === 1) {
-                        link.classList.remove("active");
-                    }
-                });
-
-                // Add 'active' to the link corresponding to the visible section
-                if (index !== 1) { // Skip the 'Course' link
-                    navLinks[index].classList.add("active");
-                }
+        // Loop through each section to find which one is in the viewport
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            const sectionHeight = section.offsetHeight;
+            if (window.scrollY >= sectionTop - sectionHeight / 3) {
+                currentSection = section.getAttribute('id');
             }
-
-            changeActiveLink();
-            window.addEventListener("scroll", changeActiveLink);
         });
+
+        // Remove active class from all nav links
+        navLinks.forEach(link => {
+            link.classList.remove('active');
+            // Add active class to the link corresponding to the current section
+            if (link.getAttribute('href').includes(currentSection)) {
+                link.classList.add('active');
+            }
+        });
+    }
+
+    // Initial call to set the correct nav link on load
+    activateNavLink();
+    // Add scroll event listener
+    window.addEventListener('scroll', activateNavLink);
+});
+
     </script>
     @stack('addon-script')
 

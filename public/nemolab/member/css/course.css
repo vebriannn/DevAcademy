@@ -131,6 +131,13 @@ a{
 .card-category {
     color: white;
 }
+.scroll-sidebar{
+    overflow-y: scroll;
+    height: 470px;
+}
+.scroll-sidebar::-webkit-scrollbar{
+    display: none;
+}
 .scroll {
     overflow-y: auto;
     height: 740px !important;

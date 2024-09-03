@@ -8,71 +8,78 @@
 
 @section('content')
     <!-- CONTENT -->
-    <div class="container-sm ">
-        <!-- alert -->
-        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Konfirmasi</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        Apakah Anda yakin ingin menjadi mentor?
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
-                        <button type="button" class="btn-alert">Yes</button>
+    <section id="course">
+        <div class="container-sm ">
+            <!-- alert -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Konfirmasi</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            Apakah Anda yakin ingin menjadi mentor?
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                            <button type="button" class="btn-alert">Yes</button>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <div class="container-sm pt-3 pb-3" style="height: auto; margin-top: 120px;">
-            <div class="content2 row top justify-content-between mx-auto mt-1" style="width: 95%;">
-                <div class="dropdown">
-                    <a class="dropdown-toggle text-black fs-5" href="#" role="button" data-bs-toggle="dropdown"
-                        aria-expanded="false">
-                        Category
-                    </a>
+            <div class="container-sm pt-3 pb-3" style="height: auto; margin-top: 120px;">
+                <div class="content2 row top justify-content-between mx-auto mt-1" style="width: 95%;">
+                    <div class="dropdown">
+                        <a class="dropdown-toggle text-black fs-5" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Category
+                        </a>
 
-                    <ul class="dropdown-menu" id="dropdown">
-                        @foreach ($sortedCategory as $item)
-                            <div class="form-check">
-                                <input class="form-check-input radiofilter-mobile" type="radio"
-                                    id="radiofilter-{{ $loop->iteration }}">
-                                <label class="form-check-label" for="radiofilter-{{ $loop->iteration }}">
-                                    {{ $item->name }}
-                                </label>
-                            </div>
-                        @endforeach
-                    </ul>
-                </div>
-
-                <div class="col-lg-3 col-md-4 col-sm-12 mt-3 category">
-                    <div class="card-category d-flex flex-column full-width-border">
-                        <p class="mx-auto text-center pt-2 pb-1 border-bottom mt-3 mb-4">Category</p>
-                        <div class="checkbox ms-3">
+                        <ul class="dropdown-menu scroll-sidebar" id="dropdown">
                             @foreach ($sortedCategory as $item)
-                                <div class="form-check">
-                                    <input class="form-check-input radiofilter" type="radio"
+                                <div class="form-check me-3">
+                                    <input class="form-check-input radiofilter-mobile" type="radio"
                                         id="radiofilter-{{ $loop->iteration }}">
                                     <label class="form-check-label" for="radiofilter-{{ $loop->iteration }}">
                                         {{ $item->name }}
                                     </label>
                                 </div>
                             @endforeach
+                        </ul>
+                    </div>
 
+                    <div class="col-lg-3 col-md-4 col-sm-12 mt-3 category">
+                        <div class="card-category d-flex flex-column full-width-border">
+                            <p class="mx-auto text-center pt-2 pb-1 border-bottom mt-3 mb-4">Category</p>
+                            <div class="checkbox scroll-sidebar">
+                                @foreach ($sortedCategory as $item)
+                                    <div class="form-check">
+                                        <input class="form-check-input radiofilter" type="radio"
+                                            id="radiofilter-{{ $loop->iteration }}">
+                                        <label class="form-check-label" for="radiofilter-{{ $loop->iteration }}">
+                                            {{ $item->name }}
+                                        </label>
+                                    </div>
+                                @endforeach
+
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="col-lg-9 col-md-7 col-sm-12 row d-flex mx-auto overflow-y-scroll" id="course-container"
-                    style="height: auto;">
+                    <div class="col-lg-9 col-md-7 col-sm-12 row d-flex mx-auto overflow-y-scroll" id="course-container"
+                        style="height: auto;">
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    </section>
+
+    {{-- <div class="right d-flex">
+        <img src="http://127.0.0.1:8000/nemolab/member/img/star.png" style="height: 20px; margin-top: -1px;" alt="">
+        <p class="text-black mb-0 ms-1">4,6</p>
+    </div> --}}
 @endsection
 @push('addon-script')
     <script>
@@ -122,7 +129,7 @@
         });
 
         getDataCourse();
-        
+
         function getDataCourse() {
             fetch('http://127.0.0.1:8000/api/v1/course/category?q=' + query)
                 .then(response => response.json())
@@ -133,7 +140,8 @@
                     // Menghapus semua elemen anak dari courseContainer
                     courseContainer.innerHTML = '';
 
-                    if (courses.message != "notfound") {                        courses.forEach(courseData => {
+                    if (courses.message != "notfound") {
+                        courses.forEach(courseData => {
                             courseData.course.forEach(course => {
                                 const courseElement = document.createElement('div');
                                 courseElement.className =
@@ -159,10 +167,6 @@
                                             <div class="status d-flex justify-content-between">
                                                 <div class="left d-inline-flex gap-2">
                                                     <p>Video</p>
-                                                </div>
-                                                <div class="right d-flex">
-                                                    <img src="http://127.0.0.1:8000/nemolab/member/img/star.png" style="height: 20px; margin-top: -1px;" alt="">
-                                                    <p class="text-black mb-0 ms-1">4,6</p>
                                                 </div>
                                             </div>
                                         </div>

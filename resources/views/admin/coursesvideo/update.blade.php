@@ -80,7 +80,7 @@
                     <div class="col-6 mt-4 {{ $course->type == 'free' ? 'd-none' : 'd-block' }}" id="price">
                         <div class="entryarea">
                             <input type="text" id="name" name="price" placeholder="" value="{{ $course->price }}" />
-                            <div class="labelline" for="link">price<span class="required-field"></span></div>
+                            <div class="labelline" for="link">price</span></div>
                             @error('price')
                                 <span style="color: red">{{ $message }}</span>
                             @enderror

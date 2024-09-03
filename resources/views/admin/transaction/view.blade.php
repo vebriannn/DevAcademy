@@ -11,8 +11,8 @@
 
     <!-- Tabel -->
     <div class="col-lg-9 col-sm-12 px-4">
-        <div class="my-4">
-            <h3 class="fw-semibold" style="color: #faa907">Transactions</h3>
+        <div class="mb-3">
+            <h1 class="judul-table">Transactions</h1>
         </div>
 
         <div class="table-responsive p-3 border border-2">
@@ -40,7 +40,7 @@
                         <th>Date</th>
                         <th>Price</th>
                         <th>Status</th>
-                        <th>Action</th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -77,7 +77,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="6">Data Belum Ada</td>
+                            <td colspan="6">There is no transactions data yet</td>
                         </tr>
                     @endforelse
                 </tbody>
