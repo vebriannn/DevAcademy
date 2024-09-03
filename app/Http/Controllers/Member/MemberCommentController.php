@@ -46,8 +46,8 @@ class MemberCommentController extends Controller
         $comment->comment = $request->comment;
         $comment->parent_id = null;
         $comment->save();
-        return redirect()->route('member.forum', ['slug' => $slug])
-            ->with('success', 'Pertanyaan berhasil dikirim.');
+        Alert::success('Success', 'Berhasil mengirim pertanyaan');
+        return redirect()->route('member.forum', ['slug' => $slug]);
     }
 
     public function search(Request $request, $slug)
