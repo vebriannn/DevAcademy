@@ -74,7 +74,7 @@
                     </div>
                     <div class="col-6 mt-4 d-none" id="price">
                         <div class="entryarea">
-                            <input type="text" id="name" name="price" placeholder="" />
+                            <input type="text" id="name" name="price" placeholder="" value="0" />
                             <div class="labelline" for="link">price</div>
                             @error('price')
                                 <span style="color: red">{{ $message }}</span>

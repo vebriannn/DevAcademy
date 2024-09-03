@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Str;
+use Illuminate\Support\Env;
 
 class MemberPaymentController extends Controller
 {
@@ -70,9 +71,9 @@ class MemberPaymentController extends Controller
 
         // Jangan Hapus
         // Set your Merchant Server Key
-        \Midtrans\Config::$serverKey = "SB-Mid-server-pM9HTKiXn0FWO_P34gPkb5Vm";
-        // Set to Development/Sandbox Environment (default). Set to true for Production Environment (accept real transaction).
-        \Midtrans\Config::$isProduction = false;
+        \Midtrans\Config::$serverKey = env('MIDTRANS_SERVER_KEY');
+        // Set to Production Environment (accept real transaction)
+        \Midtrans\Config::$isProduction = true;
         // Set sanitization on (default)
         \Midtrans\Config::$isSanitized = true;
         // Set 3DS transaction for credit card to true
@@ -94,11 +95,11 @@ class MemberPaymentController extends Controller
         return redirect($midtransRedirectUrl);
     }
 
-    
+
     public function checkout()
     {
-        \Midtrans\Config::$isProduction = false;
-        \Midtrans\Config::$serverKey = "SB-Mid-server-pM9HTKiXn0FWO_P34gPkb5Vm";
+        \Midtrans\Config::$isProduction = true;
+        \Midtrans\Config::$serverKey = env('MIDTRANS_SERVER_KEY');
         $notif = new \Midtrans\Notification();
 
         $transactionStatus = $notif->transaction_status;

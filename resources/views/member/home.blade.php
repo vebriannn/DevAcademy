@@ -138,44 +138,142 @@
                 <div class="marquee-container col-3 d-lg-flex flex-column d-sm-none first-marque">
                     <div class="scroll d-flex flex-column align-item-center justify-content-center">
                         <!-- Original set of cards -->
-                        @foreach ($reviews as $review)
-                            <div class="card card-testimonial p-4">
-                                <div class="profile d-flex">
-                                    @if ($review->user->avatar)
-                                        <img src="{{ asset('storage/images/avatars/' . $review->user->avatar) }}"
-                                            alt="">
-                                    @else
-                                        <img src="{{ asset('nemolab/member/img/profile-img.png') }}" alt="">
-                                    @endif
-                                    <p class="ms-2 my-auto text-white">{{ $review->user->name }}</p>
-                                </div>
-                                <div class="comment">
-                                    {{ $review->note }}
+                        <div class="card card-testimonial p-4">
+                            <div class="profile d-flex">
+                                <img src="https://images.unsplash.com/photo-1603415526960-f299ebf5d9b4?crop=faces&fit=crop&w=128&h=128" alt="John Doe" style="border-radius: 50%">
+                                <div class="name ms-2">
+                                    <p class="text-white mb-0" style="font-size: 12px">John Doe</p>
+                                    <p class="text-white m-0" style="font-size: 10px">Software Engineer</p>
                                 </div>
                             </div>
-                        @endforeach
+                            <div class="comment mt-3">
+                                Nemolab memberikan pengalaman belajar yang luar biasa dengan banyak contoh dunia nyata dan latihan praktis yang membantu saya menguasai materi dengan cepat.
+                            </div>
+                        </div>
+                        
+                        <div class="card card-testimonial p-4">
+                            <div class="profile d-flex">
+                                <img src="https://images.unsplash.com/photo-1502685104226-ee32379fefbe?crop=faces&fit=crop&w=128&h=128" alt="Jane Smith" style="border-radius: 50%">
+                                <div class="name ms-2">
+                                    <p class="text-white mb-0" style="font-size: 12px">Jane Smith</p>
+                                    <p class="text-white m-0" style="font-size: 10px">Web Developer</p>
+                                </div>
+                            </div>
+                            <div class="comment mt-3">
+                                Kursus-kursus di Nemolab sangat komprehensif dan up-to-date, membuat saya selalu siap menghadapi tantangan teknologi terbaru.
+                            </div>
+                        </div>
+                        
+                        <div class="card card-testimonial p-4">
+                            <div class="profile d-flex">
+                                <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?crop=faces&fit=crop&w=128&h=128" alt="Alex Jones" style="border-radius: 50%">
+                                <div class="name ms-2">
+                                    <p class="text-white mb-0" style="font-size: 12px">Alex Jones</p>
+                                    <p class="text-white m-0" style="font-size: 10px">Data Scientist</p>
+                                </div>
+                            </div>
+                            <div class="comment mt-3">
+                                Fitur interaktif dan proyek langsung di Nemolab benar-benar membantu saya untuk belajar dan memahami konsep-konsep yang rumit dengan lebih mudah.
+                            </div>
+                        </div>
+                        
+                        <div class="card card-testimonial p-4">
+                            <div class="profile d-flex">
+                                <img src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?crop=faces&fit=crop&w=128&h=128" alt="Lisa White" style="border-radius: 50%">
+                                <div class="name ms-2">
+                                    <p class="text-white mb-0" style="font-size: 12px">Lisa White</p>
+                                    <p class="text-white m-0" style="font-size: 10px">UI/UX Designer</p>
+                                </div>
+                            </div>
+                            <div class="comment mt-3">
+                                Sangat puas dengan cara Nemolab mengajarkan desain antarmuka pengguna yang intuitif dan menarik. Saya belajar banyak dari sini!
+                            </div>
+                        </div>
+                        
+                        <div class="card card-testimonial p-4">
+                            <div class="profile d-flex">
+                                <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?crop=faces&fit=crop&w=128&h=128" alt="Mark Thompson" style="border-radius: 50%">
+                                <div class="name ms-2">
+                                    <p class="text-white mb-0" style="font-size: 12px">Mark Thompson</p>
+                                    <p class="text-white m-0" style="font-size: 10px">Freelancer</p>
+                                </div>
+                            </div>
+                            <div class="comment mt-3">
+                                Metode pengajaran yang menyenangkan dan fleksibilitas waktu belajar di Nemolab sangat membantu saya sebagai freelancer untuk terus belajar dan berkembang.
+                            </div>
+                        </div>
+                        
                     </div>
                 </div>
                 <!-- Second marquee (scrolling down) -->
                 <div class="marquee-container col-lg-3 col-sm-6 second-marque">
                     <div class="scroll-reverse mx-auto">
                         <!-- Original set of cards -->
-                        @foreach ($reviews as $review)
                             <div class="card card-testimonial p-4">
                                 <div class="profile d-flex">
-                                    @if ($review->user->avatar)
-                                        <img src="{{ asset('storage/images/avatars/' . $review->user->avatar) }}"
-                                            alt="">
-                                    @else
-                                        <img src="{{ asset('nemolab/member/img/profile-img.png') }}" alt="">
-                                    @endif
-                                    <p class="ms-2 my-auto text-white">{{ $review->user->name }}</p>
+                                        <img src="{{ asset('nemolab/member/img/vebrian.jfif') }}"
+                                            alt="" style="border-radius: 50%">
+                                        <div class="name ms-2">
+                                            <p class="text-white mb-0" style="font-size: 12px">Vebrian N S</p>
+                                            <p class=" text-white m-0" style="font-size: 10px">Freelance</p>
+                                        </div>
                                 </div>
-                                <div class="comment">
-                                    {{ $review->note }}
+                                <div class="comment mt-3">
+                                    Belajar jadi lebih mudah dengan Nemolab! Materi yang disediakan sangat lengkap dan mudah dipahami
                                 </div>
                             </div>
-                        @endforeach
+                            <div class="card card-testimonial p-4">
+                                <div class="profile d-flex">
+                                        <img src="{{ asset('nemolab/member/img/fair.jpg') }}"
+                                            alt="" style="border-radius: 50%">
+                                        <div class="name ms-2">
+                                            <p class="text-white mb-0" style="font-size: 12px">Fair</p>
+                                            <p class=" text-white m-0" style="font-size: 10px">Siswa</p>
+                                        </div>
+                                </div>
+                                <div class="comment mt-3">
+                                    Platform pembelajaran online yang sangat interaktif dan efektif. Banyak latihan dan proyek yang membantu menguasai materi
+                                </div>
+                            </div> 
+                            <div class="card card-testimonial p-4">
+                                <div class="profile d-flex">
+                                        <img src="{{ asset('nemolab/member/img/naufal.jpg') }}"
+                                            alt="" style="border-radius: 50%">
+                                        <div class="name ms-2">
+                                            <p class="text-white mb-0" style="font-size: 12px">Naufal labibi</p>
+                                            <p class=" text-white m-0" style="font-size: 10px">Siswa</p>
+                                        </div>
+                                </div>
+                                <div class="comment mt-3">
+                                    Sistem belajar di Nemolab sangat fleksibel, memungkinkan saya untuk belajar kapan saja dan di mana saja
+                                </div>
+                            </div> 
+                            <div class="card card-testimonial p-4">
+                                <div class="profile d-flex">
+                                        <img src="{{ asset('nemolab/member/img/zaky.jpg') }}"
+                                            alt="" style="border-radius: 50%">
+                                        <div class="name ms-2">
+                                            <p class="text-white mb-0" style="font-size: 12px">Zaky</p>
+                                            <p class=" text-white m-0" style="font-size: 10px">Siswa</p>
+                                        </div>
+                                </div>
+                                <div class="comment mt-3">
+                                    Cocok untuk pemula maupun yang sudah berpengalaman
+                                </div>
+                            </div> 
+                            <div class="card card-testimonial p-4">
+                                <div class="profile d-flex">
+                                        <img src="{{ asset('nemolab/member/img/ikhlas.jpg') }}"
+                                            alt="" style="border-radius: 50%">
+                                        <div class="name ms-2">
+                                            <p class="text-white mb-0" style="font-size: 12px">Ikhlas</p>
+                                            <p class=" text-white m-0" style="font-size: 10px">Siswa</p>
+                                        </div>
+                                </div>
+                                <div class="comment mt-3">
+                                    Nemolab adalah tempat terbaik untuk belajar programming dari dasar. Metodenya sangat mudah diikuti
+                                </div>
+                            </div> 
                     </div>
                 </div>
 
@@ -183,22 +281,71 @@
                 <div class="marquee-container col-lg-3 col-sm-6 d-flex flex-column third-marque">
                     <div class="scroll d-flex flex-column align-item-center justify-content-center">
                         <!-- Original set of cards -->
-                        @foreach ($reviews as $review)
-                            <div class="card card-testimonial p-4">
-                                <div class="profile d-flex">
-                                    @if ($review->user->avatar)
-                                        <img src="{{ asset('storage/images/avatars/' . $review->user->avatar) }}"
-                                            alt="">
-                                    @else
-                                        <img src="{{ asset('nemolab/member/img/profile-img.jpg') }}" alt="">
-                                    @endif
-                                    <p class="ms-2 my-auto text-white">{{ $review->user->name }}</p>
-                                </div>
-                                <div class="comment">
-                                    {{ $review->note }}
+                        <div class="card card-testimonial p-4">
+                            <div class="profile d-flex">
+                                <img src="https://images.unsplash.com/photo-1595152772835-219674b2a8a6?crop=faces&fit=crop&w=128&h=128" alt="Emily Carter" style="border-radius: 50%">
+                                <div class="name ms-2">
+                                    <p class="text-white mb-0" style="font-size: 12px">Emily Carter</p>
+                                    <p class="text-white m-0" style="font-size: 10px">Frontend Developer</p>
                                 </div>
                             </div>
-                        @endforeach
+                            <div class="comment mt-3">
+                                Nemolab menyediakan materi yang sangat mendalam dan langsung bisa diterapkan dalam proyek nyata. Sangat direkomendasikan untuk semua level pengembang.
+                            </div>
+                        </div>
+                        
+                        <div class="card card-testimonial p-4">
+                            <div class="profile d-flex">
+                                <img src="https://images.unsplash.com/photo-1511367461989-f85a21fda167?crop=faces&fit=crop&w=128&h=128" alt="David Johnson" style="border-radius: 50%">
+                                <div class="name ms-2">
+                                    <p class="text-white mb-0" style="font-size: 12px">David Johnson</p>
+                                    <p class="text-white m-0" style="font-size: 10px">Backend Developer</p>
+                                </div>
+                            </div>
+                            <div class="comment mt-3">
+                                Kursus di Nemolab sangat membantu saya dalam memahami konsep backend dan arsitektur server. Tutorialnya jelas dan mudah diikuti.
+                            </div>
+                        </div>
+                        
+                        <div class="card card-testimonial p-4">
+                            <div class="profile d-flex">
+                                <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?crop=faces&fit=crop&w=128&h=128" alt="Sara Williams" style="border-radius: 50%">
+                                <div class="name ms-2">
+                                    <p class="text-white mb-0" style="font-size: 12px">Sara Williams</p>
+                                    <p class="text-white m-0" style="font-size: 10px">Mobile Developer</p>
+                                </div>
+                            </div>
+                            <div class="comment mt-3">
+                                Platform ini menyediakan banyak proyek praktek yang membuat saya semakin mahir dalam pengembangan aplikasi mobile. Sangat puas belajar di sini!
+                            </div>
+                        </div>
+                        
+                        <div class="card card-testimonial p-4">
+                            <div class="profile d-flex">
+                                <img src="https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?crop=faces&fit=crop&w=128&h=128" alt="Michael Brown" style="border-radius: 50%">
+                                <div class="name ms-2">
+                                    <p class="text-white mb-0" style="font-size: 12px">Michael Brown</p>
+                                    <p class="text-white m-0" style="font-size: 10px">DevOps Engineer</p>
+                                </div>
+                            </div>
+                            <div class="comment mt-3">
+                                Nemolab menawarkan kursus yang lengkap dan terstruktur mengenai DevOps. Saya banyak belajar tentang CI/CD dan manajemen infrastruktur.
+                            </div>
+                        </div>
+                        
+                        <div class="card card-testimonial p-4">
+                            <div class="profile d-flex">
+                                <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?crop=faces&fit=crop&w=128&h=128" alt="Linda Martinez" style="border-radius: 50%">
+                                <div class="name ms-2">
+                                    <p class="text-white mb-0" style="font-size: 12px">Linda Martinez</p>
+                                    <p class="text-white m-0" style="font-size: 10px">Full Stack Developer</p>
+                                </div>
+                            </div>
+                            <div class="comment mt-3">
+                                Saya sangat menyukai cara Nemolab mengintegrasikan pembelajaran frontend dan backend. Saya sekarang merasa lebih percaya diri sebagai full stack developer.
+                            </div>
+                        </div>
+                        
                     </div>
                 </div>
 

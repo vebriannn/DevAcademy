@@ -15,10 +15,10 @@ class UserSeeder extends Seeder
     {
         // Seed 20 users
         DB::table('users')->insert([
-            'name' => 'vebrian',
-            'username' => 'vebrian',
-            'avatar' => 'fotome.jpg',
-            'email' => 'testing@gmail.com',
+            'name' => 'superadmin',
+            'username' => 'superadmin',
+            'avatar' => 'default.png',
+            'email' => 'superadmin@gmail.com',
             'password' => Hash::make('password123'),
             'role' => 'superadmin',
             'created_at' => now(),
