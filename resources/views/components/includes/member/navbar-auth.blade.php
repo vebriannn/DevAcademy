@@ -20,6 +20,9 @@
                         <a class="nav-link" href="{{ route('member.course') }}#course">Course</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" href="{{ route('home') }}#testimonial">Testimonial</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="{{ route('home') }}#aboutus">About Us</a>
                     </li>
                     <li class="nav-item">
