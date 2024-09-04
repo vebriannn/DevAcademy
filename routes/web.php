@@ -196,13 +196,13 @@ Route::prefix('admin')->group(function () {
 });
 
 Route::get('/course', [MemberCourseController::class, 'index'])->name('member.course');
+Route::get('/course/join/{slug}', [MemberCourseController::class, 'join'])->name('member.course.join');
 
 Route::prefix('member')->middleware('student')->group(function () {
+    
     // pengajuan member
     Route::post('/request/mentor/{id}', [MemberMyCourseController::class, 'reqMentor'])->name('member.pengajuan');
-    
 
-    Route::get('/course/join/{slug}', [MemberCourseController::class, 'join'])->name('member.course.join');
     Route::get('/course/{slug}/play/episode/{episode}', [MemberCourseController::class, 'play'])->name('member.course.play');
     Route::get('/course/forum/{slug}', [MemberCommentController::class, 'index'])->name('member.forum');
     Route::get('/course/forum/{slug}/search', [MemberCommentController::class, 'search'])->name('member.forum.search');

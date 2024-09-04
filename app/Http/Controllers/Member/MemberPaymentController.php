@@ -17,7 +17,6 @@ class MemberPaymentController extends Controller
     public function index(Request $request)
     {
         $courseId = $request->query('course_id');
-
         $course = Course::find($courseId);
 
         return view('member.payment', [
@@ -73,7 +72,7 @@ class MemberPaymentController extends Controller
         // Set your Merchant Server Key
         \Midtrans\Config::$serverKey = env('MIDTRANS_SERVER_KEY');
         // Set to Production Environment (accept real transaction)
-        \Midtrans\Config::$isProduction = true;
+        \Midtrans\Config::$isProduction = env('MIDTRANS_PRODUCTION');
         // Set sanitization on (default)
         \Midtrans\Config::$isSanitized = true;
         // Set 3DS transaction for credit card to true
@@ -98,8 +97,8 @@ class MemberPaymentController extends Controller
 
     public function checkout()
     {
-        \Midtrans\Config::$isProduction = true;
         \Midtrans\Config::$serverKey = env('MIDTRANS_SERVER_KEY');
+        \Midtrans\Config::$isProduction =  env('MIDTRANS_PRODUCTION');
         $notif = new \Midtrans\Notification();
 
         $transactionStatus = $notif->transaction_status;

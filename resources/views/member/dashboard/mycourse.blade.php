@@ -17,7 +17,8 @@
                 <form action="{{ route('member.pengajuan', Auth::user()->id) }}" method="post">
                     @csrf
                     <button type="submit" data-bs-toggle="modal" data-bs-target="#exampleModal"
-                        class="disini text-black ps-1 btn p-0 m-0 shadow-none" style="text-decoration: underline !important">Disini
+                        class="disini text-black ps-1 btn p-0 m-0 shadow-none"
+                        style="text-decoration: underline !important">Disini
                     </button>
                 </form>
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
@@ -125,10 +126,17 @@
                                             </div>
                                             <div class="profile-card mt-2">
                                                 <a href="" class="fw-medium">
-                                                    <img class="me-2"
-                                                        src="{{ asset('storage/images/avatars/' . $course->users->avatar) }}"
-                                                        alt="" width="35" height="35"
-                                                        style="border-radius: 100%" />
+                                                    @if (Auth::user()->avatar != 'default.png')
+                                                        <img class="me-2"
+                                                            src="{{ asset('storage/images/avatars/' . $course->users->avatar) }}"
+                                                            alt="" width="35" height="35"
+                                                            style="border-radius: 100%" />
+                                                    @else
+                                                        <img class="me-2"
+                                                            src="{{ asset('nemolab/admin/img/avatar.png') }}"
+                                                            alt="" width="35" height="35"
+                                                            style="border-radius: 100%" />
+                                                    @endif
                                                     {{ $course->users->name }}
                                                 </a>
                                             </div>
