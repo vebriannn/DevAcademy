@@ -248,8 +248,8 @@ Route::prefix('member')->middleware('student')->group(function () {
     Route::get('course/payment', [MemberPaymentController::class, 'index'])->name('member.payment');
     Route::post('course/payment/store', [MemberPaymentController::class, 'store'])->name('member.transaction.store');
 
-    Route::get('/paymentsuccess', function () {
-        return view('member.payment-succes'); // Nama view yang ingin ditampilkan
-    });
-
+    
+});
+Route::get('/eror', function () {
+    return view('error.page404'); // Nama view yang ingin ditampilkan
 });

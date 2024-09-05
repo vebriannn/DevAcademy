@@ -44,27 +44,27 @@
       <div class="row">
         <div class="col-5 d-flex align-items-center">
           <div class="position-absolute top-0 mt-5 ms-5">
-            <a href=""><img src="img/logo.png" alt="" width="120" /></a>
+            <a href="{{ route('home') }}"><img src="{{ asset('nemolab/member/img/logo.png') }}" alt="" width="120" /></a>
           </div>
           <div class="px-5">
             <h1 class="m-0" style="font-size: 75px">OOPS ..</h1>
             <h3 class="fw-normal">Page not found</h3>
             <p class="m-0 fw-light" style="font-size: 17px; color: #bbbbbb">The page you are looking for doesn’t exist or any other error occurred, go back to home page.</p>
-            <a href="" class="btn mt-3 fw-medium text-white">Back To Home</a>
+            <a href="{{ route('home') }}" class="btn mt-3 fw-medium text-white">Back To Home</a>
           </div>
         </div>
         <div class="col-7">
           <div class="position-relative w-100">
-            <img src="img/bg-404.png" alt="" style="height: 100vh; width: 100%" />
-            <img src="img/404.png" alt="" height="500" class="position-absolute img-404" style="left: 20%; top: 10%" />
+            <img src="{{ asset('nemolab/member/img/bg-404.png') }}" alt="" style="height: 100vh; width: 100%" />
+            <img src="{{ asset('nemolab/member/img/404.png') }}" alt="" height="500" class="position-absolute img-404" style="left: 20%; top: 10%" />
           </div>
         </div>
         <div class="col-12 d-flex justify-content-center align-items-center d-md-none" style="height: 100vh">
           <div class="position-absolute start-0 top-0 mt-5 ms-5">
-            <a href=""><img src="img/logo.png" alt="" width="100" /></a>
+            <a href="{{ route('home') }}"><img src="{{ asset('nemolab/member/img/logo.png') }}" alt="" width="100" /></a>
           </div>
           <div>
-            <img src="img/404-mobile.png" alt="" height="200" />
+            <img src="{{ asset('nemolab/member/img/404-mobile.png') }}" alt="" height="200" />
             <h1 class="m-0 mt-3" style="font-size: 50px">OOPS ..</h1>
             <h4 class="fw-normal">Page not found !!</h4>
           </div>

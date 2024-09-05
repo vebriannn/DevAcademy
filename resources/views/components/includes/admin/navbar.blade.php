@@ -5,7 +5,7 @@
 <nav class="navbar fixed-top bg-white px-5" id="navbar-id">
     <div class="container-fluid py-2">
         <div class="d-flex align-items-center gap-4">
-            <img src="{{ asset('nemolab/admin/img/Logo Nemolab.png') }}" alt="Logo" width="110" />
+            <a href="{{ route('home') }}"><img src="{{ asset('nemolab/admin/img/Logo Nemolab.png') }}" alt="Logo" width="110" /></a>
         </div>
 
         <div class="user-login d-flex align-items-center gap-3">
