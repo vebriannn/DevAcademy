@@ -45,7 +45,7 @@
                             </td>
                             <td>{{ $forum->tittle }}</td>
                             <td>
-                                <a href="{{ route('member.forum', ['slug' => $forum->course->slug]) }}" class="me-2">
+                                <a href="{{ route('member.forum', ['slug' => $forum->course->slug]) }}" class="me-2 btn btn-primary">
                                     View
                                 </a>
                             </td>

@@ -244,6 +244,14 @@ Route::prefix('member')->middleware('student')->group(function () {
         Route::get('/', [MemberTransactionController::class, 'index'])->name('member.transaction');
         Route::delete('/cancel/{id}', [MemberTransactionController::class, 'cancel'])->name('member.transaction.cancel');
     });
+
+    Route::get('/paymentsuccess', function () {
+        return view('member.payment-succes'); // Nama view yang ingin ditampilkan
+    });
+
+    Route::get('/detailpayment', function () {
+        return view('member.dashboard.transaction.detail-payment'); // Nama view yang ingin ditampilkan
+    });
     
     Route::get('course/payment', [MemberPaymentController::class, 'index'])->name('member.payment');
     Route::post('course/payment/store', [MemberPaymentController::class, 'store'])->name('member.transaction.store');
