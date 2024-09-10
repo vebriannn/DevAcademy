@@ -51,12 +51,12 @@
                             <td class="text-capitalize">{{ $mentor->status }}</td>
                             <td>
                                 <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                    data-bs-target="#exampleModal">
+                                    data-bs-target="#exampleModalUser-{{$loop->iteration}}">
                                     Detail
                                 </button>
 
                                 <!-- Modal -->
-                                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                                <div class="modal fade" id="exampleModalUser-{{$loop->iteration}}" tabindex="-1" aria-labelledby="exampleModalLabel"
                                     aria-hidden="true">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
@@ -99,27 +99,6 @@
                                         </div>
                                     </div>
                                 </div>
-                                {{-- <form action="{{ route('admin.submissions.edit.update', $mentor->user->id) }}"
-                                    method="post">
-                                    @csrf
-                                    @method('put')
-                                    @if ($mentor->status == 'pending')
-                                        <button type="submit" name="action" value="accept" class="btn btn-success me-2">
-                                            Accept
-                                        </button>
-                                        <button type="submit" name="action" value="deaccept" class="btn btn-danger">
-                                            Reject
-                                        </button>
-                                    @elseif ($mentor->status == 'accept')
-                                        <button disabled class="btn btn-success me-2">
-                                            Accepted
-                                        </button>
-                                    @elseif ($mentor->status == 'deaccept')
-                                        <button disabled class="btn btn-danger me-2">
-                                            Rejected
-                                        </button>
-                                    @endif
-                                </form> --}}
                             </td>
                         </tr>
                     @empty
