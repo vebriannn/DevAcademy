@@ -65,7 +65,7 @@
     </a>
 </div>
 
-<div class="container-sm pt-3 pb-3 d-block d-lg-none" style="height: auto;">
+{{-- <div class="container-sm pt-3 pb-3 d-block d-lg-none" style="height: auto;">
     <div class="content2 row top justify-content-between mx-auto mt-1">
         <div class="dropdown d-block d-lg-none">
             <a class="dropdown-toggle text-black fs-5" href="#" role="button" data-bs-toggle="dropdown"
@@ -145,4 +145,4 @@
             </ul>
         </div>
     </div>
-</div>
+</div> --}}
