@@ -10,8 +10,7 @@
 
     <div class="container my-3 p-5 w-75">
         <div class="row">
-            <form class="col-12" action="{{ route('admin.mentor.update', $mentor->id) }}" method="post"
-                enctype="multipart/form-data">
+            <form class="col-12" action="{{ route('admin.mentor.update', $mentor->id) }}" method="post">
                 @csrf
                 @method('PUT')
                 <div class="row">
@@ -42,10 +41,13 @@
                     </div>
                     <div class="col-12 mb-3">
                         <div class="entryarea">
-                            <select class="form-control pt-3 pb-3 shadow-none" name="role" style="border: 1px solid rgb(0, 0, 0) !important;">
-                                <option value="students" {{ $mentor->role == 'students' ? 'selected' : '' }}>Students</option>
+                            <select class="form-control pt-3 pb-3 shadow-none" name="role"
+                                style="border: 1px solid rgb(0, 0, 0) !important;">
+                                <option value="students" {{ $mentor->role == 'students' ? 'selected' : '' }}>Students
+                                </option>
                                 <option value="mentor" {{ $mentor->role == 'mentor' ? 'selected' : '' }}>Mentor</option>
-                                <option value="superadmin" {{ $mentor->role == 'superadmin' ? 'selected' : '' }}>Superadmin</option>
+                                <option value="superadmin" {{ $mentor->role == 'superadmin' ? 'selected' : '' }}>Superadmin
+                                </option>
                             </select>
                         </div>
                         @error('role')

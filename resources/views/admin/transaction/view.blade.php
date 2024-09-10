@@ -45,36 +45,38 @@
                 </thead>
                 <tbody>
                     @forelse ($transactions as $transaction)
-                        <tr>
-                            <td>{{ $transaction->user->name }}</td>
-                            <td>{{ $transaction->course->name }}</td>
-                            <td>{{ $transaction->created_at->format('d-M-Y') }}</td>
-                            <td>Rp {{ number_format($transaction->course->price, 2, ',', '.') }}</td>
-                            @if ($transaction->status === 'success')
-                                <td class="text-capitalize text-success">{{ ucfirst($transaction->status) }}</td>
-                            @elseif($transaction->status === 'failed')
-                                <td class="text-capitalize text-danger">{{ ucfirst($transaction->status) }}</td>
-                            @else
-                                <td class="text-capitalize text-warning">{{ ucfirst($transaction->status) }}</td>
-                            @endif
-                            <td>
-                                @if ($transaction->status == 'pending')
-                                    <form action="{{ route('admin.transactions.accept', $transaction->id) }}"
-                                        method="POST" style="display:inline;">
-                                        @csrf
-                                        <button type="submit" class="btn btn-success btn-sm">Accept</button>
-                                    </form>
-                                    <form action="{{ route('admin.transactions.cancel', $transaction->id) }}"
-                                        method="POST" style="display:inline;">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-danger btn-sm">Cancel</button>
-                                    </form>
+                        @if ($transaction->course)
+                            <tr>
+                                <td>{{ $transaction->user->name }}</td>
+                                <td>{{ $transaction->course->name }}</td>
+                                <td>{{ $transaction->created_at->format('d-M-Y') }}</td>
+                                <td>Rp {{ number_format($transaction->course->price, 2, ',', '.') }}</td>
+                                @if ($transaction->status === 'success')
+                                    <td class="text-capitalize text-success">{{ ucfirst($transaction->status) }}</td>
+                                @elseif($transaction->status === 'failed')
+                                    <td class="text-capitalize text-danger">{{ ucfirst($transaction->status) }}</td>
                                 @else
-                                    -
+                                    <td class="text-capitalize text-warning">{{ ucfirst($transaction->status) }}</td>
                                 @endif
-                            </td>
-                        </tr>
+                                <td>
+                                    @if ($transaction->status == 'pending')
+                                        <form action="{{ route('admin.transactions.accept', $transaction->id) }}"
+                                            method="POST" style="display:inline;">
+                                            @csrf
+                                            <button type="submit" class="btn btn-success btn-sm">Accept</button>
+                                        </form>
+                                        <form action="{{ route('admin.transactions.cancel', $transaction->id) }}"
+                                            method="POST" style="display:inline;">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-danger btn-sm">Cancel</button>
+                                        </form>
+                                    @else
+                                        -
+                                    @endif
+                                </td>
+                            </tr>
+                        @endif
                     @empty
                         <tr>
                             <td colspan="6">There is no transactions data yet</td>

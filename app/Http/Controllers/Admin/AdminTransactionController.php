@@ -23,7 +23,7 @@ class AdminTransactionController extends Controller
                 ->paginate($perPage);
         } else {
             // Jika user bukan superadmin, tampilkan transaksi berdasarkan mentor_id
-            $transactions = Transaction::with('course')->where('user_id', $userId)->orderBy('created_at', 'desc')->paginate($perPage);;
+            $transactions = Transaction::with('course')->where('user_id', $userId)->orderBy('created_at', 'desc')->paginate($perPage);//
         }
 
         return view('admin.transaction.view', compact('transactions'));

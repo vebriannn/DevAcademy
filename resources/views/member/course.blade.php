@@ -143,7 +143,7 @@
 
                     if (courses.message != "notfound") {
                         courses.forEach(courseData => {
-                            courseData.coursez.forEach(course => {
+                            courseData.course.forEach(course => {
                                 const courseElement = document.createElement('div');
                                 courseElement.className =
                                     'col-12 col-md-6 col-lg-4';
