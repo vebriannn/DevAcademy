@@ -29,8 +29,8 @@
                 </div>
             </div>
 
-            <div class="container pt-3 pb-3" style="margin-top: 5rem;">
-                <div class="content2 row top justify-content-between">
+            <div class="container py-3" style="margin-top: 5rem;">
+                <div class="row">
                     <div class="dropdown d-flex d-lg-none">
                         <a class="dropdown-toggle text-white rounded-3 fw-medium btn mb-3" href="#" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false">
@@ -86,10 +86,6 @@
         // variabel
         var btnRadio = document.querySelectorAll('.radiofilter');
         var btnRadioMobile = document.querySelectorAll('.radiofilter-mobile');
-
-        // const starImagePath = "{{ asset('nemolab/assets/image/star.png') }}";
-        // const lessonImagePath = "{{ asset('nemolab/assets/image/lesson.png') }}";
-        // const hourseImagePath = "{{ asset('nemolab/assets/image/hours.png') }}";
         var query = "all";
 
         btnRadioMobile.forEach(btnMobile => {
