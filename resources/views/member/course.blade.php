@@ -132,7 +132,7 @@
         getDataCourse();
 
         function getDataCourse() {
-            fetch('http://127.0.0.1:8000/api/v1/course/category?q=' + query)
+            fetch('https://testlms.nemolab.id/api/v1/course/category?q=' + query)
                 .then(response => response.json())
                 .then(data => {
                     const courses = data.data;
@@ -143,7 +143,7 @@
 
                     if (courses.message != "notfound") {
                         courses.forEach(courseData => {
-                            courseData.course.forEach(course => {
+                            courseData.coursez.forEach(course => {
                                 const courseElement = document.createElement('div');
                                 courseElement.className =
                                     'col-12 col-md-6 col-lg-4';
