@@ -14,7 +14,7 @@
                     <div>
                         <img src="{{ asset('nemolab/member/img/logo.png') }}" alt="logo" width="130" />
                     </div>
-                    <h3 class="fw-bold">Login To <span>Nemolab</span></h3>
+                    <h3 class="fw-bold">Masuk ke <span>Nemolab</span></h3>
                     <form method="POST" action="{{ route('admin.login.auth') }}">
                         @csrf
                         <div class="input-col position-relative">
@@ -38,7 +38,7 @@
                             @enderror
                         </div>
                         <div class="d-grid gap-2 mt-3">
-                            <button type="submit" class="btn text-white fw-semibold">Login Now</button>
+                            <button type="submit" class="btn text-white fw-semibold">Masuk Sekarang</button>
                         </div>
                     </form>
                 </div>

@@ -31,7 +31,7 @@
                         <span class="price-update">+ Rp. 0</span>
                     </p>
                     <p class="d-flex justify-content-between mt-3">
-                        <span>Service fee per student</span>
+                        <span>Biaya layanan per siswa</span>
                         <span class="price-update">+ Rp. 0</span>
                     </p>
                     <p class="d-flex justify-content-between total mt-3">
@@ -50,6 +50,7 @@
                             <input class="form-cek" type="checkbox" id="termsCheck" name="termsCheck">
                             <label class="form-check-label ml-2" for="termsCheck">
                                 Saya menyetujui <a href="#" class="syarat">Syarat & Ketentuan</a>
+                                <p class="text-danger d-none" id="important" style="font-size: 12px;">Anda harus menyetujui syarat dan ketentuan sebelum melanjutkan.</p>
                             </label>
                         </div>
                         <button class="btn btn-primary d-flex mx-auto mt-3 text-center d-block px-5 py-2" type="submit">
@@ -96,6 +97,7 @@
                             <input class="form-cek" type="checkbox" id="termsCheck" name="termsCheck">
                             <label class="form-check-label ml-2" for="termsCheck">
                                 Saya menyetujui <a href="#" class="syarat">Syarat & Ketentuan</a>
+                                <p class="text-danger d-none" id="important" style="font-size: 12px;">Anda harus menyetujui syarat dan ketentuan sebelum melanjutkan.</p>
                             </label>
                         </div>
                         <button class="btn btn-primary d-flex mx-auto mt-3 text-center d-block px-5 py-2" type="submit">
@@ -108,12 +110,27 @@
     </div>
 
     <script>
+        // document.getElementById('paymentForm').addEventListener('submit', function(event) {
+        //     var termsCheck = document.getElementById('termsCheck');
+        //     if (!termsCheck.checked) {
+        //         event.preventDefault();
+        //         alert('Anda harus menyetujui syarat dan ketentuan sebelum melanjutkan.');
+        //     }
+        // });
+
         document.getElementById('paymentForm').addEventListener('submit', function(event) {
-            var termsCheck = document.getElementById('termsCheck');
-            if (!termsCheck.checked) {
-                event.preventDefault();
-                alert('Anda harus menyetujui syarat dan ketentuan sebelum melanjutkan.');
-            }
-        });
+        var termsCheck = document.getElementById('termsCheck');
+        var importantText = document.getElementById('important');
+
+        // Check if checkbox is not checked
+        if (!termsCheck.checked) {
+            event.preventDefault();
+            // Show the important text by removing the 'd-none' class
+            importantText.classList.remove('d-none');
+        } else {
+            // If checkbox is checked, hide the important text
+            importantText.classList.add('d-none');
+        }
+    });
     </script>
 @endsection

@@ -34,7 +34,7 @@
                     <div class="dropdown d-flex d-lg-none">
                         <a class="dropdown-toggle text-white rounded-3 fw-medium btn mb-3" href="#" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false">
-                            Category
+                            Kategori
                         </a>
 
                         <ul class="dropdown-menu scroll-sidebar" id="dropdown">
@@ -52,7 +52,7 @@
 
                     <div class="col-3 d-none d-lg-block rounded-3" style="height: 600px; background-color: #faa907;">
                         <div class="card-category d-flex flex-column full-width-border">
-                            <p class="text-center mt-4">Category</p>
+                            <p class="text-center mt-4">Kategori</p>
                             <hr class="opacity-100 m-0">
                             <div class="checkbox scroll-sidebar mt-4">
                                 @foreach ($sortedCategory as $item)

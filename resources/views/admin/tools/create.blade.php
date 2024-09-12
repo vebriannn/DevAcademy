@@ -20,7 +20,7 @@
                 <div class="col-12">
                     <div class="entryarea">
                         <input type="text" id="name" name="name_tools" placeholder="" />
-                        <div class="labelline" for="name">Nama Tools</div>
+                        <div class="labelline" for="name">Nama Alat</div>
                         @error('name_tools')
                             <span style="color: red">{{ $message }}</span>
                         @enderror
@@ -36,7 +36,7 @@
                     </div>
                 </div>
                 <div class="col-12 ">
-                    <p class="m-0">Image Tools</p>
+                    <p class="m-0">Gambar Alat</p>
                     <input type="file" id="imageUpload" name="logo_tools" accept="image/*" class="" />
                     @error('logo_tools')
                         <span style="color: red">{{ $message }}</span>

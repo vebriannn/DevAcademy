@@ -60,8 +60,8 @@
                             @enderror
                         </div>
                         <div class="d-grid gap-2 mt-3">
-                            <button type="submit" class="btn text-white fw-semibold">Create</button>
-                            <a href="{{ route('member.login') }}" class="btn text-white fw-semibold">Login Account</a>
+                            <button type="submit" class="btn text-white fw-semibold">Buat</button>
+                            <a href="{{ route('member.login') }}" class="btn text-white fw-semibold">Sudah Punya Akun?</a>
                         </div>
                     </form>
 

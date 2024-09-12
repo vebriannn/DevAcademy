@@ -17,7 +17,7 @@
                     <div class="d-flex align-items-center">
                         <img src="{{ asset('nemolab/member/img/global.png') }}" alt="" width="18"
                             height="18" />
-                        <p class="m-0 ms-2 fw-light" style="font-size: 14px">Release Date:
+                        <p class="m-0 ms-2 fw-light" style="font-size: 14px">Tanggal Rilis:
                             {{ $course->created_at->format('d F Y') }}</p>
                     </div>
                     <div class="rating d-flex ms-1 my-1 my-0 align-items-center">
@@ -42,7 +42,7 @@
             <div class="col-lg-4 mx-auto col-11 p-4 mt-4 mt-lg-0 border border-2 rounded-4 position-relative overflow-hidden shadow-sm"
                 style="height: 25rem">
                 @if ($chapters->isNotEmpty())
-                    <p class="fw-bold">{{ $chapters->count() }} Chapter</p>
+                    <p class="fw-bold">{{ $chapters->count() }} Bab</p>
                     <div class="playlist">
                         @foreach ($chapters as $chapter)
                             <div class="play">
@@ -63,20 +63,20 @@
                         @elseif ($transaction->status == 'success')
                             <a
                                 href="{{ route('member.course.play', ['slug' => $course->slug, 'episode' => $lesson->episode]) }}">
-                                <div class="button">Start Learning</div>
+                                <div class="button">Mulai Belajar</div>
                             </a>
                         @else
                             <a href="{{ route('member.payment', ['course_id' => $course->id]) }}">
-                                <div class="button">Start Learning</div>
+                                <div class="button">Mulai Belajar</div>
                             </a>
                         @endif
                     @else
                         <a href="{{ route('member.payment', ['course_id' => $course->id]) }}">
-                            <div class="button">Start Learning</div>
+                            <div class="button">Mulai Belajar</div>
                         </a>
                     @endif
                 @else
-                    <p class="fw-bold">0 Chapter</p>
+                    <p class="fw-bold">0 Bab</p>
                 @endif
             </div>
         </div>
@@ -84,7 +84,7 @@
         <!-- About -->
         <div class="row my-5">
             <div class="col-12">
-                <h4 class="fw-semibold">About Video</h4>
+                <h4 class="fw-semibold">Tentang Video</h4>
                 <p class="mt-4" style="font-size: 14px">
                     {{ $course->description }}
                 </p>
@@ -106,7 +106,7 @@
         <!-- Tools -->
         <div class="row">
             <div class="col-12">
-                <h4 class="fw-semibold mb-4">Tools</h4>
+                <h4 class="fw-semibold mb-4">Alat</h4>
             </div>
             <div class="col-12">
                 <div class="row">
@@ -139,7 +139,7 @@
         @if ($chapters->isNotEmpty())
             <div class="row my-5">
                 <div class="col-12">
-                    <h4 class="fw-semibold">Payment</h4>
+                    <h4 class="fw-semibold">Pembayaran</h4>
                 </div>
                 <div class="d-flex justify-content-md-between w-100" style="flex-wrap: wrap">
                     <div class="col-custom col-md-6 col-12 rounded-4 p-4 ms-lg-2 mt-4">

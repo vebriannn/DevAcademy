@@ -41,15 +41,15 @@
                 <div class="mt-5">
                     <a href="#" class="list-sidebar active">
                         <img src="{{ asset('nemolab/member/img/course active.png') }}" alt="" width="30" />
-                        <p class="m-0">My Courses</p>
+                        <p class="m-0">Kursus Saya</p>
                     </a>
                     <a href="{{ route('member.portofolio') }}" class="list-sidebar">
                         <img src="{{ asset('nemolab/member/img/portofolio.png') }}" alt="" width="30" />
-                        <p class="m-0">My Portofolio</p>
+                        <p class="m-0">Portofolio Saya</p>
                     </a>
                     <a href="{{ route('member.transaction') }}" class="list-sidebar">
                         <img src="{{ asset('nemolab/member/img/transaksi.png') }}" alt="" width="30" />
-                        <p class="m-0">Transactions</p>
+                        <p class="m-0">Transaksi</p>
                     </a>
                 </div>
             </div>
@@ -61,7 +61,7 @@
                 {{-- Sidebar Mobile --}}
                 <div class="d-block d-lg-none">
                     <div id="profile" class="fw-medium">
-                        <button class="profile-btn btn fw-medium text-white">My Profile</button>
+                        <button class="profile-btn btn fw-medium text-white">Profil Saya</button>
                     </div>
                     <div class="sidebar-mobile p-5 d-none border border-2">
                         <div class="d-flex gap-3 align-items-center">
@@ -92,7 +92,7 @@
                                     alt=""
                                     width="30"
                                     class="me-2"
-                                />My Course
+                                />Kursus Saya
                             </a>
                             <a href="{{ route('member.portofolio') }}" class="nav-item">
                                 <img
@@ -100,7 +100,7 @@
                                     alt=""
                                     width="30"
                                     class="me-2"
-                                />My Portofolio
+                                />Profil Saya
                             </a>
                             <a href="{{ route('member.transaction') }}" class="nav-item">
                                 <img
@@ -108,7 +108,7 @@
                                     alt=""
                                     width="30"
                                     class="me-2"
-                                />My Transactions
+                                />Transaksi Saya
                             </a>
                         </div>
                         <div class="mt-4">
@@ -122,7 +122,7 @@
                     </div>
                 </div>
 
-                <h3 class="fw-bold tittle mt-3">My Courses</h3>
+                <h3 class="fw-bold tittle mt-3">Kursus Saya</h3>
                 <div class="course row row-course mt-3 w-100">
                     @foreach ($courses as $course)
                         @if ($course->transactions->isNotEmpty())

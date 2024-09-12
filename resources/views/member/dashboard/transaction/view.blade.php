@@ -66,16 +66,16 @@
                     <div class="mt-5">
                         <a href="{{ route('member.dashboard') }}" class="list-sidebar">
                             <img src="{{ asset('nemolab/member/img/course.png') }}" alt="" width="30" />
-                            <p class="m-0">My Courses</p>
+                            <p class="m-0">Kursus Saya</p>
                         </a>
                         <a href="{{ route('member.portofolio') }}" class="list-sidebar">
                             <img src="{{ asset('nemolab/member/img/portofolio.png') }}" alt="" width="30" />
-                            <p class="m-0">My Portofolio</p>
+                            <p class="m-0">Portofolio Saya</p>
                         </a>
                         <a href="{{ route('member.transaction') }}" class="list-sidebar active">
                             <img src="{{ asset('nemolab/member/img/transaksi active.png') }}" alt=""
                                 width="30" />
-                            <p class="m-0">Transactions</p>
+                            <p class="m-0">Transaksi</p>
                         </a>
                     </div>
                 </div>
@@ -85,7 +85,7 @@
                 <div class="col-lg-9 col-md-12 col-12 ps-lg-5 ps-3">
                     <div class="d-block d-lg-none">
                         <div id="profile" class="fw-medium">
-                            <button class="profile-btn btn fw-medium text-white">My Profile</button>
+                            <button class="profile-btn btn fw-medium text-white">Profil Saya</button>
                         </div>
                         <div class="sidebar-mobile p-5 d-none border border-2">
                             <div class="d-flex gap-3 align-items-center">
@@ -116,7 +116,7 @@
                                         alt=""
                                         width="30"
                                         class="me-2"
-                                    />My Course
+                                    />Kursus Saya
                                 </a>
                                 <a href="{{ route('member.portofolio') }}" class="nav-item">
                                     <img
@@ -124,7 +124,7 @@
                                         alt=""
                                         width="30"
                                         class="me-2"
-                                    />My Portofolio
+                                    />Profil Saya
                                 </a>
                                 <a href="#" class="nav-item active">
                                     <img
@@ -132,7 +132,7 @@
                                         alt=""
                                         width="30"
                                         class="me-2"
-                                    />My Transactions
+                                    />Transaksi Saya
                                 </a>
                             </div>
                             <div class="mt-4">
@@ -146,13 +146,13 @@
                         </div>
                     </div>
                     <div class="my-4">
-                        <h3 class="fw-semibold" style="color: #faa907">My Transactions</h3>
+                        <h3 class="fw-semibold" style="color: #faa907">Transaksi Saya</h3>
                     </div>
 
                     <div class="table-responsive p-3 border border-2">
                         <div class="d-flex justify-content-between align-items-center mb-3">
                             <div class="d-flex align-items-center ms-3 mt-2">
-                                <p class="mb-0 me-2 text-center">Show</p>
+                                <p class="mb-0 me-2 text-center">Menampilkan</p>
                                 <form method="GET" action="{{ route('member.transaction') }}" id="entries-form">
                                     <select id="entries" name="per_page" class="form-select form-select-sm"
                                         onchange="this.form.submit()">
@@ -166,20 +166,20 @@
                                         </option>
                                     </select>
                                 </form>
-                                <p class="mb-0 me-2 text-center mx-2">entries</p>
+                                <p class="mb-0 me-2 text-center mx-2">entri</p>
                             </div>
                         </div>
 
                         <table class="table">
                             <thead>
                                 <tr>
-                                    <th>Cover</th>
-                                    <th>Product Name</th>
-                                    <th>Type</th>
-                                    <th>Price</th>
-                                    <th>Date</th>
+                                    <th>Sampul</th>
+                                    <th>Nama Produk</th>
+                                    <th>Tipe</th>
+                                    <th>Harga</th>
+                                    <th>Tanggal</th>
                                     <th>Status</th>
-                                    <th>Action</th>
+                                    <th>Tindakan</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -240,8 +240,8 @@
                         </table>
 
                         <div class="d-flex justify-content-between p-1">
-                            <p class="show">Showing {{ $transactions->firstItem() }} to {{ $transactions->lastItem() }}
-                                of
+                            <p class="show">Menampilkan {{ $transactions->firstItem() }} hingga {{ $transactions->lastItem() }}
+                                dari
                                 {{ $transactions->total() }}</p>
                             <div class="d-flex gap-3">
                                 <!-- Custom Pagination -->
