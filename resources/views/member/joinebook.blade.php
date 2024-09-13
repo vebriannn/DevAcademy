@@ -94,5 +94,161 @@
                 </div>
             </div>
         </div>
+
+        <div class="row">
+            <div class="col-12">
+                <h4 class="fw-semibold mb-4">Ulasan</h4>
+            </div>
+            <div class="col-12">
+                <div id="ulasanUser" class="carousel slide">
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                          <div class="row text-black">
+                              <div class="col-6">
+                                  <div class="ulasan border border-1 border-black p-4 rounded-4">
+                                  <div class="d-flex gap-3 mb-3 align-items-center">
+                                      <img src="{{ asset('nemolab/member/img/star-ulasan.png') }}" alt="" width="17" height="17" />
+                                      <img src="{{ asset('nemolab/member/img/star-ulasan.png') }}" alt="" width="17" height="17" />
+                                      <img src="{{ asset('nemolab/member/img/star-ulasan.png') }}" alt="" width="17" height="17" />
+                                      <img src="{{ asset('nemolab/member/img/star-ulasan.png') }}" alt="" width="17" height="17" />
+                                      <img src="{{ asset('nemolab/member/img/star-ulasan.png') }}" alt="" width="17" height="17" />
+                                      <p class="m-0 fw-semibold">(8.9K)</p>
+                                  </div>
+                                  <p class="desc-ulasan">Saya sangat puas dengan pelatihan ini. Instruktur yang berpengalaman dan dukungan komunitas sangat membantu saya dalam mengasah keterampilan desain web. Sangat direkomendasikan!</p>
+                                  <div class="d-flex gap-3 align-items-center">
+                                      <div><img src="{{ asset('nemolab/admin/img/avatar.png') }}" alt="" width="50" /></div>
+                                      <div>
+                                      <h5 class="mb-0" style="font-size: 18px">Pria Ikhlas Sambada</h5>
+                                      <p class="m-0" style="font-size: 11px">Mentor</p>
+                                      </div>
+                                  </div>
+                                  </div>
+                              </div>
+                              <div class="col-6">
+                                  <div class="ulasan border border-1 border-black p-4 rounded-4">
+                                  <div class="d-flex gap-3 mb-3 align-items-center">
+                                      <img src="{{ asset('nemolab/member/img/star-ulasan.png') }}" alt="" width="17" height="17" />
+                                      <img src="{{ asset('nemolab/member/img/star-ulasan.png') }}" alt="" width="17" height="17" />
+                                      <img src="{{ asset('nemolab/member/img/star-ulasan.png') }}" alt="" width="17" height="17" />
+                                      <img src="{{ asset('nemolab/member/img/star-ulasan.png') }}" alt="" width="17" height="17" />
+                                      <img src="{{ asset('nemolab/member/img/star-ulasan.png') }}" alt="" width="17" height="17" />
+                                      <p class="m-0 fw-semibold">(8.9K)</p>
+                                  </div>
+                                  <p class="desc-ulasan">Kursus ini benar-benar membuka wawasan saya tentang desain web. Materi yang disampaikan</p>
+                                  <div class="d-flex gap-3 align-items-center">
+                                      <div><img src="{{ asset('nemolab/admin/img/avatar.png') }}" alt="" width="50" /></div>
+                                      <div>
+                                      <h5 class="mb-0" style="font-size: 18px">Reveiro Keyla Ega Pradana</h5>
+                                      <p class="m-0" style="font-size: 11px">Mentor</p>
+                                      </div>
+                                  </div>
+                                  </div>
+                              </div>
+                          </div>
+                        </div>
+                        <div class="carousel-item">
+                          <div class="row text-black">
+                              <div class="col-6">
+                                  <div class="ulasan border border-1 border-black p-4 rounded-4">
+                                  <div class="d-flex gap-3 mb-3 align-items-center">
+                                      <img src="{{ asset('nemolab/member/img/star-ulasan.png') }}" alt="" width="17" height="17" />
+                                      <img src="{{ asset('nemolab/member/img/star-ulasan.png') }}" alt="" width="17" height="17" />
+                                      <img src="{{ asset('nemolab/member/img/star-ulasan.png') }}" alt="" width="17" height="17" />
+                                      <img src="{{ asset('nemolab/member/img/star-ulasan.png') }}" alt="" width="17" height="17" />
+                                      <img src="{{ asset('nemolab/member/img/star-ulasan.png') }}" alt="" width="17" height="17" />
+                                      <p class="m-0 fw-semibold">(8.9K)</p>
+                                  </div>
+                                  <p class="desc-ulasan">Saya sangat puas dengan pelatihan ini. Instruktur yang berpengalaman dan dukungan komunitas sangat membantu saya dalam mengasah keterampilan desain web. Sangat direkomendasikan!</p>
+                                  <div class="d-flex gap-3 align-items-center">
+                                      <div><img src="{{ asset('nemolab/admin/img/avatar.png') }}" alt="" width="50" /></div>
+                                      <div>
+                                      <h5 class="mb-0" style="font-size: 18px">Vebrian</h5>
+                                      <p class="m-0" style="font-size: 11px">Mentor</p>
+                                      </div>
+                                  </div>
+                                  </div>
+                              </div>
+                              <div class="col-6">
+                                  <div class="ulasan border border-1 border-black p-4 rounded-4">
+                                  <div class="d-flex gap-3 mb-3 align-items-center">
+                                      <img src="{{ asset('nemolab/member/img/star-ulasan.png') }}" alt="" width="17" height="17" />
+                                      <img src="{{ asset('nemolab/member/img/star-ulasan.png') }}" alt="" width="17" height="17" />
+                                      <img src="{{ asset('nemolab/member/img/star-ulasan.png') }}" alt="" width="17" height="17" />
+                                      <img src="{{ asset('nemolab/member/img/star-ulasan.png') }}" alt="" width="17" height="17" />
+                                      <img src="{{ asset('nemolab/member/img/star-ulasan.png') }}" alt="" width="17" height="17" />
+                                      <p class="m-0 fw-semibold">(8.9K)</p>
+                                  </div>
+                                  <p class="desc-ulasan">Kursus ini benar-benar membuka wawasan saya tentang desain web. Materi yang disampaikan</p>
+                                  <div class="d-flex gap-3 align-items-center">
+                                      <div><img src="{{ asset('nemolab/admin/img/avatar.png') }}" alt="" width="50" /></div>
+                                      <div>
+                                      <h5 class="mb-0" style="font-size: 18px">Wahid Satrio Aji</h5>
+                                      <p class="m-0" style="font-size: 11px">Mentor</p>
+                                      </div>
+                                  </div>
+                                  </div>
+                              </div>
+                          </div>
+                        </div>
+                        <div class="carousel-item">
+                          <div class="row text-black">
+                              <div class="col-6">
+                                  <div class="ulasan border border-1 border-black p-4 rounded-4">
+                                  <div class="d-flex gap-3 mb-3 align-items-center">
+                                      <img src="{{ asset('nemolab/member/img/star-ulasan.png') }}" alt="" width="17" height="17" />
+                                      <img src="{{ asset('nemolab/member/img/star-ulasan.png') }}" alt="" width="17" height="17" />
+                                      <img src="{{ asset('nemolab/member/img/star-ulasan.png') }}" alt="" width="17" height="17" />
+                                      <img src="{{ asset('nemolab/member/img/star-ulasan.png') }}" alt="" width="17" height="17" />
+                                      <img src="{{ asset('nemolab/member/img/star-ulasan.png') }}" alt="" width="17" height="17" />
+                                      <p class="m-0 fw-semibold">(8.9K)</p>
+                                  </div>
+                                  <p class="desc-ulasan">Saya sangat puas dengan pelatihan ini. Instruktur yang berpengalaman dan dukungan komunitas sangat membantu saya dalam mengasah keterampilan desain web. Sangat direkomendasikan!</p>
+                                  <div class="d-flex gap-3 align-items-center">
+                                      <div><img src="{{ asset('nemolab/admin/img/avatar.png') }}" alt="" width="50" /></div>
+                                      <div>
+                                      <h5 class="mb-0" style="font-size: 18px">Naufal Muhammad Dzaky</h5>
+                                      <p class="m-0" style="font-size: 11px">Mentor</p>
+                                      </div>
+                                  </div>
+                                  </div>
+                              </div>
+                              <div class="col-6">
+                                  <div class="ulasan border border-1 border-black p-4 rounded-4">
+                                  <div class="d-flex gap-3 mb-3 align-items-center">
+                                      <img src="{{ asset('nemolab/member/img/star-ulasan.png') }}" alt="" width="17" height="17" />
+                                      <img src="{{ asset('nemolab/member/img/star-ulasan.png') }}" alt="" width="17" height="17" />
+                                      <img src="{{ asset('nemolab/member/img/star-ulasan.png') }}" alt="" width="17" height="17" />
+                                      <img src="{{ asset('nemolab/member/img/star-ulasan.png') }}" alt="" width="17" height="17" />
+                                      <img src="{{ asset('nemolab/member/img/star-ulasan.png') }}" alt="" width="17" height="17" />
+                                      <p class="m-0 fw-semibold">(8.9K)</p>
+                                  </div>
+                                  <p class="desc-ulasan">Kursus ini benar-benar membuka wawasan saya tentang desain web. Materi yang disampaikan</p>
+                                  <div class="d-flex gap-3 align-items-center">
+                                      <div><img src="{{ asset('nemolab/admin/img/avatar.png') }}" alt="" width="50" /></div>
+                                      <div>
+                                      <h5 class="mb-0" style="font-size: 18px">Muhammad Wildan Saputra</h5>
+                                      <p class="m-0" style="font-size: 11px">Mentor</p>
+                                      </div>
+                                  </div>
+                                  </div>
+                              </div>
+                          </div>
+                        </div>
+                    </div>
+                    <div class="carousel-indicators position-relative mt-4">
+                        <button class="prev" type="button" data-bs-target="#ulasanUser" data-bs-slide="prev">
+                            <img src="{{ asset('nemolab/member/img/arrow-ulasan.png') }}" alt="" width="50" style="position: absolute; left: 19rem; top:-6px;">
+                        </button>
+                        <button type="button" data-bs-target="#ulasanUser" data-bs-slide-to="0" class="active point" aria-current="true" aria-label="Slide 1"></button>
+                        <button type="button" data-bs-target="#ulasanUser" data-bs-slide-to="1" aria-label="Slide 2" class="point"></button>
+                        <button type="button" data-bs-target="#ulasanUser" data-bs-slide-to="2" aria-label="Slide 3" class="point"></button>
+
+                        <button class="next" type="button" data-bs-target="#ulasanUser" data-bs-slide="next">
+                            <img src="{{ asset('nemolab/member/img/arrow-ulasan.png') }}" alt="" width="50" style="position: absolute; right: 19rem; top:-6px; transform: scaleX(-1); ">
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 @endsection
