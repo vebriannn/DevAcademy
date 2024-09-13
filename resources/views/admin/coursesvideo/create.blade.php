@@ -33,7 +33,7 @@
                     </div>
                     <div class="col-6">
                         <div class="entryarea">
-                            <input type="text" id="name" name="name" placeholder="" />
+                            <input type="text" id="name" name="name" placeholder="" value="{{ old('name')}}" />
                             <div class="labelline" for="name">Judul<span class="required-field"></span></div>
                             @error('name')
                                 <span style="color: red">{{ $message }}</span>
@@ -42,7 +42,7 @@
                     </div>
                     <div class="col-12">
                         <div class="entryarea">
-                            <textarea id="description" name="description" placeholder="" style="height: 173px"></textarea>
+                            <textarea id="description" name="description" placeholder="" style="height: 173px">{{ old('description')}}</textarea>
                             <div class="labelline-textarea" for="desc">Deskripsi<span class="required-field"></span></div>
                             @error('description')
                                 <span style="color: red">{{ $message }}</span>
@@ -120,7 +120,7 @@
                     </div>
                     <div class="col-6 mt-2">
                         <div class="entryarea">
-                            <input type="text" id="name" name="resources" placeholder="" />
+                            <input type="text" id="name" name="resources" placeholder="" {{ old('resources')}}/>
                             <div class="labelline" for="link">sumber daya</div>
                             @error('resources')
                                 <span style="color: red">{{ $message }}</span>

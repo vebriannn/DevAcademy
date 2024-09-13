@@ -16,6 +16,7 @@ use App\Models\Tools;
 use App\Models\Chapter;
 use App\Models\Lesson;
 use App\Models\Forum;
+use App\Models\Transaction;
 
 class AdminCourseController extends Controller
 {
@@ -190,7 +191,8 @@ class AdminCourseController extends Controller
             Lesson::where('chapter_id', $chapter->id)->delete();
             $chapter->delete();
         }
-
+        
+        Transaction::where('course_id', $id)->delete();
         $course->delete();
         Alert::success('Success', 'Course Berhasil Di Delete');
         return redirect()->route('admin.course');

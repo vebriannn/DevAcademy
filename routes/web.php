@@ -258,6 +258,5 @@ Route::prefix('member')->middleware('student')->group(function () {
 
     
 });
-Route::get('/eror', function () {
-    return view('error.page404'); // Nama view yang ingin ditampilkan
-});
+
+Route::view('/eror/pages', 'error.page404')->name('pages.error');
