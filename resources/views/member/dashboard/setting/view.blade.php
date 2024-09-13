@@ -32,7 +32,7 @@
                         </a>
                         <a href="{{ route('member.transaction') }}" class="list-sidebar">
                             <img src="{{ asset('nemolab/member/img/transaksi.png') }}" alt="" width="30" />
-                            <p class="m-0">Transaksi</p>
+                            <p class="m-0">Transaksi Saya</p>
                         </a>
                     </div>
                 </div>

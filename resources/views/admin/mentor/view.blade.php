@@ -42,7 +42,7 @@
                         <th>Nama</th>
                         <th>Email</th>
                         <th>Password</th>
-                        <th>Tindakan</th>
+                        <th>Aksi</th>
                     </tr>
                 </thead>
                 <tbody>

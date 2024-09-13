@@ -75,7 +75,7 @@
                         <a href="{{ route('member.transaction') }}" class="list-sidebar active">
                             <img src="{{ asset('nemolab/member/img/transaksi active.png') }}" alt=""
                                 width="30" />
-                            <p class="m-0">Transaksi</p>
+                            <p class="m-0">Transaksi Saya</p>
                         </a>
                     </div>
                 </div>
@@ -179,7 +179,7 @@
                                     <th>Harga</th>
                                     <th>Tanggal</th>
                                     <th>Status</th>
-                                    <th>Tindakan</th>
+                                    <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>

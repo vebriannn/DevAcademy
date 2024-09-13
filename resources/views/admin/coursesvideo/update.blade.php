@@ -57,8 +57,8 @@
                     <div class="col-6">
                         <div class="custom-entryarea">
                             <select id="category" name="status">
-                                <option value="draft" {{ $course->status == 'draft' ? 'selected' : '' }}>draf</option>
-                                <option value="published" {{ $course->status == 'published' ? 'selected' : '' }}>Menerbitkan
+                                <option value="draft" {{ $course->status == 'draft' ? 'selected' : '' }}>Draf</option>
+                                <option value="published" {{ $course->status == 'published' ? 'selected' : '' }}>Publik
                                 </option>
                             </select>
                             @error('status')
@@ -113,7 +113,7 @@
                     <div class="col-6 mt-2">
                         <div class="entryarea">
                             <input type="text" id="name" value = "{{ $course->resources != 'null' ? $course->resources : '' }}" name="resources" placeholder="" />
-                            <div class="labelline" for="link">Sumber daya</div>
+                            <div class="labelline" for="link">Asset</div>
                             @error('resources')
                                 <span style="color: red">{{ $message }}</span>
                             @enderror

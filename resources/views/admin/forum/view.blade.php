@@ -33,7 +33,7 @@
                     <tr>
                         <th>Sampul</th>
                         <th>Nama</th>
-                        <th>Tindakan</th>
+                        <th>Aksi</th>
                     </tr>
                 </thead>
                 <tbody>

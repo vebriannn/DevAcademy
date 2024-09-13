@@ -143,35 +143,32 @@
                                 const courseElement = document.createElement('div');
                                 courseElement.className =
                                     'col-12 col-md-4 col-lg-4 card-parent';
-                                courseElement.innerHTML = `
-                                <a href="#" data-slug-course="${course.slug_course}" onclick="setCourseUrl(this)">
-                                    <div class="card-course d-flex d-md-block mt-3 mt-md-1 position-relative">
-                                        <img src="${courseData.avatars_mentor}" alt="${courseData.name_mentor}" class="card-img-profile d-md-none position-absolute" style="border-radius: 100%;">
-                                        <div>
-                                            <img src="${course.cover_course}" class="img-card" alt="${course.title_course}"></div>
-                                        <div class="container-card px-3">
-                                            <p class="produck-title text-black fw-medium mb-0 mb-md-2 mt-2 mt-md-0">${course.category_course}: ${course.title_course}</p>   
-                                            <div class="profile-card d-none d-md-flex align-items-center">
-                                                <a href="" class="img-a my-auto">
-                                                    <img src="${courseData.avatars_mentor}" alt="${courseData.name_mentor}" class="card-img-profile" style="border-radius: 100%;">
-                                                </a>
-                                                <a href="#" class="kurung text-decoration-none">
-                                                    <p class="profile-mentor text-black m-0 ms-2 fw-medium">${courseData.name_mentor}</p>
-                                                </a>
-                                            </div>
-                                            <div class="price mt-1 mb-2 my-md-2">
-                                            <p class="text-black mb-0 fw-light">Rp. ${course.price_course}</p>
-                                            </div>
-                                            <div class="status d-flex">
-                                                <div class="d-inline-flex">
-                                                    <p>Video</p>
-                                                </div>
-                                                
-                                            </div>
-                                            
-                                        </div>
-                                    </div>
-                                </a>`;
+                                    courseElement.innerHTML = `
+    <a href="#" data-slug-course="${course.slug_course}" onclick="setCourseUrl(this)" style="text-decoration: none;">
+        <div class="card-course d-flex d-md-block mt-3 mt-md-1 position-relative">
+            <img src="${courseData.avatars_mentor}" alt="${courseData.name_mentor}" class="card-img-profile d-md-none position-absolute" style="border-radius: 100%;">
+            <div>
+                <img src="${course.cover_course}" class="img-card" alt="${course.title_course}">
+            </div>
+            <div class="container-card px-3">
+                <p class="produck-title text-black fw-medium mb-0 mb-md-2 mt-2 mt-md-0">${course.category_course}: ${course.title_course}</p>   
+                <div class="profile-card d-none d-md-flex align-items-center">
+                    <img src="${courseData.avatars_mentor}" alt="${courseData.name_mentor}" class="card-img-profile" style="border-radius: 100%;">
+                    <p class="profile-mentor text-black m-0 ms-2 fw-medium">${courseData.name_mentor}</p>
+                </div>
+                <div class="price mt-1 mb-2 my-md-2">
+                    <p class="text-black mb-0 fw-light">Rp. ${course.price_course}</p>
+                </div>
+                <div class="status d-flex">
+                    <div class="d-inline-flex">
+                        <p>Video</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </a>
+`;
+
                                 courseContainer.appendChild(courseElement);
                             });
                         });

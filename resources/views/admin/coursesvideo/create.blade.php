@@ -52,8 +52,8 @@
                     <div class="col-6">
                         <div class="custom-entryarea">
                             <select id="category" name="status">
-                                <option value="draft">draf</option>
-                                <option value="published">Menerbitkan</option>
+                                <option value="draft">Draf</option>
+                                <option value="published">Publik</option>
                             </select>
                             @error('status')
                                 <span style="color: red">{{ $message }}</span>
@@ -121,7 +121,7 @@
                     <div class="col-6 mt-2">
                         <div class="entryarea">
                             <input type="text" id="name" name="resources" placeholder="" {{ old('resources')}}/>
-                            <div class="labelline" for="link">sumber daya</div>
+                            <div class="labelline" for="link">Asset</div>
                             @error('resources')
                                 <span style="color: red">{{ $message }}</span>
                             @enderror

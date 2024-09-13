@@ -20,20 +20,20 @@
                         <div class="entryarea">
                             <input type="text" id="name" name="name" value="{{ old('name', $student->name) }}"
                                 placeholder="" required />
-                            <div class="labelline" for="name">Nama</div>
+                            <div class="labelline" for="name">Nama<span class="required-field"></span></div>
                         </div>
                     </div>
                     <div class="col-12 mb-3">
                         <div class="entryarea">
                             <input type="text" id="email" name="email" value="{{ old('email', $student->email) }}"
                                 placeholder="" required />
-                            <div class="labelline" for="email">Email</div>
+                            <div class="labelline" for="email">Email<span class="required-field"></span></div>
                         </div>
                     </div>
                     <div class="col-12 mb-3">
                         <div class="entryarea">
                             <input type="password" id="password" name="password" placeholder="" />
-                            <div class="labelline" for="password">Password (biarkan kosong jika tidak berubah)</div>
+                            <div class="labelline" for="password">Password<span class="required-field"></span> (biarkan kosong jika tidak berubah)</div>
                         </div>
                     </div>
                     <div class="row col-12 mt-3">

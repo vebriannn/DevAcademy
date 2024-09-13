@@ -51,7 +51,7 @@
                         <div class="custom-entryarea">
                             <select id="status" name="status">
                                 <option value="draft">Draf</option>
-                                <option value="published">Menerbitkan</option>
+                                <option value="published">Publik</option>
                             </select>
                             @error('status')
                                 <span style="color: red">{{ $message }}</span>

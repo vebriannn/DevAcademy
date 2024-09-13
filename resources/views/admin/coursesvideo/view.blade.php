@@ -52,7 +52,7 @@
                             <th>Sumber Daya</th>
                             <th>Link Grup</th>
                             <th>Tingkat</th>
-                            <th>Tindakan</th>
+                            <th>Aksi</th>
                         </tr>
                     </thead>
                     <tbody>

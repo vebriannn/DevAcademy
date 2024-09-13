@@ -18,7 +18,7 @@
                     <form method="POST" action="{{ route('member.login.auth') }}">
                         @csrf
                         <div class="input-col position-relative">
-                            <input type="email" name="email" placeholder="Email address" value="{{ old('email') }}" />
+                            <input type="email" name="email" placeholder="Alamat Email" value="{{ old('email') }}" />
                             <span class="ikon"><img src="{{ asset('nemolab/member/img/emaillogin.png') }}"
                                     width="16" /></span>
                             @error('email')

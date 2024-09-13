@@ -21,7 +21,7 @@
                 <div class="col-12 ">
                     <div class="entryarea">
                         <input type="text" id="name" placeholder="" name="name_tools" value="{{ $tools->name_tools }}" />
-                        <div class="labelline" for="name">Nama Alat</div>
+                        <div class="labelline" for="name">Nama Alat<span class="required-field"></span></div>
                         @error('name_tools')
                             <span style="color: red">{{ $message }}</span>
                         @enderror
@@ -30,14 +30,14 @@
                 <div class="col-12 mt-4 pt-1">
                     <div class="entryarea">
                         <input type="text" id="name" placeholder="" name="link" value="{{ $tools->link }}" />
-                        <div class="labelline" for="name">Link</div>
+                        <div class="labelline" for="name">Link<span class="required-field"></span></div>
                         @error('link')
                             <span style="color: red">{{ $message }}</span>
                         @enderror
                     </div>
                 </div>
                 <div class="col-12">
-                    <p class="m-0">Gambar Alat</p>
+                    <p class="m-0">Gambar Alat<span class="required-field"></span></p>
                     <input type="file" id="imageUpload" name="logo_tools" accept="image/*" class="" />
                     @error('logo_tools')
                         <span style="color: red">{{ $message }}</span>

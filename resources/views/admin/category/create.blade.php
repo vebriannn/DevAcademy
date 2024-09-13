@@ -18,7 +18,7 @@
                 @csrf
                 <div class="entryarea">
                     <input type="text" id="name" name="name" placeholder="" />
-                    <div class="labelline" for="name">Kategori</div>
+                    <div class="labelline" for="name">Kategori<span class="required-field"></span></div>
                     @error('name')
                         <span style="color: red">{{ $message }}</span>
                     @enderror
