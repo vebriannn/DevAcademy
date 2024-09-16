@@ -32,7 +32,7 @@
                         <div class="input-col position-relative mt-2">
                             <input type="file" name="avatar" id="fileInput" class="file-input"
                                 onchange="updateFileName()" />
-                            <label for="fileInput" class="file-label" data-placeholder="Choose avatar"></label>
+                            <label for="fileInput" class="file-label" data-placeholder="Pilih Foto Profil"></label>
                             <span class="ikon"><img src="{{ asset('nemolab/member/img/avatar_2.png') }}"
                                     width="16" /></span>
                             @error('avatar')
@@ -40,7 +40,7 @@
                             @enderror
                         </div>
                         <div class="input-col position-relative mt-2">
-                            <input type="email" name="email" placeholder="Email address" value="{{ old('email') }}" />
+                            <input type="email" name="email" placeholder="Alamat Email" value="{{ old('email') }}" />
                             <span class="ikon"><img src="{{ asset('nemolab/member/img/emailregister.png') }}"
                                     width="16" /></span>
                             @error('email')

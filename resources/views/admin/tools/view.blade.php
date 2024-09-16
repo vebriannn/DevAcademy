@@ -34,14 +34,14 @@
                         <th>Judul</th>
                         <th>Link</th>
                         <th>Gambar</th>
-                        <th>Tindakan</th>
+                        <th>Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
                     @forelse ($tools as $item)
                         <tr>
                             <td>{{ $item->name_tools }}</td>
-                            <td><a href="{{ $item->link }}">Show</a></td>
+                            <td><a href="{{ $item->link }}">Menampilkan</a></td>
                             <td>
                                 <img src="{{ asset('storage/images/logoTools/' . $item->logo_tools) }}" alt=""
                                     width="50" height="50" class="rounded-2 object-fit-cover">

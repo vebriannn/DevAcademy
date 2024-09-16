@@ -40,7 +40,7 @@
                         <th>Tanggal</th>
                         <th>Harga</th>
                         <th>Status</th>
-                        <th>Tindakan</th>
+                        <th>Aksi</th>
                     </tr>
                 </thead>
                 <tbody>

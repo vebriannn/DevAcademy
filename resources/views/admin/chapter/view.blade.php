@@ -36,7 +36,7 @@
                 <thead>
                     <tr>
                         <th>Judul</th>
-                        <th>Tindakan</th>
+                        <th>Aksi</th>
                     </tr>
                 </thead>
                 <tbody>

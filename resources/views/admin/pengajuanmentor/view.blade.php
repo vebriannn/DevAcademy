@@ -40,7 +40,7 @@
                         <th>Nama</th>
                         <th>Jumlah Kursus</th>
                         <th>Status</th>
-                        <th>Tindakan</th>
+                        <th>Aksi</th>
                     </tr>
                 </thead>
                 <tbody>

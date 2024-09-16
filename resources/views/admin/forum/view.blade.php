@@ -8,7 +8,7 @@
 
 @section('content')
     <main role="main" class="col-md-12 ml-sm-auto col-lg-9 ps-4">
-        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center  pb-2 mb-1">
+        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-1">
             <h1 class="judul-table">Forum</h1>
         </div>
 
@@ -33,15 +33,19 @@
                     <tr>
                         <th>Sampul</th>
                         <th>Nama</th>
-                        <th>Tindakan</th>
+                        <th>Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
                     @forelse ($forums as $forum)
                         <tr>
                             <td>
-                                <img src="{{ asset('storage/images/covers/' . $forum->course->cover) }}" alt=""
-                                    width="150" height="100" class="object-fit-cover rounded-3">
+                                @if ($forum->course->cover)
+                                    <img src="{{ asset('storage/images/covers/' . $forum->course->cover) }}" alt=""
+                                        width="150" height="100" class="object-fit-cover rounded-3">
+                                @else
+                                    -
+                                @endif
                             </td>
                             <td>{{ $forum->tittle }}</td>
                             <td>
@@ -70,11 +74,7 @@
             </div>
         </div>
     </main>
-        <!-- Popup YouTube -->
-        {{-- <div id="youtube-popup" class="youtube-popup hidden">
-            <iframe id="youtube-iframe"src="" frameborder="0" allowfullscreen></iframe>
-            <img id="close-btn" class="close-btn" src="{{asset('nemolab/admin/img/close.png')}}" alt="">
-        </div> --}}
+
     @push('addon-script')
     <script>
         document.getElementById('prev-button').addEventListener('click', function() {

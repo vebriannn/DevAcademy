@@ -54,7 +54,7 @@
                         <div class="custom-entryarea">
                             <select id="status" name="status">
                                 <option value="draft" {{ old('status', $ebook->status) == 'draft' ? 'selected' : '' }}>Draf</option>
-                                <option value="published" {{ old('status', $ebook->status) == 'published' ? 'selected' : '' }}>Menerbitkan</option>
+                                <option value="published" {{ old('status', $ebook->status) == 'published' ? 'selected' : '' }}>Publik</option>
                             </select>
                             @error('status')
                                 <span style="color: red">{{ $message }}</span>

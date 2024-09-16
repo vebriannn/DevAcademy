@@ -42,7 +42,7 @@
                             <th>Status</th>
                             <th>Harga</th>
                             <th>Link</th>
-                            <th>Tindakan</th>
+                            <th>Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
