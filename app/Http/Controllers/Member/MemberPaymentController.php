@@ -52,46 +52,57 @@ class MemberPaymentController extends Controller
             $status = 'success';
         }
 
-        // Save transaction
-        $transaction = Transaction::create([
-            'user_id' => $User->id,
-            'transaction_code' => $transaction_code,
-            'course_id' => $courseId,
-            'ebook_id' => $ebookId,
-            'name' => $name,
-            'price' => $request->price,
-            'status' => $status,
-        ]);
 
         if ($status == 'success') {
+            Transaction::create([
+                'user_id' => $User->id,
+                'transaction_code' => $transaction_code,
+                'course_id' => $courseId,
+                'ebook_id' => $ebookId,
+                'name' => $name,
+                'price' => $request->price,
+                'status' => $status,
+            ]);
             Alert::success('success', 'Kelas Berhasil Di Beli');
             return redirect()->route('member.course.join', $course->slug);
+        } else {
+            // Jangan Hapus
+            // Set your Merchant Server Key
+            \Midtrans\Config::$serverKey = env('MIDTRANS_SERVER_KEY');
+            // Set to Production Environment (accept real transaction)
+            \Midtrans\Config::$isProduction = env('MIDTRANS_PRODUCTION');
+            // Set sanitization on (default)
+            \Midtrans\Config::$isSanitized = true;
+            // Set 3DS transaction for credit card to true
+            \Midtrans\Config::$is3ds = true;
+
+            $params = array(
+                'transaction_details' => array(
+                    'order_id' => $transaction_code,
+                    'gross_amount' => $price,
+                ),
+                'customer_details' => array(
+                    'name' => $User->name,
+                    'email' => $User->email,
+                ),
+            );
+
+            $createdTransactionMidtrans = \Midtrans\Snap::createTransaction($params);
+
+            Transaction::create([
+                'user_id' => $User->id,
+                'transaction_code' => $transaction_code,
+                'snap_token' => $createdTransactionMidtrans->token,
+                'course_id' => $courseId,
+                'ebook_id' => $ebookId,
+                'name' => $name,
+                'price' => $request->price,
+                'status' => $status,
+            ]);
+
+            $midtransRedirectUrl = $createdTransactionMidtrans->redirect_url;
+            return redirect($midtransRedirectUrl);
         }
-
-        // Jangan Hapus
-        // Set your Merchant Server Key
-        \Midtrans\Config::$serverKey = env('MIDTRANS_SERVER_KEY');
-        // Set to Production Environment (accept real transaction)
-        \Midtrans\Config::$isProduction = env('MIDTRANS_PRODUCTION');
-        // Set sanitization on (default)
-        \Midtrans\Config::$isSanitized = true;
-        // Set 3DS transaction for credit card to true
-        \Midtrans\Config::$is3ds = true;
-
-        $params = array(
-            'transaction_details' => array(
-                'order_id' => $transaction_code,
-                'gross_amount' => $price,
-            ),
-            'customer_details' => array(
-                'name' => $User->name,
-                'email' => $User->email,
-            ),
-        );
-
-        $createdTransactionMidtrans = \Midtrans\Snap::createTransaction($params);
-        $midtransRedirectUrl = $createdTransactionMidtrans->redirect_url;
-        return redirect($midtransRedirectUrl);
     }
 
 
@@ -126,5 +137,13 @@ class MemberPaymentController extends Controller
         $transaction->update(['status' => $status]);
 
         return redirect()->route('member.course');
+    }
+
+    public function viewTransaction(Request $requests, $id)
+    {
+        $transaction = Transaction::where('id', $id)->first();
+        $url = "https://app.sandbox.midtrans.com/snap/v4/redirection/$transaction->snap_token";
+
+        return redirect()->to($url);
     }
 }
