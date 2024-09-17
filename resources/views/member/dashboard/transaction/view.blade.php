@@ -172,12 +172,17 @@
                                 @foreach ($transactions as $transaction)
                                     <tr>
                                         <td>
-                                            <img src="{{ asset('storage/images/covers/' . $transaction->course->cover) }}"
-                                                alt="Cover" width="120" height="70"
-                                                class="rounded-3 object-fit-cover" />
+                                            @if ($transaction->course)
+                                                <img src="{{ asset('storage/images/covers/' . $transaction->course->cover) }}"
+                                                    alt="Cover" width="90" height="auto" />
+                                            @else
+                                                <span>-</span>
+                                            @endif
                                         </td>
                                         <td class="text-capitalize">{{ $transaction->name }}</td>
-                                        <td class="text-capitalize">{{ $transaction->course->type }}</td>
+                                        <td class="text-capitalize">
+                                            {{ $transaction->course ? $transaction->course->type : '-' }}
+                                        </td>
                                         <td class="text-capitalize">Rp
                                             {{ number_format($transaction->price, 2, ',', '.') }}
                                         </td>

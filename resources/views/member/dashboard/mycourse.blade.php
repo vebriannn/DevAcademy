@@ -10,21 +10,22 @@
 @section('content')
 
     <div class="container" style="margin-top: 5rem;">
-        @if (!$submission && $total_course > 5)
-            <div class="alert alert-warning alert-dismissible fade show text-black position-fixed fixed-top d-flex justify-center align-items-center"
-                role="alert">
-                Ingin jadi Mentor? klik
-                <form action="{{ route('member.pengajuan', Auth::user()->id) }}" method="post">
-                    @csrf
-                    <button type="submit" data-bs-toggle="modal" data-bs-target="#exampleModal"
-                        class="disini text-black ps-1 btn p-0 m-0 shadow-none"
-                        style="text-decoration: underline !important">Disini
-                    </button>
-                </form>
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
+        @if (Auth::user()->role == 'students')
+            @if (!$submission && $total_course >= 5)
+                <div class="alert alert-warning alert-dismissible fade show text-black position-fixed fixed-top d-flex justify-center align-items-center"
+                    role="alert">
+                    Ingin jadi Mentor? klik
+                    <form action="{{ route('member.pengajuan', Auth::user()->id) }}" method="post">
+                        @csrf
+                        <button type="submit" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                            class="disini text-black ps-1 btn p-0 m-0 shadow-none"
+                            style="text-decoration: underline !important">Disini
+                        </button>
+                    </form>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @endif
         @endif
-
         <div class="row">
             <!-- Sidebar -->
             <div class="col-3 d-none d-lg-block p-4 pb-5 rounded-4 text-white px-5 flex-wrap"
