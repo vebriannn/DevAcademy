@@ -29,12 +29,12 @@
                 </div>
             </div>
 
-            <div class="container pt-3 pb-3" style="margin-top: 5rem;">
-                <div class="content2 row top justify-content-between">
+            <div class="container py-3" style="margin-top: 5rem;">
+                <div class="row">
                     <div class="dropdown d-flex d-lg-none">
-                        <a class="dropdown-toggle text-black fs-5" href="#" role="button" data-bs-toggle="dropdown"
+                        <a class="dropdown-toggle text-white rounded-3 fw-medium btn mb-3" href="#" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false">
-                            Category
+                            Kategori
                         </a>
 
                         <ul class="dropdown-menu scroll-sidebar" id="dropdown">
@@ -42,7 +42,7 @@
                                 <div class="form-check me-3">
                                     <input class="form-check-input radiofilter-mobile" type="radio"
                                         id="radiofilter-{{ $loop->iteration }}">
-                                    <label class="form-check-label" for="radiofilter-{{ $loop->iteration }}">
+                                    <label class="form-check-label ms-2 fw-medium" for="radiofilter-{{ $loop->iteration }}">
                                         {{ $item->name }}
                                     </label>
                                 </div>
@@ -52,7 +52,7 @@
 
                     <div class="col-3 d-none d-lg-block rounded-3" style="height: 600px; background-color: #faa907;">
                         <div class="card-category d-flex flex-column full-width-border">
-                            <p class="text-center mt-4">Category</p>
+                            <p class="text-center mt-4">Kategori</p>
                             <hr class="opacity-100 m-0">
                             <div class="checkbox scroll-sidebar mt-4">
                                 @foreach ($sortedCategory as $item)
@@ -69,8 +69,7 @@
                         </div>
                     </div>
 
-                    <div class="row col-12 col-lg-9 mx-auto d-flex overflow-y-scroll" id="course-container"
-                        style="height: 600px;">
+                    <div class="row col-12 col-lg-9 mx-auto d-flex overflow-y-scroll" id="course-container">
                     </div>
                 </div>
             </div>
@@ -87,10 +86,6 @@
         // variabel
         var btnRadio = document.querySelectorAll('.radiofilter');
         var btnRadioMobile = document.querySelectorAll('.radiofilter-mobile');
-
-        // const starImagePath = "{{ asset('nemolab/assets/image/star.png') }}";
-        // const lessonImagePath = "{{ asset('nemolab/assets/image/lesson.png') }}";
-        // const hourseImagePath = "{{ asset('nemolab/assets/image/hours.png') }}";
         var query = "all";
 
         btnRadioMobile.forEach(btnMobile => {
@@ -129,6 +124,7 @@
             })
         });
 
+
         getDataCourse();
 
         function getDataCourse() {
@@ -146,48 +142,40 @@
                             courseData.course.forEach(course => {
                                 const courseElement = document.createElement('div');
                                 courseElement.className =
-                                    'col-12 col-md-6 col-lg-4';
-                                courseElement.innerHTML = `
-                                <a href="#" data-slug-course="${course.slug_course}" onclick="setCourseUrl(this)">
-                                    <div class="card-course d-flex d-md-block mt-4 mt-md-1">
-                                        <div>
-                                            <img src="${course.cover_course}" class="img-card" alt="${course.title_course}"></div>
-                                        <div class="container-card px-3">
-                                            <p class="produck-title text-black mb-0 fw-medium mb-0 mb-md-3 mt-2 mt-md-0">${course.category_course}: ${course.title_course}</p></p>
-                                            <div class="profile-card d-none d-md-flex align-items-center" style="margin-top: -10px;">
-                                                <a href="" class="img-a my-auto">
-                                                    <img src="${courseData.avatars_mentor}" alt="${courseData.name_mentor}" class="card-img-profile" style="border-radius: 100%;">
-                                                </a>
-                                                <a href="#" class="kurung text-decoration-none">
-                                                    <p class="profile-mentor text-black m-0 ms-2 fw-medium">${courseData.name_mentor}</p>
-                                                </a>
-                                            </div>
-                                            <div class="price my-2">
-                                            <p class="text-black mb-0 fw-light">Rp. ${course.price_course}</p>
-                                            </div>
-                                            <div class="status d-flex justify-content-between">
-                                                <div class="video d-inline-flex">
-                                                    <p>Video</p>
-                                                </div>
-                                            </div>
-                                            <div class="profile-card d-flex d-md-none align-items-center mb-3" style="margin-top: -10px;">
-                                                <a href="" class="img-a my-auto">
-                                                    <img src="${courseData.avatars_mentor}" alt="${courseData.name_mentor}" class="card-img-profile" style="border-radius: 100%;">
-                                                </a>
-                                                <a href="#" class="kurung text-decoration-none">
-                                                    <p class="profile-mentor text-black m-0 ms-2 fw-medium">${courseData.name_mentor}</p>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </a>`;
+                                    'col-12 col-md-4 col-lg-4 card-parent';
+                                    courseElement.innerHTML = `
+    <a href="#" data-slug-course="${course.slug_course}" onclick="setCourseUrl(this)" style="text-decoration: none;">
+        <div class="card-course d-flex d-md-block mt-3 mt-md-1 position-relative">
+            <img src="${courseData.avatars_mentor}" alt="${courseData.name_mentor}" class="card-img-profile d-md-none position-absolute" style="border-radius: 100%;">
+            <div>
+                <img src="${course.cover_course}" class="img-card" alt="${course.title_course}">
+            </div>
+            <div class="container-card px-3">
+                <p class="produck-title text-black fw-medium mb-0 mb-md-2 mt-2 mt-md-0">${course.category_course}: ${course.title_course}</p>   
+                <div class="profile-card d-none d-md-flex align-items-center">
+                    <img src="${courseData.avatars_mentor}" alt="${courseData.name_mentor}" class="card-img-profile" style="border-radius: 100%;">
+                    <p class="profile-mentor text-black m-0 ms-2 fw-medium">${courseData.name_mentor}</p>
+                </div>
+                <div class="price mt-1 mb-2 my-md-2">
+                    <p class="text-black mb-0 fw-light">Rp. ${course.price_course}</p>
+                </div>
+                <div class="status d-flex">
+                    <div class="d-inline-flex">
+                        <p>Video</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </a>
+`;
+
                                 courseContainer.appendChild(courseElement);
                             });
                         });
                     } else {
                         const courseElement = document.createElement('div');
                         courseElement.className =
-                            'col-12 d-flex justify-content-center align-items-center';
+                            'col-12 d-flex justify-content-center align-items-center fw-medium';
                         courseElement.innerHTML = `Maaf Course Belum Tersedia`
                         courseContainer.appendChild(courseElement);
                     }

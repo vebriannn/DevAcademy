@@ -67,7 +67,7 @@
                         <p class="m-0 ms-2 fs-5">{{ $user->name }}</p>
                     </div>
                     <div class="resource">
-                        <h4 class="fw-bold mt-3">Resource</h4>
+                        <h4 class="fw-bold mt-3">Sumber Daya</h4>
                         <div class="row">
                             @if ($course->resources != 'null')
                                 <div class="d-flex course-option download mt-3">
@@ -76,7 +76,7 @@
                                             style="border-radius:100%;">
                                         <div class="text-download ms-3">
                                             <p class="my-auto text-left" style="width:70%;">Download</p>
-                                            <p class="my-auto">Assets Belajar</p>
+                                            <p class="my-auto">Asset Belajar</p>
                                         </div>
                                     </a>
                                 </div>
@@ -85,7 +85,7 @@
                                 <a href="{{ $course->link_grub }}" class="btn btn-download d-flex align-items-center">
                                     <img src="{{ asset('nemolab/member/img/konsultasi.png') }}" alt="Consultation Icon"
                                         style="border-radius:100%;">
-                                    <p class="ms-3 my-auto text-left" style="padding-right: 25px">Join Grub Diskusi</p>
+                                    <p class="ms-3 my-auto text-left" style="padding-right: 25px">Join Grup Diskusi</p>
                                 </a>
                             </div>
                             <div class="d-flex course-option konsultasi ms-3 mt-3">
@@ -109,7 +109,7 @@
                     <div class="modal-content">
                         <div class="modal-body">
                             <div class="wrapper-modal">
-                                <h3 class="mx-auto">Reviews dan rating</h3>
+                                <h3 class="mx-auto">Ulasan dan rating</h3>
                                 <form id="reviewForm" action="{{ route('member.review.store') }}" method="POST">
                                     @csrf
                                     <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">

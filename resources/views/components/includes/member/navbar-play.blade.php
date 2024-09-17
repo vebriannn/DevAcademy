@@ -5,7 +5,7 @@
                 style="margin-left: -18px;color:#faa907;" onclick="window.history.back(); return false;">
                 <img class="me-1" src="{{ asset('nemolab/member/img/chevron-left.png') }}"
                     style="width: 25px; height: 25px;" alt="">
-                Back
+                Kembali
             </a>
         </div>
     </nav>

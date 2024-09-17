@@ -255,9 +255,11 @@ Route::prefix('member')->middleware('student')->group(function () {
     
     Route::get('course/payment', [MemberPaymentController::class, 'index'])->name('member.payment');
     Route::post('course/payment/store', [MemberPaymentController::class, 'store'])->name('member.transaction.store');
-
     
+    Route::get('/transaction/view/{id}', [MemberPaymentController::class, 'viewTransaction'])->name('member.transaction.view');
+    // Route::get('/transaction/callback', [MemberPaymentController::class, 'callback'])->name('member.transaction.callback.view');
 });
-Route::get('/eror', function () {
-    return view('error.page404'); // Nama view yang ingin ditampilkan
-});
+
+
+Route::view('/eror/pages', 'error.page404')->name('pages.error');
+// Route::get('/test', [MemberPaymentController::class, 'test']);
