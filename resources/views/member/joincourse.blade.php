@@ -187,7 +187,7 @@
                 </div>
             </div>
         @endif
-
+{{-- 
         <div class="row">
             <div class="col-12">
                 <h4 class="fw-semibold mb-4">Ulasan</h4>
@@ -342,6 +342,6 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> --}}
     </div>
 @endsection

@@ -257,7 +257,9 @@ Route::prefix('member')->middleware('student')->group(function () {
     Route::post('course/payment/store', [MemberPaymentController::class, 'store'])->name('member.transaction.store');
     
     Route::get('/transaction/view/{id}', [MemberPaymentController::class, 'viewTransaction'])->name('member.transaction.view');
+    // Route::get('/transaction/callback', [MemberPaymentController::class, 'callback'])->name('member.transaction.callback.view');
 });
 
 
 Route::view('/eror/pages', 'error.page404')->name('pages.error');
+// Route::get('/test', [MemberPaymentController::class, 'test']);

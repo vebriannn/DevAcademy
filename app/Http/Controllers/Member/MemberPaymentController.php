@@ -14,6 +14,7 @@ use Illuminate\Support\Env;
 
 class MemberPaymentController extends Controller
 {
+
     public function index(Request $request)
     {
         $courseId = $request->query('course_id');
@@ -52,7 +53,6 @@ class MemberPaymentController extends Controller
             $status = 'success';
         }
 
-
         if ($status == 'success') {
             Transaction::create([
                 'user_id' => $User->id,
@@ -76,16 +76,16 @@ class MemberPaymentController extends Controller
             // Set 3DS transaction for credit card to true
             \Midtrans\Config::$is3ds = true;
 
-            $params = array(
-                'transaction_details' => array(
+            $params = [
+                'transaction_details' => [
                     'order_id' => $transaction_code,
                     'gross_amount' => $price,
-                ),
-                'customer_details' => array(
+                ],
+                'customer_details' => [
                     'name' => $User->name,
                     'email' => $User->email,
-                ),
-            );
+                ],
+            ];
 
             $createdTransactionMidtrans = \Midtrans\Snap::createTransaction($params);
 
@@ -105,11 +105,10 @@ class MemberPaymentController extends Controller
         }
     }
 
-
     public function checkout()
     {
         \Midtrans\Config::$serverKey = env('MIDTRANS_SERVER_KEY');
-        \Midtrans\Config::$isProduction =  env('MIDTRANS_PRODUCTION');
+        \Midtrans\Config::$isProduction = env('MIDTRANS_PRODUCTION');
         $notif = new \Midtrans\Notification();
 
         $transactionStatus = $notif->transaction_status;
@@ -121,22 +120,17 @@ class MemberPaymentController extends Controller
             if ($fraudStatus == 'accept') {
                 $status = 'success';
             }
-        } else if ($transactionStatus == 'settlement') {
+        } elseif ($transactionStatus == 'settlement') {
             $status = 'success';
-        } else if (
-            $transactionStatus == 'cancel' ||
-            $transactionStatus == 'deny' ||
-            $transactionStatus == 'expire'
-        ) {
+        } elseif ($transactionStatus == 'cancel' || $transactionStatus == 'deny' || $transactionStatus == 'expire') {
             $status = 'failed';
-        } else if ($transactionStatus == 'pending') {
+        } elseif ($transactionStatus == 'pending') {
             $status = 'pending';
         }
 
         $transaction = Transaction::where('transaction_code', $transaction_code)->first();
         $transaction->update(['status' => $status]);
 
-        return redirect()->route('member.course');
     }
 
     public function viewTransaction(Request $requests, $id)
@@ -146,4 +140,39 @@ class MemberPaymentController extends Controller
 
         return redirect()->to($url);
     }
+
+    // public function callback() {
+    //     $course = Course::where('id', $courseId)->first();
+    //     return url('/course/join/' . $course->slug);
+    // }
+
+    // public function test()
+    // {
+    //     $client = new \GuzzleHttp\Client();
+
+    //     try {
+    //         $response = $client->request('GET', 'https://api.sandbox.midtrans.com/v2/NEMOLAB-RUAH0Z0ADU/status', [
+    //             'headers' => [
+    //                 'accept' => 'application/json',
+    //                 'authorization' => 'Basic U0ItTWlkLXNlcnZlci1pNU9GbWpiR1ppSGc5cVBHVmg3MHdHcTI6',
+    //             ],
+    //         ]);
+
+    //         $responseBody = $response->getBody()->getContents();
+    //         $responseData = json_decode($responseBody, true); // Mengubah JSON menjadi array
+
+    //         // Mengambil object transaction_status
+    //         $transactionStatus = $responseData['transaction_status'];
+
+    //         echo $transactionStatus;
+    //     } catch (\GuzzleHttp\Exception\RequestException $e) {
+    //         // Handle the exception, for example, log the error
+    //         if ($e->hasResponse()) {
+    //             $errorResponse = $e->getResponse()->getBody()->getContents();
+    //             echo $errorResponse; // Show error response
+    //         } else {
+    //             echo $e->getMessage(); // Show the error message
+    //         }
+    //     }
+    // }
 }

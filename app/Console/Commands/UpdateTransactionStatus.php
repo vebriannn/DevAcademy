@@ -4,7 +4,6 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 
-
 use App\Models\Transaction;
 
 class UpdateTransactionStatus extends Command
@@ -14,7 +13,7 @@ class UpdateTransactionStatus extends Command
      *
      * @var string
      */
-    protected $signature = 'app:update-transaction-status';
+    protected $signature = 'update:transaction-status';
 
     /**
      * The console command description.
@@ -28,24 +27,28 @@ class UpdateTransactionStatus extends Command
      */
     public function handle()
     {
-        // Ambil transaksi yang pending
+        $client = new \GuzzleHttp\Client();
+
         $transactions = Transaction::where('status', 'pending')->get();
 
-        // foreach ($transactions as $transaction) {
-        //     echo '';
-        // }
-
         foreach ($transactions as $transaction) {
-            $response = \Midtrans\Transaction::status($transaction->transaction_code);
-
-            if (is_array($response) && isset($response['transaction_status'])) {
-                if ($response['transaction_status'] === 'expire' || $response['transaction_status'] === 'cancel') {
-                    $transaction->status = 'failed';
-                    $transaction->save();
-                }
-            } else {
-                // Tangani kasus jika data tidak sesuai dengan yang diharapkan
-                $this->error('Response data is not in the expected format.');
+            // Fetch transaction status from Midtrans API
+            $response = $client->request('GET', 'https://api.sandbox.midtrans.com/v2/' . $transaction->transaction_code . '/status', [
+                'headers' => [
+                    'accept' => 'application/json',
+                    'authorization' => 'Basic '.env('MIDTRANS_KEY_API'),
+                ],
+            ]);
+        
+            // Decode the response JSON
+            $responseData = json_decode($response->getBody()->getContents(), true);
+        
+            // Check if the transaction status is 'expire'
+            if ($responseData['transaction_status'] === 'expire') {
+                // Update the status of the transaction to 'failed'
+                Transaction::where('id', $transaction->id)->update([
+                    'status' => 'failed',
+                ]);
             }
         }
     }
