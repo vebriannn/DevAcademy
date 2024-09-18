@@ -63,7 +63,7 @@
                         @elseif ($transaction->status == 'success')
                             @if (!isset($lesson->episode))
                                 <div class="alert alert-warning text-center" role="alert">
-                                    Kelas Belum Bisa Di Akses
+                                    Maaf, Kelas Masih Dalam Update
                                 </div>
                             @else
                                 <a

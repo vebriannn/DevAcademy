@@ -46,7 +46,7 @@ class MemberPaymentController extends Controller
 
         if ($courseId) {
             $name = $course->name . ' (video)';
-            $price = $course->price;
+            $price = $request->price;
         }
 
         if ($course->price == 0) {
@@ -57,6 +57,7 @@ class MemberPaymentController extends Controller
             Transaction::create([
                 'user_id' => $User->id,
                 'transaction_code' => $transaction_code,
+                'snap_token' => '',
                 'course_id' => $courseId,
                 'ebook_id' => $ebookId,
                 'name' => $name,

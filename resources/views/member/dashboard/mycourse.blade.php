@@ -130,7 +130,7 @@
                                 <a href="{{ route('member.course.join', $course->slug) }}" class="text-black">
                                     <div class="card-course h-100 d-flex flex-row flex-md-column position-relative">
                                         <div class="position-absolute d-block d-md-none" style="bottom: 5px; right: 10px;">
-                                            @if (Auth::user()->avatar != 'default.png')
+                                            @if ($course->users->avatar != 'default.png')
                                                 <img
                                                     src="{{ asset('storage/images/avatars/' . $course->users->avatar) }}"
                                                     alt="" width="16" height="16"
@@ -158,7 +158,7 @@
                                             </div>
                                             <div class="profile-card mt-2 d-none d-md-block">
                                                 <a href="" class="fw-medium">
-                                                    @if (Auth::user()->avatar != 'default.png')
+                                                    @if ($course->users->avatar != 'default.png')
                                                         <img class="me-2"
                                                             src="{{ asset('storage/images/avatars/' . $course->users->avatar) }}"
                                                             alt="" width="35" height="35"

@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\User;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use RealRashid\SweetAlert\Facades\Alert;
+
+use App\Models\User;
+use App\Models\Submission;
 
 class AdminMentorController extends Controller
 {
@@ -61,6 +63,13 @@ class AdminMentorController extends Controller
             'password' => 'nullable|string|min:6|confirmed',
             'role' => 'required'
         ]);
+
+        if($request->role == 'students') {
+            $submission = Submission::where('user_id', $id)->first();
+            if(isset($submission)) {
+                $submission->delete();
+            }
+        }
 
         $mentor->update([
             'name' => $request->name,
