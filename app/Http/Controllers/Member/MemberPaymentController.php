@@ -89,7 +89,7 @@ class MemberPaymentController extends Controller
             ];
 
             $createdTransactionMidtrans = \Midtrans\Snap::createTransaction($params);
-
+            $midtransRedirectUrl = $createdTransactionMidtrans->redirect_url;
             Transaction::create([
                 'user_id' => $User->id,
                 'transaction_code' => $transaction_code,
@@ -100,8 +100,7 @@ class MemberPaymentController extends Controller
                 'price' => $request->price,
                 'status' => $status,
             ]);
-
-            $midtransRedirectUrl = $createdTransactionMidtrans->redirect_url;
+            
             return redirect($midtransRedirectUrl);
         }
     }
