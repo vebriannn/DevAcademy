@@ -61,7 +61,7 @@
                                 <td>{{ $course->category }}</td>
                                 <td>{{ $course->name }}</td>
                                 <td>{{ $course->description }}</td>
-                                <td>{{ Auth::user()->name }}</td>
+                                <td>{{ $course->users->name }}</td>
                                 <td>
                                     <img src="{{ asset('storage/images/covers/' . $course->cover) }}" alt=""
                                         width="150" height="100" class="object-fit-cover rounded-3">
@@ -100,7 +100,7 @@
     
                 <div class="d-flex justify-content-between p-1">
                     <p class="show">Menampilkan {{ $courses->count() }} dari {{ $courses->total() }}</p>
-                  
+               
                 </div>
             </div>
         </div>
