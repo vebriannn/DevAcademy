@@ -80,7 +80,7 @@ class MemberPaymentController extends Controller
             $params = [
                 'transaction_details' => [
                     'order_id' => $transaction_code,
-                    'gross_amount' => $price,
+                    'gross_amount' => intval($price),
                 ],
                 'customer_details' => [
                     'name' => $User->name,
