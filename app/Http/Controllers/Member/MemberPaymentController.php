@@ -61,7 +61,7 @@ class MemberPaymentController extends Controller
                 'course_id' => $courseId,
                 'ebook_id' => $ebookId,
                 'name' => $name,
-                'price' => $request->price,
+                'price' => $price,
                 'status' => $status,
             ]);
             Alert::success('success', 'Kelas Berhasil Di Beli');
@@ -97,7 +97,7 @@ class MemberPaymentController extends Controller
                 'course_id' => $courseId,
                 'ebook_id' => $ebookId,
                 'name' => $name,
-                'price' => $request->price,
+                'price' => $price,
                 'status' => $status,
             ]);
             
