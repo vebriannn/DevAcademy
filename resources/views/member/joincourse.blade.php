@@ -42,7 +42,7 @@
             <div class="col-lg-4 mx-auto col-11 p-4 mt-4 mt-lg-0 border border-2 rounded-4 position-relative overflow-hidden shadow-sm"
                 style="height: 25rem">
                 @if ($chapters->isNotEmpty())
-                    <p class="fw-bold">{{ $chapters->count() }} Bab</p>
+                    <p class="fw-semibold">{{ $chapters->count() }} Bab</p>
                     <div class="playlist">
                         @foreach ($chapters as $chapter)
                             <div class="play">
@@ -82,7 +82,7 @@
                         </a>
                     @endif
                 @else
-                    <p class="fw-bold">0 Bab</p>
+                    <p class="fw-semibold">0 Bab</p>
                 @endif
             </div>
         </div>
@@ -173,9 +173,10 @@
                                     Kelas</button>
                             </a>
                         @elseif($transaction->status == 'success')
-                            <div class="alert alert-success mt-3 text-center text-capitalize" role="alert">
-                                Kelas Sudah Di Beli
-                            </div>
+                        <a class="text-decoration-none disabled text-capitalize">
+                            <button class="btn mx-auto d-flex px-5 py-2 mt-3 text-white fw-semibold rounded-3" style="background-color: #a56e00; cursor: default">Sudah di Beli
+                            </button>
+                        </a>
                         @else
                             <div class="alert alert-warning mt-3 text-center text-capitalize" role="alert">
                                 {{ $transaction->status }}

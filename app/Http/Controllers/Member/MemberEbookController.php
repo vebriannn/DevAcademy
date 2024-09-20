@@ -9,6 +9,6 @@ class MemberEbookController extends Controller
 {
     public function index()
     {
-        return view('member.ebook');
+        return view('member.joinebook');
     }
 }

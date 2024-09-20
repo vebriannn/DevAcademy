@@ -44,6 +44,10 @@ use App\Http\Controllers\Member\MemberWebhookTransactionsController;
 |
 */
 
+
+
+Route::get('/jajal', [MemberEbookController::class, 'index']);
+
 Route::get('/', [LandingpageController::class, 'index'])->name('home');
 
 // login member

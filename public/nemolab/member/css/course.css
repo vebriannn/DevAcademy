@@ -22,14 +22,6 @@ body::-webkit-scrollbar {
 a {
     text-decoration: none;
 }
-a {
-    display: block; /* Ensure the link behaves like a block */
-    text-decoration: none; /* Remove underlines */
-}
-.card-course {
-    display: flex; /* Ensure card behaves as intended */
-    flex-direction: column; /* Align content vertically */
-}
 .btn-alert {
     background-color: var(--c-brand);
     color: white;
