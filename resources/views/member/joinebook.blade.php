@@ -1,6 +1,6 @@
 @extends('components.layouts.member.navback')
 
-@section('title', 'Join Kelas')
+@section('title', 'Tentang Buku')
 
 @push('prepend-style')
     <link rel="stylesheet" href="{{ asset('nemolab/member/css/joincourse.css') }} ">
@@ -18,15 +18,15 @@
             </div>
             <div class="col-12 col-md-6 col-lg-9 ps-md-4 mt-4 mt-lg-0">
               <div>
-                <h3 class="fw-semibold">Belajar Livewire Menengah: Membuat Aplikasi Manajemen Karyawan Sederhana</h3>
+                <h3 class="fw-semibold">{{ $ebook->name }}</h3>
                 <p class="fw-light mt-4" style="font-size: 15px">Adventure</p>
                 <hr />
-                <p class="m-0 fw-semibold text-warning">Premium</p>
+                <p class="m-0 fw-semibold text-warning">{{ $ebook->type }}</p>
                 <hr />
                 <div class="d-flex flex-md-row flex-column" style="font-size: 15px">
                     <div class="d-flex align-items-center">
                     <img src="{{ asset('nemolab/member/img/global.png') }}" alt="" width="18" height="18" class="m-0" />
-                    <p class="m-0 ms-2 fw-light" style="font-size: 14px">Release date June 2022</p>
+                    <p class="m-0 ms-2 fw-light" style="font-size: 14px">Release Date: {{ $ebook->created_at->format('d F Y') }}</p>
                     </div>
                     <div class="rating d-flex ms-1 my-2 my-0 align-items-center">
                     <p class="m-0 ms-0 ms-md-5 me-2 fw-medium" style="font-size: 14px">4.9</p>
@@ -37,7 +37,7 @@
                     <img src="{{ asset('nemolab/member/img/star.png') }}" alt="" width="19" height="19" />
                     </div>
                 </div>
-                <a href=""><button class="btn px-5 py-2 mt-5 text-white fw-semibold rounded-3 text-decoration-none">Beli Kelas</button></a>
+                <a href="{{ route('member.ebook.read', ['slug' => $ebook->slug]) }}"><button class="btn px-5 py-2 mt-5 text-white fw-semibold rounded-3 text-decoration-none">Beli Buku</button></a>
                 <!-- <button class="btn proses px-5 py-2 mt-5 text-white fw-semibold rounded-3">Pembayaran sedang diproses</button> -->
               </div>
             </div>
@@ -48,11 +48,7 @@
             <div class="col-12 col-lg-12 pe-lg-4">
             <h4 class="fw-semibold">About</h4>
             <p class="mt-4" style="font-size: 14px; text-align: justify">
-                Untuk bekerja di bidang kreatif, salah satu hal terpenting yang dibutuhkan adalah portofolio yang menjual. Portofolio adalah kumpulan karya terbaik yang mencerminkan style atau personality seorang designer. Demi menarik hati klien/rekruter, Anda harus dapat mempresentasikan pekerjaan
-                Anda dalam sebuah portofolio secara sederhana dan mudah dicerna namun dapat menunjukkan jati diri Anda dalam berkarya. <br />Pada case study, kita akan membangun sebuah portofolio dengan design asset Dompet Crypto dari Pixel Buildwith Angga. Design asset ini sangat efisien untuk membuat
-                portofolio karena sudah siap digunakan. Mentor akan menunjukan proses kreatifnya dimulai dari memahami tujuan pembuatan portofolio, memilih isi konten, hingga pengaturan konten ke dalam design asset. Dan portofolio yang berhasil dibuat akan diunggah ke platform design terpopuler sebagai
-                portofolio digital, sehingga bisa dilihat oleh prospect client di seluruh dunia. <br />
-                Kelas ini cocok bagi Anda yang ingin membuat portofolio yang berkualitas. Mentor kami siap membantumu di grup konsultasi, dan jangan lupa tunjukkan karyamu, ya! Go register now and see you in class!
+                {{ $ebook->description }}
             </p>
             </div>
         </div>
@@ -98,7 +94,7 @@
         </div> --}}
 
         <!-- Payment -->
-        <div class="row">
+        {{-- <div class="row">
             <div class="col-12">
                 <h4 class="fw-semibold">Payment</h4>
             </div>
@@ -134,7 +130,7 @@
                     <button class="btn mx-auto d-flex px-5 py-2 mt-3 text-white fw-semibold rounded-3">Beli Kelas</button>
                 </div>
             </div>
-        </div>
+        </div> --}}
 
         <!-- Ulasan -->
         <div class="row my-5">

@@ -46,7 +46,10 @@ use App\Http\Controllers\Member\MemberWebhookTransactionsController;
 
 
 
-Route::get('/jajal', [MemberEbookController::class, 'index']);
+// tes
+Route::get('/ebook/{slug}', [MemberEbookController::class, 'index'])->name('member.ebook.index');
+Route::get('/ebook/read/{slug}', [MemberEbookController::class, 'read'])->name('member.ebook.read');
+
 
 Route::get('/', [LandingpageController::class, 'index'])->name('home');
 
@@ -84,14 +87,14 @@ Route::prefix('admin')->group(function () {
         Route::get('/delete/{id}', [AdminCourseController::class, 'delete'])->name('admin.course.delete');
 
         // routes for Ebook
-        // Route::prefix('ebook')->group(function () {
-        //     Route::get('/', [AdminEbookController::class, 'index'])->name('admin.ebook');
-        //     Route::get('/create', [AdminEbookController::class, 'create'])->name('admin.ebook.create');
-        //     Route::post('/store', [AdminEbookController::class, 'store'])->name('admin.ebook.create.store');
-        //     Route::get('/edit/{ebook}', [AdminEbookController::class, 'edit'])->name('admin.ebook.edit');
-        //     Route::put('/update/{ebook}', [AdminEbookController::class, 'update'])->name('admin.ebook.edit.update');
-        //     Route::get('/delete/{ebook}', [AdminEbookController::class, 'destroy'])->name('admin.ebook.delete');
-        // });
+        Route::prefix('ebook')->group(function () {
+            Route::get('/', [AdminEbookController::class, 'index'])->name('admin.ebook');
+            Route::get('/create', [AdminEbookController::class, 'create'])->name('admin.ebook.create');
+            Route::post('/store', [AdminEbookController::class, 'store'])->name('admin.ebook.create.store');
+            Route::get('/edit/{ebook}', [AdminEbookController::class, 'edit'])->name('admin.ebook.edit');
+            Route::put('/update/{ebook}', [AdminEbookController::class, 'update'])->name('admin.ebook.edit.update');
+            Route::get('/delete/{ebook}', [AdminEbookController::class, 'destroy'])->name('admin.ebook.delete');
+        });
 
         // Routes for chapters
         Route::get('{slug}/chapter', [AdminChapterController::class, 'index'])->name('admin.chapter');
