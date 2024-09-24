@@ -165,6 +165,7 @@
                                     <th>Harga</th>
                                     <th>Tanggal</th>
                                     <th>Status</th>
+                                    <th>Detail</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
@@ -198,6 +199,13 @@
                                             </td>
                                         @endif
                                         <td>
+                                            @if ($transaction && $transaction->status != 'pending')
+                                                <a href="{{ route('member.transaction.detail.view', $transaction->transaction_code) }}" class="btn btn-success">Check Detail Transaksi</a>
+                                            @else
+                                                -
+                                            @endif
+                                        </td>
+                                        <td>
                                             @if ($transaction->status === 'pending')
                                                 <form action="{{ route('member.transaction.cancel', $transaction->id) }}"
                                                     class="d-flex gap-2" method="POST"
@@ -207,12 +215,12 @@
                                                     {{-- <a href="" class="btn btn-success btn-sm">Bayar Kelas</a> --}}
                                                     <button type="submit" class="btn btn-danger btn-sm">Batalkan
                                                         Pembelian</button>
-                                                    <a href="{{ route('member.transaction.view', $transaction->id) }}"
+                                                    <a href="{{ route('member.transaction.view', $transaction->transaction_code) }}"
                                                         class="btn btn-primary">
                                                         Bayar
                                                     </a>
                                                 </form>
-                                            @elseif ($transaction->status === 'failed')
+                                                {{-- @elseif ($transaction->status === 'failed')
                                                 <form action="{{ route('member.transaction.cancel', $transaction->id) }}"
                                                     method="POST"
                                                     onsubmit="return confirm('Apa anda yakin ingin membatalkan transaksi?');">
@@ -220,7 +228,7 @@
                                                     @method('DELETE')
                                                     <button type="submit" class="btn btn-danger btn-sm">Hapus
                                                         Transaksi</button>
-                                                </form>
+                                                </form> --}}
                                             @else
                                                 <div>
                                                     -

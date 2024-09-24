@@ -68,17 +68,11 @@
                         <div class="d-flex gap-3 align-items-center">
                             <div>
                                 @if (Auth::user()->avatar != 'default.png')
-                                <img
-                                    src="{{ asset('storage/images/avatars/' . Auth::user()->avatar) }}"
-                                    alt=""
-                                    width="60" height="60" class="rounded-circle"
-                                />
+                                    <img src="{{ asset('storage/images/avatars/' . Auth::user()->avatar) }}" alt=""
+                                        width="60" height="60" class="rounded-circle" />
                                 @else
-                                <img
-                                    src="{{ asset('nemolab/member/img/avatar.png') }}"
-                                    alt=""
-                                    width="60" height="60"
-                                />
+                                    <img src="{{ asset('nemolab/member/img/avatar.png') }}" alt="" width="60"
+                                        height="60" />
                                 @endif
                             </div>
                             <div class="text-dark">
@@ -88,35 +82,21 @@
                         </div>
                         <div class="nav mt-4 d-flex flex-column gap-3 fw-medium text-secondary">
                             <a href="#" class="nav-item active">
-                                <img
-                                    src="{{ asset('nemolab/member/img/course active.png') }}"
-                                    alt=""
-                                    width="30"
-                                    class="me-2"
-                                />Kursus Saya
+                                <img src="{{ asset('nemolab/member/img/course active.png') }}" alt=""
+                                    width="30" class="me-2" />Kursus Saya
                             </a>
                             <a href="{{ route('member.portofolio') }}" class="nav-item">
-                                <img
-                                    src="{{ asset('nemolab/member/img/portofolio active.png') }}"
-                                    alt=""
-                                    width="30"
-                                    class="me-2"
-                                />Profil Saya
+                                <img src="{{ asset('nemolab/member/img/portofolio active.png') }}" alt=""
+                                    width="30" class="me-2" />Profil Saya
                             </a>
                             <a href="{{ route('member.transaction') }}" class="nav-item">
-                                <img
-                                    src="{{ asset('nemolab/member/img/transaksi active.png') }}"
-                                    alt=""
-                                    width="30"
-                                    class="me-2"
-                                />Transaksi Saya
+                                <img src="{{ asset('nemolab/member/img/transaksi active.png') }}" alt=""
+                                    width="30" class="me-2" />Transaksi Saya
                             </a>
                         </div>
                         <div class="mt-4">
-                            <button id="tutup"
-                                class="profile-btn btn rounded-5 w-100 fw-medium text-white"
-                                type="button"
-                            >
+                            <button id="tutup" class="profile-btn btn rounded-5 w-100 fw-medium text-white"
+                                type="button">
                                 Tutup
                             </button>
                         </div>
@@ -125,22 +105,22 @@
 
                 <h3 class="fw-bold tittle mt-3">Kursus Saya</h3>
                 <div class="course row row-course mt-3 w-100">
-                    @foreach ($courses as $course)
-                        @if ($course->transactions->isNotEmpty())
+                    @if (!isset($courses) || count($courses) == 0)
+                        <div class="text-center p-0" style="margin-top: 150px;">Maaf Anda Belum Punya Course</div>
+                    @else
+                        @foreach ($courses as $course)
                             <div class="col-lg-4 col-md-6 col-lg-4 col-course mt-1 mb-2">
                                 <a href="{{ route('member.course.join', $course->slug) }}" class="text-black">
                                     <div class="card-course h-100 d-flex flex-row flex-md-column position-relative">
-                                        <div class="position-absolute d-block d-md-none" style="bottom: 5px; right: 10px;">
+                                        <div class="position-absolute d-block d-md-none"
+                                            style="bottom: 5px; right: 10px;">
                                             @if ($course->users->avatar != 'default.png')
-                                                <img
-                                                    src="{{ asset('storage/images/avatars/' . $course->users->avatar) }}"
+                                                <img src="{{ asset('storage/images/avatars/' . $course->users->avatar) }}"
                                                     alt="" width="16" height="16"
                                                     style="border-radius: 100%" />
                                             @else
-                                                <img
-                                                    src="{{ asset('nemolab/admin/img/avatar.png') }}"
-                                                    alt="" width="16" height="16"
-                                                    style="border-radius: 100%" />
+                                                <img src="{{ asset('nemolab/admin/img/avatar.png') }}" alt=""
+                                                    width="16" height="16" style="border-radius: 100%" />
                                             @endif
                                         </div>
                                         <div class="img-card">
@@ -185,8 +165,8 @@
                                     </div>
                                 </a>
                             </div>
-                        @endif
-                    @endforeach
+                        @endforeach
+                    @endif
                 </div>
             </div>
         </div>
@@ -200,11 +180,11 @@
             message[index].remove();
         }
 
-        document.getElementById("profile").addEventListener("click", function(){
-        document.querySelector(".sidebar-mobile").classList.add("active");
+        document.getElementById("profile").addEventListener("click", function() {
+            document.querySelector(".sidebar-mobile").classList.add("active");
         })
-        document.getElementById("tutup").addEventListener("click", function(){
-        document.querySelector(".sidebar-mobile").classList.remove("active");
+        document.getElementById("tutup").addEventListener("click", function() {
+            document.querySelector(".sidebar-mobile").classList.remove("active");
         })
     </script>
 @endpush

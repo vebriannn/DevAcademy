@@ -53,7 +53,7 @@ Route::get('/logout', [MemberLoginController::class, 'logout'])->name('member.lo
 Route::get('/register', [MemberRegisterController::class, 'index'])->name('member.register');
 Route::post('/register/store', [MemberRegisterController::class, 'store'])->name('member.register.auth');
 
-// login admin 
+// login admin
 Route::get('admin/login', [AdminLoginController::class, 'index'])->name('admin.login');
 Route::post('admin/login/auth', [AdminLoginController::class, 'login'])->name('admin.login.auth');
 Route::get('admin/logout', [AdminLoginController::class, 'logout'])->name('admin.logout');
@@ -98,7 +98,7 @@ Route::prefix('admin')->group(function () {
         Route::get('chapter/delete/{id_chapter}', [AdminChapterController::class, 'delete'])->name('admin.chapter.delete');
         Route::get('forum', [AdminForumController::class, 'index'])->name('admin.forum');
         // Route::get('/course/forum/{slug}', [AdminForumController::class, 'show'])->name('member.forum');
-        
+
 
         // Routes for lessons
         Route::get('{slug}/chapter/{id_chapter}/lesson', [AdminLessonController::class, 'index'])->name('admin.lesson');
@@ -170,8 +170,8 @@ Route::prefix('admin')->group(function () {
     //     Route::put('/edit/update/{id}', [AdminReviewController::class, 'update'])->name('admin.review.edit.update');
     //     Route::get('/delete/{id}', [AdminReviewController::class, 'delete'])->name('admin.review.delete');
     // });
-    
-    
+
+
     // Routes for categories
     Route::prefix('category')->middleware('mentor')->group(function () {
         Route::get('/', [AdminCategoryController::class, 'index'])->name('admin.category');
@@ -181,7 +181,7 @@ Route::prefix('admin')->group(function () {
         Route::put('/edit/update/{id}', [AdminCategoryController::class, 'update'])->name('admin.category.edit.update');
         Route::get('/delete/{id}', [AdminCategoryController::class, 'delete'])->name('admin.category.delete');
     });
-    
+
     // Routes for submissions
     Route::prefix('submission')->middleware('superadmin')->group(function () {
         Route::get('/', [AdminSubmissionController::class, 'index'])->name('admin.submissions');
@@ -199,7 +199,7 @@ Route::get('/course', [MemberCourseController::class, 'index'])->name('member.co
 Route::get('/course/join/{slug}', [MemberCourseController::class, 'join'])->name('member.course.join');
 
 Route::prefix('member')->middleware('student')->group(function () {
-    
+
     // pengajuan member
     Route::post('/request/mentor/{id}', [MemberMyCourseController::class, 'reqMentor'])->name('member.pengajuan');
 
@@ -252,12 +252,12 @@ Route::prefix('member')->middleware('student')->group(function () {
     Route::get('/detailpayment', function () {
         return view('member.dashboard.transaction.detail-payment'); // Nama view yang ingin ditampilkan
     });
-    
+
     Route::get('course/payment', [MemberPaymentController::class, 'index'])->name('member.payment');
     Route::post('course/payment/store', [MemberPaymentController::class, 'store'])->name('member.transaction.store');
-    
-    Route::get('/transaction/view/{id}', [MemberPaymentController::class, 'viewTransaction'])->name('member.transaction.view');
-    // Route::get('/transaction/callback', [MemberPaymentController::class, 'callback'])->name('member.transaction.callback.view');
+
+    Route::get('/transaction/view/{transaction_code}', [MemberPaymentController::class, 'viewTransaction'])->name('member.transaction.view');
+    Route::get('/transaction/detail/{transaction_code}', [MemberPaymentController::class, 'detailTransaction'])->name('member.transaction.detail.view');
 });
 
 

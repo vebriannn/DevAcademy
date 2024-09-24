@@ -40,6 +40,7 @@ class MemberCourseController extends Controller
     public function join($slug)
     {
         $course = Course::where('slug', $slug)->first();
+        // $reviews = Review::where('course_id', $course->id)->get();
 
         if ($course) {
             $chapters = Chapter::with('lessons')->where('course_id', $course->id)->get();
@@ -53,7 +54,6 @@ class MemberCourseController extends Controller
             if(Auth::user()){
                 $transaction = Transaction::where('user_id', Auth::user()->id)
                     ->where('course_id', $course->id)
-                    ->orderBy('created_at', 'desc')
                     ->first();
             }
             else {

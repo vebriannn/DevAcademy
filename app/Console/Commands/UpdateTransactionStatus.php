@@ -39,10 +39,10 @@ class UpdateTransactionStatus extends Command
                     'authorization' => 'Basic U0ItTWlkLXNlcnZlci1pNU9GbWpiR1ppSGc5cVBHVmg3MHdHcTI6',
                 ],
             ]);
-        
+
             // Decode the response JSON
             $responseData = json_decode($response->getBody()->getContents(), true);
-        
+
             // Check if the transaction status is 'expire'
             if ($responseData['transaction_status'] === 'expire') {
                 // Update the status of the transaction to 'failed'
