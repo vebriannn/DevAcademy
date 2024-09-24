@@ -20,11 +20,11 @@
                         <p class="m-0 ms-2 fw-light" style="font-size: 14px">Tanggal Rilis:
                             {{ $course->created_at->format('d F Y') }}</p>
                     </div>
-                    <div class="rating d-flex ms-1 my-1 my-0 align-items-center">
-                        <p class="m-0 ms-0 ms-md-5 me-2 fw-medium" style="font-size: 14px">4.9</p>
-                        @for ($i = 0; $i < 5; $i++)
+                    <div class="rating d-flex ms-1 my-1 my-0 align-items-center {{ $course->rating == '0' ? 'd-none' : ''}}">
+                        <p class="m-0 ms-0 ms-md-5 me-2 fw-medium" style="font-size: 14px">{{ $course->rating }}</p>
+                        @for ($i = 0; $i < intval($course->rating); $i++)
                             <img src="{{ asset('nemolab/member/img/star.png') }}" alt="" width="19"
-                                height="19" />
+                                heaight="19" />
                         @endfor
                     </div>
                 </div>
@@ -187,7 +187,7 @@
                 </div>
             </div>
         @endif
-{{-- 
+{{--
         <div class="row">
             <div class="col-12">
                 <h4 class="fw-semibold mb-4">Ulasan</h4>
