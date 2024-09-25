@@ -19,12 +19,17 @@ class MemberCommentController extends Controller
         $checkTrx = Transaction::where('course_id', $course->id)->where('user_id', Auth::user()->id)->first();
         $forum = $course->forum()->with('comments.replies')->firstOrFail();
         $comments = $forum->comments()->whereNull('parent_id')->with('replies')->paginate(10);
-        if($checkTrx){
+        if(Auth::user()->role != 'students') {
             return view('member.forum', compact('course', 'forum', 'comments'));
         }
-        else{
-            Alert::error('error', 'Maaf Akses Tidak Bisa, Karena Anda belum Beli Kelas!!!');
-            return redirect()->route('member.course.join', $slug);
+        else {
+            if($checkTrx){
+                return view('member.forum', compact('course', 'forum', 'comments'));
+            }
+            else{
+                Alert::error('error', 'Maaf Akses Tidak Bisa, Karena Anda belum Beli Kelas!!!');
+                return redirect()->route('member.course.join', $slug);
+            }
         }
     }
 
