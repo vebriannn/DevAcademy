@@ -79,7 +79,7 @@ class MemberCommentController extends Controller
     {
         $replies = Comments::where('parent_id', $comment_id)
             ->with('user')
-            ->orderBy('created_at', 'desc')
+            ->orderBy('created_at', 'ASC')
             ->get();
         return view('member.replies', compact('replies'));
     }

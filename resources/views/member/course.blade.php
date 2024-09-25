@@ -128,7 +128,7 @@
         getDataCourse();
 
         function getDataCourse() {
-            fetch('https://testlms.nemolab.id/api/v1/course/category?q=' + query)
+            fetch('http://127.0.0.1:8000/api/v1/course/category?q=' + query)
                 .then(response => response.json())
                 .then(data => {
                     const courses = data.data;
@@ -151,7 +151,7 @@
                 <img src="${course.cover_course}" class="img-card" alt="${course.title_course}">
             </div>
             <div class="container-card px-3">
-                <p class="produck-title text-black fw-medium mb-0 mb-md-2 mt-2 mt-md-0">${course.category_course}: ${course.title_course}</p>   
+                <p class="produck-title text-black fw-medium mb-0 mb-md-2 mt-2 mt-md-0">${course.category_course}: ${course.title_course}</p>
                 <div class="profile-card d-none d-md-flex align-items-center">
                     <img src="${courseData.avatars_mentor}" alt="${courseData.name_mentor}" class="card-img-profile" style="border-radius: 100%;">
                     <p class="profile-mentor text-black m-0 ms-2 fw-medium">${courseData.name_mentor}</p>

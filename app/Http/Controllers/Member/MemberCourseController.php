@@ -44,6 +44,7 @@ class MemberCourseController extends Controller
 
         if ($course) {
             $chapters = Chapter::with('lessons')->where('course_id', $course->id)->get();
+            $coursetools = Course::with('tools')->findOrFail($course->id);
 
             if ($chapters->isNotEmpty()) {
                 $lesson = Lesson::with('chapters')->where('chapter_id', $chapters->first()->id)->first();
@@ -53,24 +54,19 @@ class MemberCourseController extends Controller
 
             if(Auth::user()){
                 $transaction = Transaction::where('user_id', Auth::user()->id)
-                    ->where('course_id', $course->id)
-                    ->first();
+                ->where('course_id', $course->id)
+                ->first();
             }
             else {
                 $transaction = null;
             }
 
             $transactionForEbook = null;
-        } else {
-            $chapters = collect();
-            $lesson = null;
-            $transaction = null;
-            $transactionForEbook = null;
+            return view('member.joincourse', compact('chapters', 'course', 'lesson', 'transaction', 'transactionForEbook', 'coursetools'));
         }
-
-        $coursetools = Course::with('tools')->findOrFail($course->id);
-
-        return view('member.joincourse', compact('chapters', 'course', 'lesson', 'transaction', 'transactionForEbook', 'coursetools'));
+        else {
+            return view('error.page404');
+        }
     }
 
 

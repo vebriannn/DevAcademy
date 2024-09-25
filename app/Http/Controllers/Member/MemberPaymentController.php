@@ -97,6 +97,9 @@ class MemberPaymentController extends Controller
                         'name' => $User->name,
                         'email' => $User->email,
                     ],
+                    'callbacks' => [
+                        'finish' => route('member.transaction.detail.view', $transaction_code),
+                    ],
                 ];
 
                 $createdTransactionMidtrans = \Midtrans\Snap::createTransaction($params);
@@ -157,7 +160,7 @@ class MemberPaymentController extends Controller
                     'course_id' => $transaction->course_id, // Pastikan ini valid
                 ]);
             } catch (\Exception $e) {
-                \Log::error("Failed to create MyListCourse: " . $e->getMessage());
+                \Log::error('Failed to create MyListCourse: ' . $e->getMessage());
             }
         }
     }
@@ -174,12 +177,12 @@ class MemberPaymentController extends Controller
         return redirect()->to($url);
     }
 
-    public function detailTransaction(Request $requests, $transaction_code) {
+    public function detailTransaction(Request $requests, $transaction_code)
+    {
         $transaction = Transaction::where('transaction_code', $transaction_code)->first();
-        if($transaction->status != 'pending') {
+        if ($transaction && $transaction->status != 'pending') {
             return view('member.dashboard.transaction.detail-payment', compact('transaction'));
-        }
-        else {
+        } else {
             return view('error.page404');
         }
     }

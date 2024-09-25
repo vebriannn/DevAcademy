@@ -16,7 +16,8 @@
                 <img src="{{ asset('nemolab/member/img/Failed-Icons.png') }}" alt="" width="60" height="60">
                 <p class="mt-3 mb-0" style="color: #474747">Pembayaran Gagal!</p>
             @endif
-            <h4 class="mt-2">IDR {{ $transaction->price == 0 ? '0' : number_format(($transaction->price - 5000) / 1.11) }}</h4>
+            <h4 class="mt-2">IDR {{ $transaction->price == 0 ? '0' : number_format(($transaction->price - 5000) / 1.11) }}
+            </h4>
         </div>
 
         <div class="payment-detail mt-4 d-flex flex-column mx-auto">
@@ -42,16 +43,16 @@
             </div>
             <div class="d-flex justify-content-between">
                 <p class="gray-text">PPN</p>
-                <p class="fw-semibold" style="font-size: 14px">{{ $transaction->price == 0 ? '0%' : '11%'}}</p>
+                <p class="fw-semibold" style="font-size: 14px">{{ $transaction->price == 0 ? '0%' : '11%' }}</p>
             </div>
             <div class="d-flex justify-content-between">
                 <p class="gray-text">Services Fee Per Students</p>
-                <p class="fw-semibold" style="font-size: 14px">IDR {{ $transaction->price == 0 ? '0' : '5,000'}}</p>
+                <p class="fw-semibold" style="font-size: 14px">IDR {{ $transaction->price == 0 ? '0' : '5,000' }}</p>
             </div>
 
             <div class="d-flex justify-content-between">
                 <p class="gray-text">Payment Time</p>
-                <p class="fw-semibold" style="font-size: 14px">{{ $transaction->created_at }}</p>
+                <p class="fw-semibold" style="font-size: 14px">{{ $transaction->created_at->format('d-m-Y') }}</p>
             </div>
             <div class="d-flex justify-content-between mt-4">
                 <p class="gray-text">Total Payment</p>
@@ -65,5 +66,20 @@
             </button>
         </div> --}}
     </div>
+
+    <script>
+        // Menghapus query string dari URL
+        if (window.location.search.length > 0) {
+            const newUrl = window.location.origin + window.location.pathname;
+            window.history.replaceState({}, document.title, newUrl);
+        }
+
+        const transactionUrl = "{{ route('member.transaction') }}"; // Menggunakan blade syntax
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('backLink').onclick = function() {
+                window.location.href = transactionUrl; // Mengalihkan ke URL
+            };
+        });
+    </script>
 
 @endsection
