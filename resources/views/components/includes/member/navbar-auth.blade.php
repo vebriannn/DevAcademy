@@ -1,3 +1,4 @@
+<!-- NAVBAR -->
 <div class="container">
     <nav class="navbar navbar-expand-lg fixed-top bg-white px-5 z-5">
         <div class="container-fluid">

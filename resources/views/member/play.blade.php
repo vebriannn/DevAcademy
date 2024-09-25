@@ -12,12 +12,11 @@
         <div class="row mt-4">
             <div class="col-lg-3 col-md-3 col-sm-12 sidebar">
                 <div class="card costum-card">
-                    <p class="text-center text-white fw-semibold mt-4">Materi</p>
-                    <hr>
-                    <div class="d-grid gap-2 px-3 mt-4">
+                    <p class="text-center fs-5 text-white fw-bold pt-2 border-bottom">Materi</p>
+                    <div class="d-grid gap-2 px-3">
                         @foreach ($chapters as $chapter)
                             <div class="accordion" id="accordionPanelsStayOpenExample">
-                                <div class="accordion-item mt-2">
+                                <div class="accordion-item mt-3">
                                     <h2 class="accordion-header">
                                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                                             data-bs-target="#panelsStayOpen-collapse-{{ $loop->iteration }}"
@@ -28,17 +27,17 @@
                                 </div>
                                 <div id="panelsStayOpen-collapse-{{ $loop->iteration }}"
                                     class="accordion-collapse collapse">
-                                    <div class="accordion-body">
-                                            @foreach ($chapter->lessons as $lesson)
+                                    @foreach ($chapter->lessons as $lesson)
+                                        <div class="accordion-body" style="background-color: #ffefce">
                                             <a href="{{ route('member.course.play', ['slug' => $slug, 'episode' => $lesson->episode]) }}"
-                                                class="btn btn-primary btn-video d-flex justify-content-between">
+                                                class="btn btn-primary btn-video mx-auto mt-3 d-flex justify-content-between">
                                                 <div class="d-flex play">
                                                     <img src="{{ asset('nemolab\member\img\play.png') }}" alt="">
-                                                    <p class="ms-3 my-auto lesson-text">{{ $lesson->name }}</p>
+                                                    <p class="ms-2 my-auto opacity-75 lesson-text">{{ $lesson->name }}</p>
                                                 </div>
                                             </a>
-                                            @endforeach
                                         </div>
+                                    @endforeach
                                 </div>
                             </div>
                         @endforeach
@@ -54,21 +53,21 @@
             <div class="about col-lg-9 col-md-9 col-sm-12 d-flex mt-3">
                 <div class="wrapper">
                     <div class="title-deskripsi">
-                        <h4 class="mb-0 fw-semibold">{{ $course->name }}</h4>
-                        <p style="font-size: 15px">Materi bagian: {{ $play->name }}</p>
+                        <h4>{{ $course->name }}</h4>
+                        <p>Materi bagian: {{ $play->name }}</p>
                     </div>
                     <div class="profile-mentor d-flex align-items-center">
                         @if ($user->avatar != 'default.png')
                             <img src="{{ asset('storage/images/avatars/' . $user->avatar) }}" alt=""
-                                style="border-radius:100%; width: 35px; height: 35px;">
+                                style="border-radius:100%; width: 50px; height: 50px;">
                         @else
                             <img src="{{ asset('nemolab/admin/img/avatar.png') }}" alt=""
-                                style="border-radius:100%; width: 35px; height: 35px;">
+                                style="border-radius:100%; width: 50px; height: 50px;">
                         @endif
-                        <p class="m-0 ms-2">{{ $user->name }}</p>
+                        <p class="m-0 ms-2 fs-5">{{ $user->name }}</p>
                     </div>
                     <div class="resource">
-                        <h5 class="fw-semibold mt-3">Sumber Daya</h5>
+                        <h4 class="fw-bold mt-3">Sumber Daya</h4>
                         <div class="row">
                             @if ($course->resources != 'null')
                                 <div class="d-flex course-option download mt-3">

@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Str;
 
 class Ebook extends Model
 {
@@ -17,46 +16,23 @@ class Ebook extends Model
         'name',
         'type',
         'status',
+        'level',
         'price',
         'description',
-        'ebook',
-        'mentor_id',
-        'slug'
+        'link',
+        'mentor_id'
     ];
 
-    protected static function boot()
-    {
-        parent::boot();
-
-        static::creating(function ($ebook) {
-            $ebook->slug = self::generateUniqueSlug($ebook->name);
-        });
-
-        static::updating(function ($ebook) {
-            if ($ebook->isDirty('name')) {
-                $ebook->slug = self::generateUniqueSlug($ebook->name);
-            }
-        });
-    }
-
-    public static function generateUniqueSlug($name)
-    {
-        $slug = Str::slug($name);
-        $count = static::where('slug', 'LIKE', "{$slug}%")->count();
-
-        return $count ? "{$slug}-{$count}" : $slug;
-    }
-
+    // Define the relationship with Course
     public function course()
     {
         return $this->belongsTo(Course::class, 'course_id');
     }
-
+    // Define the relationship with User
     public function mentor()
     {
         return $this->belongsTo(User::class, 'mentor_id', 'id');
     }
-
     public function transactions()
     {
         return $this->hasMany(Transaction::class);

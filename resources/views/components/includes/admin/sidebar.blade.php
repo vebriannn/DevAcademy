@@ -33,11 +33,6 @@
             alt="" width="30" />
         <p class="m-0">Kursus Video</p>
     </a>
-    <a href="{{ route('admin.ebook') }}" class="list-sidebar {{ request()->is('admin/course/ebook') ? 'active' : '' }}">
-        <img src="{{ asset(request()->is('admin/course/ebook') ? 'nemolab/admin/img/datacourses-active.png' : 'nemolab/admin/img/datacourses.png') }}"
-            alt="" width="30" />
-        <p class="m-0">Buku</p>
-    </a>
 
     <a href="{{ route('admin.category') }}"
         class="list-sidebar {{ request()->is('admin/category') ? 'active' : '' }}">

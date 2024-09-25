@@ -1,6 +1,6 @@
 @extends('components.layouts.member.app')
 
-@section('title', 'Nemolab - Kursus Online')
+@section('title', 'Course')
 
 @push('prepend-style')
     <link rel="stylesheet" href="{{ asset('nemolab/member/css/course.css') }} ">
@@ -29,7 +29,7 @@
                 </div>
             </div>
 
-            <div class="container" style="margin-top: 5rem;">
+            <div class="container py-3" style="margin-top: 5rem;">
                 <div class="row">
                     <div class="dropdown d-flex d-lg-none">
                         <a class="dropdown-toggle text-white rounded-3 fw-medium btn mb-3" href="#" role="button" data-bs-toggle="dropdown"
@@ -176,7 +176,7 @@
                         const courseElement = document.createElement('div');
                         courseElement.className =
                             'col-12 d-flex justify-content-center align-items-center fw-medium';
-                        courseElement.innerHTML = `Maaf Kursus Belum Tersedia`
+                        courseElement.innerHTML = `Maaf Course Belum Tersedia`
                         courseContainer.appendChild(courseElement);
                     }
 

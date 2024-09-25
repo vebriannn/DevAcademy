@@ -15,6 +15,23 @@ body::-webkit-scrollbar {
 .playlist::-webkit-scrollbar {
     display: none;
 }
+
+/* Navbar */
+
+.nav-link {
+    font-weight: normal;
+    color: #000;
+}
+.nav-link:hover {
+    color: #faa907;
+}
+
+.active {
+    color: #faa907 !important;
+    font-weight: 600;
+}
+/* End Navbar */
+
 .playlist {
     overflow-y: scroll;
     width: 100%;
@@ -122,7 +139,7 @@ body::-webkit-scrollbar {
         flex-wrap: wrap;
     }
 }
-@media (min-width: 576px) and (max-width: 992px) {
+/* @media (min-width: 576px) and (max-width: 992px) {
     .carousel-item p {
         font-size: 13px !important;
     }
@@ -132,13 +149,7 @@ body::-webkit-scrollbar {
     .carousel-indicators .next img {
         right: 10rem !important;
     }
-    .desc-ulasan {
-        font-size: 13px;
-    }
-    .name-autor h5 {
-        font-size: 15px !important;
-    }
-}
+} */
 @media (max-width: 576px) {
     .tools .d-flex {
         display: flex;
@@ -165,20 +176,10 @@ body::-webkit-scrollbar {
         margin-left: 0.7rem;
         /* margin-top: -40px; */
     }
-    .carousel-indicators .prev img {
-        left: 3rem !important;
+    /* .carousel-indicators .prev img {
+        left: 0 !important;
     }
     .carousel-indicators .next img {
-        right: 3rem !important;
-    }
-    .name-autor h5 {
-        font-size: 14px !important;
-    }
-    .img-autor {
-        width: 35px;
-        height: 35px;
-    }
-    .desc-ulasan {
-        font-size: 13px;
-    }
+        right: 0 !important;
+    } */
 }

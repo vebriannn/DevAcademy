@@ -10,7 +10,7 @@ body {
 }
 
 .btn-primary {
-    background-color: var(--c-brand) !important;
+    background-color: var(--c-brand);
     border: none;
 }
 
@@ -48,9 +48,7 @@ body {
     background-color: var(--c-brand-dark);
     color: white;
 }
-textarea {
-    resize: none;
-}
+
 thead,
 tbody,
 th,
