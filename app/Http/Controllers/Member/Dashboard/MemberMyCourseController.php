@@ -22,7 +22,7 @@ class MemberMyCourseController extends Controller
         // Ambil semua kursus yang cocok dengan course_id yang ada
         $courses = Course::whereIn('id', $courseIds)->get();
 
-        $total_course = Transaction::where('user_id', Auth::user()->id)->count();
+        $total_course = Transaction::where('user_id', Auth::user()->id)->where('status', 'success')->count();
         $submission = Submission::where('user_id', Auth::user()->id)->first();
         return view('member.dashboard.mycourse', compact('courses', 'submission', 'total_course'));
     }

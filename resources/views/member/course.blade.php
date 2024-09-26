@@ -128,7 +128,7 @@
         getDataCourse();
 
         function getDataCourse() {
-            fetch('http://127.0.0.1:8000/api/v1/course/category?q=' + query)
+            fetch('https://68f9-103-18-35-101.ngrok-free.app/api/v1/course/category?q=' + query)
                 .then(response => response.json())
                 .then(data => {
                     const courses = data.data;

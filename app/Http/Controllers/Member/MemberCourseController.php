@@ -65,7 +65,7 @@ class MemberCourseController extends Controller
             return view('member.joincourse', compact('chapters', 'course', 'lesson', 'transaction', 'transactionForEbook', 'coursetools'));
         }
         else {
-            return view('error.page404');
+            return redirect('pages.error');
         }
     }
 
@@ -82,7 +82,12 @@ class MemberCourseController extends Controller
         $checkReview = Review::where('user_id', Auth::user()->id)->first();
 
         if($checkTrx) {
-            return view('member.play', compact('play', 'chapters', 'slug', 'course', 'user', 'checkReview'));
+            if($play) {
+                return view('member.play', compact('play', 'chapters', 'slug', 'course', 'user', 'checkReview'));
+            }
+            else {
+                return redirect('pages.error');
+            }
         }
         else {
             Alert::error('error', 'Maaf Akses Tidak Bisa, Karena Anda belum Beli Kelas!!!');
