@@ -91,7 +91,7 @@
                                 </a>
                             </div>
                             <div class="d-flex course-option konsultasi ms-3 mt-3">
-                                <a href="{{ route('member.forum', ['slug' => $course->slug]) }}" target="_blank"
+                                <a href="{{ route('member.forum', ['slug' => $course->slug]) }}"
                                     class="btn btn-download d-flex align-items-center">
                                     <img src="{{ asset('nemolab/member/img/konsultasi.png') }}" alt="Consultation Icon"
                                         style="border-radius:100%;">
