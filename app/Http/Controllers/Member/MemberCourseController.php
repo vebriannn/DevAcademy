@@ -77,7 +77,7 @@ class MemberCourseController extends Controller
         $user = User::where('id', $course->mentor_id)->first();
         $chapters = Chapter::with('lessons')
             ->where('course_id', $course->id)
-            ->orderBy('created_at', 'asc')
+            ->orderBy('id', 'ASC')
             ->get();
         $play = Lesson::where('episode', $episode)->first();
         $checkTrx = Transaction::where('course_id', $course->id)

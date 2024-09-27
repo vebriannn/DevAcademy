@@ -20,7 +20,7 @@ class MemberMyCourseController extends Controller
         // Ambil semua course_id dari daftar
         $courseIds = $lists->pluck('course_id');
         // Ambil semua kursus yang cocok dengan course_id yang ada
-        $courses = Course::whereIn('id', $courseIds)->get();
+        $courses = Course::whereIn('id', $courseIds)->orderBy('id', 'DESC')->get();
 
         $total_course = Transaction::where('user_id', Auth::user()->id)->where('status', 'success')->count();
         $submission = Submission::where('user_id', Auth::user()->id)->first();
