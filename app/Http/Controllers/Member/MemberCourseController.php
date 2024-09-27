@@ -28,10 +28,10 @@ class MemberCourseController extends Controller
 
         $addData = [
             'id' => 0,
-            'name' => 'All'
+            'name' => 'All',
         ];
 
-        $newCategory = $category->push((object)$addData);
+        $newCategory = $category->push((object) $addData);
         $sortedCategory = $newCategory->sortBy('id');
 
         return view('member.course', compact('sortedCategory'));
@@ -43,53 +43,56 @@ class MemberCourseController extends Controller
         // $reviews = Review::where('course_id', $course->id)->get();
 
         if ($course) {
-            $chapters = Chapter::with('lessons')->where('course_id', $course->id)->get();
+            $chapters = Chapter::with('lessons')
+                ->where('course_id', $course->id)
+                ->get();
             $coursetools = Course::with('tools')->findOrFail($course->id);
 
             if ($chapters->isNotEmpty()) {
-                $lesson = Lesson::with('chapters')->where('chapter_id', $chapters->first()->id)->first();
+                $lesson = Lesson::with('chapters')
+                    ->where('chapter_id', $chapters->first()->id)
+                    ->first();
             } else {
                 $lesson = null;
             }
 
-            if(Auth::user()){
+            if (Auth::user()) {
                 $transaction = Transaction::where('user_id', Auth::user()->id)
-                ->where('course_id', $course->id)
-                ->first();
-            }
-            else {
+                    ->where('course_id', $course->id)
+                    ->first();
+            } else {
                 $transaction = null;
             }
 
             $transactionForEbook = null;
             return view('member.joincourse', compact('chapters', 'course', 'lesson', 'transaction', 'transactionForEbook', 'coursetools'));
-        }
-        else {
+        } else {
             return redirect('pages.error');
         }
     }
-
-
 
     public function play($slug, $episode)
     {
         $course = Course::where('slug', $slug)->first();
         $user = User::where('id', $course->mentor_id)->first();
-        $chapters = Chapter::with('lessons')->where('course_id', $course->id)->get();
+        $chapters = Chapter::with('lessons')
+            ->where('course_id', $course->id)
+            ->orderBy('created_at', 'asc') // Urutkan berdasarkan tanggal dibuat
+            ->get();
         $play = Lesson::where('episode', $episode)->first();
-        $checkTrx = Transaction::where('course_id', $course->id)->where('user_id', Auth::user()->id)->first();
+        $checkTrx = Transaction::where('course_id', $course->id)
+            ->where('user_id', Auth::user()->id)
+            ->first();
 
         $checkReview = Review::where('user_id', Auth::user()->id)->first();
 
-        if($checkTrx) {
-            if($play) {
+        if ($checkTrx) {
+            if ($play) {
                 return view('member.play', compact('play', 'chapters', 'slug', 'course', 'user', 'checkReview'));
-            }
-            else {
+            } else {
                 return redirect('pages.error');
             }
-        }
-        else {
+        } else {
             Alert::error('error', 'Maaf Akses Tidak Bisa, Karena Anda belum Beli Kelas!!!');
             return redirect()->route('member.course.join', $slug);
         }
