@@ -92,7 +92,7 @@
                 const url = this.href; // Get the URL from the button's href attribute
                 Swal.fire({
                     title: 'Delete',
-                    text: "Apakah Anda Yakin Delete Chapter?",
+                    text: "Apakah Anda Yakin Delete Lesson?",
                     icon: 'warning',
                     showCancelButton: true,
                     confirmButtonColor: '#3085d6',
