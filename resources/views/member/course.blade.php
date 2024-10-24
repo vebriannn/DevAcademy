@@ -3,78 +3,85 @@
 @section('title', 'Nemolab - Kursus Online')
 
 @push('prepend-style')
+    <link rel="stylesheet" href="{{ asset('nemolab/components/member/css/sidebar-filter.css') }} ">
     <link rel="stylesheet" href="{{ asset('nemolab/member/css/course.css') }} ">
-@endpush
+    @endpush
 
 @section('content')
     <!-- CONTENT -->
-    <section id="course">
-        <div class="container-sm ">
-            <!-- alert -->
-            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Konfirmasi</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            Apakah Anda yakin ingin menjadi mentor?
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
-                            <button type="button" class="btn-alert">Yes</button>
-                        </div>
+    <section class="section-pilh-kelas" id="section-pilih-kelas">
+        <div class="container-fluid mt-5 pt-5">
+            <div class="row">
+                <div class="col-12 mb-5 d-lg-none">
+                    <h3 class="fw-bold">Pilihan Kelas</h3>
+                    <div class="filter-menu d-flex justify-content-between align-items-center">
+                        <form action="{{ route('member.course') }}" method="GET" class="d-flex">
+                            <div class="row">
+                                <div class="search">
+                                    <input type="text" name="search-input" class="searchTerm" placeholder="Cari Kelas Disini" id="search-input" value="{{ request('search-input') }}">
+                                    <button type="submit" class="searchButton">
+                                        <i class="bi bi-search"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>                        
+                        <button class="filter-togle btn btn-warning">
+                            <img src="{{ asset('nemolab/components/member/img/filter.png') }}" alt="">
+                        </button>
                     </div>
                 </div>
-            </div>
-
-            <div class="container" style="margin-top: 5rem;">
-                <div class="row">
-                    <div class="dropdown d-flex d-lg-none">
-                        <a class="dropdown-toggle text-white rounded-3 fw-medium btn mb-3" href="#" role="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">
-                            Kategori
-                        </a>
-
-                        <ul class="dropdown-menu scroll-sidebar" id="dropdown">
-                            @foreach ($sortedCategory as $item)
-                                <div class="form-check me-3">
-                                    <input class="form-check-input radiofilter-mobile" type="radio"
-                                        id="radiofilter-{{ $loop->iteration }}">
-                                    <label class="form-check-label ms-2 fw-medium" for="radiofilter-{{ $loop->iteration }}">
-                                        {{ $item->name }}
-                                    </label>
+                @include('components.includes.member.sidebar-filter')
+    
+                <!-- Cards -->
+                <div class="card-container col-md-9 pe-4" id="course-card">
+                    <div class="row">
+                        @if($courses->isEmpty())
+                            <!-- jika tidak ada kursus -->
+                            <div class="col-md-12 d-flex justify-content-center align-items-center">
+                                <div class="not-found text-center">
+                                    <img src="{{ asset('nemolab/member/img/search-not-found.png') }}" class="logo-not-found w-50 h-50" alt="Not Found">
+                                    <p class="mt-3">Kelas Yang Kamu Cari Tidak Tersedia</p>
+                                </div>
+                            </div>
+                        @else
+                            @foreach($courses as $course)
+                                <div class="col-md-4 col-12 d-flex justify-content-center pb-3">
+                                    <div class="card d-flex flex-row d-md-block">
+                                        <img src="{{ asset('storage/images/covers/' . $course->cover) }}" class="card-img-top d-none d-md-block" alt="{{ $course->name }}" />
+                                        <div class="card-head d-block d-md-none">
+                                            <img src="{{ asset('storage/images/covers/' . $course->cover) }}" class="card-img-top" alt="{{ $course->name }}" />
+                                            <div class="harga mt-4">
+                                                <p class="p-0 m-0 fw-semibold">Harga</p>
+                                                <p class="p-0 m-0 fw-bold">{{ $course->price == 0 ? 'Gratis' : 'Rp' . number_format($course->price, 0, ',', '.') }}</p>
+                                            </div>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="paket d-flex">
+                                                <p class="paket-item mt-md-2">Kursus</p>
+                                                <p class="paket-item mt-md-2">E-book</p>
+                                            </div>
+                                            <div class="title-card">
+                                                <h5 class="fw-bold truncate-text">{{ $course->category }} : {{ $course->name }}</h5>
+                                                <p class="avatar m-0 fw-bold me-1"><img src="{{ asset('storage/images/avatars/' . $course->users->avatar) }}" alt="" />{{ $course->users->name }}</p>
+                                            </div>
+                                            <div class="btn-group-harga d-flex justify-content-between align-items-center mt-md-3">
+                                                <div class="harga d-none d-md-block">
+                                                    <p class="p-0 m-0 fw-semibold">Harga</p>
+                                                    <p class="p-0 m-0 fw-semibold">{{ $course->price == 0 ? 'Gratis' : 'Rp' . number_format($course->price, 0, ',', '.') }}</p>
+                                                </div>
+                                                <a href="{{ route('member.course.join', $course->slug) }}" class="btn btn-primary">Mulai Belajar</a>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             @endforeach
-                        </ul>
-                    </div>
-
-                    <div class="col-3 d-none d-lg-block rounded-3" style="height: 600px; background-color: #faa907;">
-                        <div class="card-category d-flex flex-column full-width-border">
-                            <p class="text-center mt-4">Kategori</p>
-                            <hr class="opacity-100 m-0">
-                            <div class="checkbox scroll-sidebar mt-4">
-                                @foreach ($sortedCategory as $item)
-                                    <div class="form-check">
-                                        <input class="form-check-input radiofilter" type="radio"
-                                            id="radiofilter-{{ $loop->iteration }}">
-                                        <label class="form-check-label ms-2" for="radiofilter-{{ $loop->iteration }}">
-                                            {{ $item->name }}
-                                        </label>
-                                    </div>
-                                @endforeach
-
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row col-12 col-lg-9 mx-auto d-flex overflow-y-scroll" id="course-container">
+                        @endif
                     </div>
                 </div>
             </div>
         </div>
     </section>
+    
 
     {{-- <div class="right d-flex">
         <img src="http://127.0.0.1:8000/nemolab/member/img/star.png" style="height: 20px; margin-top: -1px;" alt="">
@@ -82,113 +89,56 @@
     </div> --}}
 @endsection
 @push('addon-script')
-    <script>
-        // variabel
-        var btnRadio = document.querySelectorAll('.radiofilter');
-        var btnRadioMobile = document.querySelectorAll('.radiofilter-mobile');
-        var query = "all";
+<script>
+    document.querySelector('.filter-togle').addEventListener('click', function() {
+        const sidebar = document.querySelector('.sidebar');
+        sidebar.classList.toggle('show-sidebar'); // Toggle class untuk menampilkan atau menyembunyikan sidebar
+    });
+  </script>
+<script>
+    function elementFollowScroll(object, sectionContainer, topMargin, stopOn = false, footer) {
+        $(window).on("scroll", function() {
+            if ($(window).width() > 928) { 
+                let originalY = sectionContainer.offset().top;
+                let scrollTop = $(window).scrollTop();
+                let footerTop = footer.offset().top; 
+                let sidebarHeight = object.outerHeight(true); 
+                let stopPoint = footerTop - sidebarHeight - topMargin; 
 
-        btnRadioMobile.forEach(btnMobile => {
-            if (btnMobile.checked == false) {
-                btnRadioMobile[0].checked = true
-            }
-
-            btnMobile.addEventListener('click', function() {
-                btnRadioMobile.forEach(radioMobile => {
-                    radioMobile.checked = false;
-                })
-
-                this.checked = true;
-
-                // ubah value query
-                query = query = document.querySelector(`label[for="${this.id}"]`)
-                    .textContent;
-                getDataCourse();
-            })
-        });
-
-        // check radio aktif
-        btnRadio.forEach(btn => {
-            if (btn.checked == false) {
-                btnRadio[0].checked = true
-            }
-            btn.addEventListener('click', function() {
-                btnRadio.forEach(radio => {
-                    radio.checked = false;
-                })
-                this.checked = true;
-
-                // ubah value query
-                query = query = document.querySelector(`label[for="${this.id}"]`).textContent;
-                getDataCourse();
-            })
-        });
-
-
-        getDataCourse();
-
-        function getDataCourse() {
-            fetch('http://127.0.0.1:8000/api/v1/course/category?q=' + query)
-                .then(response => response.json())
-                .then(data => {
-                    const courses = data.data;
-                    const courseContainer = document.getElementById('course-container');
-
-                    // Menghapus semua elemen anak dari courseContainer
-                    courseContainer.innerHTML = '';
-
-                    if (courses.message != "notfound") {
-                        courses.forEach(courseData => {
-                            courseData.course.forEach(course => {
-                                const courseElement = document.createElement('div');
-                                courseElement.className =
-                                    'col-12 col-md-4 col-lg-4 card-parent';
-                                    courseElement.innerHTML = `
-    <a href="#" data-slug-course="${course.slug_course}" onclick="setCourseUrl(this)" style="text-decoration: none;">
-        <div class="card-course d-flex d-md-block mt-3 mt-md-1 position-relative">
-            <img src="${courseData.avatars_mentor}" alt="${courseData.name_mentor}" class="card-img-profile d-md-none position-absolute" style="border-radius: 100%;">
-            <div>
-                <img src="${course.cover_course}" class="img-card" alt="${course.title_course}">
-            </div>
-            <div class="container-card px-3">
-                <p class="produck-title text-black fw-medium mb-0 mb-md-2 mt-2 mt-md-0">${course.category_course}: ${course.title_course}</p>   
-                <div class="profile-card d-none d-md-flex align-items-center">
-                    <img src="${courseData.avatars_mentor}" alt="${courseData.name_mentor}" class="card-img-profile" style="border-radius: 100%;">
-                    <p class="profile-mentor text-black m-0 ms-2 fw-medium">${courseData.name_mentor}</p>
-                </div>
-                <div class="price mt-1 mb-2 my-md-2">
-                    <p class="text-black mb-0 fw-light">Rp. ${course.price_course}</p>
-                </div>
-                <div class="status d-flex">
-                    <div class="d-inline-flex">
-                        <p>Video</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </a>
-`;
-
-                                courseContainer.appendChild(courseElement);
-                            });
-                        });
+                if (stopOn === false) {
+                    let newTop = scrollTop < originalY ? 0 : scrollTop - originalY + topMargin;
+                    if (scrollTop + sidebarHeight + topMargin >= footerTop) {
+                        object.stop(false, false).animate({ top: stopPoint - originalY }, 50);
                     } else {
-                        const courseElement = document.createElement('div');
-                        courseElement.className =
-                            'col-12 d-flex justify-content-center align-items-center fw-medium';
-                        courseElement.innerHTML = `Maaf Kursus Belum Tersedia`
-                        courseContainer.appendChild(courseElement);
+                        object.stop(false, false).animate({ top: newTop }, 50);
                     }
+                } else {
+                    let newTop = scrollTop < originalY ? 0 : Math.min(sectionContainer.height() - object.height() - 52, scrollTop - originalY + topMargin);
+                    if (scrollTop + sidebarHeight + topMargin >= footerTop) {
+                        object.stop(true, true).animate({ top: stopPoint - originalY }, 50);
+                    } else {
+                        object.stop(true, true).animate({ top: newTop }, 50);
+                    }
+                }
+            } else {
+                // Prevent the sidebar from following the scroll on mobile
+                object.stop(false, false).css({
+                    top: 0
+                });
+            }
+        });
+    }
 
-                })
-                .catch(error => console.error('Error fetching courses:', error));
-        };
-
-        function setCourseUrl(element) {
-            var slugCourse = element.getAttribute('data-slug-course');
-            var url = "{{ route('member.course.join', ':slug_course') }}";
-            url = url.replace(':slug_course', slugCourse);
-            window.location.href = url;
-        };
-    </script>
+    $(document).ready(function() {
+        // Initialize sidebar sticky only if the window width is greater than 962 pixels
+        const sidebar = $(".sidebar");
+        const sectionContainer = $(".col-md-3");
+        const topMargin = 90;
+        const footer = $("footer"); 
+        
+        if ($(window).width() > 962) {
+            elementFollowScroll(sidebar, sectionContainer, topMargin, false, footer);
+        }
+    });
+</script>
 @endpush

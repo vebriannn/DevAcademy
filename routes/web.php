@@ -58,7 +58,9 @@ Route::get('/login', [MemberLoginController::class, 'index'])->name('member.logi
 Route::post('/login/auth', [MemberLoginController::class, 'login'])->name('member.login.auth');
 Route::get('/logout', [MemberLoginController::class, 'logout'])->name('member.logout');
 Route::get('/register', [MemberRegisterController::class, 'index'])->name('member.register');
-Route::post('/register/store', [MemberRegisterController::class, 'store'])->name('member.register.auth');
+Route::post('/register/store', [MemberRegisterController::class, 'store'])->name('member.register.store');
+Route::get('/register/profile', [MemberRegisterController::class, 'profileForm'])->name('member.register.profile');
+Route::post('/register/profile/store', [MemberRegisterController::class, 'storeProfile'])->name('member.register.profile.store');
 
 // login admin 
 Route::get('admin/login', [AdminLoginController::class, 'index'])->name('admin.login');

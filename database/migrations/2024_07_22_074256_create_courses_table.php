@@ -25,7 +25,6 @@ return new class extends Migration
             $table->text('resources')->nullable(true);
             $table->text('link_grub')->nullable(false);
             $table->timestamps();
-            
             // Foreign key constraint
             $table->foreignId('mentor_id')->constrained('users')->onDelete('cascade');
             

@@ -1,105 +1,180 @@
+/* font navbar */
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
+
 :root {
-    --c-dark: #383131;
-    --c-brand: #faa907;
-    --c-brand-dark: #a56e00;
-    --c-brand-rgb: 0, 163, 255;
-    --font-base: "Poppins", sans-serif;
-    --transition: all 0.5s ease;
-    --box-shadow-card: 0px 0px 1px 0px black;
-    --box-shadow-card-hover: 0px 0px 3px 0px #faa907;
-    --transition-card: all 0.5s linear;
+    --lavender:#FFF6F6;
+    --blue: #0774FA;
+    --orange:#FAA907;
+    --grey:#8F8F8F;
+    --sea-blue:#7BB6FF;
 }
 
-.payment-card {
-    border-radius: 10px;
-    padding: 35px;
-    width: 500px;
-    height: max-content;
-    box-shadow: 0px 0px 5px 2px var(--c-brand);
-}
-.payment-card .card-body {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
+body {
+    background-color: var(--lavender);
+    font-family: 'Nunito', sans-serif !important; 
 }
 
-.payment-card .card-body p {
-    margin: 0;
-    font-size: 1.3rem;
+.payment {
+    padding: 50px 0;
 }
-.payment-card .btn-primary {
-    background-color: var(--c-brand);
-    color: white;
-    font-weight: bold;
+
+.card-bayar {
     border: none;
+    border-radius: 10px;
+    background-color: #fff;
 }
-.card-body span {
-    font-size: 17px;
+
+/* Style the title and description */
+h2.text-rinci {
+    text-align: center;
+    color: var(--blue);
+    font-weight: bold;
 }
-.form-check {
-    padding-left: 0;
+
+.item{
+    color: var(--grey);
+}
+.description{
+    font-size: 16px;
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto 20px auto;
+    line-height: 1.5; 
+    color: var(--grey);
+}
+
+.promo {
+    background-color: var(--lavender);
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.promo p {
+    margin-bottom: 0;
+    font-weight: 500;
+}
+
+.harga p,
+.produk p {
     margin-bottom: 0;
 }
-.price-update {
-    color: green;
+
+
+.total h6 {
+    margin-bottom: 0;
 }
-.payment-card .btn-primary:hover {
-    background-color: var(--c-brand-dark);
+.total p{
+    
 }
-.syarat {
-    text-decoration: none;
-    color: var(--c-brand);
+.tax{
+    color: var(--blue);
 }
-.form-check-label {
-    font-size: 16px;
-    cursor: pointer;
+.diskon-total{
+    color: var(--orange);
+}
+.total .price {
+    font-size: 18px;
 }
 
-.form-cek {
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    border: 1px solid gray;
-    appearance: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    outline: none;
-    cursor: pointer;
+.btn-primary {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    font-weight: 600;
+}
+
+.btn-promo{
+    padding: 5px;
+    font-size: small;
+    background-color: var(--orange);
+    color: white;
+    font-weight: bold !important;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+/* Redeem popup */
+.card-redeem {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%; /* Change width to 90% for smaller screens */
+    max-width: 600px; /* Keep the maximum width for larger screens */
+    height: auto;
+    background-color: #FFF;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    z-index: 100;
+    transition: fadeIn 1ms;
+}
+
+
+
+.redeem-content {
+    background-color: var(--lavender);
+    height: 200px;
+    padding: 20px;
+    overflow-y: auto;
+}
+.redeem-content::-webkit-scrollbar{
+    display: none;
+}
+
+.pesan-redeem {
+    color: var(--grey);
+    display: inline-block; 
+    padding: 10px 20px;
+    background-color: #FFF;
+    border-radius: 50px;
+    font-size: 16px;
+    margin-bottom: 10px;
+    width: auto;
+}
+
+.redeem-input {
+    background-color: var(--lavender);
+    border: 1px solid var(--grey);
+    border-radius: 15px;
+    width: 480px;
+    padding: 10px;
+    margin-right: 10px; /* Spasi antara input dan tombol */
+}
+
+.redeem-form {
     display: flex;
     align-items: center;
-    justify-content: center;
-    transition: background-color 0.3s, border-color 0.3s;
+    width: 100%; 
 }
 
-.form-cek:checked {
-    background-color: var(--c-brand);
-    color: var(--c-brand);
+.redeem-form button {
+    background-color: var(--sea-blue); 
+    color: #fff;
+    font-weight: bold;
     border: none;
+    border-radius: 10px;
+    cursor: pointer;
 }
 
-.form-cek:checked::after {
-    content: "";
-    position: absolute;
-    width: 15px;
-    height: 15px;
-    background-image: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"><path d="M20.285 6.128a1.5 1.5 0 0 0-2.121 0L10 14.293 5.536 9.828a1.5 1.5 0 1 0-2.122 2.122l5 5a1.5 1.5 0 0 0 2.122 0l9-9a1.5 1.5 0 0 0 0-2.122z"/></svg>');
-    background-size: cover;
-    margin-top: 3px;
-    border: none;
+.redeem-form button:hover {
+    background-color: darkblue; 
 }
 
-@media only screen and (max-width: 767.5px) {
-    .payment-card {
-        width: 330px;
-    }
-    .card-body span {
-        font-size: 14px;
-    }
-    .form-check-label {
-        font-size: 12px;
-    }
-    .form-cek {
-        width: 17px;
-        height: 17px;
-    }
+/* Close button */
+.card-redeem h6 {
+    cursor: pointer;
 }
+
+/* Background overlay for the popup */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 99;
+    display: none; /* Hidden by default */
+}
+

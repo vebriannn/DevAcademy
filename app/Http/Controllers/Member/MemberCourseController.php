@@ -10,6 +10,7 @@ use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Env;
 
+use App\Models\Ebook;
 use App\Models\Category;
 use App\Models\Course;
 use App\Models\Chapter;
@@ -22,28 +23,35 @@ use App\Models\Review;
 
 class MemberCourseController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $category = Category::orderBy('id', 'DESC')->get();
+        // Ambil input radio dan search
+        $searchQuery = $request->input('search-input'); 
+        $categoryFilter = $request->input('filter-kelas'); 
+        $coursesQuery = Course::where('status', 'published');
 
-        $addData = [
-            'id' => 0,
-            'name' => 'All'
-        ];
+        if ($searchQuery) {
+            $coursesQuery->where('name', 'LIKE', '%' . $searchQuery . '%');
+        }
+        if ($categoryFilter && $categoryFilter != 'semua') {
+            $coursesQuery->where('category', $categoryFilter);
+        }
+        
+        $courses = $coursesQuery->orderBy('id', 'DESC')->get();
+        $categories = Category::orderBy('id', 'DESC')->get();
+        $ebooks = Ebook::where('status', 'published')->orderBy('id', 'DESC')->get();
 
-        $newCategory = $category->push((object)$addData);
-        $sortedCategory = $newCategory->sortBy('id');
-
-        return view('member.course', compact('sortedCategory'));
+        return view('member.course', compact('courses', 'categories', 'ebooks'));
     }
+
 
     public function join($slug)
     {
-        $course = Course::where('slug', $slug)->first();
+        $courses = Course::where('slug', $slug)->first();
 
-        if ($course) {
-            $chapters = Chapter::with('lessons')->where('course_id', $course->id)->get();
-
+        if ($courses) {
+            $chapters = Chapter::with('lessons')->where('course_id', $courses->id)->get();
+            $reviews = Review::where('course_id', $courses->id)->get();
             if ($chapters->isNotEmpty()) {
                 $lesson = Lesson::with('chapters')->where('chapter_id', $chapters->first()->id)->first();
             } else {
@@ -52,7 +60,7 @@ class MemberCourseController extends Controller
 
             if(Auth::user()){
                 $transaction = Transaction::where('user_id', Auth::user()->id)
-                    ->where('course_id', $course->id)
+                    ->where('course_id', $courses->id)
                     ->orderBy('created_at', 'desc')
                     ->first();
             }
@@ -68,25 +76,25 @@ class MemberCourseController extends Controller
             $transactionForEbook = null;
         }
 
-        $coursetools = Course::with('tools')->findOrFail($course->id);
+        $coursetools = Course::with('tools')->findOrFail($courses->id);
 
-        return view('member.joincourse', compact('chapters', 'course', 'lesson', 'transaction', 'transactionForEbook', 'coursetools'));
+        return view('member.joincourse', compact('reviews','chapters', 'courses', 'lesson', 'transaction', 'transactionForEbook', 'coursetools'));
     }
 
 
 
     public function play($slug, $episode)
     {
-        $course = Course::where('slug', $slug)->first();
-        $user = User::where('id', $course->mentor_id)->first();
-        $chapters = Chapter::with('lessons')->where('course_id', $course->id)->get();
+        $courses = Course::where('slug', $slug)->first();
+        $user = User::where('id', $courses->mentor_id)->first();
+        $chapters = Chapter::with('lessons')->where('course_id', $courses->id)->get();
         $play = Lesson::where('episode', $episode)->first();
-        $checkTrx = Transaction::where('course_id', $course->id)->where('user_id', Auth::user()->id)->first();
+        $checkTrx = Transaction::where('course_id', $courses->id)->where('user_id', Auth::user()->id)->first();
 
         $checkReview = Review::where('user_id', Auth::user()->id)->first();
 
         if($checkTrx) {
-            return view('member.play', compact('play', 'chapters', 'slug', 'course', 'user', 'checkReview'));
+            return view('member.play', compact('play', 'chapters', 'slug', 'courses', 'user', 'checkReview'));
         }
         else {
             Alert::error('error', 'Maaf Akses Tidak Bisa, Karena Anda belum Beli Kelas!!!');
