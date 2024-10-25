@@ -19,5 +19,7 @@ class LandingpageController extends Controller
     
         return view('member.home', compact('courses'));
     }
-      
+    public function tes(){
+        return view('member.detail-play');
+    }
 }

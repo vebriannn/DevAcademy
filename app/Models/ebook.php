@@ -14,12 +14,14 @@ class Ebook extends Model
 
     protected $fillable = [
         'course_id',
+        'cover',
         'name',
         'type',
         'status',
         'price',
         'description',
         'ebook',
+        'category',
         'mentor_id',
         'slug'
     ];
@@ -52,7 +54,7 @@ class Ebook extends Model
         return $this->belongsTo(Course::class, 'course_id');
     }
 
-    public function mentor()
+    public function users()
     {
         return $this->belongsTo(User::class, 'mentor_id', 'id');
     }

@@ -1,12 +1,12 @@
-@extends('components.layouts.member.navback')
+@extends('components.layouts.member.app')
 
-@section('title', 'Forum Diskusi')
+@section('title', 'Nemolab - Tanyakan Kepada Mentor')
 
+@push('prepend-style')
+<link rel="stylesheet" href="{{ asset('nemolab/member/css/diskusi.css') }}">
+@endpush
 @section('content')
-    @push('prepend-style')
-        <link rel="stylesheet" href="{{ asset('nemolab/member/css/diskusi.css') }}">
-    @endpush
-    <div class="container">
+
         <h3 class="text-center text-black fw-semibold" style="margin-top: 5rem; color:#faa907 !important">Forum Diskusi</h3>
         <h2 class="text-center text-black">{{ $forum->tittle}}</h2>
         <div class="box mx-auto mt-5">
@@ -36,7 +36,7 @@
                 @include('member.comments', ['comments' => $comments])
             </div>
         </div>
-    </div>
+
 
     <!-- Pagination Section -->
     <div class="container mt-4">

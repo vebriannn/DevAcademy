@@ -1,6 +1,6 @@
 @extends('components.layouts.member.app')
 
-@section('title', 'Nemolab - Kursus Online')
+@section('title', 'Nemolab - Detail Kursus')
 
 @push('prepend-style')
     <link rel="stylesheet" href="{{ asset('nemolab/member/css/joincourse.css') }}">
@@ -60,7 +60,7 @@
                         @else
                             <h3 class="price text-center">Gratis</h3>
                         @endif
-                        <a href="{{ route('member.payment') }}" class="buy btn btn-warning w-100">Ambil Kelas</a>
+                            <a href="{{ route('member.payment', ['course_id' => $courses->id]) }}" class="buy btn btn-warning w-100">Ambil Kelas</a>
                     </div>
                 </div>
             </div>
@@ -160,8 +160,23 @@
                         @else
                             <h3 class="price text-center">Gratis</h3>
                         @endif
-                        <a href="{{ route('member.payment') }}" class="buy btn btn-warning w-100">Ambil Kelas</a>
-                    </div>
+                    
+                        @if ($transaction)
+                            @if ($transaction->status == 'pending')
+                                <a href="#" class="buy btn btn-warning w-100">Dalam Proses Pembayaran</a>
+                            @elseif ($transaction->status == 'success')
+                                @if (isset($lesson) && isset($lesson->episode))
+                                    <a href="{{ route('member.course.play', ['slug' => $courses->slug, 'episode' => $lesson->episode]) }}" class="buy btn btn-warning w-100">Mulai Belajar</a>
+                                @else
+                                    <a href="#" class="buy btn btn-warning w-100">Kelas Dalam Pembaruan</a>
+                                @endif
+                            @else
+                                <a href="{{ route('member.payment', ['course_id' => $courses->id]) }}" class="buy btn btn-warning w-100">Ambil Kelas</a>
+                            @endif
+                        @else
+                            <a href="{{ route('member.payment', ['course_id' => $courses->id]) }}" class="buy btn btn-warning w-100">Ambil Kelas</a>
+                        @endif
+                    </div>                    
                 </div>
             </div>
         </div>

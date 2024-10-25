@@ -1,6 +1,6 @@
 @extends('components.layouts.member.app')
 
-@section('title', 'Nemolab - Kursus Online')
+@section('title', 'Nemolab - Pilih Kursus Yang Ingin Anda Pelajari')
 
 @push('prepend-style')
     <link rel="stylesheet" href="{{ asset('nemolab/components/member/css/sidebar-filter.css') }} ">
@@ -35,14 +35,29 @@
                 <!-- Cards -->
                 <div class="card-container col-md-9 pe-4" id="course-card">
                     <div class="row">
-                        @if($courses->isEmpty())
-                            <!-- jika tidak ada kursus -->
+                        @if($courses->isEmpty() && $ebooks->isEmpty())
                             <div class="col-md-12 d-flex justify-content-center align-items-center">
                                 <div class="not-found text-center">
                                     <img src="{{ asset('nemolab/member/img/search-not-found.png') }}" class="logo-not-found w-50 h-50" alt="Not Found">
                                     <p class="mt-3">Kelas Yang Kamu Cari Tidak Tersedia</p>
                                 </div>
                             </div>
+                        {{-- sementara --}}
+                        @elseif ($paketFilter == 'paket-bundling')
+                            <div class="col-md-12 d-flex justify-content-center align-items-center">
+                                <div class="not-found text-center">
+                                    <img src="{{ asset('nemolab/member/img/search-not-found.png') }}" class="logo-not-found w-50 h-50" alt="Not Found">
+                                    <p class="mt-3">Kelas Yang Kamu Cari Tidak Tersedia</p>
+                                </div>
+                            </div>
+                        @elseif ($paketFilter == 'paket-ebook')
+                            <div class="col-md-12 d-flex justify-content-center align-items-center">
+                                <div class="not-found text-center">
+                                    <img src="{{ asset('nemolab/member/img/search-not-found.png') }}" class="logo-not-found w-50 h-50" alt="Not Found">
+                                    <p class="mt-3">Kelas Yang Kamu Cari Tidak Tersedia</p>
+                                </div>
+                            </div>
+                            {{--  --}}
                         @else
                             @foreach($courses as $course)
                                 <div class="col-md-4 col-12 d-flex justify-content-center pb-3">
@@ -58,11 +73,10 @@
                                         <div class="card-body">
                                             <div class="paket d-flex">
                                                 <p class="paket-item mt-md-2">Kursus</p>
-                                                <p class="paket-item mt-md-2">E-book</p>
                                             </div>
                                             <div class="title-card">
                                                 <h5 class="fw-bold truncate-text">{{ $course->category }} : {{ $course->name }}</h5>
-                                                <p class="avatar m-0 fw-bold me-1"><img src="{{ asset('storage/images/avatars/' . $course->users->avatar) }}" alt="" />{{ $course->users->name }}</p>
+                                                <p class="avatar m-0 fw-bold me-1"><img class="me-2" src="{{ asset('storage/images/avatars/' . $course->users->avatar) }}" alt="" />{{ $course->users->name }}</p>
                                             </div>
                                             <div class="btn-group-harga d-flex justify-content-between align-items-center mt-md-3">
                                                 <div class="harga d-none d-md-block">

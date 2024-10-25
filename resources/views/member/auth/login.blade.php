@@ -1,6 +1,6 @@
 @extends('components.layouts.member.auth')
 
-@section('title', 'Login Member')
+@section('title', 'Masuk dengan akunmu untuk mengakses kelas')
 
 @push('prepend-style')
     <link rel="stylesheet" href="{{ asset('nemolab/member/css/auth.css') }} ">
@@ -23,6 +23,7 @@
                         <p class="fw-bold" data-aos="fade-left" data-aos-delay="200">Masuk untuk mengakses akun anda, dengan mengisi email dan password dibawah ini</p>
                     </div>
                     <form id="loginForm" method="POST" action="{{ route('member.login.auth') }}" class="signin-form">
+                        @csrf
                         <div class="mb-1" data-aos="fade-left" data-aos-delay="200">
                             <label for="email" class="form-label fw-bold">Email</label>
                             <input type="email" name="email" placeholder="Masukan email anda" value="{{ old('email') }}" class="form-control fw-bold" required>
@@ -40,7 +41,7 @@
                         <div class="mb-3" data-aos="fade-left" data-aos-delay="400">
                             <button type="submit" class="btn btn-primary w-100 rounded-start fw-bold">Masuk</button>
                         </div>
-                    </form>
+                    </form>                    
                     <p class="text-center fw-bold" data-aos="fade-left" data-aos-delay="500">tidak memiliki akun? <a href="{{ route('member.register') }}">daftar disini</a></p>
                     <p class="text-center fw-bold" data-aos="fade-left" data-aos-delay="600">lupa kata sandi? <a href="forgot-pw.html">ganti sandi disini</a></p>
                 </div>

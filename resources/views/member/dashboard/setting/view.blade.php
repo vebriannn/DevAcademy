@@ -1,80 +1,109 @@
-@extends('components.layouts.member.app')
+@extends('components.layouts.member.dashboard')
+
+@section('title', 'Nemolab - Lihat informasi dan perkembangan anda disini')
 
 @push('prepend-style')
-<link rel="stylesheet" href="{{ asset('nemolab/member/css/setting-profile.css') }}">
-<link rel="stylesheet" href="{{ asset('nemolab/components/member/css/dashboard/sidebar.css') }}">
-@endpush
-
+    <link rel="stylesheet" href="{{ asset('nemolab/components/member/css/dashboard/sidebar-dashboard.css') }} ">
+    <link rel="stylesheet" href="{{ asset('nemolab/member/css/dashboard-css/setting.css') }} ">
+    @endpush
 @section('content')
-    <section id="setting">
-        <div class="container" style="margin-top: 5rem">
-            <div class="row">
-                <!-- Sidebar -->
-                <div class="col-3 d-none d-xl-block p-4 pb-5 rounded-4 text-white px-5"
-                    style="background-color: #faa907; width: max-content;">
-                    @if (Auth::user()->avatar != 'default.png')
-                        <img src="{{ asset('storage/images/avatars/' . Auth::user()->avatar) }}" style="border-radius: 100%;"
-                            alt="" width="70" height="70" class="d-flex mx-lg-auto mt-3" />
-                    @else
-                        <img src="{{ asset('nemolab/admin/img/avatar.png') }}" style="border-radius: 100%;" alt=""
-                            width="70" height="70" class="d-flex mx-lg-auto mt-3" />
-                    @endif
-                    <h4 class="m-0 mt-lg-5 mt-3 fw-semibold">{{ Auth::user()->name }}</h4>
-                    <p class="m-0 fw-light">Status {{ Auth::user()->role }}</p>
-                    <div class="mt-5">
-                        <a href="{{ route('member.dashboard') }}" class="list-sidebar">
-                            <img src="{{ asset('nemolab/member/img/course.png') }}" alt="" width="30" />
-                            <p class="m-0">Kursus Saya</p>
-                        </a>
-                        <a href="{{ route('member.portofolio') }}" class="list-sidebar">
-                            <img src="{{ asset('nemolab/member/img/portofolio.png') }}" alt="" width="30" />
-                            <p class="m-0">Portofolio Saya</p>
-                        </a>
-                        <a href="{{ route('member.transaction') }}" class="list-sidebar">
-                            <img src="{{ asset('nemolab/member/img/transaksi.png') }}" alt="" width="30" />
-                            <p class="m-0">Transaksi Saya</p>
-                        </a>
-                    </div>
-                </div>
-                <!-- End Sidebar -->
-    
-                <!-- My Profil -->
-                <div class="col-lg-5 col-md-10 col-12 mx-auto mx-lg-0 px-5 ms-lg-3">
-                    <h3 class="fw-semibold mb-4" style="color: #faa907">My Profile</h3>
-                    <form action="">
-                        {{-- <div class="input">
-                            <label for="">My Avatar</label><br />
-                            <img src="{{ asset('storage/images/avatars/' . Auth::user()->avatar) }}" alt=""
-                                width="90" />
-                        </div> --}}
-                        <div class="input">
-                            <label for="name">Nama Lengkap</label><br />
-                            <input type="text" id="name" value="{{ Auth::user()->name }}" readonly />
-                        </div>
-                        <div class="input">
-                            <label for="email">Alamat Email</label><br />
-                            <input type="email" id="email" value="{{ Auth::user()->email }}" readonly />
-                        </div>
-                        <div class="input">
-                            <label for="username">Nama Pengguna</label><br />
-                            <input type="text" id="username" value="{{ Auth::user()->username }}" readonly />
-                        </div>
-                        <div class="input d-flex gap-2">
-                            <div class="input-password w-50">
-                                <label for="password">Password</label><br />
-                                <input type="password" id="password" value="{{ Auth::user()->password }}" readonly />
+<section class="section-pilih-kelas" id="section-pilih-kelas">
+    <div class="container-fluid mt-5 pt-5">
+        <div class="row">
+            @include('components.includes.member.sidebar-dashboard')
+            <div class="col-12 col-lg-9">
+                <div class="row gy-4">
+                    <a href="{{ route('member.edit-profile') }}" class="col-md-6 text-decoration-none">
+                        <div class="setting-item">
+                            <div class="icon py-2 px-3 mx-3">
+                                <img src="{{ asset('nemolab/components/member/img/card-profile.png') }}" alt="">
                             </div>
-                            <div class="btn-password w-50" style="padding-top: 35px">
-                                <a href="{{ route('member.edit-password') }}" class="edit-pass">Edit Pass<span
-                                        class="d-none d-md-inline-block">word</span></a>
+                            <div class="content ms-1 mt-3">
+                                <h3>Ubah profil anda</h3>
+                                <p>Ketuk untuk mengubah data diri anda disini</p>
+                            </div>
+                            <div class="toggle me-3">
+                                <i class="bi bi-chevron-right"></i>
                             </div>
                         </div>
-                        <div class="input mt-4">
-                            <a href="{{ route('member.edit-profile') }}" class="edit-pass">Edit Profil</a>
+                    </a>
+
+                    <a href="{{ route('member.edit-password') }}" class="col-md-6 text-decoration-none">
+                        <div class="setting-item">
+                            <div class="icon py-2 px-3 mx-3">
+                                <img src="{{ asset('nemolab/components/member/img/auth.png') }}" alt="">
+                            </div>
+                            <div class="content ms-1 mt-3">
+                                <h3>Ubah kata sandi anda</h3>
+                                <p>Ketuk untuk mengubah kata sandi anda disini</p>
+                            </div>
+                            <div class="toggle me-3">
+                                <i class="bi bi-chevron-right"></i>
+                            </div>
                         </div>
-                    </form>
+                    </a>
+
+                    <a href="{{ route('member.edit-email') }}" class="col-md-6 text-decoration-none">
+                        <div class="setting-item">
+                            <div class="icon py-2 px-3 mx-3">
+                                <img src="{{ asset('nemolab/components/member/img/message.png') }}" alt="">
+                            </div>
+                            <div class="content ms-1 mt-3">
+                                <h3>Ubah email anda</h3>
+                                <p>Ketuk untuk mengubah email anda disini</p>
+                            </div>
+                            <div class="toggle me-3">
+                                <i class="bi bi-chevron-right"></i>
+                            </div>
+                        </div>
+                    </a>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
+
 @endsection
+@push('addon-script')
+<script>
+    function elementFollowScroll(object, sectionContainer, topMargin, stopOn = false, footer) {
+        $(window).on("scroll", function() {
+            if ($(window).width() > 962) { 
+                let originalY = sectionContainer.offset().top;
+                let scrollTop = $(window).scrollTop();
+                let footerTop = footer.offset().top; 
+                let sidebarHeight = object.outerHeight(true); 
+                let stopPoint = footerTop - sidebarHeight - topMargin; 
+
+                if (stopOn === false) {
+                    let newTop = scrollTop < originalY ? 0 : scrollTop - originalY + topMargin;
+                    if (scrollTop + sidebarHeight + topMargin >= footerTop) {
+                        object.stop(false, false).animate({ top: stopPoint - originalY }, 50);
+                    } else {
+                        object.stop(false, false).animate({ top: newTop }, 50);
+                    }
+                } else {
+                    let newTop = scrollTop < originalY ? 0 : Math.min(sectionContainer.height() - object.height() - 52, scrollTop - originalY + topMargin);
+                    if (scrollTop + sidebarHeight + topMargin >= footerTop) {
+                        object.stop(true, true).animate({ top: stopPoint - originalY }, 50);
+                    } else {
+                        object.stop(true, true).animate({ top: newTop }, 50);
+                    }
+                }
+            } else {
+                object.stop(false, false).css({
+                    top: 0
+                });
+            }
+        });
+    }
+    $(document).ready(function() {
+        // Inisialisasi sidebar sticky
+        const sidebar = $(".sidebar");
+        const sectionContainer = $(".col-md-3");
+        const topMargin = 90;
+        const footer = $("footer"); 
+        elementFollowScroll(sidebar, sectionContainer, topMargin, false, footer);
+    });
+</script>
+@endpush

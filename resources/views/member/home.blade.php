@@ -1,6 +1,6 @@
 @extends('components.layouts.member.app')
 
-@section('title', 'Nemolab - Belajar Kursus Online Kapan Saja dan Dimana Saja')
+@section('title', 'Nemolab - Belajar Kursus Online Kapan Saja dan Dimanapun')
 
 @push('prepend-style')
     <link rel="stylesheet" href="{{ asset('nemolab/member/css/home.css') }} ">
@@ -11,11 +11,11 @@
     <section class="section-hero-img d-flex align-items-center" id="section-hero-img">
         <div class="row align-items-center">
             <div class="col-md-6" data-aos="zoom-out">
-                <div class="text-center text-md-start"> <!-- Added this wrapper for centering -->
+                <div class="text-center text-md-start">
                     <h1 class="fw-bold">BELAJAR KURSUS ONLINE GRATIS, KAPANPUN DAN DIMANAPUN</h1>
                     <p>Belajar keahlian seputar teknologi dari pemula hingga ahli, dapatkan berbagai macam kelas mulai
                         yang gratis hingga yang berbayar</p>
-                    <a href="course.html" class="btn btn-primary px-4 pt-2 pb-2 mt-2">Mulai Belajar</a>
+                    <a href="{{ route('member.course') }}" class="btn btn-primary px-4 pt-2 pb-2 mt-2">Mulai Belajar</a>
                 </div>
             </div>
             <div class="col-md-6 d-none d-md-block" data-aos="zoom-out" data-aos-delay="100">
@@ -32,7 +32,7 @@
                     <h1 class="title-kelas fw-bold">Pilihan Kelas</h1>
                     <p class="subtitle-kelas">Beralih menjadi profesional dari sekarang dengan memilih kelas dan mulai belajar</p>
                 </div>
-                <a href="" class="btn fw-bold d-none d-md-block">Lihat Kelas Lainnya</a>
+                <a href="{{ route('member.course') }}" class="btn fw-bold d-none d-md-block">Lihat Kelas Lainnya</a>
             </div>
             <div class="content-kelas">
                 <div class="row m-0 p-0">
@@ -50,18 +50,17 @@
                             <div class="card-body">
                                 <div class="paket d-flex">
                                     <p class="paket-item mt-md-2">Kursus</p>
-                                    <p class="paket-item mt-md-2">E-book</p>
                                 </div>
                                 <div class="title-card">
                                     <h5 class="fw-bold truncate-text">{{ $course->category }} : {{ $course->name }}</h5>
-                                    <p class="avatar m-0 fw-bold me-1"><img src="{{ asset('storage/images/avatars/' . $course->users->avatar) }}" alt="" />{{ $course->users->name }}</p>
+                                    <p class="avatar m-0 fw-bold me-1"><img class="me-2" src="{{ asset('storage/images/avatars/' . $course->users->avatar) }}" alt="" />{{ $course->users->name }}</p>
                                 </div>
                                 <div class="btn-group-harga d-flex justify-content-between align-items-center mt-md-3">
                                     <div class="harga d-none d-md-block">
                                         <p class="p-0 m-0 fw-semibold">Harga</p>
                                         <p class="p-0 m-0 fw-semibold">{{ $course->price == 0 ? 'Gratis' : 'Rp' . number_format($course->price, 0, ',', '.') }}</p>
                                     </div>
-                                    <a href="" class="btn btn-primary">Mulai Belajar</a>
+                                    <a href="{{ route('member.course.join', $course->slug) }}" class="btn btn-primary">Mulai Belajar</a>
                                 </div>
                             </div>
                         </div>
@@ -69,7 +68,7 @@
                     @endforeach
                 </div>
                 <div class="d-flex justify-content-center">
-                    <a href="" class="btn fw-bold d-md-none">Lihat Kelas Lainnya</a>
+                    <a href="{{ route('member.course') }}" class="btn fw-bold d-md-none">Lihat Kelas Lainnya</a>
                 </div>
             </div>
         </div>
@@ -85,25 +84,25 @@
                     <div class="col-3 d-flex flex-column justify-content-center mt-4" id="menu-service">
                         <div class="card-service mb-4 py-2" id="item-service" data-aos="zoom-out" data-aos-delay="200">
                             <h4 class="fw-bold">Video</h4>
-                            <a href="course.html" class="btn btn-secondary py-1 px-2 mt-2">belajar sekarang</a>
+                            <a href="{{ route('member.course', ['filter-paket' => 'paket-kursus']) }}" class="btn btn-secondary py-1 px-2 mt-2">belajar sekarang</a>
                         </div>
                         <div class="card-service mb-4 py-2" id="item-service" data-aos="zoom-out" data-aos-delay="300">
                             <h4 class="fw-bold">E-book</h4>
-                            <a href="course.html" class="btn btn-primary py-1 px-2 mt-2">belajar sekarang</a>
+                            <a href="{{ route('member.course', ['filter-paket' => 'paket-ebook']) }}" class="btn btn-primary py-1 px-2 mt-2">belajar sekarang</a>
                         </div>
                         <div class="card-service mb-4 py-2" id="item-service" data-aos="zoom-out" data-aos-delay="400">
                             <h4 class="fw-bold">Video + E-book</h4>
-                            <a href="course.html" class="btn btn-warning py-1 px-2 mt-2">belajar sekarang</a>
+                            <a href="{{ route('member.course', ['filter-paket' => 'paket-bundling']) }}" class="btn btn-warning py-1 px-2 mt-2">belajar sekarang</a>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6 text-center text-md-start" data-aos="fade-up" data-aos-delay="200"> <!-- Added text-center for mobile -->
+                <div class="col-md-6 text-center text-md-start" data-aos="fade-up" data-aos-delay="200">
                     <h1 class="fw-bold">Mengapa Harus Belajar Keahlian Di Nemolab?</h1>
                     <p>Kamu bisa belajar berbagai macam keahlian di sini. Kami juga menyediakan kelas video dan e-book
                         yang bisa menyesuaikan tipe pembelajaran kamu. Jadi, mulailah menjadi ahli dari sekarang!</p>
                     <div class="link-href-group d-flex justify-content-center justify-content-md-start"> <!-- Center buttons on mobile -->
-                        <a href="course.html" class="btn btn-primary fw-bold px-4 me-3 pt-2 pb-2" data-aos="fade-up" data-aos-delay="300">Coba Kursus</a>
-                        <a href="course.html" class="btn btn-secondary fw-bold px-4 pt-2 pb-2" data-aos="fade-up" data-aos-delay="400">Coba Ebook</a>
+                        <a href="{{ route('member.course', ['filter-paket' => 'paket-kursus']) }}" class="btn btn-primary fw-bold px-4 me-3 pt-2 pb-2" data-aos="fade-up" data-aos-delay="300">Coba Kursus</a>
+                        <a href="{{ route('member.course', ['filter-paket' => 'paket-ebook']) }}" class="btn btn-secondary fw-bold px-4 pt-2 pb-2" data-aos="fade-up" data-aos-delay="400">Coba Ebook</a>
                     </div>
                 </div>
             </div>
@@ -135,7 +134,7 @@
                             <p class="m-0 p-0 ms-2">Konsultasi dengan mentor secara langsung</p>
                         </li>
                     </ul>
-                    <a href="#" class="btn btn-primary px-4 mt-4">Gabung Kelas</a>
+                    <a href="{{ route('member.course') }}" class="btn btn-primary px-4 mt-4">Gabung Kelas</a>
                 </div>
                 <div class="col-md-6 justify-content-center d-none d-md-flex" id="service" data-aos="fade-up" data-aos-delay="100">
                     <div class="benefit-images d-flex my-3">
@@ -164,7 +163,7 @@
                 <h1 class="fw-bold m-0">Selangkah Lebih Maju menjadi <br> Professional!!</h1>
                 <p class="fs-6 mt-2">Jangan ragu untuk bergabung di kelas-kelas kami! Banyak pengguna <br> sudah
                     membuktikan dengan belajar di kelas kami</p>
-                <a href="course.html" class="btn btn-primary px-4">Coba Kursus</a>
+                <a href="{{ route('member.course') }}" class="btn btn-primary px-4">Coba Kursus</a>
             </div>
             <div class="row p-0" id="testimonials">
                 <div class="col-md-4 scroll-up">

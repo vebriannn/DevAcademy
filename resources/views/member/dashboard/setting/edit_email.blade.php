@@ -1,6 +1,6 @@
 @extends('components.layouts.member.dashboard')
 
-@section('title', 'NNemolab - Lihat informasi dan perkembangan anda disini')
+@section('title', 'Nemolab - Lihat informasi dan perkembangan anda disini')
 
 @push('prepend-style')
     <link rel="stylesheet" href="{{ asset('nemolab/components/member/css/dashboard/sidebar-dashboard.css') }} ">
@@ -12,35 +12,23 @@
         <div class="row">
             <!-- Sidebar -->
             @include('components.includes.member.sidebar-dashboard')
-
-
             <!-- Profile Form -->
             <div class="col-md-9">
                 <div class="card profile-card">
                     <div class="card-body">
                         <div class="d-flex align-items-center mb-3">
-                            <h5 class="title ps-3 fw-bold">Ubah kata sandi anda</h5>
+                            <h5 class="title ps-3 fw-bold">Ubah email anda</h5>
                         </div>
-                        <form action="{{ route('member.update-password') }}" method="POST" class="edit-form">
+                        <form action="{{ route('member.update-email') }}" method="POST" class="edit-form">
                             @csrf
                             <div class="row">
                                 <div class="mb-3">
-                                    <label for="old_password" class="form-label fw-bold">Kata Sandi Lama</label>
-                                    <input type="password" id="old_password" name="old_password" class="form-control fw-bold" placeholder="Masukan kata sandi lama anda" required>
-                                    @error('old_password')
-                                    <div class="text-danger">{{ $message }}</div>
-                                    @enderror
+                                    <label for="email" class="form-label fw-bold">Email saat ini</label>
+                                    <input type="email" id="email" name="email" class="form-control fw-bold" value="{{ Auth::user()->email }}" readonly style="cursor: pointer; background-color:#E8E8E8 ;">
                                 </div>
                                 <div class="mb-3">
-                                    <label for="new_password" class="form-label fw-bold">Kata Sandi Baru</label>
-                                    <input type="password" id="new_password" name="new_password" class="form-control fw-bold" placeholder="Masukan kata sandi baru" required>
-                                    @error('new_password')
-                                    <div class="text-danger">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                                <div class="mb-3">
-                                    <label for="new_password_confirmation" class="form-label fw-bold">Konfirmasi Kata Sandi Baru</label>
-                                    <input type="password" id="new_password_confirmation" name="new_password_confirmation" class="form-control fw-bold" placeholder="Masukan ulang kata sandi baru" required>
+                                    <label for="new_email" class="form-label fw-bold">Email Baru</label>
+                                    <input type="email" id="new_email" name="new_email" class="form-control fw-bold" placeholder="Masukan email baru anda" required>
                                 </div>
                             </div>
                             <div class="row">
@@ -48,10 +36,10 @@
                                     <button type="submit" class="btn btn-primary w-100 rounded-start fw-bold">Simpan Perubahan</button>
                                 </div>
                             </div>
-                        </form>
+                        </form>  
                     </div>
                 </div>
-            </div>                 
+            </div>          
         </div>
     </div>
 </section>

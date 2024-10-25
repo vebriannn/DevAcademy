@@ -50,7 +50,7 @@ use App\Http\Controllers\Member\MemberWebhookTransactionsController;
 Route::get('/ebook/{slug}', [MemberEbookController::class, 'index'])->name('member.ebook.index');
 Route::get('/ebook/read/{slug}', [MemberEbookController::class, 'read'])->name('member.ebook.read');
 
-
+Route::get('/testo', [LandingpageController::class, 'tes'])->name('tes');
 Route::get('/', [LandingpageController::class, 'index'])->name('home');
 
 // login member
@@ -213,6 +213,7 @@ Route::prefix('member')->middleware('student')->group(function () {
     Route::post('/request/mentor/{id}', [MemberMyCourseController::class, 'reqMentor'])->name('member.pengajuan');
 
     Route::get('/course/{slug}/play/episode/{episode}', [MemberCourseController::class, 'play'])->name('member.course.play');
+    Route::get('/course/detail/{slug}', [MemberCourseController::class, 'detail'])->name('member.course.detail');
     Route::get('/course/forum/{slug}', [MemberCommentController::class, 'index'])->name('member.forum');
     Route::get('/course/forum/{slug}/search', [MemberCommentController::class, 'search'])->name('member.forum.search');
     Route::post('/course/forum/{slug}/comment', [MemberCommentController::class, 'storeComment'])->name('member.forum.comment.store');
@@ -246,6 +247,8 @@ Route::prefix('member')->middleware('student')->group(function () {
         Route::get('/edit/profile/', [MemberSettingController::class, 'editProfile'])->name('member.edit-profile');
         Route::put('/update/profile', [MemberSettingController::class, 'updateProfile'])->name('member.update-profile');
         Route::get('/edit/password/', [MemberSettingController::class, 'editPassword'])->name('member.edit-password');
+        Route::get('/edit/email/', [MemberSettingController::class, 'editEmail'])->name('member.edit-email');
+        Route::post('/member/update-email', [MemberSettingController::class, 'updateEmail'])->name('member.update-email');
         Route::post('/update/password', [MemberSettingController::class, 'updatePassword'])->name('member.update-password');
     });
 

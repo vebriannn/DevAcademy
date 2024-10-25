@@ -1,6 +1,6 @@
 @extends('components.layouts.member.auth')
 
-@section('title', 'Register Member')
+@section('title', 'Daftarkan akunmu untuk mengakses kelas')
 
 @push('prepend-style')
     <link rel="stylesheet" href="{{ asset('nemolab/member/css/auth.css') }} ">

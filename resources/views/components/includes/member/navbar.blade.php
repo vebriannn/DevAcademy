@@ -55,19 +55,19 @@
                             <div class="content-submenu mt-2">
                                 <div class="row m-0">
                                     <div class="col-12 col-sm-6 ps-0 pl-1 mb-1">
-                                        <a href="{{ route('member.course', ['search-input' => 'UI UX Designer']) }}">UI UX Designer</a>
+                                        <a href="{{ route('member.course', ['filter-kelas' => 'UI UX Designer']) }}">UI UX Designer</a>
                                     </div>
                                     <div class="col-12 col-sm-6 ps-0 pl-1 mb-1">
-                                        <a href="{{ route('member.course', ['search-input' => 'Frontend Developer']) }}">Frontend Developer</a>
+                                        <a href="{{ route('member.course', ['filter-kelas' => 'Frontend Developer']) }}">Frontend Developer</a>
                                     </div>
                                     <div class="col-12 col-sm-6 ps-0 pl-1 mb-1">
-                                        <a href="{{ route('member.course', ['search-input' => 'Wordpress Developer']) }}">Wordpress Developer</a>
+                                        <a href="{{ route('member.course', ['filter-kelas' => 'Wordpress Developer']) }}">Wordpress Developer</a>
                                     </div>
                                     <div class="col-12 col-sm-6 ps-0 pl-1 mb-1">
-                                        <a href="{{ route('member.course', ['search-input' => 'Backend Developer']) }}">Backend Developer</a>
+                                        <a href="{{ route('member.course', ['filter-kelas' => 'Backend Developer']) }}">Backend Developer</a>
                                     </div>
                                     <div class="col-12 col-sm-6 ps-0 pl-1 mb-1">
-                                        <a href="{{ route('member.course', ['search-input' => 'Grapic Designer']) }}">Graphic Designer</a>
+                                        <a href="{{ route('member.course', ['filter-kelas' => 'Grapic Designer']) }}">Graphic Designer</a>
                                     </div>
                                 </div>
                             </div>
@@ -85,18 +85,18 @@
                         <ul class="dropdown-menu mt-lg-3 mb-3">
                             <div class="head-submenu d-flex justify-content-between align-items-center">
                                 <p class="m-0 p-0 fw-bold">Pilihan Paket Kelas</p>
-                                <a href="course.html" class="m-0 p-0">Lihat Semua</a>
+                                <a href="{{ route('member.course') }}" class="m-0 p-0">Lihat Semua</a>
                             </div>
                             <div class="content-submenu mt-2 ">
                                 <div class="row m-0">
                                     <div class="col-sm-12 ps-0 pl-1 mb-1">
-                                        <a href="course.html">Course</a>
+                                        <a href="{{ route('member.course', ['filter-paket' => 'paket-kursus']) }}">Course</a>
                                     </div>
                                     <div class="col-sm-12 ps-0 pl-1 mb-1">
-                                        <a href="course.html">Ebook</a>
+                                        <a href="{{ route('member.course', ['filter-paket' => 'paket-ebook']) }}">Ebook</a>
                                     </div>
                                     <div class="col-sm-12 ps-0 pl-1 mb-1">
-                                        <a href="course.html">Paket Course Dan Ebook</a>
+                                        <a href="{{ route('member.course', ['filter-paket' => 'paket-bundling']) }}">Paket Course Dan Ebook</a>
                                     </div>
                                 </div>
                             </div>
@@ -107,7 +107,7 @@
 
                     <div class="register-login d-flex align-items-center justify-content-end gap-2">
                         <a href="{{ route('member.register') }}" class="btn btn-primary px-3 pt-1 pb-1">Daftar</a>
-                        <a href="login.html" class="btn btn-secondary px-3 pt-1 pb-1">Masuk</a>
+                        <a href="{{ route('member.login') }}" class="btn btn-secondary px-3 pt-1 pb-1">Masuk</a>
                     </div>
 
                 </ul>
