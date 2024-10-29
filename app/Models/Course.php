@@ -42,20 +42,22 @@ class Course extends Model
         ];
     }
 
+// Di dalam model Course
     public function users()
     {
         return $this->belongsTo(User::class, 'mentor_id', 'id');
     }
 
+
     public function transactions()
     {
         return $this->hasMany(Transaction::class);
     }
-
-    // public function ebook()
-    // {
-    //     return $this->hasOne(Ebook::class, 'course_id', 'id');
-    // }
+    
+    public function ebook()
+    {
+        return $this->hasOne(Ebook::class, 'course_id', 'id');
+    }
 
     public function tools()
     {

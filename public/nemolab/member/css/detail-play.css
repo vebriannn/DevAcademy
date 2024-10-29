@@ -1,0 +1,280 @@
+/* font navbar */
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
+
+/* variabel color */
+:root {
+    --color-orange: #FAA907;
+    --color-grey: #414142;
+    --dim-grey: #696969;
+    --charcoal-gray: #414142;
+    --light-shade: #FDF8F8;
+    --shade-gray: #8F8F8F;
+    --lavender-mist: #F0EAFF;
+    --color-silver: #9D9D9D;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: "Nunito", sans-serif !important;
+}
+
+
+html {
+    scroll-behavior: smooth;
+}
+
+html::-ms-overflow-style {
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    /* Firefox */
+}
+
+html::-webkit-scrollbar {
+    display: none;
+}
+
+body {
+    background-color: #FFF6F6;
+}
+
+.btn-back {
+    background-color: var(--blue);
+    border-radius: 50%;
+    padding: 0.25rem;
+    display: inline-flex; 
+    justify-content: center;
+    align-items: center; 
+    width: 40px; 
+    height: 40px; 
+}
+.btn-back:hover{
+    background-color: rgb(61, 61, 233);
+}
+
+.back-icon {
+    width: 20px;
+}
+
+main #detail-course-section {
+    margin-top: 20px;
+    height: max-content;
+    padding: 120px 30px 100px 30px;
+}
+
+main #detail-course-section .container a {
+    font-size: 24px;
+    background-color: #0774FA;
+    padding: 6px 9px;
+    border-radius: 50px;
+    color: white;
+    text-decoration: none;
+}
+
+main #detail-course-section .container h4 {
+    font-weight: 800;
+    color: var(--charcoal-gray);
+    font-size: 34px;
+}
+
+
+
+main #detail-course-section .container .subcontent-images .row .col-4 a {
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 10px 20px;
+    border-radius: 10px !important;
+    background-color: white;
+    transition: 0.5s ease-in-out;
+}
+
+
+main #detail-course-section .container .subcontent-images {
+    width: 900px;
+    margin: 0 auto;
+}
+
+main #detail-course-section .container .subcontent-images .row .col-4 a:hover {
+    transform: translateY(-10px);
+}
+
+main #detail-course-section .container .subcontent-images .row .col-4 a img {
+    width: 40px;
+    height: 40px;
+}
+main #detail-course-section .container .subcontent-images .row .col-4 a .group-title-subtitle p {
+    font-size: 16px;
+}
+main #detail-course-section .container .subcontent-images .row .col-4 a .group-title-subtitle p:first-child {
+    color: var(--charcoal-gray);
+    font-weight: 700;
+}
+main #detail-course-section .container .subcontent-images .row .col-4 a .group-title-subtitle p:last-child {
+    color: var(--color-silver);
+    font-weight: 700;
+    font-size: 14px;
+}
+
+
+
+main #detail-course-section .container .detail-courses {
+    width: 900px;
+    margin: 0 auto;
+}
+
+main #detail-course-section .container .detail-courses .card {
+    background-color: white;
+    padding: 20px;
+    border: none;
+}
+
+main #detail-course-section .container .detail-courses .card .card-header,
+main #detail-course-section .container .detail-courses .card .card-body {
+    background-color: transparent;
+    border: none;
+}
+
+
+main #detail-course-section .container .detail-courses .card .card-header h5 {
+    color: var(--charcoal-gray);
+    font-weight: 800;
+    font-size: 22px;
+}
+
+main #detail-course-section .container .detail-courses .card .card-header h5 {
+    color: var(--charcoal-gray);
+    font-weight: 800;
+    font-size: 22px;
+}
+
+main #detail-course-section .container .detail-courses .card .card-body p {
+    color: var(--color-silver);
+    font-size: 18px;
+}
+
+
+main #detail-course-section .container .description-courses {
+    width: 900px;
+    margin: 0 auto;
+}
+
+main #detail-course-section .container .description-courses .card {
+    background-color: white;
+    padding: 20px;
+    border: none;
+}
+
+main #detail-course-section .container .description-courses .card .card-header,
+main #detail-course-section .container .description-courses .card .card-body {
+    background-color: transparent;
+    border: none;
+}
+
+
+main #detail-course-section .container .description-courses .card .card-header h5 {
+    color: var(--charcoal-gray);
+    font-weight: 800;
+    font-size: 22px;
+}
+
+main #detail-course-section .container .description-courses .card .card-header h5 {
+    color: var(--charcoal-gray);
+    font-weight: 800;
+    font-size: 22px;
+}
+
+main #detail-course-section .container .description-courses .card .card-body p {
+    color: var(--color-silver);
+    font-size: 18px;
+}
+
+
+main #detail-course-section .container .tools-courses {
+    width: 900px;
+    margin: 0 auto;
+}
+
+main #detail-course-section .container .tools-courses .card {
+    background-color: white;
+    padding: 20px;
+    border: none;
+}
+
+main #detail-course-section .container .tools-courses .card .card-header,
+main #detail-course-section .container .tools-courses .card .card-body {
+    background-color: transparent;
+    border: none;
+}
+
+main #detail-course-section .container .tools-courses .card .card-body .tools-group {
+    background-color: #FDF8F8;
+    padding: 10px 20px;
+    border-radius: 10px;
+}
+
+
+main #detail-course-section .container .tools-courses .card .card-header h5 {
+    color: var(--charcoal-gray);
+    font-weight: 800;
+    font-size: 22px;
+}
+
+main #detail-course-section .container .tools-courses .card .card-header h5 {
+    color: var(--charcoal-gray);
+    font-weight: 800;
+    font-size: 22px;
+}
+
+main #detail-course-section .container .tools-courses .card .card-body .tools-group p {
+    color: var(--charcoal-gray);
+    font-size: 18px;
+    font-weight: 700;
+}
+
+
+main #detail-course-section .container .testimoni {
+    width: 900px;
+    margin: 0 auto;
+}
+
+main #detail-course-section .container .testimoni h1 {
+    color: var(--charcoal-gray);
+    font-weight: 800;
+    font-size: 30px;
+}
+
+main #detail-course-section .container .testimoni .col-12 {
+    margin: 0 auto;
+}
+
+main #detail-course-section .container .testimoni .col-12 .row .col-6 .card {
+    height: 190px;
+}
+
+main #detail-course-section .container .testimoni .col-12 .row .col-6 .card .card-body .card-head .name .card-title {
+    font-size: 16px;
+    color: var(--color-grey);
+}
+
+main #detail-course-section .container .testimoni .col-12 .row .col-6 .card .card-body .card-head .name p,
+main #detail-course-section .container .testimoni .col-12 .row .col-6 .card .card-body p.card-text {
+    font-size: 14px;
+    color: var(--color-grey) !important;
+    font-weight: 600;
+}
+
+
+main #detail-course-section .container .testimoni .col-12 .row #additional-content {
+    display: none;
+}
+
+main #detail-course-section .container .testimoni .col-12 .navtabs-more-testimoni button.btn-primary {
+    background-color: var(--color-orange) !important;
+    color: white !important;
+    outline: none;
+    border: none;
+}
+

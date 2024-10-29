@@ -18,23 +18,37 @@ class MemberSettingController extends Controller
     public function editProfile(){
         return view('member.dashboard.setting.edit_profile');
     }
-
+    public function editEmail(){
+        return view('member.dashboard.setting.edit_email');
+    }
     public function editPassword(){
         return view('member.dashboard.setting.edit_password');
     }
-
+    public function updateEmail(Request $request) {
+        $request->validate([
+            'new_email' => 'required|email|unique:users,email|max:255',
+        ]);
+    
+        $user = User::findOrFail(Auth::id());
+        $user->email = $request->input('new_email');
+        $user->save();
+    
+        Alert::success('Email Berhasil Diupdate');
+        return redirect()->route('member.setting');
+    }
+    
     public function updateProfile(Request $request){
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|max:255',
-            'username' => 'required|string|max:255',
             'avatar' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+            'profession' => 'required|string|max:255',
         ]);
 
         $user = User::findOrFail(Auth::id()); 
         $user->name = $request->input('name');
         $user->email = $request->input('email');
-        $user->username = $request->input('username');
+        $user->profession = $request->input('profession');
 
         if ($request->hasFile('avatar')) {
             
@@ -52,23 +66,25 @@ class MemberSettingController extends Controller
         return redirect()->route('member.setting');
     }
 
-    public function updatePassword(Request $request){
+    public function updatePassword(Request $request) {
         $request->validate([
             'old_password' => 'required|string',
             'new_password' => 'required|string|min:8|confirmed',
         ]);
-
+    
         $user = User::findOrFail(Auth::id()); 
+    
         if (!Hash::check($request->input('old_password'), $user->password)) {
             return redirect()->route('member.edit-password')
-            ->withErrors(['old_password' => 'The old password is incorrect.'])
-            ->withInput();
+                ->withErrors(['old_password' => 'The old password is incorrect.'])
+                ->withInput();
         }
-
+    
         $user->password = Hash::make($request->input('new_password'));
         $user->save();
-
+    
         Alert::success('Password Berhasil Di Update');
         return redirect()->route('member.setting');
     }
+    
 }

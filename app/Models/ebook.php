@@ -12,16 +12,18 @@ class Ebook extends Model
     protected $table = 'tbl_ebooks';
 
     protected $fillable = [
-        'category',
-        'slug',
+        'course_id',
+        'cover',
         'name',
         'type',
         'status',
         'level',
         'price',
         'description',
-        'source_ebook',
-        'mentor_id'
+        'ebook',
+        'category',
+        'mentor_id',
+        'slug'
     ];
 
 
@@ -31,8 +33,21 @@ class Ebook extends Model
     {
         return $this->belongsToMany(Course::class, 'tbl_course_ebooks', 'ebook_id', 'course_id');
     }
-    // Define the relationship with User
-    public function mentor()
+
+    public static function generateUniqueSlug($name)
+    {
+        $slug = Str::slug($name);
+        $count = static::where('slug', 'LIKE', "{$slug}%")->count();
+
+        return $count ? "{$slug}-{$count}" : $slug;
+    }
+
+    public function course()
+    {
+        return $this->belongsTo(Course::class, 'course_id');
+    }
+
+    public function users()
     {
         return $this->belongsTo(User::class, 'mentor_id', 'id');
     }

@@ -1,91 +1,61 @@
 @extends('components.layouts.member.auth')
 
+@section('title', 'Daftarkan akunmu untuk mengakses kelas')
+
 @push('prepend-style')
-    <link rel="stylesheet" href="{{ asset('nemolab/member/css/register.css') }} ">
+    <link rel="stylesheet" href="{{ asset('nemolab/member/css/auth.css') }} ">
 @endpush
 
-@section('title', 'Register Member')
-
 @section('content')
-    <div class="container">
-        <div class="row">
-            <div class="col-12 d-flex justify-content-center">
-                <div class="box rounded-5 bg-white text-center d-flex flex-column justify-content-center">
-                    <div>
-                        <img src="{{ asset('nemolab/member/img/logo.png') }}" alt="logo" width="130" />
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-12">
+            <div class="card login-card d-flex flex-row">
+                <div class="img-container">
+                    <img src="{{ asset('nemolab/member/img/bismen.jpeg') }}" alt="Team collaboration" class="img-fluid rounded-start">
+                </div>
+                <div class="card-body ps-4">
+                    <a href="javascript:void(0);" class="btn-back mb-4" onclick="window.history.back();">
+                        <img src="{{ asset('nemolab/member/img/arrow.png') }}" alt="Back" class="back-icon">
+                    </a>
+                    <div class="px-3 text-center">
+                        <h3 class="mb-4" data-aos="fade-left" data-aos-delay="100">DAFTARKAN AKUN KAMU!</h3>
+                        <p class="fw-bold" data-aos="fade-left" data-aos-delay="200">Selangkah lebih maju menjadi ahli dengan belajar bersama Nemolab! Daftarkan akunmu sekarang juga</p>
                     </div>
-                    <div>
-                        <img src="{{ asset('nemolab/member/img/avatar.png') }}" alt="avatar" width="105" height="105"
-                            style="border-radius: 50%; object-fit: cover" id="avatarPreview" />
-                    </div>
-
-                    <form action="{{ route('member.register.auth') }}" method="POST" enctype="multipart/form-data">
+                    <form id="register-form" action="{{ route('member.register.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
-                        <div class="input-col position-relative">
-                            <input type="text" name="name" placeholder="Name" value="{{ old('name') }}" />
-                            <span class="ikon"><img src="{{ asset('nemolab/member/img/user.png') }}"
-                                    width="16" /></span>
-                            @error('name')
+                        <div class="first-reigster-sesion" id="first-regist">
+                            <div class="mb-1">
+                                <label for="name" class="form-label fw-bold" data-aos="fade-left" data-aos-delay="300">Nama pengguna</label>
+                                <input type="text" name="name" placeholder="Masukan nama disini" value="{{ old('name') }}"  class="form-control fw-bold" required data-aos="fade-left" data-aos-delay="400">
+                                @error('name')
                                 <div class="text-danger">{{ $message }}</div>
-                            @enderror
-                        </div>
-                        <div class="input-col position-relative mt-2">
-                            <input type="file" name="avatar" id="fileInput" class="file-input"
-                                onchange="updateFileName()" />
-                            <label for="fileInput" class="file-label" data-placeholder="Pilih Foto Profil"></label>
-                            <span class="ikon"><img src="{{ asset('nemolab/member/img/avatar_2.png') }}"
-                                    width="16" /></span>
-                            @error('avatar')
+                                @enderror
+                            </div>
+                            <div class="mb-1">
+                                <label for="email" class="form-label fw-bold" data-aos="fade-left" data-aos-delay="500">Email</label>
+                                <input type="email" name="email" placeholder="Masukan email disini" value="{{ old('email') }}" class="form-control fw-bold" required data-aos="fade-left" data-aos-delay="600">
+                                @error('email')
                                 <div class="text-danger">{{ $message }}</div>
-                            @enderror
-                        </div>
-                        <div class="input-col position-relative mt-2">
-                            <input type="email" name="email" placeholder="Alamat Email" value="{{ old('email') }}" />
-                            <span class="ikon"><img src="{{ asset('nemolab/member/img/emailregister.png') }}"
-                                    width="16" /></span>
-                            @error('email')
+                                @enderror
+                            </div>
+                            <div class="mb-3">
+                                <label for="password" class="form-label fw-bold" data-aos="fade-left" data-aos-delay="700">Buat Kata sandi</label>
+                                <input  type="password" name="password" placeholder="Masukan kata sandi disini" id="password"  class="form-control fw-bold" required data-aos="fade-left" data-aos-delay="800">
+                                @error('password')
                                 <div class="text-danger">{{ $message }}</div>
-                            @enderror
-                        </div>
-                        <div class="input-col position-relative mt-2">
-                            <input type="password" name="password" placeholder="Password" id="password" />
-                            <span class="ikon"><img src="{{ asset('nemolab/member/img/password.png') }}"
-                                    width="16" /></span>
-                            <span class="eye">
-                                <img src="{{ asset('nemolab/member/img/eye.png') }}" width="20"
-                                    class="pass-icon opacity-25" id="pass-icon" onclick="pass()" />
-                            </span>
-                            @error('password')
-                                <div class="text-danger">{{ $message }}</div>
-                            @enderror
-                        </div>
-                        <div class="d-grid gap-2 mt-3">
-                            <button type="submit" class="btn text-white fw-semibold">Buat</button>
-                            <a href="{{ route('member.login') }}" class="btn text-white fw-semibold">Sudah Punya Akun?</a>
+                                @enderror
+                            </div>
+                            <div class="mb-3">
+                                <button type="submit" class="btn btn-primary w-100 rounded-start fw-bold" data-aos="fade-left">Daftar</button>
+                            </div>
                         </div>
                     </form>
-
+                    <p class="text-center fw-bold" data-aos="fade-left" data-aos-delay="500">sudah memiliki akun? <a href="{{ route('member.login') }}">masuk disini</a></p>
+                    <p class="text-center fw-bold" data-aos="fade-left" data-aos-delay="600">lupa kata sandi? <a href="forgot-pw.html">ganti sandi disini</a></p>
                 </div>
             </div>
         </div>
     </div>
+</div>
 @endsection
-
-@push('addon-script')
-    <script>
-        function updateFileName() {
-            const fileInput = document.getElementById('fileInput');
-            const avatarPreview = document.getElementById('avatarPreview');
-
-            if (fileInput.files && fileInput.files[0]) {
-                const reader = new FileReader();
-
-                reader.onload = function(e) {
-                    avatarPreview.src = e.target.result;
-                };
-
-                reader.readAsDataURL(fileInput.files[0]);
-            }
-        }
-    </script>
-@endpush

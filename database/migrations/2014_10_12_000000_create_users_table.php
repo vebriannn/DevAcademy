@@ -20,7 +20,7 @@ return new class extends Migration
             $table->text('avatar')->nullable(true);
             $table->string('email', 255)->nullable(false);
             $table->string('password', 255)->nullable(false);
-            // $table->enum('profession', ['mahasiswa', 'freelance'])->nullable(false);
+            $table->enum('profession', ['Pelajar Jangka Panjang', 'UI/UX Designer','Frontend Developer','Backend Developer','Wordpress Developer','Graphic Designer'])->default('Pelajar Jangka Panjang');
             // $table->string('phone', 255)->nullable(false);
             // $table->string('city', 255)->nullable(false);
             // $table->string('national', 255)->nullable(false);

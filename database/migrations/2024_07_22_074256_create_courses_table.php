@@ -28,7 +28,9 @@ return new class extends Migration
             $table->text('link_grub')->nullable(false);
             $table->text('rating')->nullable(true);
             $table->timestamps();
-
+            // Foreign key constraint
+            $table->foreignId('mentor_id')->constrained('users')->onDelete('cascade');
+            
         });
     }
 

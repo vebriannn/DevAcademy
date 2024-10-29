@@ -60,35 +60,17 @@ Route::middleware('maintenance.middleware')->group(function () {
         Route::post('login/auth', [AdminLoginController::class, 'login'])->name('admin.login.auth');
         Route::get('logout', [AdminLoginController::class, 'logout'])->name('admin.logout');
 
-        Route::middleware('mentor')->group(function () {
-            // routes for tools
-            Route::prefix('tools')->group(function () {
-                Route::get('/', [AdminToolsController::class, 'index'])->name('admin.tools');
-                Route::get('/create', [AdminToolsController::class, 'create'])->name('admin.tools.create');
-                Route::post('/create/store', [AdminToolsController::class, 'store'])->name('admin.tools.create.store');
-                Route::get('/edit/{id}', [AdminToolsController::class, 'edit'])->name('admin.tools.edit');
-                Route::put('/edit/update/{id}', [AdminToolsController::class, 'update'])->name('admin.tools.edit.update');
-                Route::get('/delete/{id}', [AdminToolsController::class, 'delete'])->name('admin.tools.delete');
-            });
+Route::get('/testo', [LandingpageController::class, 'tes'])->name('tes');
+Route::get('/', [LandingpageController::class, 'index'])->name('home');
 
-            // Routes for courses
-            Route::get('/', [AdminCourseController::class, 'index'])->name('admin.course');
-            Route::prefix('course')->group(function () {
-                Route::get('/create', [AdminCourseController::class, 'create'])->name('admin.course.create');
-                Route::post('/create/store', [AdminCourseController::class, 'store'])->name('admin.course.create.store');
-                Route::get('/edit/{id}', [AdminCourseController::class, 'edit'])->name('admin.course.edit');
-                Route::put('/edit/update/{id}', [AdminCourseController::class, 'update'])->name('admin.course.edit.update');
-                Route::get('/delete/{id}', [AdminCourseController::class, 'delete'])->name('admin.course.delete');
-
-                // Routes for chapters
-                Route::get('{slug}/chapter', [AdminChapterController::class, 'index'])->name('admin.chapter');
-                Route::get('{slug}/chapter/create/{id_course}', [AdminChapterController::class, 'create'])->name('admin.chapter.create');
-                Route::post('chapter/create/store/{id_course}', [AdminChapterController::class, 'store'])->name('admin.chapter.create.store');
-                Route::get('{slug}/chapter/edit/{id_chapter}', [AdminChapterController::class, 'edit'])->name('admin.chapter.edit');
-                Route::put('chapter/edit/update/{id_chapter}', [AdminChapterController::class, 'update'])->name('admin.chapter.edit.update');
-                Route::get('chapter/delete/{id_chapter}', [AdminChapterController::class, 'delete'])->name('admin.chapter.delete');
-                Route::get('forum', [AdminForumController::class, 'index'])->name('admin.forum');
-                // Route::get('/course/forum/{slug}', [AdminForumController::class, 'show'])->name('member.forum');
+// login member
+Route::get('/login', [MemberLoginController::class, 'index'])->name('member.login');
+Route::post('/login/auth', [MemberLoginController::class, 'login'])->name('member.login.auth');
+Route::get('/logout', [MemberLoginController::class, 'logout'])->name('member.logout');
+Route::get('/register', [MemberRegisterController::class, 'index'])->name('member.register');
+Route::post('/register/store', [MemberRegisterController::class, 'store'])->name('member.register.store');
+Route::get('/register/profile', [MemberRegisterController::class, 'profileForm'])->name('member.register.profile');
+Route::post('/register/profile/store', [MemberRegisterController::class, 'storeProfile'])->name('member.register.profile.store');
 
                 // Routes for lessons
                 Route::get('{slug}/chapter/{id_chapter}/lesson', [AdminLessonController::class, 'index'])->name('admin.lesson');
@@ -241,5 +223,74 @@ Route::middleware('maintenance.middleware')->group(function () {
     Route::view('/eror/pages', 'error.page404')->name('pages.error');
 });
 
-Route::view('/maintenance', 'error.maintenance')->name('pages.maintenance');
+Route::get('/course', [MemberCourseController::class, 'index'])->name('member.course');
+Route::get('/course/join/{slug}', [MemberCourseController::class, 'join'])->name('member.course.join');
+
+Route::prefix('member')->middleware('student')->group(function () {
+    
+    // pengajuan member
+    Route::post('/request/mentor/{id}', [MemberMyCourseController::class, 'reqMentor'])->name('member.pengajuan');
+
+    Route::get('/course/{slug}/play/episode/{episode}', [MemberCourseController::class, 'play'])->name('member.course.play');
+    Route::get('/course/detail/{slug}', [MemberCourseController::class, 'detail'])->name('member.course.detail');
+    Route::get('/course/forum/{slug}', [MemberCommentController::class, 'index'])->name('member.forum');
+    Route::get('/course/forum/{slug}/search', [MemberCommentController::class, 'search'])->name('member.forum.search');
+    Route::post('/course/forum/{slug}/comment', [MemberCommentController::class, 'storeComment'])->name('member.forum.comment.store');
+    Route::get('//forum/replies/{comment_id}', [MemberCommentController::class, 'getReplies'])->name('member.forum.replies');
+    Route::post('/forum/reply/store', [MemberCommentController::class, 'storeReply'])->name('member.forum.reply.store');
+
+
+
+    Route::prefix('review')->group(function () {
+        Route::get('/', [MemberReviewController::class, 'index'])->name('member.reviews');
+        Route::post('/store', [MemberReviewController::class, 'store'])->name('member.review.store');
+        Route::get('/{id}', [MemberReviewController::class, 'show'])->name('member.reviews.show');
+        Route::put('/{id}', [MemberReviewController::class, 'update'])->name('member.reviews.update');
+        Route::delete('/{id}', [MemberReviewController::class, 'destroy'])->name('member.reviews.destroy');
+    });
+
+    // Dashboard
+    Route::get('/', [MemberMyCourseController::class, 'index'])->name('member.dashboard');
+
+    Route::prefix('portofolio')->middleware('student')->group(function () {
+        Route::get('/', [MemberPortofolioController::class, 'index'])->name('member.portofolio');
+        Route::get('/create', [MemberPortofolioController::class, 'create'])->name('member.portofolio.create');
+        Route::post('/create/store', [MemberPortofolioController::class, 'store'])->name('member.portofolio.create.store');
+        Route::get('/edit/{id}', [MemberPortofolioController::class, 'edit'])->name('member.portofolio.edit');
+        Route::put('/edit/update/{id}', [MemberPortofolioController::class, 'update'])->name('member.portofolio.edit.update');
+        Route::get('/delete/{id}', [MemberPortofolioController::class, 'delete'])->name('member.portofolio.delete');
+    });
+
+    Route::prefix('setting')->group(function () {
+        Route::get('/', [MemberSettingController::class, 'index'])->name('member.setting');
+        Route::get('/edit/profile/', [MemberSettingController::class, 'editProfile'])->name('member.edit-profile');
+        Route::put('/update/profile', [MemberSettingController::class, 'updateProfile'])->name('member.update-profile');
+        Route::get('/edit/password/', [MemberSettingController::class, 'editPassword'])->name('member.edit-password');
+        Route::get('/edit/email/', [MemberSettingController::class, 'editEmail'])->name('member.edit-email');
+        Route::post('/member/update-email', [MemberSettingController::class, 'updateEmail'])->name('member.update-email');
+        Route::post('/update/password', [MemberSettingController::class, 'updatePassword'])->name('member.update-password');
+    });
+
+    Route::prefix('transaction')->group(function () {
+        Route::get('/', [MemberTransactionController::class, 'index'])->name('member.transaction');
+        Route::delete('/cancel/{id}', [MemberTransactionController::class, 'cancel'])->name('member.transaction.cancel');
+    });
+
+    Route::get('/paymentsuccess', function () {
+        return view('member.payment-succes'); // Nama view yang ingin ditampilkan
+    });
+
+    Route::get('/detailpayment', function () {
+        return view('member.dashboard.transaction.detail-payment'); // Nama view yang ingin ditampilkan
+    });
+    
+    Route::get('course/payment', [MemberPaymentController::class, 'index'])->name('member.payment');
+    Route::post('course/payment/store', [MemberPaymentController::class, 'store'])->name('member.transaction.store');
+    
+    Route::get('/transaction/view/{id}', [MemberPaymentController::class, 'viewTransaction'])->name('member.transaction.view');
+    // Route::get('/transaction/callback', [MemberPaymentController::class, 'callback'])->name('member.transaction.callback.view');
+});
+
+
+Route::view('/eror/pages', 'error.page404')->name('pages.error');
 // Route::get('/test', [MemberPaymentController::class, 'test']);
