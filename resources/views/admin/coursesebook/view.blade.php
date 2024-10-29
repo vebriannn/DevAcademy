@@ -23,14 +23,13 @@
                     </select>
                     <p class="mb-0 me-2 text-center mx-2">entri</p>
                 </div>
-                <a href="{{ route('admin.chapter.create', ['slug' => $slug, 'id_course' => $id]) }}"
-                    class="tambah-data pt-2 pb-2 px-4 fw-semibold" style="width: max=content; !important">Tambah</a>
+                <a href="{{ route('admin.ebook.create') }}" class="tambah-data pt-2 pb-2 px-4 fw-semibold"
+                    style="width: max-content !important">Tambah eBook</a>
             </div>
 
             <div class="table-responsive px-3 py-3">
                 <div class="btn-group mr-2 w-100 d-flex justify-content-between align-items-center mb-3">
-                    <a href="{{ route('admin.ebook.create') }}" class="tambah-data pt-2 pb-2 px-4 fw-semibold"
-                        style="width: max-content !important">Tambah eBook</a>
+
                 </div>
 
                 <table class="table table-sm">
@@ -52,7 +51,7 @@
                                 <td>{{ $ebook->description }}</td>
                                 <td>{{ $ebook->type }}</td>
                                 <td>{{ $ebook->status }}</td>
-                                <td>{{ $ebook->price }}</td>
+                                <td>Rp. {{ number_format($ebook->price, 0) }}</< /td>
                                 <td><a href="{{ $ebook->link }}" target="_blank">lihat</a></td>
                                 <td>
                                     <a href="{{ route('admin.ebook.edit', $ebook->id) }}" class="me-2">
@@ -72,6 +71,8 @@
                         @endforelse
                     </tbody>
                 </table>
+
+
             </div>
 
             <div class="d-flex justify-content-between px-1 py-1">

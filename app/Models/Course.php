@@ -69,4 +69,9 @@ class Course extends Model
     {
         return $this->hasOne(Forum::class);
     }
+
+    public function ebooks()
+    {
+        return $this->belongsToMany(Ebook::class, 'tbl_course_ebooks', 'course_id', 'ebook_id');
+    }
 }

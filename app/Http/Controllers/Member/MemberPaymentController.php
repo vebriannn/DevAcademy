@@ -75,6 +75,7 @@ class MemberPaymentController extends Controller
                     'user_id' => Auth::user()->id,
                     'course_id' => $courseId,
                 ]);
+
                 Alert::success('success', 'Kelas Berhasil Di Beli');
                 return redirect()->route('member.course.join', $course->slug);
             } else {
@@ -185,6 +186,7 @@ class MemberPaymentController extends Controller
             if ($transaction->status == 'success' || $transaction->status == 'failed') {
                 return view('member.dashboard.transaction.detail-payment', compact('transaction'));
             } else {
+                Alert::error('Error', 'Maaf Anda Tidak Bisa Akses Detail Transaction, Status Anda Masih Pending!!!');
                 return redirect()->route('member.transaction');
             }
         }

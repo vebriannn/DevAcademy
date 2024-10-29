@@ -13,17 +13,16 @@ return new class extends Migration
     {
         Schema::create('tbl_ebooks', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('course_id')->nullable(true);
+            $table->foreignId('mentor_id')->constrained('users')->onDelete('cascade');
+            $table->string('category', 255);
             $table->string('name', 255)->nullable('false');
+            $table->text('slug');
             $table->enum('type', ['free', 'premium']);
             $table->enum('status', ['draft', 'published']);
             $table->integer('price')->nullable();
-            $table->text('description', 255); 
-            $table->text('link')->nullable('false'); 
-            $table->unsignedBigInteger('mentor_id');
+            $table->text('description', 255);
+            $table->text('source_ebook')->nullable('false');
             $table->timestamps();
-            $table->foreign('course_id')->references('id')->on('tbl_courses')->onDelete('cascade');
-            $table->foreign('mentor_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

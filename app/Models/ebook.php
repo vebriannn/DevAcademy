@@ -12,21 +12,24 @@ class Ebook extends Model
     protected $table = 'tbl_ebooks';
 
     protected $fillable = [
-        'course_id',
+        'category',
+        'slug',
         'name',
         'type',
         'status',
         'level',
         'price',
         'description',
-        'link',
+        'source_ebook',
         'mentor_id'
     ];
 
+
+
     // Define the relationship with Course
-    public function course()
+    public function courses()
     {
-        return $this->belongsTo(Course::class, 'course_id');
+        return $this->belongsToMany(Course::class, 'tbl_course_ebooks', 'ebook_id', 'course_id');
     }
     // Define the relationship with User
     public function mentor()
