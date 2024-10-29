@@ -13,18 +13,19 @@
             <a href="{{ route('admin.ebook') }}" class="btn btn-orange"> Kembali </a>
         </div>
         <div class="card-body pt-2">
-            <form class="col-12" action="{{ route('admin.ebook.create.store') }}" method="post">
+            <form class="col-12" action="{{ route('admin.ebook.create.store') }}" method="post" enctype="multipart/form-data">
                 @csrf
                 <div class="row">
                     <div class="col-6">
                         <div class="custom-entryarea">
-                            <select id="course_id" name="course_id">
-                                <option value="">Select Kursus (opsional)</option>
-                                @foreach ($courses as $course)
-                                    <option value="{{ $course->id }}">{{ $course->name }}</option>
-                                @endforeach
+                            <select id="category" name="category">
+                                @forelse ($category as $item)
+                                    <option value="{{ $item->name }}">{{ $item->name }}</option>
+                                @empty
+                                    <option value="">Tidak Ada Kategori</option>
+                                @endforelse
                             </select>
-                            @error('course_id')
+                            @error('category')
                                 <span style="color: red">{{ $message }}</span>
                             @enderror
                         </div>
@@ -47,7 +48,21 @@
                             @enderror
                         </div>
                     </div>
-                    <div class="col-6">
+                    {{-- <div class="col-6 mb-3">
+                        <p class="m-0">Sampul</p>
+                        <input type="file" id="imageUpload" name="cover" accept="image/*" class="" />
+                        @error('cover')
+                            <span style="color: red">{{ $message }}</span>
+                        @enderror
+                    </div> --}}
+                    <div class="col-12 mb-3">
+                        <p class="m-0">File Pdf</p>
+                        <input type="file" name="source_ebook" class="" />
+                        @error('source_ebook')
+                            <span style="color: red">{{ $message }}</span>
+                        @enderror
+                    </div>
+                    <div class="col-6 mt-2">
                         <div class="custom-entryarea">
                             <select id="status" name="status">
                                 <option value="draft">Draf</option>
@@ -58,27 +73,27 @@
                             @enderror
                         </div>
                     </div>
-                    <div class="col-6">
+                    <div class="col-6 mt-2">
                         <div class="custom-entryarea">
-                            <select id="type" name="type" onchange="handleTypeChange()">
-                                <option value="free">Gratis</option>
-                                <option value="premium">Berbayar</option>
+                            <select id="type" name="type">
+                                <option value="free" class="value_type">Gratis</option>
+                                <option value="premium" class="value_type">Berbayar</option>
                             </select>
                             @error('type')
                                 <span style="color: red">{{ $message }}</span>
                             @enderror
                         </div>
                     </div>
-                    <div class="col-6">
+                    <div class="col-6 d-none" id="price">
                         <div class="entryarea">
-                            <input type="number" id="price" name="price" placeholder=" " />
-                            <div class="labelline" for="price">Harga</div>
+                            <input type="number" id="name" name="price" placeholder="" value="0" />
+                            <div class="labelline" for="link">Harga</div>
                             @error('price')
                                 <span style="color: red">{{ $message }}</span>
                             @enderror
                         </div>
                     </div>
-                    <div class="col-6">
+                    {{-- <div class="col-12" id="fields-link">
                         <div class="entryarea">
                             <input type="text" id="link" name="link" placeholder=" " />
                             <div class="labelline" for="link">Link</div>
@@ -86,7 +101,7 @@
                                 <span style="color: red">{{ $message }}</span>
                             @enderror
                         </div>
-                    </div>
+                    </div> --}}
                     <div class="col-12">
                         <button type="submit"
                             class="d-block w-100 text-center text-decoration-none py-2 rounded-3 text-white fw-semibold btn-kirim"
@@ -97,22 +112,23 @@
         </div>
     </div>
 
-    <script>
-        function handleTypeChange() {
-            const type = document.getElementById('type').value;
-            const priceInput = document.getElementById('price');
-            
-            if (type === 'free') {
-                priceInput.value = '';
-                priceInput.disabled = true;
-            } else {
-                priceInput.disabled = false;
-            }
-        }
+@endsection
 
-        // Initialize the form with the correct state
-        document.addEventListener('DOMContentLoaded', function() {
-            handleTypeChange();
+@push('addon-script')
+    <script>
+        const type = document.getElementById('type');
+        const price = document.getElementById('price');
+        const link = document.getElementById('fields-link');
+
+        type.addEventListener('change', (e) => {
+            if (e.target.value == 'premium') {
+                price.classList.replace('d-none', 'd-block');
+                link.classList.replace('col-12', 'col-6');
+            } else if (e.target.value == 'free') {
+                price.classList.replace('d-block', 'd-none');
+                link.classList.replace('col-6', 'col-12');
+                price.querySelector('input[name="price"]').value = '0';
+            }
         });
     </script>
-@endsection
+@endpush

@@ -71,7 +71,7 @@ class AdminCourseController extends Controller
         $images->storeAs('public/images/covers/' . $imagesGetNewName);
         $resources = 'null';
 
-        
+
         if ($request->resources) {
             $resources = $request->resources;
         }
@@ -145,6 +145,7 @@ class AdminCourseController extends Controller
         $slug = Str::slug($request->name);
 
         $resources = 'null';
+        $rating = '0';
 
         if ($request->resources) {
             $resources = $request->resources;
@@ -161,6 +162,7 @@ class AdminCourseController extends Controller
             'resources' => $resources,
             'link_grub' => $request->link_grub,
             'description' => $request->description,
+            'rating' => $rating,
         ]);
 
         $course->tools()->sync($request->tools);
@@ -191,9 +193,10 @@ class AdminCourseController extends Controller
             Lesson::where('chapter_id', $chapter->id)->delete();
             $chapter->delete();
         }
-        
+
         Transaction::where('course_id', $id)->delete();
         $course->delete();
+        Forum::where('course_id', $course->$id)->delete();
         Alert::success('Success', 'Course Berhasil Di Delete');
         return redirect()->route('admin.course');
     }

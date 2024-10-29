@@ -53,7 +53,7 @@
                                     <img src="{{ asset('nemolab/admin/img/edit.png') }}" alt="" width="30"
                                         height="30">
                                 </a>
-                                <a href="{{ route('admin.lesson.delete', ['slug' => $slug, 'id_chapter' => $id_chapter, 'id_lesson' => $lesson->id]) }}" id="btn-delete">
+                                <a href="{{ route('admin.lesson.delete', $lesson->id) }}" id="btn-delete">
                                     <img src="{{ asset('nemolab/admin/img/delete.png') }}" alt=""width="30"
                                         height="30">
                                 </a>
@@ -92,7 +92,7 @@
                 const url = this.href; // Get the URL from the button's href attribute
                 Swal.fire({
                     title: 'Delete',
-                    text: "Apakah Anda Yakin Delete Chapter?",
+                    text: "Apakah Anda Yakin Delete Lesson?",
                     icon: 'warning',
                     showCancelButton: true,
                     confirmButtonColor: '#3085d6',

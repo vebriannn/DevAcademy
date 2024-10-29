@@ -81,11 +81,7 @@
                 <!-- PDF -->
                 <div class="pdf-height">
                     <div class="pdf-preview d-flex" id="pdf-scrollable-container">
-<<<<<<< Updated upstream
                         <canvas class="pdf-render mx-auto" id="pdf-render"></canvas>
-=======
-                        <canvas class="mx-auto" id="pdf-render"></canvas>
->>>>>>> Stashed changes
                     </div>
                 </div>
             </div>

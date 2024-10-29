@@ -4,7 +4,7 @@
     <link rel="stylesheet" href="{{ asset('nemolab/admin/css/tabel-content.css') }}">
 @endpush
 
-@section('title', 'View Course')
+@section('title', 'Paket Kursus')
 
 @section('content')
     <main role="main" class="col-md-12 ml-sm-auto col-lg-9 ps-4">
@@ -12,15 +12,16 @@
             <h1 class="judul-table">Video Courses</h1>
         </div>
         <div style="position: relative">
-            <a href="{{ route('admin.course.create') }}" class="tambah-data pt-2 pb-2 px-4 fw-semibold" style="width: max=content; !important; position: absolute; right: 15px; top: 15px; z-index: 999;">Tambah</a>
-            <div class="d-flex gap-3" style="position: absolute; right: 20px; bottom: 30px;">
+            <a href="{{ route('admin.course.create') }}" class="tambah-data pt-2 pb-2 px-4 fw-semibold"
+                style="width: max=content; !important; position: absolute; right: 15px; top: 15px; z-index: 999;">Tambah</a>
+            {{-- <div class="d-flex gap-3" style="position: absolute; right: 20px; bottom: 30px;">
                 <button class="pagination mx-1 {{ $courses->onFirstPage() ? 'disabled' : '' }}" id="prev-button"
                     {{ $courses->onFirstPage() ? 'disabled' : '' }}
                     data-url="{{ $courses->previousPageUrl() }}">Sebelumnya</button>
                 <button class="pagination mx-1 {{ $courses->hasMorePages() ? '' : 'disabled' }}" id="next-button"
                     {{ $courses->hasMorePages() ? '' : 'disabled' }}
                     data-url="{{ $courses->nextPageUrl() }}">Berikutnya</button>
-            </div>
+            </div> --}}
             <div class="table-responsive px-3 py-3">
                 <div class="btn-group mr-2 w-100 d-flex justify-content-between align-items-center mb-3">
                     <div class="d-flex align-items-center ms-3 mt-2">
@@ -41,44 +42,22 @@
                 <table class="table table-sm">
                     <thead>
                         <tr>
-                            <th>Kategori</th>
-                            <th>Judul</th>
-                            <th>Deskripsi</th>
-                            <th>Mentor</th>
-                            <th>Sampul</th>
-                            <th>Harga</th>
-                            <th>Status</th>
-                            <th>Tipe</th>
-                            <th>Sumber Daya</th>
-                            <th>Link Grup</th>
-                            <th>Tingkat</th>
-                            <th>Aksi</th>
+                            <th>Nama Course</th>
+                            <th>Nama Ebook</th>
+                            <th>Price Paket</th>
                         </tr>
                     </thead>
                     <tbody>
                         @forelse ($courses as $course)
                             <tr>
-                                <td>{{ $course->category }}</td>
                                 <td>{{ $course->name }}</td>
-                                <td>{{ $course->description }}</td>
-                                <td>{{ $course->users->name }}</td>
                                 <td>
-                                    <img src="{{ asset('storage/images/covers/' . $course->cover) }}" alt=""
-                                        width="150" height="100" class="object-fit-cover rounded-3">
+                                    @foreach ($course->ebooks as $ebook)
+                                        {{ $ebook->name }}<br> <!-- Display each ebook's name -->
+                                    @endforeach
                                 </td>
                                 <td>Rp. {{ number_format($course->price, 0) }}</td>
-                                <td>{{ $course->status }}</td>
-                                <td>{{ $course->type }}</td>
-                                <td>{{ $course->resources == 'null' ? '-' : $course->resources  }}</td>
-                                <td>{{ $course->link_grub }}</td>
-                                <td>{{ $course->level }}</td>
-                                <td class="">
-                                    {{-- <a href="{{ route('admin.ebook.create') }}" class="btn btn-warning text-white mb-2">
-                                        Tambah ebook
-                                    </a> --}}
-                                    <a href="{{ route('admin.chapter', $course->slug) }}" class="btn btn-success mb-2">
-                                        Lihat Bab
-                                    </a>
+                                {{-- <td class="">
                                     <a href="{{ route('admin.course.edit', $course->id) }}" class="me-2">
                                         <img src="{{ asset('nemolab/admin/img/edit.png') }}" alt="" width="30"
                                             height="30">
@@ -87,7 +66,7 @@
                                         <img src="{{ asset('nemolab/admin/img/delete.png') }}" alt=""width="30"
                                             height="30">
                                     </a>
-                                </td>
+                                </td> --}}
                             </tr>
                         @empty
                             <tr>
@@ -99,7 +78,6 @@
                 </table>
 
                 <div class="d-flex justify-content-between p-1">
-                    <p class="show">Menampilkan {{ $courses->count() }} dari {{ $courses->total() }}</p>
 
                 </div>
             </div>

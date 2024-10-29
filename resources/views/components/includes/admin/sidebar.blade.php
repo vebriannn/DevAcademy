@@ -34,6 +34,18 @@
         <p class="m-0">Kursus Video</p>
     </a>
 
+    <a href="{{ route('admin.ebook') }}" class="list-sidebar {{ request()->is('admin/ebook') ? 'active' : '' }}">
+        <img src="{{ asset(request()->is('admin/ebook') ? 'nemolab/admin/img/datacourses-active.png' : 'nemolab/admin/img/datacourses.png') }}"
+            alt="" width="30" />
+        <p class="m-0">Kursus Ebook</p>
+    </a>
+
+    <a href="{{ route('admin.ebook') }}" class="list-sidebar {{ request()->is('admin/paket-kelas') ? 'active' : '' }}">
+        <img src="{{ asset(request()->is('admin/paket-kelas') ? 'nemolab/admin/img/datacourses-active.png' : 'nemolab/admin/img/datacourses.png') }}"
+            alt="" width="30" />
+        <p class="m-0">Paket Kursus</p>
+    </a>
+
     <a href="{{ route('admin.category') }}"
         class="list-sidebar {{ request()->is('admin/category') ? 'active' : '' }}">
         <img src="{{ asset(request()->is('admin/category') ? 'nemolab/admin/img/datacourses-active.png' : 'nemolab/admin/img/datacourses.png') }}"

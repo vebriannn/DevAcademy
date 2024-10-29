@@ -4,7 +4,7 @@
     <link rel="stylesheet" href="{{ asset('nemolab/admin/css/create-update.css') }}">
 @endpush
 
-@section('title', 'Create Course')
+@section('title', 'Create Paket Course')
 
 @section('content')
     <div class="card w-75 mt-5 mb-5" style="border: none !important;">
@@ -13,7 +13,7 @@
             <a href="{{ route('admin.course') }}" class="btn btn-orange"> Kembali </a>
         </div>
         <div class="card-body pt-2">
-            <form class="col-12" id="formAction" action="{{ route('admin.course.create.store') }}" method="post"
+            <form class="col-12" id="formAction" action="{{ route('admin.paket-kelas.create.store') }}" method="post"
                 enctype="multipart/form-data">
                 @csrf
                 <div class="row">

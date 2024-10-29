@@ -29,7 +29,6 @@ return new class extends Migration
             $table->text('rating')->nullable(true);
             $table->timestamps();
 
-
         });
     }
 

@@ -97,6 +97,10 @@ class MemberPaymentController extends Controller
                         'name' => $User->name,
                         'email' => $User->email,
                     ],
+                    'callbacks' => [
+                        'finish' => route('member.transaction.detail.view', $transaction_code),
+                        'error' => route('member.transaction.detail.view', $transaction_code),
+                    ],
                 ];
 
                 $createdTransactionMidtrans = \Midtrans\Snap::createTransaction($params);
@@ -157,7 +161,7 @@ class MemberPaymentController extends Controller
                     'course_id' => $transaction->course_id, // Pastikan ini valid
                 ]);
             } catch (\Exception $e) {
-                \Log::error("Failed to create MyListCourse: " . $e->getMessage());
+                \Log::error('Failed to create MyListCourse: ' . $e->getMessage());
             }
         }
     }
@@ -174,14 +178,19 @@ class MemberPaymentController extends Controller
         return redirect()->to($url);
     }
 
-    public function detailTransaction(Request $requests, $transaction_code) {
+    public function detailTransaction(Request $requests, $transaction_code)
+    {
         $transaction = Transaction::where('transaction_code', $transaction_code)->first();
-        if($transaction->status != 'pending') {
-            return view('member.dashboard.transaction.detail-payment', compact('transaction'));
+        if ($transaction) {
+            if ($transaction->status == 'success' || $transaction->status == 'failed') {
+                return view('member.dashboard.transaction.detail-payment', compact('transaction'));
+            } else {
+                Alert::error('Error', 'Maaf Anda Tidak Bisa Akses Detail Transaction, Status Anda Masih Pending!!!');
+                return redirect()->route('member.transaction');
+            }
         }
-        else {
-            return view('error.page404');
-        }
+
+        return view('error.page404');
     }
 
     // public function callback() {
