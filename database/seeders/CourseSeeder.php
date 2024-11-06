@@ -14,6 +14,7 @@ class CourseSeeder extends Seeder
             [
                 'category' => 'Fullstack ',
                 'name' => 'Introduction to Programming',
+                'slug' => 'Introduction to Programming',
                 'cover' => 'cover_image_1.jpg',
                 'type' => 'free',
                 'status' => 'published',
@@ -21,11 +22,13 @@ class CourseSeeder extends Seeder
                 'level' => 'beginner',
                 'description' => 'A basic course on programming concepts.',
                 'resources' => 'https://gedangsuket.id',
+                'link_grub' => 'https://gedangsuket.id',
                 'mentor_id' => 1
             ],
             [
                 'category' => 'Frontend ',
                 'name' => 'Advanced Laravel',
+                'slug' => 'Advanced Laravel',
                 'cover' => 'cover_image_2.jpg',
                 'type' => 'premium',
                 'status' => 'draft',
@@ -33,12 +36,14 @@ class CourseSeeder extends Seeder
                 'level' => 'intermediate',
                 'description' => 'An advanced course on Laravel framework.',
                 'resources' => 'https://gedangsuket.id',
+                'link_grub' => 'https://gedangsuket.id',
                 'mentor_id' => 1
             ],
 
             [
                 'category' => 'Backend',
                 'name' => 'Advanced Linux',
+                'slug' => 'Advanced Linux',
                 'cover' => 'cover_image_3.jpg',
                 'type' => 'premium',
                 'status' => 'draft',
@@ -46,6 +51,7 @@ class CourseSeeder extends Seeder
                 'level' => 'intermediate',
                 'description' => 'An advanced course on Laravel framework.',
                 'resources' => 'https://gedangsuket.id',
+                'link_grub' => 'https://gedangsuket.id',
                 'mentor_id' => 1
             ],
         ];

@@ -30,12 +30,12 @@ class MemberCourseController extends Controller
         $paketFilter = $request->input('filter-paket');
         $coursesQuery = Course::where('status', 'published');
         $ebooksQuery = Ebook::where('status', 'published');
-        
+
         if ($searchQuery) {
             $coursesQuery->where('name', 'LIKE', '%' . $searchQuery . '%');
             $ebooksQuery->where('name', 'LIKE', '%' . $searchQuery . '%');
         }
-    
+
         if ($categoryFilter && $categoryFilter != 'semua') {
             $coursesQuery->where('category', $categoryFilter);
             $ebooksQuery->where('category', $categoryFilter);
@@ -44,11 +44,11 @@ class MemberCourseController extends Controller
             case 'paket-video':
                 $coursesQuery->whereDoesntHave('ebook');
                 break;
-            
+
             case 'paket-ebook':
                 $ebooksQuery->whereNull('course_id');
                 break;
-    
+
             case 'paket-bundling':
                 $coursesQuery->whereHas('ebook');
                 break;
@@ -56,28 +56,28 @@ class MemberCourseController extends Controller
             default:
                 break;
         }
-    
+
         // Ambil hasil query
         $courses = $coursesQuery->orderBy('id', 'DESC')->get();
         $ebooks = $ebooksQuery->orderBy('id', 'DESC')->get();
         $categories = Category::orderBy('id', 'DESC')->get();
-    
+
         return view('member.course', compact('courses', 'categories', 'ebooks','paketFilter'));
     }
-    
+
 
     public function join($slug)
     {
         $courses = Course::where('slug', $slug)->first();
-    
+
         if ($courses) {
             $chapters = Chapter::with('lessons')->where('course_id', $courses->id)->get();
             $reviews = Review::where('course_id', $courses->id)->get();
-    
-            $lesson = $chapters->isNotEmpty() 
-                ? Lesson::with('chapters')->where('chapter_id', $chapters->first()->id)->first() 
+
+            $lesson = $chapters->isNotEmpty()
+                ? Lesson::with('chapters')->where('chapter_id', $chapters->first()->id)->first()
                 : null;
-    
+
             if (Auth::user()) {
                 $transaction = Transaction::where('user_id', Auth::user()->id)
                     ->where('course_id', $courses->id)
@@ -86,18 +86,18 @@ class MemberCourseController extends Controller
             } else {
                 $transaction = null;
             }
-    
+
             $transactionForEbook = null;
             return view('member.joincourse', compact('chapters', 'course', 'lesson', 'transaction', 'transactionForEbook', 'coursetools'));
         } else {
             return redirect('pages.error');
         }
-    
+
         $coursetools = Course::with('tools')->findOrFail($courses->id);
-    
+
         return view('member.joincourse', compact('reviews', 'chapters', 'courses', 'lesson', 'transaction', 'transactionForEbook', 'coursetools'));
     }
-    
+
 
     public function play($slug, $episode)
     {

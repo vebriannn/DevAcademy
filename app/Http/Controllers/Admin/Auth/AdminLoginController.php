@@ -41,7 +41,8 @@ class AdminLoginController extends Controller
                 $request->session()->regenerate();
 
                 if ($user->role === 'students') {
-                    return redirect()->route('home')->with('error', 'You do not have access.');
+                    Alert::error('Error', 'Maaf Anda Tidak Memiliki Akses Untuk Halaman Ini!');
+                    return redirect()->route('home');
                 }
 
                 Alert::success('Success', 'Login successful.');

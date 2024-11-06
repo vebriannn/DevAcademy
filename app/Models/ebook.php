@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class Ebook extends Model
 {
@@ -12,27 +13,17 @@ class Ebook extends Model
     protected $table = 'tbl_ebooks';
 
     protected $fillable = [
-        'course_id',
-        'cover',
+        'category',
         'name',
         'type',
         'status',
         'level',
         'price',
         'description',
-        'ebook',
-        'category',
+        'file_ebook',
         'mentor_id',
         'slug'
     ];
-
-
-
-    // Define the relationship with Course
-    public function courses()
-    {
-        return $this->belongsToMany(Course::class, 'tbl_course_ebooks', 'ebook_id', 'course_id');
-    }
 
     public static function generateUniqueSlug($name)
     {
@@ -40,11 +31,6 @@ class Ebook extends Model
         $count = static::where('slug', 'LIKE', "{$slug}%")->count();
 
         return $count ? "{$slug}-{$count}" : $slug;
-    }
-
-    public function course()
-    {
-        return $this->belongsTo(Course::class, 'course_id');
     }
 
     public function users()

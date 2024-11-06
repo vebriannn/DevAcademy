@@ -58,6 +58,6 @@ class MemberLoginController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
         Alert::success('Success', 'Logout Berhasil');
-        return redirect()->route('home');
+        return redirect()->route('member.login');
     }
 }

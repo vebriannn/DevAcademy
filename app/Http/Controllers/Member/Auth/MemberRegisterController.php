@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers\Member\Auth;
 
 use App\Http\Controllers\Controller;
@@ -6,22 +7,29 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
 use RealRashid\SweetAlert\Facades\Alert;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Auth;
 
+// model yang di butuhkan
 use App\Models\User;
+
 
 class MemberRegisterController extends Controller
 {
     // Sesi pertama: Form registrasi akun (hanya nama, email, dan password)
-    public function index() {
+    public function index()
+    {
         return view('member.auth.register'); // Tampilan sesi pertama
     }
 
-    public function store(Request $requests) {
+    public function store(Request $requests)
+    {
         // Validasi input sesi pertama (nama, email, password)
+
         $requests->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email',
+            'profession' => 'required',
             'password' => [
                 'required',
                 'string',
@@ -32,20 +40,42 @@ class MemberRegisterController extends Controller
         ], [
             'password.regex' => 'Password harus berisi kombinasi huruf dan angka',
         ]);
-        // Simpan data sementara di session
-        $requests->session()->put('register_data', [
-            'name' => $requests->name,
-            'email' => $requests->email,
-            'password' => Hash::make($requests->password),
-        ]);
 
-        return redirect()->route('member.register.profile');
-    }
-    public function profileForm() {
-        return view('member.auth.profile'); 
+        $avatar = null;
+
+        if ($requests->hasFile('avatar')) {
+            $requests->validate([
+                'avatar' => 'image|mimes:jpg,jpeg,png,svg|max:2048', // Validasi hanya jika ada file
+            ]);
+
+            $getNameImageAvatar = $requests->avatar->getClientOriginalName();
+            $avatar = Str::random(10) . $getNameImageAvatar;
+            // simpan avatar ke storage
+            $requests->avatar->storeAs('public/images/avatars', $avatar);
+        }
+
+        try {
+            $user = User::create([
+                'avatar' => $avatar,
+                'name' => $requests->name,
+                'email' => $requests->email,
+                'profession' => $requests->profession,
+                'password' => Hash::make($requests->password)
+            ]);
+
+            event(new Registered($user));
+            Auth::login($user);
+            return redirect()->route('verification.notice');
+
+        } catch (\Exception $error) {
+            Alert::error('Error Server', 'Maaf Terjadi Error, Mohon Coba Lagi Beberapa Saat ');
+            return redirect()->back();
+        }
     }
 
-    public function storeProfile(Request $requests) {
+
+    public function storeProfile(Request $requests)
+    {
         // Validasi input sesi kedua (profesi dan avatar)
         $requests->validate([
             'profession' => 'required|string|max:255',
@@ -56,9 +86,9 @@ class MemberRegisterController extends Controller
             return redirect()->route('register')->withErrors(['error' => 'Sesi pendaftaran telah habis, silahkan ulangi.']);
         }
         $imagesGetNewName = 'default.png';
-        if($requests->hasFile('avatar')) {
+        if ($requests->hasFile('avatar')) {
             $images = $requests->file('avatar');
-            $imagesGetNewName = Str::random(10).$images->getClientOriginalName();
+            $imagesGetNewName = Str::random(10) . $images->getClientOriginalName();
             $images->storeAs('public/images/avatars', $imagesGetNewName);
         }
         // Buat user baru dengan data dari kedua sesi

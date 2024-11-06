@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
@@ -16,19 +17,18 @@ class AdminEbookController extends Controller
     public function index(Request $request)
     {
         $user = Auth::user();
-        $perPage = $request->input('per_page', 10);
         if ($user->role === 'superadmin') {
-            $ebooks = Ebook::paginate($perPage);
+            $ebooks = Ebook::all();
         } else {
-            $ebooks = Ebook::where('mentor_id', $user->id)->paginate($perPage);
+            $ebooks = Ebook::where('mentor_id', $user->id)->get();
         }
-        return view('admin.coursesebook.view', compact('ebooks'));
+        return view('admin.course-ebook.view', compact('ebooks'));
     }
 
     public function create()
     {
         $category = Category::all();
-        return view('admin.coursesebook.create', compact('category'));
+        return view('admin.course-ebook.create', compact('category'));
     }
 
     public function store(Request $request)
@@ -40,7 +40,8 @@ class AdminEbookController extends Controller
             'status' => 'required|in:draft,published',
             'price' => 'nullable|integer',
             'description' => 'required|string',
-            'source_ebook' => 'required|mimes:pdf|max:3000',
+            'level' => 'required',
+            'file_ebook' => 'required|mimes:pdf|max:5120',
         ]);
 
         // Jika tipe ebook 'free', tetapkan harga menjadi 0
@@ -49,15 +50,15 @@ class AdminEbookController extends Controller
         }
 
         // Dapatkan nama asli file
-        $getNameOriginal = $request->source_ebook->getClientOriginalName();
+        $getNameOriginal = $request->file_ebook->getClientOriginalName();
         // Buat nama baru untuk file
         $newNamePDF = Str::random(10) . '_' . $getNameOriginal;
 
         // Simpan file dengan nama baru
-        $request->source_ebook->storeAs('public/file_pdf', $newNamePDF);
+        $request->file_ebook->storeAs('public/file_pdf', $newNamePDF);
 
         // Simpan nama file ke validated data
-        $validatedData['source_ebook'] = $newNamePDF;
+        $validatedData['file_ebook'] = $newNamePDF;
 
         // Buat slug dari nama
         $validatedData['slug'] = Str::slug($validatedData['name']);
@@ -71,10 +72,12 @@ class AdminEbookController extends Controller
         return redirect()->route('admin.ebook');
     }
 
-    public function edit(Ebook $ebook)
+    public function edit(Request $requests)
     {
-        $category = Category::all();
-        return view('admin.coursesebook.update', compact('ebook', 'category'));
+        // id course
+        $id = $requests->query('id');
+        $ebooks = Ebook::where('id', $id)->first();
+        return view('admin.course-ebook.update', compact('ebooks'));
     }
 
     public function update(Request $request, Ebook $ebook)
@@ -86,6 +89,7 @@ class AdminEbookController extends Controller
             'status' => 'required|in:draft,published',
             'price' => 'nullable|integer',
             'description' => 'required|string',
+            'level' => 'required',
         ]);
 
         // Jika tipe ebook 'free', harga harus 0
@@ -94,21 +98,22 @@ class AdminEbookController extends Controller
         }
 
         // Menyimpan file asli jika tidak ada file baru
-        $validatedData['source_ebook'] = $ebook->source_ebook;
+        $validatedData['file_ebook'] = $ebook->file_ebook;
 
         // Jika ada file baru yang diunggah
-        if ($request->hasFile('source_ebook')) {
+        if ($request->hasFile('file_ebook')) {
+            $request->validate(['file_ebook' => 'required|mimes:pdf|max:5120']);
             // Dapatkan nama asli file
-            $getNameOriginal = $request->source_ebook->getClientOriginalName();
+            $getNameOriginal = $request->file_ebook->getClientOriginalName();
             // Buat nama baru untuk file dengan string acak
             $newNamePDF = Str::random(10) . '_' . $getNameOriginal;
 
             // Simpan file dengan nama baru di folder public/file_pdf
-            $request->source_ebook->storeAs('storage/file_pdf/', $newNamePDF);
-            Storage::delete('storage/file_pdf/' . $ebook->source_ebook);
+            $request->file_ebook->storeAs('storage/file_pdf/', $newNamePDF);
+            Storage::delete('storage/file_pdf/' . $ebook->file_ebook);
 
             // Update nama file di validatedData
-            $validatedData['source_ebook'] = $newNamePDF;
+            $validatedData['file_ebook'] = $newNamePDF;
         }
 
         // Buat slug dari nama eBook
@@ -122,15 +127,17 @@ class AdminEbookController extends Controller
 
         // Redirect ke halaman ebook admin
         return redirect()->route('admin.ebook');
-
     }
 
-    public function destroy(Ebook $ebook)
+    public function destroy(Request $requests)
     {
+        // id course
+        $id = $requests->query('id');
+        $ebook = Ebook::where('id', $id)->first();
         $ebook->delete();
-        Storage::delete('storage/file_pdf/' . $ebook->source_ebook);
+        Storage::delete('public/file_pdf/' . $ebook->file_ebook);
 
         Alert::success('Success', 'eBook Berhasil Di Hapus');
-        return redirect()->route('admin.ebook')->with('success', 'eBook deleted successfully.');
+        return redirect()->route('admin.ebook');
     }
 }

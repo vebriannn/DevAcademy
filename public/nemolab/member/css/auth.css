@@ -19,7 +19,8 @@ body {
 }
 
 .login-section {
-    height: 100vh;
+    height: max-content;
+    padding: 50px 0;
 }
 
 .card.login-card {
@@ -28,22 +29,23 @@ body {
     box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
     overflow: hidden;
     max-width: 1200px;
-    margin: auto; 
-    height: 600px; }
+    margin: auto;
+    height: 850px;
+}
 
 .img-container {
-    flex: 1; 
-    height: 100%; 
+    flex: 1;
+    height: 100%;
 }
 
 .img-container img {
     height: 100%;
     object-fit: cover;
-    display: block; 
+    display: block;
 }
 
 .card-body {
-    flex: 1; 
+    flex: 1;
     background-color: white;
     padding: 3rem;
 }
@@ -65,7 +67,7 @@ p {
     padding: 0.5rem 1rem;
 }
 .form-control::placeholder {
-    color: var(--dim-grey); 
+    color: var(--dim-grey);
     opacity: 1;
 }
 
@@ -73,11 +75,11 @@ p {
     background-color: var(--blue);
     border-radius: 50%;
     padding: 0.25rem;
-    display: inline-flex; 
+    display: inline-flex;
     justify-content: center;
-    align-items: center; 
-    width: 40px; 
-    height: 40px; 
+    align-items: center;
+    width: 40px;
+    height: 40px;
 }
 .btn-back:hover{
     background-color: rgb(61, 61, 233);
@@ -88,7 +90,7 @@ p {
 }
 
 .btn-primary {
-    background-color: var(--color-orange);
+    background-color: var(--color-orange) !important;
     border: none;
 }
 
@@ -144,10 +146,10 @@ a:hover {
 
 @media (max-width: 768px) {
     .img-container {
-        display: none; 
+        display: none;
     }
     .card.login-card {
-        height: auto; 
+        height: auto;
     }
     .card-body {
         padding: 1.5rem;

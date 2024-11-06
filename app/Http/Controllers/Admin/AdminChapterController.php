@@ -12,65 +12,65 @@ use App\Models\Lesson;
 
 class AdminChapterController extends Controller
 {
-    public function index($slug) {
-        $id =  Course::where('slug', $slug)->first()->id;
+    public function index($slug_course) {
+        $id_course =  Course::where('slug', $slug_course)->first()->id;
 
-        $chapters = Chapter::where('course_id', $id)->get();
-        return view('admin.chapter.view', compact('chapters', 'slug', 'id'));
+        $chapters = Chapter::where('course_id', $id_course)->get();
+        return view('admin.chapter.view', compact('slug_course', 'chapters', 'id_course'));
     }
 
-    public function create($slug, $id_course) {
-        return view('admin.chapter.create', compact('slug', 'id_course'));
+    public function create($slug_course) {
+        return view('admin.chapter.create', compact('slug_course'));
     }
 
 
-    public function store(Request $requests, $id_chapter) {
+    public function store(Request $requests, $slug_course) {
+
+        $id = Course::where('slug', $slug_course)->first()->id;
+
         $requests->validate([
             'name' => 'required',
         ]);
 
         Chapter::create([
             'name' => $requests->name,
-            'course_id' => $id_chapter,
+            'course_id' => $id,
         ]);
 
-        $course = Course::where('id', $id_chapter)->first();
-
         Alert::success('Success', 'Chapter Berhasil Di Buat');
-        return redirect()->route('admin.chapter', $course->slug);
+        return redirect()->route('admin.chapter', $slug_course);
     }
 
-    public function edit($slug, $id_chapter) {
-        $chapters = Chapter::where('id', $id_chapter)->first();
-        return view('admin.chapter.update', compact('chapters', 'slug'));
+    public function edit(Request $requests, $slug_course) {
+        $id = $requests->query('id');
+        $chapters = Chapter::where('id', $id)->first();
+        return view('admin.chapter.update', compact('chapters', 'slug_course'));
     }
 
-    public function update(Request $requests, $id) {
+    public function update(Request $requests, $slug_course ,$id_chapter) {
         $requests->validate([
             'name' => 'required',
         ]);
 
-        $chapter = Chapter::where('id', $id)->first();
+        $chapter = Chapter::where('id', $id_chapter)->first();
 
         $chapter->update([
             'name' => $requests->name,
         ]);
 
-
-        $course = Course::where('id', $chapter->course_id)->first();
-
         Alert::success('Success', 'Chapter Berhasil Di Edit');
-        return redirect()->route('admin.chapter', $course->slug);
+        return redirect()->route('admin.chapter', $slug_course);
     }
 
-    public function delete($id) {
+    public function delete(Request $requests) {
+        $id = $requests->query('id');
+
         $chapter = Chapter::where('id', $id)->first();
-        $course = Course::where('id', $chapter->course_id)->first();
 
         Lesson::where('chapter_id', $chapter->id)->delete();
         $chapter->delete();
 
         Alert::success('Success', 'Chapter Berhasil Di Hapus');
-        return redirect()->route('admin.chapter', $course->slug);
+        return redirect()->back();
     }
 }

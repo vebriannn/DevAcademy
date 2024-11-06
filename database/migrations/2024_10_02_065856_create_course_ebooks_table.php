@@ -15,6 +15,9 @@ return new class extends Migration
             $table->id();
             $table->foreignId('course_id')->constrained('tbl_courses')->onDelete('cascade');
             $table->foreignId('ebook_id')->constrained('tbl_ebooks')->onDelete('cascade');
+            $table->enum('type', ['free', 'premium']);
+            $table->enum('status', ['draft', 'published']);
+            $table->integer('price')->nullable();
             $table->timestamps();
         });
     }

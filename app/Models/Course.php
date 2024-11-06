@@ -42,7 +42,7 @@ class Course extends Model
         ];
     }
 
-// Di dalam model Course
+    // Di dalam model Course
     public function users()
     {
         return $this->belongsTo(User::class, 'mentor_id', 'id');
@@ -53,27 +53,11 @@ class Course extends Model
     {
         return $this->hasMany(Transaction::class);
     }
-    
-    public function ebook()
-    {
-        return $this->hasOne(Ebook::class, 'course_id', 'id');
-    }
 
     public function tools()
     {
         return $this->belongsToMany(Tools::class, 'tbl_course_tools', 'course_id', 'tool_id');
     }
-        /**
-     * Relasi ke model Forum.
-     * Sebuah course memiliki satu forum.
-     */
-    public function forum()
-    {
-        return $this->hasOne(Forum::class);
-    }
 
-    public function ebooks()
-    {
-        return $this->belongsToMany(Ebook::class, 'tbl_course_ebooks', 'course_id', 'ebook_id');
-    }
+
 }

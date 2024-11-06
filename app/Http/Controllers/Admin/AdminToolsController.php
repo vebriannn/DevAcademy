@@ -15,7 +15,7 @@ class AdminToolsController extends Controller
 {
     public function index(Request $request) {
         $perPage = $request->get('entries', 10);
-        $tools = Tools::paginate($perPage);
+        $tools = Tools::all();
         return view('admin.tools.view', compact('tools'));
     }
 
@@ -33,13 +33,13 @@ class AdminToolsController extends Controller
         $images = $request->file('logo_tools');
         $imagesGetNewName = Str::random(10) . '.' . $images->getClientOriginalExtension();
         $images->storeAs('public/images/logoTools', $imagesGetNewName);
-                    
+
         Tools::create([
             'name_tools' => $request->name_tools,
             'logo_tools' => $imagesGetNewName,
             'link' => $request->link,
         ]);
-        
+
         Alert::success('Success', 'Tools Berhasil Di Buat');
         return redirect()->route('admin.tools');
     }
@@ -80,10 +80,10 @@ class AdminToolsController extends Controller
     }
 
     public function delete($id) {
-        $tools = Tools::findOrFail($id); 
+        $tools = Tools::findOrFail($id);
         Storage::disk('public')->delete('images/logoTools/' . $tools->logo_tools);
         $tools->delete();
-        
+
         Alert::success('Success', 'Tools Berhasil Di Hapus');
         return redirect()->route('admin.tools');
     }

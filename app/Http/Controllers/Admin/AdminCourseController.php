@@ -26,14 +26,13 @@ class AdminCourseController extends Controller
     public function index(Request $request)
     {
         $user = Auth::user();
-        $perPage = $request->input('per_page', 10);
         if ($user->role === 'superadmin') {
-            $courses = Course::with('users')->OrderBy('id', 'DESC')->paginate($perPage);
+            $courses = Course::with('users')->OrderBy('id', 'DESC')->get();
         } else {
-            $courses = Course::where('mentor_id', $user->id)->OrderBy('id', 'DESC')->paginate($perPage);
+            $courses = Course::where('mentor_id', $user->id)->OrderBy('id', 'DESC')->get();
         }
 
-        return view('admin.coursesvideo.view', compact('courses'));
+        return view('admin.course-video.view', compact('courses'));
     }
 
 
@@ -42,7 +41,7 @@ class AdminCourseController extends Controller
     {
         $category = Category::all();
         $tools = Tools::all();
-        return view('admin.coursesvideo.create', compact('category', 'tools'));
+        return view('admin.course-video.create', compact('category', 'tools'));
     }
 
     /**
@@ -91,24 +90,18 @@ class AdminCourseController extends Controller
         ]);
         $course->tools()->sync($request->tools);
 
-        // forum
-        Forum::create([
-            'course_id' => $course->id,
-            'user_id' => Auth::user()->id,
-            'tittle' => $request->name,
-        ]);
-
         Alert::success('Success', 'Course Berhasil Di Buat');
         return redirect()->route('admin.course');
     }
 
-    public function edit($id)
+    public function edit(Request $requests)
     {
+        $id = $requests->query('id');
         $category = Category::all();
         $course = Course::where('id', $id)->first();
         $tools = Tools::all();
         $coursetool = Course::with('tools')->findOrFail($course->id);
-        return view('admin.coursesvideo.update', compact('course', 'category', 'coursetool', 'tools'));
+        return view('admin.course-video.update', compact('course', 'category', 'coursetool', 'tools'));
     }
 
     /**
@@ -174,21 +167,27 @@ class AdminCourseController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function delete($id)
+    public function delete(Request $requests)
     {
+        // id course
+        $id = $requests->query('id');
+
         $course = Course::where('id', $id)->first();
 
+        // check course
         if (!$course) {
             return response()->json(['error' => 'Course not found'], 404);
         }
 
-        // Delete cover file if exists
+        // Delete images course
         if ($course->cover && Storage::exists('public/images/covers/' . $course->cover)) {
             Storage::delete('public/images/covers/' . $course->cover);
         }
 
+        // ambil semua chapters dari id course
         $chapters = Chapter::where('course_id', $id)->get();
 
+        // foreach semua chapter dan semua lesson yang mempunyai id course sama untuk hapus lesson
         foreach ($chapters as $chapter) {
             Lesson::where('chapter_id', $chapter->id)->delete();
             $chapter->delete();
@@ -196,7 +195,6 @@ class AdminCourseController extends Controller
 
         Transaction::where('course_id', $id)->delete();
         $course->delete();
-        Forum::where('course_id', $course->$id)->delete();
         Alert::success('Success', 'Course Berhasil Di Delete');
         return redirect()->route('admin.course');
     }

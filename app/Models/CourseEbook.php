@@ -12,6 +12,21 @@ class CourseEbook extends Model
 
     protected $fillable = [
         'course_id',
-        'ebook_id'
+        'ebook_id',
+        'type',
+        'status',
+        'price',
     ];
+
+    // Relasi ke Course
+    public function course()
+    {
+        return $this->belongsTo(Course::class, 'course_id');
+    }
+
+    // Relasi ke Ebook
+    public function ebook()
+    {
+        return $this->belongsTo(Ebook::class, 'ebook_id');
+    }
 }

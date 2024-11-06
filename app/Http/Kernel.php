@@ -67,5 +67,6 @@ class Kernel extends HttpKernel
         'mentor' => \App\Http\Middleware\MentorMiddleware::class,
         'superadmin' => \App\Http\Middleware\SuperAdminMiddleware::class,
         'maintenance.middleware' => \App\Http\Middleware\StatusWebsiteCheck::class,
+        
     ];
 }

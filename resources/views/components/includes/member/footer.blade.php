@@ -5,7 +5,7 @@
                 <div class="row ">
                     <div class="col-12 mb-4 mt-md-0 col-md-4">
                         <div class="brand-nemolab-icon d-flex align-items-center">
-                            <img src="assets/img/logo-nemolab.png" alt="Logo" width="40" height="40"
+                            <img src="{{ asset('nemolab/member/img/logo-nemolab.png') }}" alt="Logo" width="40" height="40"
                                 class="d-inline-block align-text-top">
                             <div class="title-navbar-brand ms-2">
                                 <p class="m-0 p-0 fw-bold">Nemolab</p>
