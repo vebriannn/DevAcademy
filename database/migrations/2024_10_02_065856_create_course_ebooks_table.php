@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignId('ebook_id')->constrained('tbl_ebooks')->onDelete('cascade');
             $table->enum('type', ['free', 'premium']);
             $table->enum('status', ['draft', 'published']);
+            $table->enum('category', ['Frontend Developer', 'Backend Developer', 'Wordpress Developer','Graphics Designer','Fullstack Developer','UI/UX Designer'])->default('Frontend Developer');
             $table->integer('price')->nullable();
             $table->timestamps();
         });

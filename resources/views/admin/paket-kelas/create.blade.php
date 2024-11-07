@@ -71,13 +71,31 @@
                             @enderror
                         </div>
                     </div>
-                    <div class="col-12 d-block" id="price">
+                    <div class="col-6 d-block" id="price">
                         <p>Harga</p>
                         <div class="entryarea">
                             <input type="number" id="name" name="price" placeholder="" value="0" />
                             @error('price')
                                 <span style="color: red">{{ $message }}</span>
                             @enderror
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <p class="m-0">Kategori</p>
+                        <div class="custom-entryarea">
+                            <select id="category" name="category">
+                                <div class="mb-3">
+                                    <option value="UI/UX Designer">UI/UX Designer</option>
+                                    <option value="Frontend Developer">Frontend Developer</option>
+                                    <option value="Backend Developer">Backend Developer</option>
+                                    <option value="Wordpress Developer">Wordpress Developer</option>
+                                    <option value="Graphic Designer">Graphic Designer</option>
+                                    <option value="Fullstack Developer">Fullstack Developer</option>
+                                    @error('category')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </select>
                         </div>
                     </div>
                     <div class="col-12">

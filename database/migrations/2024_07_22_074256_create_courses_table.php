@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             // Foreign key constraint
             $table->foreignId('mentor_id')->constrained('users')->onDelete('cascade');
-            $table->string('category', 255);
+            $table->enum('category', ['Frontend Developer', 'Backend Developer', 'Wordpress Developer','Graphics Designer','Fullstack Developer','UI/UX Designer'])->default('Frontend Developer');
             $table->string('name', 255);
             $table->string('slug', 255);
             $table->text('cover')->nullable();

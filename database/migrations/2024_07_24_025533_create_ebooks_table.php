@@ -17,9 +17,9 @@ return new class extends Migration
             $table->unsignedBigInteger('mentor_id');
             $table->string('name', 255)->nullable(false);
             $table->string('slug')->unique();
-            // $table->text('cover')->nullable();
+            $table->text('cover')->nullable();
             $table->enum('type', ['free', 'premium']);
-            $table->string('category', 255);
+            $table->enum('category', ['Frontend Developer', 'Backend Developer', 'Wordpress Developer','Graphics Designer','Fullstack Developer','UI/UX Designer'])->default('Frontend Developer');
             $table->enum('status', ['draft', 'published']);
             $table->integer('price')->nullable();
             $table->enum('level', ['beginner', 'intermediate', 'expert']);

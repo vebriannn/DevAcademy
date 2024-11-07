@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\Auth;
 use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
-
 use App\Models\Category;
 
 class AdminEbookController extends Controller
@@ -17,67 +16,58 @@ class AdminEbookController extends Controller
     public function index(Request $request)
     {
         $user = Auth::user();
-        if ($user->role === 'superadmin') {
-            $ebooks = Ebook::all();
-        } else {
-            $ebooks = Ebook::where('mentor_id', $user->id)->get();
-        }
+        $ebooks = $user->role === 'superadmin' ? Ebook::all() : Ebook::where('mentor_id', $user->id)->get();
         return view('admin.course-ebook.view', compact('ebooks'));
     }
 
     public function create()
     {
-        $category = Category::all();
-        return view('admin.course-ebook.create', compact('category'));
+        $categories = Category::all();
+        return view('admin.course-ebook.create', compact('categories'));
     }
 
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'category' => 'required|string|max:255',
+            'category' => 'required|in:Frontend Developer,Backend Developer,Wordpress Developer,Graphics Designer,Fullstack Developer,UI/UX Designer',
             'name' => 'required|string',
             'type' => 'required|in:free,premium',
             'status' => 'required|in:draft,published',
             'price' => 'nullable|integer',
             'description' => 'required|string',
             'level' => 'required',
-            'file_ebook' => 'required|mimes:pdf|max:5120',
+            'file_ebook' => 'required|mimes:pdf|max:15120',
+            'cover' => 'required|image|mimes:jpeg,png,jpg|max:2050',
         ]);
 
-        // Jika tipe ebook 'free', tetapkan harga menjadi 0
         if ($validatedData['type'] === 'free') {
             $validatedData['price'] = 0;
         }
 
-        // Dapatkan nama asli file
-        $getNameOriginal = $request->file_ebook->getClientOriginalName();
-        // Buat nama baru untuk file
-        $newNamePDF = Str::random(10) . '_' . $getNameOriginal;
+        $cover = $request->file('cover');
+        $coverName = Str::random(10) . '_' . $cover->getClientOriginalName();
+        $cover->storeAs('public/images/covers/ebook', $coverName);
+        $validatedData['cover'] = $coverName;
 
-        // Simpan file dengan nama baru
-        $request->file_ebook->storeAs('public/file_pdf', $newNamePDF);
+        $ebookFile = $request->file('file_ebook');
+        $ebookFileName = Str::random(10) . '_' . $ebookFile->getClientOriginalName();
+        $ebookFile->storeAs('public/file_pdf', $ebookFileName);
+        $validatedData['file_ebook'] = $ebookFileName;
 
-        // Simpan nama file ke validated data
-        $validatedData['file_ebook'] = $newNamePDF;
-
-        // Buat slug dari nama
         $validatedData['slug'] = Str::slug($validatedData['name']);
-        // Dapatkan ID mentor dari pengguna yang login
         $validatedData['mentor_id'] = Auth::user()->id;
 
-        // Buat entri ebook baru di database
         Ebook::create($validatedData);
 
-        Alert::success('Success', 'eBook Berhasil Di Buat');
+        Alert::success('Success', 'eBook Berhasil Dibuat');
         return redirect()->route('admin.ebook');
     }
 
-    public function edit(Request $requests)
+    public function edit($id)
     {
-        // id course
-        $id = $requests->query('id');
-        $ebooks = Ebook::where('id', $id)->first();
-        return view('admin.course-ebook.update', compact('ebooks'));
+        $ebook = Ebook::findOrFail($id);
+        $categories = Category::all();
+        return view('admin.course-ebook.update', compact('ebook', 'categories'));
     }
 
     public function update(Request $request, Ebook $ebook)
@@ -90,54 +80,46 @@ class AdminEbookController extends Controller
             'price' => 'nullable|integer',
             'description' => 'required|string',
             'level' => 'required',
+            'file_ebook' => 'nullable|mimes:pdf|max:5120',
+            'cover' => 'nullable|image|mimes:jpeg,png,jpg|max:2050',
         ]);
 
-        // Jika tipe ebook 'free', harga harus 0
         if ($validatedData['type'] === 'free') {
             $validatedData['price'] = 0;
         }
 
-        // Menyimpan file asli jika tidak ada file baru
-        $validatedData['file_ebook'] = $ebook->file_ebook;
+        if ($request->hasFile('cover')) {
+            $cover = $request->file('cover');
+            $coverName = Str::random(10) . '_' . $cover->getClientOriginalName();
+            $cover->storeAs('public/images/covers/ebook', $coverName);
 
-        // Jika ada file baru yang diunggah
-        if ($request->hasFile('file_ebook')) {
-            $request->validate(['file_ebook' => 'required|mimes:pdf|max:5120']);
-            // Dapatkan nama asli file
-            $getNameOriginal = $request->file_ebook->getClientOriginalName();
-            // Buat nama baru untuk file dengan string acak
-            $newNamePDF = Str::random(10) . '_' . $getNameOriginal;
-
-            // Simpan file dengan nama baru di folder public/file_pdf
-            $request->file_ebook->storeAs('storage/file_pdf/', $newNamePDF);
-            Storage::delete('storage/file_pdf/' . $ebook->file_ebook);
-
-            // Update nama file di validatedData
-            $validatedData['file_ebook'] = $newNamePDF;
+            Storage::delete('public/images/covers/ebook/' . $ebook->cover);
+            $validatedData['cover'] = $coverName;
         }
 
-        // Buat slug dari nama eBook
-        $validatedData['slug'] = Str::slug($validatedData['name']);
+        if ($request->hasFile('file_ebook')) {
+            $ebookFile = $request->file('file_ebook');
+            $ebookFileName = Str::random(10) . '_' . $ebookFile->getClientOriginalName();
+            $ebookFile->storeAs('public/file_pdf', $ebookFileName);
 
-        // Update data eBook di database
+            Storage::delete('public/file_pdf/' . $ebook->file_ebook);
+            $validatedData['file_ebook'] = $ebookFileName;  
+        }
+
+        $validatedData['slug'] = Str::slug($validatedData['name']);
         $ebook->update($validatedData);
 
-        // Tampilkan pesan sukses
-        Alert::success('Success', 'eBook Berhasil Di Update');
-
-        // Redirect ke halaman ebook admin
+        Alert::success('Success', 'eBook Berhasil Diperbarui');
         return redirect()->route('admin.ebook');
     }
 
-    public function destroy(Request $requests)
+    public function destroy($id)
     {
-        // id course
-        $id = $requests->query('id');
-        $ebook = Ebook::where('id', $id)->first();
+        $ebook = Ebook::findOrFail($id);
+        Storage::delete(['public/file_pdf/' . $ebook->file_ebook, 'public/images/covers/ebook/' . $ebook->cover]);
         $ebook->delete();
-        Storage::delete('public/file_pdf/' . $ebook->file_ebook);
 
-        Alert::success('Success', 'eBook Berhasil Di Hapus');
+        Alert::success('Success', 'eBook Berhasil Dihapus');
         return redirect()->route('admin.ebook');
     }
 }
