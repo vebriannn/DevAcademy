@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use RealRashid\SweetAlert\Facades\Alert;
 
 // member routes
 use App\Http\Controllers\Member\Auth\MemberLoginController;
@@ -18,6 +19,7 @@ use App\Http\Controllers\Admin\AdminChapterController;
 use App\Http\Controllers\Admin\AdminLessonController;
 use App\Http\Controllers\Admin\AdminEbookController;
 use App\Http\Controllers\Admin\AdminCourseEbookController;
+use App\Http\Controllers\Admin\AdminDiskonController;
 
 
 
@@ -64,7 +66,7 @@ Route::prefix('member')->group(function () {
     Route::get('user/logout', [MemberLoginController::class, 'logout'])->name('member.logout');
 
     // route halaman send verified
-    Route::view('email/verify', 'member.auth.verify-email')->middleware('students')->name('verification.notice');
+    Route::get('email/verify', [MemberResendEmailController::class, 'index'])->middleware('students')->name('verification.notice');
 
     // resend email verified
     Route::post('email/verification-notification', [MemberResendEmailController::class, 'resend'])->middleware(['students', 'throttle:custom-limit'])->name('verification.send');
@@ -72,8 +74,9 @@ Route::prefix('member')->group(function () {
     // handler email verified
     Route::get('email/verify/{id}/{hash}', [MemberResendEmailController::class, 'handler'])->middleware(['students', 'signed'])->name('verification.verify');
 
+    // route halaman send reset oassword
+    Route::get('forget-password', [MemberForgotPassController::class, 'index'])->name('member.forget-password');
 
-    Route::view('forget-password', 'member.auth.forget-pass')->name('member.forget-password');
     Route::post('forget-password/check', [MemberForgotPassController::class, 'checkEmail'])->middleware(['throttle:custom-limit-reset-pw'])->name('member.forget-password.check');
 
     // kirim link reset password
@@ -121,7 +124,7 @@ Route::prefix('admin')->group(function () {
         Route::post('/store', [AdminEbookController::class, 'store'])->name('admin.ebook.create.store');
         Route::get('/edit/', [AdminEbookController::class, 'edit'])->name('admin.ebook.edit');
         Route::put('/update/{ebook}', [AdminEbookController::class, 'update'])->name('admin.ebook.edit.update');
-        Route::get('/delete/', [AdminEbookController::class, 'destroy'])->name('admin.ebook.delete');
+        Route::get('/delete/', [AdminEbookController::class, 'delete'])->name('admin.ebook.delete');
     });
 
     Route::prefix('paket-kelas')->middleware(['mentor', 'verified'])->group(function () {
@@ -140,5 +143,14 @@ Route::prefix('admin')->group(function () {
         Route::get('/edit/{id}', [AdminToolsController::class, 'edit'])->name('admin.tools.edit');
         Route::put('/edit/update/{id}', [AdminToolsController::class, 'update'])->name('admin.tools.edit.update');
         Route::get('/delete/{id}', [AdminToolsController::class, 'delete'])->name('admin.tools.delete');
+    });
+
+    Route::prefix('diskon-kelas')->middleware(['mentor', 'verified'])->group(function () {
+        Route::get('/', [AdminDiskonController::class, 'index'])->name('admin.diskon-kelas');
+        Route::get('/create', [AdminDiskonController::class, 'create'])->name('admin.diskon-kelas.create');
+        Route::post('/store', [AdminDiskonController::class, 'store'])->name('admin.diskon-kelas.create.store');
+        Route::get('/edit/', [AdminDiskonController::class, 'edit'])->name('admin.diskon-kelas.edit');
+        Route::put('/update/{id_diskon}', [AdminDiskonController::class, 'update'])->name('admin.diskon-kelas.edit.update');
+        Route::get('/delete/', [AdminDiskonController::class, 'delete'])->name('admin.diskon-kelas.delete');
     });
 });

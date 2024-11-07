@@ -16,7 +16,7 @@
                             class="img-fluid rounded-start">
                     </div>
                     <div class="card-body ps-4">
-                        <a href="javascript:void(0);" class="btn-back mb-4" onclick="window.history.back();">
+                        <a href="{{ route('member.forget-password') }}" class="btn-back mb-4">
                             <img src="{{ asset('nemolab/member/img/icon/arrow.png') }}" alt="Back" class="back-icon">
                         </a>
                         <div class="px-3 text-center">

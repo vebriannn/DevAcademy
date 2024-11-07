@@ -30,13 +30,22 @@
                         <tbody>
                             @forelse ($paketKelas as $kelas)
                                 <tr>
-                                    <td>{{ $kelas->course->name }}</td>
-                                    <td>{{ $kelas->ebook->name }}</td>
+                                    @if (is_null($kelas->course))
+                                        <td>-</td>
+                                    @else
+                                        <td>{{ $kelas->course->name }}</td>
+                                    @endif
+                                    @if (is_null($kelas->ebook))
+                                        <td>-</td>
+                                    @else
+                                        <td>{{ $kelas->ebook->name }}</td>
+                                    @endif
                                     <td>{{ $kelas->type }}</td>
                                     <td>{{ $kelas->status }}</td>
-                                    <td>{{ $kelas->price }}</td>
+                                    <td>Rp. {{ number_format($kelas->price, 0) }}</td>
                                     <td class="">
-                                        <a class="btn btn-warning" href="{{ route('admin.paket-kelas.edit') }}?id={{ $kelas->id }}">
+                                        <a class="btn btn-warning"
+                                            href="{{ route('admin.paket-kelas.edit') }}?id={{ $kelas->id }}">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                 viewBox="0 0 24 24"
                                                 style="fill: rgba(255, 255, 255, 1);transform: ;msFilter:;">
@@ -48,7 +57,8 @@
                                                 </path>
                                             </svg>
                                         </a>
-                                        <a href="{{ route('admin.paket-kelas.delete') }}?id={{ $kelas->id }}" class="btn btn-danger ">
+                                        <a href="{{ route('admin.paket-kelas.delete') }}?id={{ $kelas->id }}"
+                                            class="btn btn-danger ">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                                 fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
                                                 <path
@@ -69,40 +79,4 @@
     <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
     <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
     <script src="https://cdn.datatables.net/2.1.8/js/dataTables.bootstrap5.js"></script>
-@endpush
-@push('addon-script')
-    <script>
-        $(document).ready(function() {
-            // Inisialisasi DataTables
-            var table = $('#tablesContent').DataTable({
-                responsive: true,
-                paging: true,
-                searching: true,
-                lengthChange: true,
-                language: {
-                    lengthMenu: "Tampilkan _MENU_ entri",
-                    search: "Cari:",
-                    info: "Menampilkan _START_ sampai _END_ dari _TOTAL_ entri",
-                }
-            });
-
-            // Fungsi untuk menghapus elemen 'first' dan 'last'
-            function removePaginationLinks() {
-                $('.page-link.first').closest('li').remove();
-                $('.page-link.last').closest('li').remove();
-            }
-
-            // Panggil fungsi di awal saat DataTable pertama kali diinisialisasi
-            removePaginationLinks();
-
-            // Panggil fungsi setiap kali tabel di-*render* ulang
-            table.on('draw', function() {
-                // Tambahkan sedikit delay agar elemen benar-benar sudah ada di DOM
-                setTimeout(removePaginationLinks, 10);
-            });
-        });
-
-        const checkbox = document.getElementById('swal2-checkbox');
-        checkbox.remove();
-    </script>
 @endpush

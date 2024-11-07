@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('tbl_course_ebooks', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('course_id')->constrained('tbl_courses')->onDelete('cascade');
-            $table->foreignId('ebook_id')->constrained('tbl_ebooks')->onDelete('cascade');
+            $table->foreignId('course_id')->nullable()->constrained('tbl_courses')->onDelete('set null');
+            $table->foreignId('ebook_id')->nullable()->constrained('tbl_ebooks')->onDelete('set null');
             $table->enum('type', ['free', 'premium']);
             $table->enum('status', ['draft', 'published']);
             $table->integer('price')->nullable();

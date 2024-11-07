@@ -11,9 +11,13 @@ use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
 class ResendEmailVerif extends Controller
 {
+    public function index()
+    {
+        return view('member.auth.verify-email');
+    }
+
     public function resend(Request $requests)
     {
-
         $requests->user()->sendEmailVerificationNotification();
 
         RateLimiter::hit('verification-email:' . Auth::user()->id, 3600);
@@ -27,6 +31,7 @@ class ResendEmailVerif extends Controller
     {
         $request->fulfill(); // Panggil method fulfill untuk menyelesaikan verifikasi
 
+        Alert::success('Success', 'Akun Anda Berhasil Terverifikasi');
         return redirect()->route('member.setting'); // Redirect dengan pesan
     }
 }

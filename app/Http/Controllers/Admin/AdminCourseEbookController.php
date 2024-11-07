@@ -22,8 +22,8 @@ class AdminCourseEbookController extends Controller
 
     public function create()
     {
-        $courses = Course::where('mentor_id', Auth::user()->id)->get();
-        $ebooks = Ebook::where('mentor_id', Auth::user()->id)->get();
+        $courses = Course::where('mentor_id', Auth::user()->id)->where('status', 'published')->get();
+        $ebooks = Ebook::where('mentor_id', Auth::user()->id)->where('status', 'published')->get();
         return view('admin.paket-kelas.create', compact('courses', 'ebooks'));
     }
 
@@ -32,21 +32,20 @@ class AdminCourseEbookController extends Controller
         $requests->validate([
             'name_course' => 'required',
             'name_ebook' => 'required',
-            'type' => 'required|in:free,premium',
             'status' => 'required|in:draft,published',
-            'price' => 'required|integer',
-
         ]);
 
-        $course_id = Course::where('name', $requests->name_course)->first()->id;
-        $ebook_id = Ebook::where('name', $requests->name_ebook)->first()->id;
+        $course = Course::where('name', $requests->name_course)->first();
+        $ebook = Ebook::where('name', $requests->name_ebook)->first();
+
+        $harga = ($course->price + $ebook->price) * 0.8;
 
         CourseEbook::create([
-            'course_id' => $course_id,
-            'ebook_id' => $ebook_id,
-            'type' => $requests->type,
+            'course_id' => $course->id,
+            'ebook_id' => $ebook->id,
+            'type' => $course->type,
             'status' => $requests->status,
-            'price' => $requests->price,
+            'price' => $harga,
             'mentor_id' => Auth::user()->id
         ]);
 
@@ -59,8 +58,8 @@ class AdminCourseEbookController extends Controller
     {
         $id = $requests->query('id');
         $paketKelas = CourseEbook::with(['course', 'ebook'])->where('id', $id)->first();
-        $courses = Course::where('mentor_id', Auth::user()->id)->get();
-        $ebooks = Ebook::where('mentor_id', Auth::user()->id)->get();
+        $courses = Course::where('mentor_id', Auth::user()->id)->where('status', 'published')->get();
+        $ebooks = Ebook::where('mentor_id', Auth::user()->id)->where('status', 'published')->get();
         return view('admin.paket-kelas.update', compact('courses', 'ebooks', 'paketKelas'));
     }
 
@@ -69,23 +68,23 @@ class AdminCourseEbookController extends Controller
         $requests->validate([
             'name_course' => 'required',
             'name_ebook' => 'required',
-            'type' => 'required|in:free,premium',
             'status' => 'required|in:draft,published',
-            'price' => 'required|integer',
         ]);
 
 
         $courseEbook = CourseEbook::where('id', $id)->first();
 
-        $course_id = Course::where('name', $requests->name_course)->first()->id;
-        $ebook_id = Ebook::where('name', $requests->name_ebook)->first()->id;
+        $course = Course::where('name', $requests->name_course)->first();
+        $ebook = Ebook::where('name', $requests->name_ebook)->first();
+
+        $harga = ($course->price + $ebook->price) * 0.8;
 
         $courseEbook->update([
-            'course_id' => $course_id,
-            'ebook_id' => $ebook_id,
-            'type' => $requests->type,
+            'course_id' => $course->id,
+            'ebook_id' => $ebook->id,
+            'type' => $course->type,
             'status' => $requests->status,
-            'price' => $requests->price,
+            'price' => $harga,
         ]);
 
         Alert::success('Success', 'Paket Berhasil Di Update');

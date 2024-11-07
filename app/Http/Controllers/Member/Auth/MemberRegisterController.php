@@ -54,25 +54,21 @@ class MemberRegisterController extends Controller
             $requests->avatar->storeAs('public/images/avatars', $avatar);
         }
 
-        try {
-            $user = User::create([
-                'avatar' => $avatar,
-                'name' => $requests->name,
-                'email' => $requests->email,
-                'profession' => $requests->profession,
-                'password' => Hash::make($requests->password)
-            ]);
+        $user = User::create([
+            'avatar' => $avatar,
+            'name' => $requests->name,
+            'email' => $requests->email,
+            'profession' => $requests->profession,
+            'password' => Hash::make($requests->password)
+        ]);
 
-            event(new Registered($user));
-            Auth::login($user);
-            return redirect()->route('verification.notice');
-
-        } catch (\Exception $error) {
-            Alert::error('Error Server', 'Maaf Terjadi Error, Mohon Coba Lagi Beberapa Saat ');
-            return redirect()->back();
-        }
+        // Kirim notifikasi verifikasi email
+        $user->sendEmailVerificationNotification();
+        event(new Registered($user));
+        Auth::login($user);
+        Alert::success('Success', 'Berhasil Mengirimkan Tautan Verifikasi');
+        return redirect()->route('verification.notice');
     }
-
 
     public function storeProfile(Request $requests)
     {

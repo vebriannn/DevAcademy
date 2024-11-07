@@ -72,7 +72,28 @@
         });
 
         const checkbox = document.getElementById('swal2-checkbox');
-        checkbox.remove();
+        if (checkbox) {
+            checkbox.remove();
+        }
+    </script>
+
+    <script>
+        function toggleSidebar() {
+            var sidebar = document.getElementById("sidebar");
+            var toggleBtn = document.getElementById("toggleBtn");
+            var openIcon = document.getElementById("openIcon");
+            var closeIcon = document.getElementById("closeIcon");
+
+            if (sidebar.style.width === "300px") { // Adjust the width to match your desired sidebar width
+                sidebar.style.width = "0";
+                closeIcon.style.display = "none";
+                openIcon.style.display = "block";
+            } else {
+                sidebar.style.width = "300px"; // Adjust the width to match your desired sidebar width
+                openIcon.style.display = "none";
+                closeIcon.style.display = "block";
+            }
+        }
     </script>
     @stack('addon-script')
 

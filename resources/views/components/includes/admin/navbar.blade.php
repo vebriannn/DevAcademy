@@ -30,59 +30,56 @@
                             <p class="m-0">Pengajuan Mentor</p>
                         </a>
                     @endif
-                    <p class="tittle-list-sidebar mt-3">Kursus</p>
-                    <a href="{{ route('admin.course') }}" style="background-color: transparent"
-                        class="list-sidebar d-flex ms-3 text-decoration-none text-black {{ request()->is('admin') ? 'active' : '' }}">
-                        <img src="{{ asset(request()->is('admin') ? 'nemolab/admin/img/datacourses-active.png' : 'nemolab/admin/img/datacourses-active.png') }}"
+                    <p class="title-list-sidebar mt-3">Kursus</p>
+                    <a href="{{ route('admin.course') }}"
+                        class="list-sidebar d-flex align-items-center {{ request()->is('admin/course') ? 'active' : '' }}">
+                        <img src="{{ asset(request()->is('admin/course') ? 'nemolab/admin/img/datacourses-active.png' : 'nemolab/admin/img/datacourses.png') }}"
                             alt="" width="30" />
                         <p class="m-0">Kursus Video</p>
                     </a>
 
-                    {{-- <a href="{{ route('admin.category') }}" style="background-color: transparent"
-                        class="list-sidebar d-flex ms-3 text-decoration-none text-black {{ request()->is('admin/category') ? 'active' : '' }}">
-                        <img src="{{ asset(request()->is('admin/category') ? 'nemolab/admin/img/datacourses-active.png' : 'nemolab/admin/img/datacourses-active.png') }}"
+                    <a href="{{ route('admin.ebook') }}"
+                        class="list-sidebar d-flex align-items-center {{ request()->is('admin/ebooks') ? 'active' : '' }}">
+                        <img src="{{ asset(request()->is('admin/ebooks') ? 'nemolab/admin/img/datacourses-active.png' : 'nemolab/admin/img/datacourses.png') }}"
                             alt="" width="30" />
-                        <p class="m-0">Kategori</p>
+                        <p class="m-0">Kursus Ebook</p>
                     </a>
-                    <a href="{{ route('admin.transaction') }}" style="background-color: transparent"
-                        class="list-sidebar d-flex ms-3 text-decoration-none text-black {{ request()->is('admin/course/transaction') ? 'active' : '' }}">
-                        <img src="{{ asset(request()->is('admin/course/transaction') ? 'nemolab/admin/img/datacourses-active.png' : 'nemolab/admin/img/datacourses-active.png') }}"
+
+                    <a href="{{ route('admin.paket-kelas') }}"
+                        class="list-sidebar d-flex align-items-center {{ request()->is('admin/paket-kelas') ? 'active' : '' }}">
+                        <img src="{{ asset(request()->is('admin/paket-kelas') ? 'nemolab/admin/img/datacourses-active.png' : 'nemolab/admin/img/datacourses.png') }}"
                             alt="" width="30" />
-                        <p class="m-0">Transaksi</p>
+                        <p class="m-0">Paket Video Ebook</p>
                     </a>
-                    <a href="{{ route('admin.tools') }}" style="background-color: transparent"
-                        class="list-sidebar d-flex ms-3 text-decoration-none text-black {{ request()->is('admin/tools') ? 'active' : '' }}">
-                        <img src="{{ asset(request()->is('admin/tools') ? 'nemolab/admin/img/datacourses-active.png' : 'nemolab/admin/img/datacourses-active.png') }}"
+
+                    <a href="{{ route('admin.tools') }}"
+                        class="list-sidebar d-flex align-items-center {{ request()->is('admin/tools') ? 'active' : '' }}">
+                        <img src="{{ asset(request()->is('admin/tools') ? 'nemolab/admin/img/datacourses-active.png' : 'nemolab/admin/img/datacourses.png') }}"
                             alt="" width="30" />
-                        <p class="m-0">Alat</p>
+                        <p class="m-0">Tools</p>
                     </a>
-                    <a href="{{ route('admin.forum') }}" style="background-color: transparent"
-                    class="list-sidebar d-flex ms-3 text-decoration-none text-black {{ request()->is('admin/course/forum') ? 'active' : '' }}">
-                    <img src="{{ asset(request()->is('admin/course/forum') ? 'nemolab/admin/img/datacourses-active.png' : 'nemolab/admin/img/datacourses-active.png') }}"
-                        alt="" width="30" />
-                    <p class="m-0">Forum</p>
-                    </a>
-                    <p class="tittle-list-sidebar mt-3">Lihat Data</p>
-                    <a href="{{ route('admin.portofolio') }}" style="background-color: transparent"
-                        class="list-sidebar d-flex ms-3 text-decoration-none text-black {{ request()->is('admin/portofolio') ? 'active' : '' }}">
-                        <img src="{{ asset(request()->is('admin/portofolio') ? 'nemolab/admin/img/datamember-active.png' : 'nemolab/admin/img/datamember-active.png') }}"
+
+                    <a href="{{ route('admin.diskon-kelas') }}"
+                        class="list-sidebar d-flex align-items-center {{ request()->is('admin/diskon-kelas') ? 'active' : '' }}">
+                        <img src="{{ asset(request()->is('admin/diskon-kelas') ? 'nemolab/admin/img/datacourses-active.png' : 'nemolab/admin/img/datacourses.png') }}"
                             alt="" width="30" />
-                        <p class="m-0">Data Portofolio</p>
-                    </a> --}}
+                        <p class="m-0">Atur Diskon</p>
+                    </a>
+
                 </div>
             </div>
             <button class="toggle-btn d-block d-lg-none" id="toggleBtn" onclick="toggleSidebar()">
-                <img id="openIcon" src="{{ asset('nemolab/admin/img/menus.png') }}" alt="Open Sidebar">
-                <img id="closeIcon" src="{{ asset('nemolab/admin/img/close2.png') }}" alt="Close Sidebar"
-                    class="hidden">
+                <span class="">
+                    <img src="/nemolab/member/img/icon-nav.png" alt="">
+                </span>
             </button>
-            <div class="d-none d-lg-flex align-items-centerr">
+            <div class="d-none d-lg-flex align-items-center" id="logo-group">
                 <a href="{{ route('home') }}" style="text-decoration: none;">
                     <div class="brand-nemolab-icon d-flex align-items-center">
                         <img src="{{ asset('nemolab/member/img/logo-nemolab.png') }}" alt="Logo" width="40"
                             height="40" class="d-inline-block align-text-top">
                         <div class="title-navbar-brand ms-2 d-block">
-                            <p class="m-0 p-0 fw-bold">Nemolab</p>
+                            <p class="m-0 p-0 fw-bold" style="font-size: 20px;">Nemolab</p>
                             <p class="m-0 p-0 ">Kursus Online Terbaik</p>
                         </div>
                     </div>
@@ -91,25 +88,15 @@
 
             <div class="user-login ms-5 d-flex align-items-center gap-3">
                 <p class="fw-semibold m-0">{{ Auth::user()->name }}</p>
-                @if (Auth::user()->avatar != 'default.png')
-                    <img src="{{ asset('storage/images/avatars/' . Auth::user()->avatar) }}" alt=""
-                        width="40" height="40" class="d-md-block  border border-2 rounded-circle" id="myProfile"
-                        style="cursor: pointer" />
+                @if (Auth::user()->avatar != null)
+                    <img src="{{ asset('storage/images/avatars/' . Auth::user()->avatar) }}" class="rounded-5 ms-1"
+                        style="width: 42px; height: 42px;" id="img-profile">
                 @else
-                    <img src="{{ asset('nemolab/admin/img/avatar.png') }}" alt="" width="40" height="40"
-                        class="d-md-block border border-2 rounded-circle" id="myProfile" />
+                    <img src="{{ asset('nemolab/member/img/icon/Group 7.png') }}" class="rounded-5 ms-1"
+                        style="width: 42px; height: 42px;" id="img-profile">
                 @endif
                 <!-- Profile Menu -->
-                <div class="profile-user border border-2 rounded-2 overflow-hidden" id="profileMenu">
-                    {{-- <a href="{{ route('admin.setting') }}"
-                        class="bg-white px-3 py-2 d-flex align-items-center text-decoration-none text-black-50 item fw-semibold m-0 w-100 fw-bold">
-                        Setting
-                    </a> --}}
-                    <a href="{{ route('admin.logout') }}"
-                        class="bg-white px-3 py-2 d-flex align-items-center text-decoration-none text-black-50 item fw-semibold m-0 w-100 fw-bold">
-                        Keluar
-                    </a>
-                </div>
+
             </div>
         </div>
     </nav>

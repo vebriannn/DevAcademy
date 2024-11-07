@@ -129,7 +129,7 @@ class AdminEbookController extends Controller
         return redirect()->route('admin.ebook');
     }
 
-    public function destroy(Request $requests)
+    public function delete(Request $requests)
     {
         // id course
         $id = $requests->query('id');

@@ -4,7 +4,7 @@
     <link rel="stylesheet" href="{{ asset('nemolab/admin/css/tabel-content.css') }}">
 @endpush
 
-@section('title', 'Lihat Tools ')
+@section('title', 'Lihat Diskon Kelas ')
 
 @section('content')
     <div class="container-fluid px-2 px-sm-5 mt-5">
@@ -13,30 +13,25 @@
 
             <div class="col-12 col-lg-9 ps-xl-3 d-flex justify-content-center" style="height: 600px">
                 <div class="table-responsive shadow-lg rounded-3 p-3 w-100" style="background-color: #ffffff;">
-                    <a href="{{ route('admin.tools.create') }}" class="btn"
+                    <a href="{{ route('admin.diskon-kelas.create') }}" class="btn"
                         style="background-color: #faa907; color: white; border-radius: 10px; padding: 6px 10px;">Tambahkan
                         Data</a>
                     <table class=" table table-bordered table-striped shadow-none mb-0" id="tablesContent">
                         <thead class="table-dark">
                             <tr>
-                                <th>Judul</th>
-                                <th>Link</th>
-                                <th>Gambar</th>
+                                <th>Kode Diskon</th>
+                                <th>Rate Diskon</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($tools as $item)
+                            @forelse ($diskonKelas as $kelas)
                                 <tr>
-                                    <td>{{ $item->name_tools }}</td>
-                                    <td><a href="{{ $item->link }}">Kunjungi</a></td>
-                                    <td>
-                                        <img src="{{ asset('storage/images/logoTools/' . $item->logo_tools) }}"
-                                            alt="" width="50" height="50" class="rounded-2 object-fit-cover">
-                                    </td>
-                                    <td class="d-flex justify-content-around align-items-center"
-                                        style="border: none !important; ">
-                                        <a class="btn btn-warning" href="{{ route('admin.tools.edit', $item->id) }}">
+                                    <td>{{ $kelas->kode_diskon }}</td>
+                                    <td>{{ $kelas->rate_diskon }}%</td>
+                                    <td class="">
+                                        <a class="btn btn-warning"
+                                            href="{{ route('admin.diskon-kelas.edit') }}?id={{ $kelas->id }}">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                 viewBox="0 0 24 24"
                                                 style="fill: rgba(255, 255, 255, 1);transform: ;msFilter:;">
@@ -48,7 +43,8 @@
                                                 </path>
                                             </svg>
                                         </a>
-                                        <a href="{{ route('admin.tools.delete', $item->id) }}" class="btn btn-danger ">
+                                        <a href="{{ route('admin.diskon-kelas.delete') }}?id={{ $kelas->id }}"
+                                            class="btn btn-danger ">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                                 fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
                                                 <path
@@ -70,4 +66,3 @@
     <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
     <script src="https://cdn.datatables.net/2.1.8/js/dataTables.bootstrap5.js"></script>
 @endpush
-

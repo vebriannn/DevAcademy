@@ -10,6 +10,8 @@ use Illuminate\Support\Str;
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\Auth;
+use App\Notifications\CustomResetPasswordNotification; // Import yang benar
+
 
 // models users
 use App\Models\User;
@@ -17,6 +19,11 @@ use RealRashid\SweetAlert\Facades\Alert;
 
 class forgotPassController extends Controller
 {
+
+    public function index() {
+        return view('member.auth.forget-pass');
+    }
+
     public function checkEmail(Request $requests)
     {
         $requests->validate(
@@ -25,9 +32,10 @@ class forgotPassController extends Controller
             ]
         );
 
-        $status = Password::sendResetLink(
-            $requests->only('email')
-        );
+        // Kirimkan link reset password
+        $status = Password::sendResetLink($requests->only('email'), function ($user, $token) {
+            $user->notify(new CustomResetPasswordNotification($token));
+        });
 
         $statusSend = 'limit';
 
@@ -73,8 +81,6 @@ class forgotPassController extends Controller
                     'password' => Hash::make($password)
                 ]);
                 $user->save();
-
-                event(new PasswordReset($user));
             }
         );
 

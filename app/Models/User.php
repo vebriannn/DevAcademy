@@ -8,10 +8,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use App\Notifications\CustomVerifyEmailNotification;
 
 class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
 {
     use HasApiTokens, HasFactory, Notifiable;
+
 
     protected $fillable = [
         'avatar',
@@ -30,6 +32,12 @@ class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    // costum verifikasi
+    public function sendEmailVerificationNotification()
+    {
+        $this->notify(new CustomVerifyEmailNotification());  // Sesuaikan dengan notifikasi kustom
+    }
 
     /**
      * Relasi ke model Course.

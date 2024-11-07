@@ -13,15 +13,17 @@
             <a href="{{ route('admin.paket-kelas') }}" class="btn btn-orange"> Kembali </a>
         </div>
         <div class="card-body pt-2">
-            <form class="col-12" id="formAction" action="{{ route('admin.paket-kelas.edit.update', $paketKelas->id) }}" method="post"
-                enctype="multipart/form-data">
+            <form class="col-12" id="formAction" action="{{ route('admin.paket-kelas.edit.update', $paketKelas->id) }}"
+                method="post" enctype="multipart/form-data">
                 @csrf
                 @method('put')
                 <div class="row">
                     <div class="col-6">
                         <p>Cari Kursus Video</p>
-
-                            <div class="custom-entryarea">
+                        <div class="custom-entryarea">
+                            @if (is_null($courses) || $courses->isEmpty())
+                                <span style="color: red">Maaf Belum Ada Ebook</span>
+                            @else
                                 <select id="category" name="name_course">
                                     @foreach ($courses as $course)
                                         <option value="{{ $course->name }}"
@@ -30,29 +32,35 @@
                                         </option>
                                     @endforeach
                                 </select>
-                                @error('name_course')
-                                    <span style="color: red">{{ $message }}</span>
-                                @enderror
-                            </div>
+                            @endif
+                            @error('name_course')
+                                <span style="color: red">{{ $message }}</span>
+                            @enderror
+                        </div>
 
                     </div>
                     <div class="col-6">
                         <p>Cari Kursus Ebook</p>
                         <div class="custom-entryarea">
-                            <select id="ebook" name="name_ebook">
-                                @foreach ($ebooks as $ebook)
-                                    <option value="{{ $ebook->name }}"
-                                        {{ $paketKelas->ebook && $paketKelas->ebook->name == $ebook->name ? 'selected' : '' }}>
-                                        {{ $ebook->name }}
-                                    </option>
-                                @endforeach
-                            </select>
+                            @if (is_null($ebooks) || $ebooks->isEmpty())
+                                <span style="color: red">Maaf Belum Ada Ebook</span>
+                            @else
+                                <select id="ebook" name="name_ebook">
+                                    @foreach ($ebooks as $ebook)
+                                        <option value="{{ $ebook->name }}"
+                                            {{ $paketKelas->ebook && $paketKelas->ebook->name == $ebook->name ? 'selected' : '' }}>
+                                            {{ $ebook->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            @endif
+
                             @error('name_ebook')
                                 <span style="color: red">{{ $message }}</span>
                             @enderror
                         </div>
                     </div>
-                    <div class="col-6">
+                    <div class="col-12">
                         <p>Status</p>
                         <div class="custom-entryarea">
                             <select id="category" name="status">
@@ -61,27 +69,6 @@
                                 </option>
                             </select>
                             @error('status')
-                                <span style="color: red">{{ $message }}</span>
-                            @enderror
-                        </div>
-                    </div>
-                    <div class="col-6">
-                        <p>Tipe</p>
-                        <div class="custom-entryarea">
-                            <select id="type" name="type">
-                                <option value="free" class="value_type" {{ $paketKelas->type == 'free' ? 'selected' : '' }}>Gratis</option>
-                                <option value="premium" class="value_type" {{ $paketKelas->type == 'premium' ? 'selected' : '' }}>Berbayar</option>
-                            </select>
-                            @error('type')
-                                <span style="color: red">{{ $message }}</span>
-                            @enderror
-                        </div>
-                    </div>
-                    <div class="col-12 d-block" id="price">
-                        <p>Harga</p>
-                        <div class="entryarea">
-                            <input type="number" id="name" name="price" placeholder="" value="{{ $paketKelas->price }}" />
-                            @error('price')
                                 <span style="color: red">{{ $message }}</span>
                             @enderror
                         </div>
@@ -98,7 +85,7 @@
 @endsection
 
 @push('addon-script')
-    <script>
+    {{-- <script>
         document.addEventListener("DOMContentLoaded", function() {
             const type = document.getElementById('type');
             const price = document.getElementById('price');
@@ -122,5 +109,5 @@
                 });
             }
         });
-    </script>
+    </script> --}}
 @endpush

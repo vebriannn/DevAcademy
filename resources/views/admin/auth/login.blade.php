@@ -42,8 +42,6 @@
                             <button type="submit" class="btn btn-primary w-100 rounded-start fw-bold">Masuk</button>
                         </div>
                     </form>
-                    <p class="text-center fw-bold">tidak memiliki akun? <a href="{{ route('member.register') }}">daftar disini</a></p>
-                    <p class="text-center fw-bold">lupa kata sandi? <a href="{{ route('member.forget-password') }}">ganti sandi disini</a></p>
                 </div>
             </div>
         </div>

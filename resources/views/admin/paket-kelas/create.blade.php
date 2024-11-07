@@ -20,13 +20,15 @@
                     <div class="col-6">
                         <p>Cari Kursus Video</p>
                         <div class="custom-entryarea">
-                            <select id="category" name="name_course">
-                                <div class="mb-3">
+                            @if (is_null($courses) || $courses->isEmpty())
+                                <span style="color: red">Maaf Belum Ada Kelas</span>
+                            @else
+                                <select id="category" name="name_course">
                                     @foreach ($courses as $course)
                                         <option value="{{ $course->name }}">{{ $course->name }}</option>
                                     @endforeach
-                                </div>
-                            </select>
+                                </select>
+                            @endif
                             @error('name_course')
                                 <span style="color: red">{{ $message }}</span>
                             @enderror
@@ -35,19 +37,23 @@
                     <div class="col-6">
                         <p>Cari Kursus Ebook</p>
                         <div class="custom-entryarea">
-                            <select id="category" name="name_ebook">
-                                <div class="mb-3">
-                                    @foreach ($ebooks as $ebook)
-                                        <option value="{{ $ebook->name }}">{{ $ebook->name }}</option>
-                                    @endforeach
-                                </div>
-                            </select>
+                            @if (is_null($ebooks) || $ebooks->isEmpty() )
+                                <span style="color: red">Maaf Belum Ada Ebook</span>
+                            @else
+                                <select id="category" name="name_ebook">
+                                    <div class="mb-3">
+                                        @foreach ($ebooks as $ebook)
+                                            <option value="{{ $ebook->name }}">{{ $ebook->name }}</option>
+                                        @endforeach
+                                    </div>
+                                </select>
+                            @endif
                             @error('name_ebook')
                                 <span style="color: red">{{ $message }}</span>
                             @enderror
                         </div>
                     </div>
-                    <div class="col-6">
+                    <div class="col-12">
                         <p>Status</p>
                         <div class="custom-entryarea">
                             <select id="category" name="status">
@@ -55,27 +61,6 @@
                                 <option value="published">Publik</option>
                             </select>
                             @error('status')
-                                <span style="color: red">{{ $message }}</span>
-                            @enderror
-                        </div>
-                    </div>
-                    <div class="col-6">
-                        <p>Tipe</p>
-                        <div class="custom-entryarea">
-                            <select id="type" name="type">
-                                <option value="free" class="value_type">Gratis</option>
-                                <option value="premium" class="value_type">Berbayar</option>
-                            </select>
-                            @error('type')
-                                <span style="color: red">{{ $message }}</span>
-                            @enderror
-                        </div>
-                    </div>
-                    <div class="col-12 d-block" id="price">
-                        <p>Harga</p>
-                        <div class="entryarea">
-                            <input type="number" id="name" name="price" placeholder="" value="0" />
-                            @error('price')
                                 <span style="color: red">{{ $message }}</span>
                             @enderror
                         </div>
@@ -92,7 +77,7 @@
 @endsection
 
 @push('addon-script')
-    <script>
+    {{-- <script>
         document.addEventListener("DOMContentLoaded", function() {
             const type = document.getElementById('type');
             const price = document.getElementById('price');
@@ -116,5 +101,5 @@
                 });
             }
         });
-    </script>
+    </script> --}}
 @endpush
