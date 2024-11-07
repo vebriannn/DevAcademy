@@ -7,7 +7,6 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use RealRashid\SweetAlert\Facades\Alert;
-
 use App\Models\User;
 use App\Models\Submission;
 
@@ -29,8 +28,9 @@ class AdminMentorController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|email|max:255|unique:users',
+            'email' => 'required|email|max:255|unique:users,email',
             'password' => 'required|string|min:6',
+            'profession' => 'required|string|max:255',
         ]);
 
         User::create([
@@ -40,33 +40,34 @@ class AdminMentorController extends Controller
             'avatar' => 'default.png',
             'password' => Hash::make($request->password),
             'role' => 'mentor',
+            'profession' => $request->profession,
         ]);
 
-        Alert::success('Success', 'Data Mentor Berhasil Di Buat');
-        return redirect()->route('admin.mentor');
+        Alert::success('Success', 'Data Mentor Berhasil Dibuat');
+        return redirect()->route('admin.mentor.index');
     }
 
     public function edit($id)
     {
-        $mentor = User::where('id', $id)->first();
-
+        $mentor = User::findOrFail($id);
         return view('admin.mentor.edit', compact('mentor'));
     }
 
     public function update(Request $request, $id)
     {
-        $mentor = User::where('id', $id)->first();
+        $mentor = User::findOrFail($id);
 
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|max:255|unique:users,email,' . $mentor->id,
-            'password' => 'nullable|string|min:6',
-            'role' => 'required'
+            'password' => 'nullable|string|min:6|confirmed',
+            'role' => 'required|string',
+            'profession' => 'required|string|max:255',
         ]);
 
-        if($request->role == 'students') {
+        if ($request->role == 'student') {
             $submission = Submission::where('user_id', $id)->first();
-            if(isset($submission)) {
+            if ($submission) {
                 $submission->delete();
             }
         }
@@ -76,28 +77,28 @@ class AdminMentorController extends Controller
             'username' => $request->name,
             'email' => $request->email,
             'role' => $request->role,
+            'profession' => $request->profession,
             'password' => $request->filled('password') ? Hash::make($request->password) : $mentor->password,
         ]);
 
-        Alert::success('Success', 'Data Mentor Berhasil Di Update');
-        return redirect()->route('admin.mentor');
+        Alert::success('Success', 'Data Mentor Berhasil Diupdate');
+        return redirect()->route('admin.mentor.index');
     }
 
     public function destroy($id)
     {
-        $mentor = User::where('id', $id)->first();
+        $mentor = User::findOrFail($id);
 
-        if ($mentor->avatar) {
+        if ($mentor->avatar && $mentor->avatar !== 'default.png') {
             $avatarPath = 'public/images/avatars/' . $mentor->avatar;
-            
             if (Storage::exists($avatarPath)) {
                 Storage::delete($avatarPath);
             }
         }
-    
+
         $mentor->delete();
 
-        Alert::success('Success', 'Data Mentor Berhasil Di Hapus');
-        return redirect()->route('admin.mentor');
+        Alert::success('Success', 'Data Mentor Berhasil Dihapus');
+        return redirect()->route('admin.mentor.index');
     }
 }

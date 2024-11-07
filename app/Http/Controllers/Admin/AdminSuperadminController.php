@@ -29,10 +29,12 @@ class AdminSuperadminController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|string|min:8',
+            'profession' => 'required|string|max:255',
         ]);
 
         User::create([
             'name' => $request->name,
+            'profession' => $request->profession,
             'username' => $request->name, 
             'avatar' => 'default.png',
             'email' => $request->email,
@@ -40,8 +42,8 @@ class AdminSuperadminController extends Controller
             'role' => 'superadmin',
         ]);
 
-        Alert::success('Success', 'Data Superadmin Berhasil Di Buat');
-        return redirect()->route('admin.superadmin');
+        Alert::success('Success', 'Data Superadmin Berhasil Dibuat');
+        return redirect()->route('admin.superadmin.index');
     }
 
     public function edit($id)
@@ -58,24 +60,26 @@ class AdminSuperadminController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email,' . $superadmin->id,
             'password' => 'nullable|string|min:8|confirmed',
+            'profession' => 'nullable|string|max:255',
         ]);
 
         $superadmin->update([
             'name' => $request->name,
+            'profession' => $request->profession,
             'username' => $request->name,
             'email' => $request->email,
             'password' => $request->filled('password') ? Hash::make($request->password) : $superadmin->password,
         ]);
 
-        Alert::success('Success', 'Data Superadmin Berhasil Di Update');
-        return redirect()->route('admin.superadmin');
+        Alert::success('Success', 'Data Superadmin Berhasil Diupdate');
+        return redirect()->route('admin.superadmin.index');
     }
 
     public function destroy($id)
     {
         $superadmin = User::findOrFail($id);
         
-        if ($superadmin->avatar) {
+        if ($superadmin->avatar && $superadmin->avatar !== 'default.png') {
             $avatarPath = 'public/images/avatars/' . $superadmin->avatar;
             
             if (Storage::exists($avatarPath)) {
@@ -85,7 +89,7 @@ class AdminSuperadminController extends Controller
     
         $superadmin->delete();
 
-        Alert::success('Success', 'Data Superadmin Berhasil Di Hapus');
-        return redirect()->route('admin.superadmin');
+        Alert::success('Success', 'Data Superadmin Berhasil Dihapus');
+        return redirect()->route('admin.superadmin.index');
     }
 }
