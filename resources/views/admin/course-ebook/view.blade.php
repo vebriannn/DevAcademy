@@ -36,6 +36,8 @@
                                 <tr>
                                     <td>{{ $ebook->category }}</td>
                                     <td>{{ $ebook->name }}</td>
+
+                                    {{-- level --}}
                                     <td>
                                         @if ($ebook->level == 'beginner')
                                             Pemula
@@ -45,8 +47,23 @@
                                             Ahli
                                         @endif
                                     </td>
-                                    <td>{{ $ebook->type }}</td>
-                                    <td>{{ $ebook->status }}</td>
+
+                                    {{-- tipe --}}
+                                    <td>
+                                        @if ($ebook->type == 'free')
+                                            Gratis
+                                        @else
+                                            Berbayar
+                                        @endif
+                                    </td>
+                                    {{-- status --}}
+                                    <td>
+                                        @if ($ebook == 'draft')
+                                            Draf
+                                        @else
+                                            Publik
+                                        @endif
+                                    </td>
                                     <td>Rp. {{ number_format($ebook->price, 0) }}</td>
                                     @if (Auth::user()->role == 'superadmin')
                                         <td>{{ $ebook->users->name }}</td>

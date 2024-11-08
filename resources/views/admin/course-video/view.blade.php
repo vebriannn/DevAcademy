@@ -45,8 +45,20 @@
                                             Ahli
                                         @endif
                                     </td>
-                                    <td>{{ $course->type }}</td>
-                                    <td>{{ $course->status }}</td>
+                                    <td>
+                                        @if ($course->type == 'free')
+                                            Gratis
+                                        @else
+                                            Berbayar
+                                        @endif
+                                    </td>
+                                    <td>
+                                        @if ($course->status == 'draft')
+                                            Draf
+                                        @else
+                                            Publik
+                                        @endif
+                                    </td>
                                     <td>Rp. {{ number_format($course->price, 0) }}</td>
                                     @if (Auth::user()->role == 'superadmin')
                                         <td>{{ $course->users->name }}</td>
@@ -62,7 +74,8 @@
                                                     d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5M4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0" />
                                             </svg>
                                         </a>
-                                        <a class="btn btn-warning" href="{{ route('admin.course.edit') }}?id={{ $course->id }}">
+                                        <a class="btn btn-warning"
+                                            href="{{ route('admin.course.edit') }}?id={{ $course->id }}">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                 viewBox="0 0 24 24"
                                                 style="fill: rgba(255, 255, 255, 1);transform: ;msFilter:;">
@@ -74,7 +87,8 @@
                                                 </path>
                                             </svg>
                                         </a>
-                                        <a href="{{ route('admin.course.delete') }}?id={{ $course->id }}" class="btn btn-danger ">
+                                        <a href="{{ route('admin.course.delete') }}?id={{ $course->id }}"
+                                            class="btn btn-danger ">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                                 fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
                                                 <path
@@ -91,4 +105,3 @@
         </div>
     </div>
 @endsection
-

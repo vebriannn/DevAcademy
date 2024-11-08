@@ -10,6 +10,7 @@ use App\Http\Controllers\Member\Auth\MemberRegisterController;
 use App\Http\Controllers\Member\Auth\ResendEmailVerif as MemberResendEmailController;
 use App\Http\Controllers\Member\Auth\forgotPassController as MemberForgotPassController;
 use App\Http\Controllers\Member\Dashboard\MemberSettingController;
+use App\Http\Controllers\Member\LandingpageController as MemberLandingPagesController;
 
 // admin routes
 use App\Http\Controllers\Admin\Auth\AdminLoginController;
@@ -20,7 +21,8 @@ use App\Http\Controllers\Admin\AdminLessonController;
 use App\Http\Controllers\Admin\AdminEbookController;
 use App\Http\Controllers\Admin\AdminCourseEbookController;
 use App\Http\Controllers\Admin\AdminDiskonController;
-
+use App\Http\Controllers\member\MemberCourseController;
+use App\Http\Controllers\Admin\AdminStudentController;
 
 
 
@@ -36,12 +38,24 @@ use App\Http\Controllers\Admin\AdminDiskonController;
 */
 
 
+// route mainetanance
+Route::get('/maintenance', function () {
+    if(config('app.maintenance_mode') === true) {
+        return view('error.maintenance'); // Menampilkan view 'pages/maintenance.blade.php'
+    }
+    else {
+        return redirect()->route('home');
+    }
+})->name('pages.maintenance');
 
 
-Route::view('/', 'member.home')->name('home');
-// Route::view('/eror/pages', 'error.page404')->name('pages.error');
-// Route::get('/course', [MemberCourseController::class, 'index'])->name('member.course');
-// Route::get('/course/join/{slug}', [MemberCourseController::class, 'join'])->name('member.course.join');
+// menampilkan halaman maintenance jika website sedang dalam pengembangan (jika ingin mengaktifkan tinggal costum boolean true di env maintenance_mode)
+Route::middleware('maintenance.middleware')->group(function () {
+
+Route::get('/', [ MemberLandingPagesController::class, 'index'])->name('home');
+Route::view('/eror/pages', 'error.page404')->name('pages.error');
+Route::get('/course', [MemberCourseController::class, 'index'])->name('member.course');
+Route::get('/course/join/{slug}', [MemberCourseController::class, 'join'])->name('member.course.join');
 
 Route::prefix('member')->group(function () {
 
@@ -93,37 +107,41 @@ Route::prefix('admin')->group(function () {
     Route::post('login/auth', [AdminLoginController::class, 'login'])->name('admin.login.auth');
     Route::get('logout', [AdminLoginController::class, 'logout'])->name('admin.logout');
 
-    // Route::prefix('DataUser')->middleware(['superadmin', 'verified'])->group(function () {
-    //     Route::prefix('member')->group(function () {
-    //         Route::get('/', [AdminStudentController::class, 'index'])->name('admin.member');
-    //         Route::get('/create', [AdminStudentController::class, 'create'])->name('admin.member.create');
-    //         Route::post('/create/store', [AdminStudentController::class, 'store'])->name('admin.member.store');
-    //         Route::get('/edit/{id}', [AdminStudentController::class, 'edit'])->name('admin.member.edit');
-    //         Route::put('/edit/update/{id}', [AdminStudentController::class, 'update'])->name('admin.member.update');
-    //         Route::get('/delete/{id}', [AdminStudentController::class, 'destroy'])->name('admin.member.destroy');
-    //     });
-    //     Route::prefix('mentor')->group(function () {
-    //         Route::get('/', [AdminMentorController::class, 'index'])->name('admin.mentor');
-    //         Route::get('/create', [AdminMentorController::class, 'create'])->name('admin.mentor.create');
-    //         Route::post('/create/store', [AdminMentorController::class, 'store'])->name('admin.mentor.store');
-    //         Route::get('/edit/{id}', [AdminMentorController::class, 'edit'])->name('admin.mentor.edit');
-    //         Route::put('/edit/update/{id}', [AdminMentorController::class, 'update'])->name('admin.mentor.update');
-    //         Route::get('/delete/{id}', [AdminMentorController::class, 'destroy'])->name('admin.mentor.destroy');
-    //     });
-    //     Route::prefix('superadmin')->group(function () {
-    //         Route::get('/', [AdminSuperadminController::class, 'index'])->name('admin.superadmin');
-    //         Route::get('/create', [AdminSuperadminController::class, 'create'])->name('admin.superadmin.create');
-    //         Route::post('/create/store', [AdminSuperadminController::class, 'store'])->name('admin.superadmin.store');
-    //         Route::get('/edit/{id}', [AdminSuperadminController::class, 'edit'])->name('admin.superadmin.edit');
-    //         Route::put('/edit/update/{id}', [AdminSuperadminController::class, 'update'])->name('admin.superadmin.update');
-    //         Route::get('/delete/{id}', [AdminSuperadminController::class, 'destroy'])->name('admin.superadmin.destroy');
-    //     });
-    //     Route::prefix('submission')->middleware('superadmin')->group(function () {
-    //         Route::get('/', [AdminSubmissionController::class, 'index'])->name('admin.submissions');
-    //         Route::put('/edit/update/{id}', [AdminSubmissionController::class, 'update'])->name('admin.submissions.edit.update');
-    //         Route::get('/delete/{id}', [AdminSubmissionController::class, 'delete'])->name('admin.submissions.delete');
-    //     });
-    // });
+    // kelolah pengguna nemolab
+    Route::prefix('users')->middleware(['superadmin', 'verified'])->group(function () {
+        // Route::prefix('member')->group(function () {
+        //     Route::get('/', [AdminStudentController::class, 'index'])->name('admin.member');
+        //     Route::get('/create', [AdminStudentController::class, 'create'])->name('admin.member.create');
+        //     Route::post('/create/store', [AdminStudentController::class, 'store'])->name('admin.member.store');
+        //     Route::get('/edit/{id}', [AdminStudentController::class, 'edit'])->name('admin.member.edit');
+        //     Route::put('/edit/update/{id}', [AdminStudentController::class, 'update'])->name('admin.member.update');
+        //     Route::get('/delete/{id}', [AdminStudentController::class, 'destroy'])->name('admin.member.destroy');
+        // });
+
+        // Route::prefix('mentor')->group(function () {
+        //     Route::get('/', [AdminMentorController::class, 'index'])->name('admin.mentor');
+        //     Route::get('/create', [AdminMentorController::class, 'create'])->name('admin.mentor.create');
+        //     Route::post('/create/store', [AdminMentorController::class, 'store'])->name('admin.mentor.store');
+        //     Route::get('/edit/{id}', [AdminMentorController::class, 'edit'])->name('admin.mentor.edit');
+        //     Route::put('/edit/update/{id}', [AdminMentorController::class, 'update'])->name('admin.mentor.update');
+        //     Route::get('/delete/{id}', [AdminMentorController::class, 'destroy'])->name('admin.mentor.destroy');
+        // });
+
+        // Route::prefix('superadmin')->group(function () {
+        //     Route::get('/', [AdminSuperadminController::class, 'index'])->name('admin.superadmin');
+        //     Route::get('/create', [AdminSuperadminController::class, 'create'])->name('admin.superadmin.create');
+        //     Route::post('/create/store', [AdminSuperadminController::class, 'store'])->name('admin.superadmin.store');
+        //     Route::get('/edit/{id}', [AdminSuperadminController::class, 'edit'])->name('admin.superadmin.edit');
+        //     Route::put('/edit/update/{id}', [AdminSuperadminController::class, 'update'])->name('admin.superadmin.update');
+        //     Route::get('/delete/{id}', [AdminSuperadminController::class, 'destroy'])->name('admin.superadmin.destroy');
+        // });
+
+        // Route::prefix('submission')->middleware('superadmin')->group(function () {
+        //     Route::get('/', [AdminSubmissionController::class, 'index'])->name('admin.submissions');
+        //     Route::put('/edit/update/{id}', [AdminSubmissionController::class, 'update'])->name('admin.submissions.edit.update');
+        //     Route::get('/delete/{id}', [AdminSubmissionController::class, 'delete'])->name('admin.submissions.delete');
+        // });
+    });
 
     // mentor course
     Route::prefix('course')->middleware(['mentor', 'verified'])->group(function () {
@@ -187,4 +205,7 @@ Route::prefix('admin')->group(function () {
         Route::put('/update/{id_diskon}', [AdminDiskonController::class, 'update'])->name('admin.diskon-kelas.edit.update');
         Route::get('/delete/', [AdminDiskonController::class, 'delete'])->name('admin.diskon-kelas.delete');
     });
+});
+
+
 });

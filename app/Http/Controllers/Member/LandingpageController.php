@@ -11,15 +11,17 @@ use Illuminate\Http\JsonResponse;
 
 class LandingpageController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         $courses = Course::where('status', 'published')
-                         ->orderBy('id', 'DESC')
-                         ->take(8)
-                         ->get();
-    
+            ->orderBy('id', 'DESC')
+            ->take(8)
+            ->get();
+
         return view('member.home', compact('courses'));
     }
-    public function tes(){
+    public function tes()
+    {
         return view('member.detail-play');
     }
 }

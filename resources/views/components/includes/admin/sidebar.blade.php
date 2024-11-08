@@ -1,7 +1,7 @@
 <div class="col-3 d-none d-lg-block p-4 rounded-4 text-white scroll-sidebar" style="background-color: #faa907"
     id="sidebar-id">
-    @if (Auth::user()->role == 'superadmin')
-        <p class="tittle-list-sidebar my-3">Lihat Data</p>
+    {{-- @if (Auth::user()->role == 'superadmin') --}}
+        {{-- <p class="tittle-list-sidebar my-3">Lihat Data</p> --}}
         {{-- <a href="{{ route('admin.member') }}"
             class="list-sidebar {{ request()->is('admin/user/member') ? 'active' : '' }}">
             <img src="{{ asset(request()->is('admin/user/member') ? 'nemolab/admin/img/datamember-active.png' : 'nemolab/admin/img/datamember.png') }}"
@@ -26,7 +26,7 @@
                 alt="" width="30" />
             <p class="m-0">Pengajuan Mentor</p>
         </a> --}}
-    @endif
+    {{-- @endif --}}
     <p class="title-list-sidebar mt-3">Kursus</p>
     <a href="{{ route('admin.course') }}" class="list-sidebar {{ request()->is('admin/course') ? 'active' : '' }}">
         <img src="{{ asset(request()->is('admin/course') ? 'nemolab/admin/img/datacourses-active.png' : 'nemolab/admin/img/datacourses.png') }}"

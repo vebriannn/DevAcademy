@@ -25,7 +25,7 @@ class AdminDiskonController extends Controller
     {
         $requests->validate([
             'kode_diskon' => 'required',
-            'rate_diskon' => 'required|numeric|max:100',
+            'rate_diskon' => 'required|numeric|min:0|max:100',
         ]);
 
         $diskon = DiskonKelas::where('kode_diskon', $requests->kode_diskon)->first();
@@ -55,7 +55,7 @@ class AdminDiskonController extends Controller
     {
         $requests->validate([
             'kode_diskon' => 'required',
-            'rate_diskon' => 'required|numeric|max:100',
+            'rate_diskon' => 'required|numeric|min:0|max:100',
         ]);
 
 

@@ -24,25 +24,50 @@
                                 <th>Tipe</th>
                                 <th>Status</th>
                                 <th>Harga</th>
+                                @if (Auth::user()->role == 'superadmin')
+                                    <th>Mentor</th>
+                                @endif
                                 <th>Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
                             @forelse ($paketKelas as $kelas)
                                 <tr>
+                                    {{-- nama course --}}
                                     @if (is_null($kelas->course))
                                         <td>-</td>
                                     @else
                                         <td>{{ $kelas->course->name }}</td>
                                     @endif
+
+                                    {{-- nama ebook --}}
                                     @if (is_null($kelas->ebook))
                                         <td>-</td>
                                     @else
                                         <td>{{ $kelas->ebook->name }}</td>
                                     @endif
-                                    <td>{{ $kelas->type }}</td>
-                                    <td>{{ $kelas->status }}</td>
+
+                                    {{-- tipe --}}
+                                    <td>
+                                        @if ($kelas->type == 'free')
+                                            Gratis
+                                        @else
+                                            Berbayar
+                                        @endif
+                                    </td>
+                                    
+                                    {{-- status --}}
+                                    <td>
+                                        @if ($kelas->status == 'draft')
+                                            Draf
+                                        @else
+                                            Publik
+                                        @endif
+                                    </td>
                                     <td>Rp. {{ number_format($kelas->price, 0) }}</td>
+                                    @if (Auth::user()->role == 'superadmin')
+                                        <td>{{ $users->name }}</td>
+                                    @endif
                                     <td class="">
                                         <a class="btn btn-warning"
                                             href="{{ route('admin.paket-kelas.edit') }}?id={{ $kelas->id }}">

@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Course;
 use App\Models\CourseEbook;
 use App\Models\Ebook;
+use App\Models\User;
 
 
 class AdminCourseEbookController extends Controller
@@ -17,7 +18,8 @@ class AdminCourseEbookController extends Controller
     public function index(Request $requests)
     {
         $paketKelas = CourseEbook::with(['course', 'ebook'])->get();
-        return view('admin.paket-kelas.view', compact('paketKelas'));
+        $users = User::where('id', $paketKelas->first()->course->mentor_id)->first();
+        return view('admin.paket-kelas.view', compact('paketKelas', 'users'));
     }
 
     public function create()

@@ -29,6 +29,8 @@ return [
     */
 
     'env' => env('APP_ENV', 'production'),
+    'maintenance_mode' => env('MAINTENANCE_MODE', false),
+
 
     /*
     |--------------------------------------------------------------------------

@@ -63,11 +63,12 @@ class AdminEbookController extends Controller
         return redirect()->route('admin.ebook');
     }
 
-    public function edit($id)
+    public function edit(Request $requests)
     {
-        $ebook = Ebook::findOrFail($id);
-        $categories = Category::all();
-        return view('admin.course-ebook.update', compact('ebook', 'categories'));
+        // id course
+        $id = $requests->query('id');
+        $ebooks = Ebook::where('id', $id)->first();
+        return view('admin.course-ebook.update', compact('ebooks'));
     }
 
     public function update(Request $request, Ebook $ebook)
@@ -83,6 +84,7 @@ class AdminEbookController extends Controller
             'file_ebook' => 'nullable|mimes:pdf|max:5120',
             'cover' => 'nullable|image|mimes:jpeg,png,jpg|max:2050',
         ]);
+
 
         if ($validatedData['type'] === 'free') {
             $validatedData['price'] = 0;
