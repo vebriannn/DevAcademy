@@ -56,19 +56,19 @@
                     @endforeach
 
                     <!-- Button for Load More -->
-                    <div class="btn-more mt-lg-5 d-flex justify-content-center">
+                    {{-- <div class="btn-more mt-lg-5 d-flex justify-content-center">
                         <button class="btn btn-primary d-inline-flex align-items-center">
                             Tampilkan Lebih Banyak
                             <span class="d-flex align-items-center">
                                 <box-icon name='chevron-down' color="#414142"></box-icon>
                             </span>
                         </button>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
         </div>
     </section>
-
+    @include('components.includes.member.sidebar-dashboard-mobile')
 @endsection
 @push('addon-script')
     {{-- <script>

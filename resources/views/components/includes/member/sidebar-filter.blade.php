@@ -11,7 +11,7 @@
                 <form action="{{ route('member.course') }}" method="GET">
                     <ul>
                         <li>
-                            <input id="filter-paket-semua" name="filter-paket"  checked="checked" value="semua" type="radio" onchange="this.form.submit()" {{ request('filter-paket') == 'semua' ? 'checked' : '' }}>
+                            <input id="filter-paket-semua" name="filter-paket" checked="checked" value="semua" type="radio" onchange="this.form.submit()" {{ request('filter-paket') == 'semua' ? 'checked' : '' }}>
                             <label for="filter-paket-semua">
                                 <span></span>
                                 Semua
@@ -31,13 +31,6 @@
                                 E-book
                             </label>
                         </li>
-                        <li>
-                            <input id="filter-paket-bundling" name="filter-paket" value="paket-bundling" type="radio" onchange="this.form.submit()" {{ request('filter-paket') == 'paket-bundling' ? 'checked' : '' }}>
-                            <label for="filter-paket-bundling">
-                                <span></span>
-                                Paket Combo
-                            </label>
-                        </li>
                     </ul>
             </div>
             
@@ -55,16 +48,48 @@
                                 Semua
                             </label>
                         </li>
-                        
-                        @foreach($categories as $category)
                         <li>
-                            <input id="{{ $category->name }}" name="filter-kelas" value="{{ $category->name }}" type="radio" onchange="this.form.submit()" {{ request('filter-kelas') == $category->name ? 'checked' : '' }}>
-                            <label for="{{ $category->name }}">
+                            <input id="filter-kelas-uiux" name="filter-kelas" value="UI/UX Designer" type="radio" onchange="this.form.submit()" {{ request('filter-kelas') == 'UI/UX Designer' ? 'checked' : '' }}>
+                            <label for="filter-kelas-uiux">
                                 <span></span>
-                                {{ $category->name }}
+                                UI/UX Designer
                             </label>
                         </li>
-                        @endforeach
+                        <li>
+                            <input id="filter-kelas-frontend" name="filter-kelas" value="Frontend Developer" type="radio" onchange="this.form.submit()" {{ request('filter-kelas') == 'Frontend Developer' ? 'checked' : '' }}>
+                            <label for="filter-kelas-frontend">
+                                <span></span>
+                                Frontend Developer
+                            </label>
+                        </li>
+                        <li>
+                            <input id="filter-kelas-backend" name="filter-kelas" value="Backend Developer" type="radio" onchange="this.form.submit()" {{ request('filter-kelas') == 'Backend Developer' ? 'checked' : '' }}>
+                            <label for="filter-kelas-backend">
+                                <span></span>
+                                Backend Developer
+                            </label>
+                        </li>
+                        <li>
+                            <input id="filter-kelas-wordpress" name="filter-kelas" value="Wordpress Developer" type="radio" onchange="this.form.submit()" {{ request('filter-kelas') == 'Wordpress Developer' ? 'checked' : '' }}>
+                            <label for="filter-kelas-wordpress">
+                                <span></span>
+                                Wordpress Developer
+                            </label>
+                        </li>
+                        <li>
+                            <input id="filter-kelas-graphics" name="filter-kelas" value="Graphics Designer" type="radio" onchange="this.form.submit()" {{ request('filter-kelas') == 'Graphics Designer' ? 'checked' : '' }}>
+                            <label for="filter-kelas-graphics">
+                                <span></span>
+                                Graphics Designer
+                            </label>
+                        </li>
+                        <li>
+                            <input id="filter-kelas-fullstack" name="filter-kelas" value="Fullstack Developer" type="radio" onchange="this.form.submit()" {{ request('filter-kelas') == 'Fullstack Developer' ? 'checked' : '' }}>
+                            <label for="filter-kelas-fullstack">
+                                <span></span>
+                                Fullstack Developer
+                            </label>
+                        </li>
                     </ul>
                 </form>
                 

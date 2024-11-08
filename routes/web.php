@@ -20,6 +20,17 @@ use App\Http\Controllers\Admin\AdminLessonController;
 use App\Http\Controllers\Admin\AdminEbookController;
 use App\Http\Controllers\Admin\AdminCourseEbookController;
 use App\Http\Controllers\Admin\AdminDiskonController;
+use App\Http\Controllers\Member\LandingpageController;
+use App\Http\Controllers\member\MemberCourseController;
+use App\Http\Controllers\Member\MemberPaymentController;
+use App\Http\Controllers\Admin\AdminSuperadminController;
+use App\Http\Controllers\Admin\AdminMentorController;
+use App\Http\Controllers\Admin\AdminSubmissionController;
+use App\Http\Controllers\Admin\AdminStudentController;
+use App\Http\Controllers\Member\MemberCommentController;
+use App\Http\Controllers\Member\MemberEbookController;
+use App\Http\Controllers\Member\Dashboard\MemberMyCourseController;
+use App\Http\Controllers\Member\MemberTransactionController;
 
 
 
@@ -38,54 +49,84 @@ use App\Http\Controllers\Admin\AdminDiskonController;
 
 
 
-Route::view('/', 'member.home')->name('home');
-// Route::view('/eror/pages', 'error.page404')->name('pages.error');
-// Route::get('/course', [MemberCourseController::class, 'index'])->name('member.course');
-// Route::get('/course/join/{slug}', [MemberCourseController::class, 'join'])->name('member.course.join');
+// Route::view('/', 'member.home')->name('home');
+Route::get('/', [LandingpageController::class, 'index'])->name('home');
+
+Route::view('/eror/pages', 'error.page404')->name('pages.error');
+Route::get('/course', [MemberCourseController::class, 'index'])->name('member.course');
+Route::get('/course/join/{slug}', [MemberCourseController::class, 'join'])->name('member.course.join');
 
 Route::prefix('member')->group(function () {
+        Route::prefix('course')->middleware(['students', 'verified'])->group(function () {
+            Route::get('/course/{slug}/play/episode/{episode}', [MemberCourseController::class, 'play'])->name('member.course.play');
+            Route::get('/course/detail/{slug}', [MemberCourseController::class, 'detail'])->name('member.course.detail');
+            Route::get('/course/forum/{slug}', [MemberCommentController::class, 'index'])->name('member.forum');
+            Route::get('/course/forum/{slug}/search', [MemberCommentController::class, 'search'])->name('member.forum.search');
+            Route::post('/course/forum/{slug}/comment', [MemberCommentController::class, 'storeComment'])->name('member.forum.comment.store');
+            Route::get('//forum/replies/{comment_id}', [MemberCommentController::class, 'getReplies'])->name('member.forum.replies');
+            Route::post('/forum/reply/store', [MemberCommentController::class, 'storeReply'])->name('member.forum.reply.store');
+        });
 
-    // dashboard setting member
-    Route::prefix('setting')->middleware(['students', 'verified'])->group(function () {
-        Route::view('/', 'member.dashboard.setting.view')->name('member.setting');
+        Route::prefix('payment')->middleware(['students', 'verified'])->group(function () {
+            Route::get('payment/', [MemberPaymentController::class, 'index'])->name('member.payment');
+            Route::post('payment/store', [MemberPaymentController::class, 'store'])->name('member.transaction.store');
+        });
 
-        Route::view('profile', 'member.dashboard.setting.edit-profile')->name('member.setting.profile');
-        Route::put('profile/updated', [MemberSettingController::class, 'updateProfile'])->name('member.setting.profile.updated');
+        // Route::prefix('ebook')->middleware(['students', 'verified'])->group(function () {
+        //     Route::get('ebook/{slug}', [MemberEbookController::class, 'index'])->name('member.ebook.join');
+        //     Route::get('ebook/read/{slug}', [MemberEbookController::class, 'read'])->name('member.ebook.read');
+        // });
 
-        Route::view('change-email', 'member.dashboard.setting.edit-email')->name('member.setting.change-email');
-        Route::put('change-email/updated', [MemberSettingController::class, 'updateEmail'])->name('member.setting.change-email.updated');
+        // dashboard mycourse
+        Route::get('/', [MemberMyCourseController::class, 'index'])->name('member.dashboard');
+        // dashboard setting member
+        Route::prefix('setting')->middleware(['students', 'verified'])->group(function () {
+            Route::view('/', 'member.dashboard.setting.view')->name('member.setting');
 
-        Route::view('reset-password', 'member.dashboard.setting.edit-password')->name('member.setting.reset-password');
-        Route::put('reset-password/updated', [MemberSettingController::class, 'updatePassword'])->name('member.setting.reset-password.updated');
+            Route::view('profile', 'member.dashboard.setting.edit-profile')->name('member.setting.profile');
+            Route::put('profile/updated', [MemberSettingController::class, 'updateProfile'])->name('member.setting.profile.updated');
+
+            Route::view('change-email', 'member.dashboard.setting.edit-email')->name('member.setting.change-email');
+            Route::put('change-email/updated', [MemberSettingController::class, 'updateEmail'])->name('member.setting.change-email.updated');
+
+            Route::view('reset-password', 'member.dashboard.setting.edit-password')->name('member.setting.reset-password');
+            Route::put('reset-password/updated', [MemberSettingController::class, 'updatePassword'])->name('member.setting.reset-password.updated');
+        });
+        // My transaction
+        Route::prefix('transaction')->group(function () {
+            Route::get('/', [MemberTransactionController::class, 'index'])->name('member.transaction');
+            Route::delete('/cancel/{id}', [MemberTransactionController::class, 'cancel'])->name('member.transaction.cancel');
+        });
+
+
+
+        Route::view('login', 'member.auth.login')->name('member.login');
+        Route::post('login/auth', [MemberLoginController::class, 'login'])->name('member.login.auth');
+
+        Route::view('register', 'member.auth.register')->name('member.register');
+        Route::post('register/store', [MemberRegisterController::class, 'store'])->name('member.register.store');
+
+        // logout
+        Route::get('user/logout', [MemberLoginController::class, 'logout'])->name('member.logout');
+
+        // route halaman send verified
+        Route::get('email/verify', [MemberResendEmailController::class, 'index'])->middleware('students')->name('verification.notice');
+
+        // resend email verified
+        Route::post('email/verification-notification', [MemberResendEmailController::class, 'resend'])->middleware(['students', 'throttle:custom-limit'])->name('verification.send');
+
+        // handler email verified
+        Route::get('email/verify/{id}/{hash}', [MemberResendEmailController::class, 'handler'])->middleware(['students', 'signed'])->name('verification.verify');
+
+        // route halaman send reset oassword
+        Route::get('forget-password', [MemberForgotPassController::class, 'index'])->name('member.forget-password');
+
+        Route::post('forget-password/check', [MemberForgotPassController::class, 'checkEmail'])->middleware(['throttle:custom-limit-reset-pw'])->name('member.forget-password.check');
+
+        // kirim link reset password
+        Route::get('/reset-password/{token}', [MemberForgotPassController::class, 'sendResetLinkPassword'])->name('password.reset');
+        Route::post('/reset-password/updated', [MemberForgotPassController::class, 'resetPassword'])->name('member.reset-password.updated');
     });
-
-    Route::view('login', 'member.auth.login')->name('member.login');
-    Route::post('login/auth', [MemberLoginController::class, 'login'])->name('member.login.auth');
-
-    Route::view('register', 'member.auth.register')->name('member.register');
-    Route::post('register/store', [MemberRegisterController::class, 'store'])->name('member.register.store');
-
-    // logout
-    Route::get('user/logout', [MemberLoginController::class, 'logout'])->name('member.logout');
-
-    // route halaman send verified
-    Route::get('email/verify', [MemberResendEmailController::class, 'index'])->middleware('students')->name('verification.notice');
-
-    // resend email verified
-    Route::post('email/verification-notification', [MemberResendEmailController::class, 'resend'])->middleware(['students', 'throttle:custom-limit'])->name('verification.send');
-
-    // handler email verified
-    Route::get('email/verify/{id}/{hash}', [MemberResendEmailController::class, 'handler'])->middleware(['students', 'signed'])->name('verification.verify');
-
-    // route halaman send reset oassword
-    Route::get('forget-password', [MemberForgotPassController::class, 'index'])->name('member.forget-password');
-
-    Route::post('forget-password/check', [MemberForgotPassController::class, 'checkEmail'])->middleware(['throttle:custom-limit-reset-pw'])->name('member.forget-password.check');
-
-    // kirim link reset password
-    Route::get('/reset-password/{token}', [MemberForgotPassController::class, 'sendResetLinkPassword'])->name('password.reset');
-    Route::post('/reset-password/updated', [MemberForgotPassController::class, 'resetPassword'])->name('member.reset-password.updated');
-});
 
 
 Route::prefix('admin')->group(function () {
@@ -93,37 +134,37 @@ Route::prefix('admin')->group(function () {
     Route::post('login/auth', [AdminLoginController::class, 'login'])->name('admin.login.auth');
     Route::get('logout', [AdminLoginController::class, 'logout'])->name('admin.logout');
 
-    // Route::prefix('DataUser')->middleware(['superadmin', 'verified'])->group(function () {
-    //     Route::prefix('member')->group(function () {
-    //         Route::get('/', [AdminStudentController::class, 'index'])->name('admin.member');
-    //         Route::get('/create', [AdminStudentController::class, 'create'])->name('admin.member.create');
-    //         Route::post('/create/store', [AdminStudentController::class, 'store'])->name('admin.member.store');
-    //         Route::get('/edit/{id}', [AdminStudentController::class, 'edit'])->name('admin.member.edit');
-    //         Route::put('/edit/update/{id}', [AdminStudentController::class, 'update'])->name('admin.member.update');
-    //         Route::get('/delete/{id}', [AdminStudentController::class, 'destroy'])->name('admin.member.destroy');
-    //     });
-    //     Route::prefix('mentor')->group(function () {
-    //         Route::get('/', [AdminMentorController::class, 'index'])->name('admin.mentor');
-    //         Route::get('/create', [AdminMentorController::class, 'create'])->name('admin.mentor.create');
-    //         Route::post('/create/store', [AdminMentorController::class, 'store'])->name('admin.mentor.store');
-    //         Route::get('/edit/{id}', [AdminMentorController::class, 'edit'])->name('admin.mentor.edit');
-    //         Route::put('/edit/update/{id}', [AdminMentorController::class, 'update'])->name('admin.mentor.update');
-    //         Route::get('/delete/{id}', [AdminMentorController::class, 'destroy'])->name('admin.mentor.destroy');
-    //     });
-    //     Route::prefix('superadmin')->group(function () {
-    //         Route::get('/', [AdminSuperadminController::class, 'index'])->name('admin.superadmin');
-    //         Route::get('/create', [AdminSuperadminController::class, 'create'])->name('admin.superadmin.create');
-    //         Route::post('/create/store', [AdminSuperadminController::class, 'store'])->name('admin.superadmin.store');
-    //         Route::get('/edit/{id}', [AdminSuperadminController::class, 'edit'])->name('admin.superadmin.edit');
-    //         Route::put('/edit/update/{id}', [AdminSuperadminController::class, 'update'])->name('admin.superadmin.update');
-    //         Route::get('/delete/{id}', [AdminSuperadminController::class, 'destroy'])->name('admin.superadmin.destroy');
-    //     });
-    //     Route::prefix('submission')->middleware('superadmin')->group(function () {
-    //         Route::get('/', [AdminSubmissionController::class, 'index'])->name('admin.submissions');
-    //         Route::put('/edit/update/{id}', [AdminSubmissionController::class, 'update'])->name('admin.submissions.edit.update');
-    //         Route::get('/delete/{id}', [AdminSubmissionController::class, 'delete'])->name('admin.submissions.delete');
-    //     });
-    // });
+    Route::prefix('DataUser')->middleware(['superadmin', 'verified'])->group(function () {
+        Route::prefix('member')->group(function () {
+            Route::get('/', [AdminStudentController::class, 'index'])->name('admin.member');
+            Route::get('/create', [AdminStudentController::class, 'create'])->name('admin.member.create');
+            Route::post('/create/store', [AdminStudentController::class, 'store'])->name('admin.member.store');
+            Route::get('/edit/{id}', [AdminStudentController::class, 'edit'])->name('admin.member.edit');
+            Route::put('/edit/update/{id}', [AdminStudentController::class, 'update'])->name('admin.member.update');
+            Route::get('/delete/{id}', [AdminStudentController::class, 'destroy'])->name('admin.member.destroy');
+        });
+        Route::prefix('mentor')->group(function () {
+            Route::get('/', [AdminMentorController::class, 'index'])->name('admin.mentor');
+            Route::get('/create', [AdminMentorController::class, 'create'])->name('admin.mentor.create');
+            Route::post('/create/store', [AdminMentorController::class, 'store'])->name('admin.mentor.store');
+            Route::get('/edit/{id}', [AdminMentorController::class, 'edit'])->name('admin.mentor.edit');
+            Route::put('/edit/update/{id}', [AdminMentorController::class, 'update'])->name('admin.mentor.update');
+            Route::get('/delete/{id}', [AdminMentorController::class, 'destroy'])->name('admin.mentor.destroy');
+        });
+        Route::prefix('superadmin')->group(function () {
+            Route::get('/', [AdminSuperadminController::class, 'index'])->name('admin.superadmin');
+            Route::get('/create', [AdminSuperadminController::class, 'create'])->name('admin.superadmin.create');
+            Route::post('/create/store', [AdminSuperadminController::class, 'store'])->name('admin.superadmin.store');
+            Route::get('/edit/{id}', [AdminSuperadminController::class, 'edit'])->name('admin.superadmin.edit');
+            Route::put('/edit/update/{id}', [AdminSuperadminController::class, 'update'])->name('admin.superadmin.update');
+            Route::get('/delete/{id}', [AdminSuperadminController::class, 'destroy'])->name('admin.superadmin.destroy');
+        });
+        Route::prefix('submission')->middleware('superadmin')->group(function () {
+            Route::get('/', [AdminSubmissionController::class, 'index'])->name('admin.submissions');
+            Route::put('/edit/update/{id}', [AdminSubmissionController::class, 'update'])->name('admin.submissions.edit.update');
+            Route::get('/delete/{id}', [AdminSubmissionController::class, 'delete'])->name('admin.submissions.delete');
+        });
+    });
 
     // mentor course
     Route::prefix('course')->middleware(['mentor', 'verified'])->group(function () {

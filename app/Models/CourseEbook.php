@@ -23,7 +23,6 @@ class CourseEbook extends Model
     {
         return $this->belongsTo(Course::class, 'course_id');
     }
-
     // Relasi ke Ebook
     public function ebook()
     {
