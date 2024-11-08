@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use RealRashid\SweetAlert\Facades\Alert;
 use App\Models\Transaction;
 
+
 class MemberTransactionController extends Controller
 {
     public function index(Request $request)

@@ -13,8 +13,7 @@
             <a href="javascript:void(0);" class="btn-back " onclick="window.history.back();">
                 <img src="{{ asset('nemolab/member/img/arrow.png') }}" alt="Back" class="back-icon">
             </a>
-            <h4 class="m-0 p-0 mt-5 mb-4 text-center">UI/UX Designer : Belajar UI/UX Designer lebih mudah dengan
-                ChatGPT</h4>
+            <h4 class="m-0 p-0 mt-5 mb-4 text-center">{{ $courses->name }}</h4>
             <div class="content-images d-flex justify-content-center">
                 <img src="{{ asset('storage/images/covers/' . $courses->cover) }}" alt="">
             </div>

@@ -122,6 +122,12 @@ header .container-fluid .navbar .container-fluid #navbarNavAltMarkup .navbar-nav
 }
 
 
+@media screen and (max-width: 992px) {
+    header .container-fluid .navbar .container-fluid #navbarNavAltMarkup .navbar-nav:last-child .dropdown .dropdown-menu {
+        position: absolute !important;
+    }
+}
+
 @media screen and (min-width: 480px) and (max-width: 576px) {
 
     header .container-fluid .navbar .container-fluid #navbarNavAltMarkup .navbar-nav:last-child .dropdown button,

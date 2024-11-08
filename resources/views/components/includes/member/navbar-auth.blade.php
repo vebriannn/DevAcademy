@@ -25,10 +25,11 @@
 
                 <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                     <ul class="navbar-nav d-flex mx-auto">
-                        <form class="d-xl-flex d-none" role="search">
+                        <form action="{{ route('member.course') }}" method="GET" class="d-lg-flex d-none"
+                            role="search">
                             <div class="search-group d-flex">
-                                <input class="" type="search" placeholder="cari kelas disini"
-                                    aria-label="Search">
+                                <input class="" type="text" name="search-input" placeholder="Cari Kelas Disini"
+                                    id="search-input" value="{{ request('search-input') }}" aria-label="Search">
                                 <button class="btn p-0 m-0" type="submit">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22"
                                         viewBox="0 0 24 24">
@@ -52,24 +53,34 @@
                             <ul class="dropdown-menu mt-lg-3 mb-3">
                                 <div class="head-submenu d-flex justify-content-between align-items-center">
                                     <p class="m-0 p-0 fw-bold">Pilihan Kelas</p>
-                                    <a href="course.html" class="m-0 p-0">Lihat Semua</a>
+                                    <a href="{{ route('member.course') }}" class="m-0 p-0">Lihat Semua</a>
                                 </div>
                                 <div class="content-submenu mt-2 ">
                                     <div class="row m-0 ">
                                         <div class="col-12 col-sm-6 ps-0 pl-1 mb-1">
-                                            <a href="course.html">UI UX Designer</a>
+                                            <a
+                                                href="{{ route('member.course', ['filter-kelas' => 'UI/UX Designer']) }}">UI
+                                                UX Designer</a>
                                         </div>
                                         <div class="col-12 col-sm-6 ps-0 pl-1 mb-1">
-                                            <a href="course.html">Frontend Developer</a>
+                                            <a
+                                                href="{{ route('member.course', ['filter-kelas' => 'Frontend Developer']) }}">Frontend
+                                                Developer</a>
                                         </div>
                                         <div class="col-12 col-sm-6 ps-0 pl-1 mb-1">
-                                            <a href="course.html">Wordpress Developer</a>
+                                            <a
+                                                href="{{ route('member.course', ['filter-kelas' => 'Wordpress Developer']) }}">Wordpress
+                                                Developer</a>
                                         </div>
                                         <div class="col-12 col-sm-6 ps-0 pl-1 mb-1">
-                                            <a href="course.html">Backend Developer</a>
+                                            <a
+                                                href="{{ route('member.course', ['filter-kelas' => 'Backend Developer']) }}">Backend
+                                                Developer</a>
                                         </div>
                                         <div class="col-12 col-sm-6 ps-0 pl-1 mb-1">
-                                            <a href="course.html">Grapic Designer</a>
+                                            <a
+                                                href="{{ route('member.course', ['filter-kelas' => 'Grapic Designer']) }}">Grapic
+                                                Designer</a>
                                         </div>
                                     </div>
                                 </div>
@@ -85,22 +96,37 @@
                             <ul class="dropdown-menu mt-lg-3 mb-3">
                                 <div class="head-submenu d-flex justify-content-between align-items-center">
                                     <p class="m-0 p-0 fw-bold">Pilihan Paket Kelas</p>
-                                    <a href="course.html" class="m-0 p-0">Lihat Semua</a>
+                                    <a href="{{ route('member.course') }}" class="m-0 p-0">Lihat Semua</a>
                                 </div>
                                 <div class="content-submenu mt-2 ">
                                     <div class="row m-0">
                                         <div class="col-sm-12 ps-0 pl-1 mb-1">
-                                            <a href="course.html">Course</a>
-                                        </div>
-                                        <div class="col-sm-12 ps-0 pl-1 mb-1">
-                                            <a href="course.html">Ebook</a>
-                                        </div>
-                                        <div class="col-sm-12 ps-0 pl-1 mb-1">
-                                            <a href="course.html">Paket Course Dan Ebook</a>
+                                            <a
+                                                href="#">Course</a>
                                         </div>
                                     </div>
                                 </div>
                             </ul>
+
+                            {{-- <ul class="dropdown-menu mt-lg-3 mb-3">
+                                <div class="head-submenu d-flex justify-content-between align-items-center">
+                                    <p class="m-0 p-0 fw-bold">Pilihan Paket Kelas</p>
+                                    <a href="{{ route('member.course') }}" class="m-0 p-0">Lihat Semua</a>
+                                </div>
+                                <div class="content-submenu mt-2 ">
+                                    <div class="row m-0">
+                                        <div class="col-sm-12 ps-0 pl-1 mb-1">
+                                            <a href="{{ route('member.course', ['filter-paket' => 'paket-kursus']) }}">Course</a>
+                                        </div>
+                                        <div class="col-sm-12 ps-0 pl-1 mb-1">
+                                            <a href="{{ route('member.course', ['filter-paket' => 'paket-ebook']) }}">Ebook</a>
+                                        </div>
+                                        <div class="col-sm-12 ps-0 pl-1 mb-1">
+                                            <a href="{{ route('member.course', ['filter-paket' => 'paket-bundling']) }}">Paket Course Dan Ebook</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ul> --}}
                         </div>
 
                         <a href="https://blog.nemolab.id/" class="text-decoration-none  pb-2 pb-lg-0">Artikel</a>
@@ -114,7 +140,8 @@
                                     </span>
                                     @if (Auth::user()->avatar != null)
                                         <img src="{{ asset('storage/images/avatars/' . Auth::user()->avatar) }}"
-                                            class="rounded-5 ms-1" style="width: 42px; height: 42px;" id="img-profile">
+                                            class="rounded-5 ms-1" style="width: 42px; height: 42px;"
+                                            id="img-profile">
                                     @else
                                         <img src="{{ asset('nemolab/member/img/icon/Group 7.png') }}"
                                             class="rounded-5 ms-1" style="width: 42px; height: 42px;"
@@ -124,10 +151,11 @@
 
                                 <ul class="dropdown-menu w-100 mt-2 dropdown-logout">
                                     @if (!Request::routeIs('member.setting') && !Request::routeIs('member.setting.*'))
-                                        <li><a class="dropdown-item" href="#">Kelas
+                                        <li><a class="dropdown-item" href="{{ route('member.dashboard') }}">Kelas
                                                 Saya</a>
                                         </li>
-                                        <li><a class="dropdown-item" href="#">Transaksi
+                                        <li><a class="dropdown-item"
+                                                href="{{ route('member.transaction') }}">Transaksi
                                                 Saya</a></li>
                                         <li class="border-bottom pb-3"><a class="dropdown-item"
                                                 href="{{ route('member.setting') }}">Pengaturan</a>

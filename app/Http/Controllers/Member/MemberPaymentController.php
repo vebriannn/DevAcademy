@@ -8,11 +8,14 @@ use Illuminate\Support\Facades\Auth;
 use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Str;
 use Illuminate\Support\Env;
+use Illuminate\Support\Facades\Log;
+
 
 use App\Models\Transaction;
 use App\Models\Course;
 use App\Models\Ebook;
 use App\Models\MyListCourse;
+use App\Models\DiskonKelas;
 
 class MemberPaymentController extends Controller
 {
@@ -20,8 +23,10 @@ class MemberPaymentController extends Controller
     {
         $courseId = $request->query('course_id');
         $course = Course::find($courseId);
+        $diskonKelas = DiskonKelas::all();
         return view('member.payment', [
             'course' => $course,
+            'kelasDiskon' => $diskonKelas
         ]);
     }
 
@@ -33,6 +38,7 @@ class MemberPaymentController extends Controller
             'price' => 'required',
             'termsCheck' => 'required|accepted',
         ]);
+
 
         $courseId = $request->input('course_id');
         $ebookId = $request->input('ebook_id');
@@ -87,7 +93,7 @@ class MemberPaymentController extends Controller
                 \Midtrans\Config::$isSanitized = true;
                 // Set 3DS transaction for credit card to true
                 \Midtrans\Config::$is3ds = true;
-
+                
                 $params = [
                     'transaction_details' => [
                         'order_id' => $transaction_code,
@@ -97,10 +103,10 @@ class MemberPaymentController extends Controller
                         'name' => $User->name,
                         'email' => $User->email,
                     ],
-                    'callbacks' => [
-                        'finish' => route('member.transaction.detail.view', $transaction_code),
-                        'error' => route('member.transaction.detail.view', $transaction_code),
-                    ],
+                    // 'callbacks' => [
+                    //     'finish' => route('member.transaction.detail.view', $transaction_code),
+                    //     'error' => route('member.transaction.detail.view', $transaction_code),
+                    // ],
                 ];
 
                 $createdTransactionMidtrans = \Midtrans\Snap::createTransaction($params);
@@ -161,7 +167,7 @@ class MemberPaymentController extends Controller
                     'course_id' => $transaction->course_id, // Pastikan ini valid
                 ]);
             } catch (\Exception $e) {
-                \Log::error('Failed to create MyListCourse: ' . $e->getMessage());
+                Log::error('Failed to create MyListCourse: ' . $e->getMessage());
             }
         }
     }

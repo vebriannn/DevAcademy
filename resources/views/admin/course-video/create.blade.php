@@ -25,7 +25,7 @@
                                     <option value="Frontend Developer">Frontend Developer</option>
                                     <option value="Backend Developer">Backend Developer</option>
                                     <option value="Wordpress Developer">Wordpress Developer</option>
-                                    <option value="Graphic Designer">Graphic Designer</option>
+                                    <option value="Graphics Designer">Graphics Designer</option>
                                     <option value="Fullstack Developer">Fullstack Developer</option>
                                     @error('category')
                                         <div class="text-danger">{{ $message }}</div>

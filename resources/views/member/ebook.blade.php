@@ -1,5 +1,5 @@
-{{-- @extends('components.layouts.member.app') --}}
-@extends('components.layouts.member.navback')
+@extends('components.layouts.member.app')
+
 @section('title', $ebook->name)
 
 @push('prepend-style')
@@ -9,7 +9,7 @@
 
 @section('content')
     <!-- Header -->
-    <div class="container mb-4" style="margin-top: 5rem">
+    <div class="container mb-4" style="margin-top: 7rem">
         <div class="row">
             <div class="col-12 text-center justify-content-center">
                 <h4 class="fw-semibold">{{ $ebook->name }}</h4>
@@ -21,21 +21,15 @@
                             class="m-0" />
                         <p class="m-0 ms-2 fw-light" style="font-size: 14px">Release date: {{ $ebook->created_at->format('d F Y') }}</p>
                     </div>
-                    <div class="rating d-flex ms-1 my-1 my-0 align-items-center">
-                        <p class="m-0 ms-0 ms-md-5 me-2 fw-medium" style="font-size: 14px">4.9</p>
-                        @for ($i = 0; $i < 5; $i++)
-                        <img src="{{ asset('nemolab/member/img/star.png') }}" alt="" width="19" height="19" />
-                        @endfor
-                    </div>
                 </div>
             </div>
         </div>
     </div>
 
     <!-- Content -->
-    <div class="container" id="ebook" data-pdf="{{ $ebook->ebook }}">
+    <div class="container mb-5" id="ebook" data-pdf="{{ $ebook->file_ebook }}">
         <div class="row">
-            <div class="col-12 rounded-3 position-relative p-0 overflow-hidden shadow">
+            <div class="col-12 rounded-3 position-relative p-0 overflow-hidden">
                 <!-- Ebook Tools -->
                 <div class="tools p-4 px-5 w-100 d-flex justify-content-between align-items-center"
                     style="background-color: #faa907">
@@ -69,6 +63,7 @@
                 <!-- PDF -->
                 <div class="pdf-height">
                     <div class="pdf-preview d-flex" id="pdf-scrollable-container">
+                        <img src="{{ asset('nemolab/member/img/loading.gif') }}" id="pdf-loading" class="loading mx-auto" alt="Loading" />
                         <canvas class="pdf-render mx-auto" id="pdf-render"></canvas>
                     </div>
                 </div>

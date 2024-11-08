@@ -33,8 +33,8 @@
                                 <option value="Wordpress Developer"
                                     {{ 'Wordpress Developer' == $ebooks->category ? 'selected' : '' }}>Wordpress Developer
                                 </option>
-                                <option value="Graphic Designer"
-                                    {{ 'Graphic Designer' == $ebooks->category ? 'selected' : '' }}>Graphic Designer
+                                <option value="Graphics Designer"
+                                    {{ 'Graphics Designer' == $ebooks->category ? 'selected' : '' }}>Graphics Designer
                                 </option>
                                 <option value="Fullstack Developer"
                                     {{ 'Fullstack Developer' == $ebooks->category ? 'selected' : '' }}>Fullstack Developer

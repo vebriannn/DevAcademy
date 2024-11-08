@@ -43,32 +43,54 @@
                                         </p>
                                     </div>
                                 </div>
-                                @if ($transaction->status === 'success')
-                                    <button class="btn btn-custom btn-blue ms-auto">Cek Tagihan</button>
-                                @elseif ($transaction->status === 'pending')
-                                    <button class="btn btn-custom btn-red me-2">Batalkan</button>
-                                    <button class="btn btn-custom btn-blue">Bayar</button>
-                                @else
-                                    <button class="btn btn-custom btn-red">Transaksi Gagal</button>
-                                @endif
+                                <div>
+                                    @if ($transaction->status === 'pending')
+                                        <form action="{{ route('member.transaction.cancel', $transaction->id) }}"
+                                            class="d-flex gap-2" method="POST"
+                                            onsubmit="return confirm('Apa anda yakin ingin membatalkan transaksi?');">
+                                            @csrf
+                                            @method('DELETE')
+                                            {{-- <a href="" class="btn btn-success btn-sm">Bayar Kelas</a> --}}
+                                            <button type="submit" class="btn btn-danger btn-sm">Batalkan
+                                                Pembelian</button>
+                                            <a href="{{ route('member.transaction.view-transaction', $transaction->transaction_code) }}"
+                                                class="btn btn-primary">
+                                                Bayar
+                                            </a>
+                                        </form>
+                                    @elseif ($transaction->status === 'failed')
+                                        <form action="{{ route('member.transaction.cancel', $transaction->id) }}"
+                                            method="POST"
+                                            onsubmit="return confirm('Apa anda yakin ingin membatalkan transaksi?');">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-danger btn-sm">Hapus
+                                                Transaksi</button>
+                                        </form>
+                                    @else
+                                        <div>
+                                            -
+                                        </div>
+                                    @endif
+                                </div>
                             </div>
                         </div>
                     @endforeach
 
                     <!-- Button for Load More -->
-                    <div class="btn-more mt-lg-5 d-flex justify-content-center">
+                    {{-- <div class="btn-more mt-lg-5 d-flex justify-content-center">
                         <button class="btn btn-primary d-inline-flex align-items-center">
                             Tampilkan Lebih Banyak
                             <span class="d-flex align-items-center">
                                 <box-icon name='chevron-down' color="#414142"></box-icon>
                             </span>
                         </button>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
         </div>
     </section>
-
+    @include('components.includes.member.sidebar-dashboard-mobile')
 @endsection
 @push('addon-script')
     {{-- <script>
@@ -106,7 +128,7 @@
                         }
                     } else {
                         let newTop = scrollTop < originalY ? 0 : Math.min(sectionContainer.height() - object
-                        .height() - 52, scrollTop - originalY + topMargin);
+                            .height() - 52, scrollTop - originalY + topMargin);
                         if (scrollTop + sidebarHeight + topMargin >= footerTop) {
                             object.stop(true, true).animate({
                                 top: stopPoint - originalY

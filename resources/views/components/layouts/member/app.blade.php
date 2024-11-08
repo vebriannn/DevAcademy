@@ -70,11 +70,13 @@
 
                     registerBtn.setAttribute('data-bs-toggle', 'modal');
                     registerBtn.setAttribute('data-bs-target', '#targetModalLogin');
+                    
                 } else {
                     navbarToggler.style.display = 'block';
 
                     registerBtn.setAttribute('data-bs-toggle', 'dropdown');
                 }
+
 
                 window.addEventListener('resize', LinkLogoutFunc())
             }
