@@ -89,11 +89,29 @@
                             </tr>
                             <tr>
                                 <td>Tingkatan</td>
-                                <td><span>: {{ ucfirst($courses->level) }}</span></td>
+                                <td>
+                                    <span>:
+                                        @if ($courses->type == 'beginner')
+                                            Pemula
+                                        @elseif ($courses->type == 'intermediate')
+                                            Menengah
+                                        @else
+                                            Ahli
+                                        @endif
+                                    </span>
+                                </td>
                             </tr>
                             <tr>
                                 <td>Jenis paket</td>
-                                <td><span>: {{ $courses->type }}</span></td>
+                                <td>
+                                    <span>:
+                                        @if ($courses->type == 'free')
+                                            Gratis
+                                        @else
+                                            Berbayar
+                                        @endif
+                                    </span>
+                                </td>
                             </tr>
                         </table>
                     </div>
@@ -117,7 +135,6 @@
                                     <p>{{ $tool->name_tools }}</p>
                                 </div>
                             @endforeach
-
                         </div>
                     </div>
                 </div>

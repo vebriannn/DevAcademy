@@ -79,20 +79,6 @@ Route::middleware('maintenance.middleware')->group(function () {
         //     Route::get('ebook/read/{slug}', [MemberEbookController::class, 'read'])->name('member.ebook.read');
         // });
 
-        // dashboard setting member
-        Route::prefix('setting')->middleware(['students', 'verified'])->group(function () {
-            Route::view('/', 'member.dashboard.setting.view')->name('member.setting');
-
-            Route::view('profile', 'member.dashboard.setting.edit-profile')->name('member.setting.profile');
-            Route::put('profile/updated', [MemberSettingController::class, 'updateProfile'])->name('member.setting.profile.updated');
-
-            Route::view('change-email', 'member.dashboard.setting.edit-email')->name('member.setting.change-email');
-            Route::put('change-email/updated', [MemberSettingController::class, 'updateEmail'])->name('member.setting.change-email.updated');
-
-            Route::view('reset-password', 'member.dashboard.setting.edit-password')->name('member.setting.reset-password');
-            Route::put('reset-password/updated', [MemberSettingController::class, 'updatePassword'])->name('member.setting.reset-password.updated');
-        });
-
         // dashboard mycourse
         Route::get('/', [MemberMyCourseController::class, 'index'])->name('member.dashboard');
         // dashboard setting member
