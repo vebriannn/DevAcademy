@@ -15,12 +15,12 @@
                     <!-- Navigation Tabs -->
                     <div class="filter-transaction">
                         <ul class="nav-tabs">
-                            <li><a href="#" class="active">Semua</a></li>
-                            <li><a href="#">Berhasil</a></li>
-                            <li><a href="#">Pending</a></li>
-                            <li><a href="#">Gagal</a></li>
+                            <li><a href="{{ route('member.transaction', ['status' => null]) }}" class="{{ is_null($status) ? 'active' : '' }}">Semua</a></li>
+                            <li><a href="{{ route('member.transaction', ['status' => 'success']) }}" class="{{ $status === 'success' ? 'active' : '' }}">Berhasil</a></li>
+                            <li><a href="{{ route('member.transaction', ['status' => 'pending']) }}" class="{{ $status === 'pending' ? 'active' : '' }}">Pending</a></li>
+                            <li><a href="{{ route('member.transaction', ['status' => 'failed']) }}" class="{{ $status === 'failed' ? 'active' : '' }}">Gagal</a></li>
                         </ul>
-                    </div>
+                    </div>                    
 
                     <!-- Transaction Cards -->
                     @foreach ($transactions as $transaction)

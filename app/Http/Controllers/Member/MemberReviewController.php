@@ -6,87 +6,52 @@ use App\Http\Controllers\Controller;
 use App\Models\Review;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
+use RealRashid\SweetAlert\Facades\Alert;
+use App\Models\Transaction;
+use Illuminate\Support\Facades\Auth;
+use App\Models\Course;
 
 class MemberReviewController extends Controller
 {
     /**
      * Display a listing of the reviews.
      */
-    public function index()
+    public function index($slug)
     {
-        $reviews = Review::with('user')->get(); 
-        return view('index', ['reviews' => $reviews]);
-    }
+        $course = Course::where('slug', $slug)->firstOrFail();
+        $checkTrx = Transaction::where('course_id', $course->id)->where('user_id', Auth::user()->id)->first();
+        
+        if ($checkTrx) {
+            return view('member.review', compact('course'));
+        } else {
+            Alert::error('error', 'Maaf Akses Tidak Bisa, Karena Anda belum Beli Kelas!!!');
+            return redirect()->route('member.course.join', $slug);
+        }
+    }    
     
 
     /**
      * Store a newly created review in storage.
      */
-    public function store(Request $request): JsonResponse
+    public function store(Request $request)
     {
         $validated = $request->validate([
-            'user_id' => 'required|exists:users,id',
             'course_id' => 'required|exists:tbl_courses,id',
-            'rating' => 'required|integer|min:1|max:5',
-            'note' => 'nullable|string',
+            'note' => 'nullable|string|min:1|max:100',
         ]);
     
-        $review = Review::create($validated);
-
-        return response()->json([
-            'message' => 'komentar ditambahkan',
-            'data' => $review,
+        // Find the course by course_id to get its slug for the redirection
+        $course = Course::findOrFail($validated['course_id']);
+    
+        Review::create([
+            'user_id' => Auth::id(),
+            'course_id' => $validated['course_id'],
+            'note' => $validated['note'],
         ]);
+        Alert::success('success', 'Review berhasil ditambahkan.');
+        return redirect()->route('member.course.detail', ['slug' => $course->slug])
+            ->with('success', 'Review berhasil ditambahkan.');
     }
-
-    /**
-     * Display the specified review.
-     */
-    public function show($id): JsonResponse
-    {
-        $review = Review::find($id);
-
-        if (!$review) {
-            return response()->json(['message' => 'Review not found'], 404);
-        }
-
-        return response()->json($review);
-    }
-
-    /**
-     * Update the specified review in storage.
-     */
-    public function update(Request $request, $id): JsonResponse
-    {
-        $review = Review::find($id);
-
-        if (!$review) {
-            return response()->json(['message' => 'Review not found'], 404);
-        }
-
-        $validated = $request->validate([
-            'user_id' => 'required|exists:users,id',
-            'course_id' => 'required|exists:tbl_courses,id',
-            'rating' => 'required|integer|min:1|max:5',
-            'note' => 'nullable|string',
-        ]);
-
-        $review->update($validated);
-        return response()->json($review);
-    }
-
-    /**
-     * Remove the specified review from storage.
-     */
-    public function destroy($id): JsonResponse
-    {
-        $review = Review::find($id);
-
-        if (!$review) {
-            return response()->json(['message' => 'Review not found'], 404);
-        }
-
-        $review->delete();
-        return response()->json(['message' => 'Review deleted successfully']);
-    }
+    
+    
 }

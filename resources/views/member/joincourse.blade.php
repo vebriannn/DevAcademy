@@ -138,7 +138,59 @@
                         </div>
                     </div>
                 </div>
-
+                <div class="testimoni" id="testimoni" data-aos="fade-up">
+                    <div class="container-fluid">
+                        <h1>Testimoni</h1>
+                        <div class="col-12 mt-4">
+                            <div class="row card-testimoni d-none d-md-flex">
+                                @foreach ($reviews as $index => $review)
+                                    <div class="col-12 col-md-6 testimoni-card review-item" data-index="{{ $index }}" style="{{ $index >= 2 ? 'display: none;' : '' }}">
+                                        <div class="card mb-4">
+                                            <div class="card-body">
+                                                <div class="card-head d-flex align-items-center">
+                                                    <img src="{{ asset('storage/images/avatars/' . ($review->user->avatar ?? 'default-avatar.png')) }}" alt="User Avatar" class="avatar-img" style="border-radius: 50%">
+                                                    
+                                                    <div class="name ms-3">
+                                                        <h5 class="card-title m-0 fw-bold">{{ $review->user->name }}</h5>
+                                                        <p class="m-0">{{ $review->user->profession ?? 'Profession not specified' }}</p>
+                                                    </div>
+                                                </div>
+                                                <p class="card-text p-0 m-0 mt-2">{{ $review->note }}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            </div>
+                            <div class="swiper-container d-md-none">
+                                <div class="swiper-wrapper">
+                                    @foreach ($reviews as $review)
+                                        <div class="swiper-slide testimoni-card review-item">
+                                            <div class="card mb-4">
+                                                <div class="card-body">
+                                                    <div class="card-head d-flex align-items-center">
+                                                        <img src="{{ asset('storage/images/avatars/' . ($review->user->avatar ?? 'default-avatar.png')) }}" alt="User Avatar" class="avatar-img" style="border-radius: 50%">
+                                                        
+                                                        <div class="name ms-3">
+                                                            <h5 class="card-title m-0 fw-bold">{{ $review->user->name }}</h5>
+                                                            <p class="m-0">{{ $review->user->profession ?? 'Profession not specified' }}</p>
+                                                        </div>
+                                                    </div>
+                                                    <p class="card-text p-0 m-0 mt-2">{{ $review->note }}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            </div>
+                            <div class="navtabs-more-testimoni d-flex justify-content-center mt-4 d-none d-md-flex">
+                                <button class="btn btn-primary px-4 pt-2 pb-2" id="show-more-btn">
+                                    Lihat Lainnya
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
             </div>
 
             <!-- Kolom Kanan -->
@@ -223,3 +275,53 @@
         </div>
     </main>
 @endsection
+@push('addon-script')
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const showMoreBtn = document.getElementById('show-more-btn');
+        let currentLimit = 4;
+
+        showMoreBtn.addEventListener('click', function() {
+            const reviews = document.querySelectorAll('.review-item');
+            for (let i = currentLimit; i < currentLimit + 4 && i < reviews.length; i++) {
+                reviews[i].style.display = 'block';
+            }
+            currentLimit += 4;
+            if (currentLimit >= reviews.length) {
+                showMoreBtn.style.display = 'none';
+            }
+        });
+    });
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        let swiper;
+
+        function initializeSwiper() {
+            if (window.innerWidth < 768 && !swiper) {
+                swiper = new Swiper('.swiper-container', {
+                    slidesPerView: 1,
+                    spaceBetween: 10,
+                    pagination: {
+                        el: '.swiper-pagination',
+                        clickable: true,
+                    },
+                    autoplay: {
+                        delay: 5000,
+                        disableOnInteraction: false,
+                    },
+                });
+            } else if (window.innerWidth >= 768 && swiper) {
+                swiper.destroy(true, true);
+                swiper = undefined;
+            }
+        }
+        initializeSwiper();
+        window.addEventListener('resize', initializeSwiper);
+    });
+</script>
+
+
+
+@endpush

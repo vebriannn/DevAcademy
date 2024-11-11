@@ -22,6 +22,7 @@ use App\Models\CourseTools;
 use App\Models\Review;
 use App\Models\CourseEbook;
 use App\Models\CompleteEpisodeCourse;
+use App\Models\Portofolio;
 
 class MemberCourseController extends Controller
 {
@@ -79,33 +80,30 @@ class MemberCourseController extends Controller
     public function join($slug)
     {
         $courses = Course::where('slug', $slug)->first();
-
+    
         if ($courses) {
             $chapters = Chapter::with('lessons')->where('course_id', $courses->id)->get();
-            $reviews = Review::where('course_id', $courses->id)->get();
-
+            $reviews = Review::with('user')->where('course_id', $courses->id)->get();
+    
             $lesson = $chapters->isNotEmpty()
                 ? Lesson::with('chapters')->where('chapter_id', $chapters->first()->id)->first()
                 : null;
-
-            if (Auth::user()) {
-                $transaction = Transaction::where('user_id', Auth::user()->id)
+    
+            $transaction = Auth::check()
+                ? Transaction::where('user_id', Auth::id())
                     ->where('course_id', $courses->id)
                     ->orderBy('created_at', 'desc')
-                    ->first();
-            } else {
-                $transaction = null;
-            }
-
+                    ->first()
+                : null;
+    
             $coursetools = Course::with('tools')->findOrFail($courses->id);
             $transactionForEbook = null;
-            return view('member.joincourse', compact('chapters', 'courses', 'lesson', 'transaction', 'transactionForEbook', 'coursetools'));
+    
+            return view('member.joincourse', compact('chapters', 'courses', 'lesson', 'transaction', 'transactionForEbook', 'coursetools', 'reviews'));
         } else {
-            return redirect('pages.error');
+            return redirect()->route('pages.error');
         }
-
-        return view('member.joincourse', compact('reviews', 'chapters', 'courses', 'lesson', 'transaction', 'transactionForEbook', 'coursetools'));
-    }
+    }    
 
 
     public function play($slug, $episode)
@@ -136,7 +134,7 @@ class MemberCourseController extends Controller
         // get all episode complete
         $epComplete = CompleteEpisodeCourse::where('course_id', $courses->id)
             ->where('user_id', Auth::user()->id)
-            ->pluck('episode_id') // Ambil hanya episode_id yang complete
+            ->pluck('episode_id') 
             ->toArray();
 
 
@@ -155,10 +153,11 @@ class MemberCourseController extends Controller
         $chapters = Chapter::with('lessons')->where('course_id', $courses->id)->get();
         $checkTrx = Transaction::where('course_id', $courses->id)->where('user_id', Auth::user()->id)->first();
         $checkReview = Review::where('user_id', Auth::user()->id)->first();
+        $checkPorto = Portofolio::where('user_id', Auth::user()->id)->first();
         $coursetools = Course::with('tools')->findOrFail($courses->id);
 
         if ($checkTrx) {
-            return view('member.detail-course', compact('chapters', 'slug', 'courses', 'user', 'checkReview', 'coursetools'));
+            return view('member.detail-course', compact('chapters', 'slug', 'courses', 'user', 'checkReview','checkPorto', 'coursetools'));
         } else {
             Alert::error('error', 'Maaf Akses Tidak Bisa, Karena Anda belum Beli Kelas!!!');
             return redirect()->route('member.course.join', $slug);

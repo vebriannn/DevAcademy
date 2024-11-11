@@ -15,15 +15,18 @@ class MemberTransactionController extends Controller
     public function index(Request $request)
     {
         $perPage = $request->input('per_page', 10);
-        // Load transaction with course and cover
+        $status = $request->input('status'); 
         $transactions = Transaction::with(['course' => function ($query) {
-            $query->select('id', 'name', 'cover', 'price');
-        }])
-        ->where('user_id', Auth::id())
-        ->orderBy('created_at', 'desc')
-        ->paginate($perPage);
+                $query->select('id', 'name', 'cover', 'price');
+            }])
+            ->where('user_id', Auth::id())
+            ->when($status, function ($query, $status) {
+                return $query->where('status', $status);
+            })
+            ->orderBy('created_at', 'desc')
+            ->paginate($perPage);
     
-        return view('member.dashboard.transaction.view', compact('transactions'));
+        return view('member.dashboard.transaction.view', compact('transactions', 'status'));
     }
     
     

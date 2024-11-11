@@ -9,7 +9,7 @@
 @section('content')
     <section class="detail-course-section" id="detail-course-section">
         <div class="container">
-            <a href="javascript:void(0);" onclick="window.history.back();">
+            <a href="{{ route('member.course.join' , $courses->slug) }}">
                 <i class="bi bi-arrow-left"></i>
             </a>
             <h4 class="m-0 p-0 mt-5 mb-4 text-center">{{ $courses->name }}</h4>
@@ -28,7 +28,11 @@
                         </a>
                     </div>
                     <div class="col-12 col-sm-6 col-xl-4 mb-4">
-                        <a href="#" class="shadow">
+                        @if (!$checkPorto && !$checkReview)
+                            <a href="{{ route('member.review', $courses->slug) }}" class="shadow">
+                            @else
+                            <a href="" class="shadow">
+                        @endif
                             <img src="{{ asset('nemolab/member/img/img-achievement.png') }}" alt="">
                             <div class="group-title-subtitle ms-3">
                                 <p class="m-0 p-0">Unduh Sertifikat</p>

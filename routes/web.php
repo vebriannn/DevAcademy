@@ -26,10 +26,7 @@ use App\Http\Controllers\Admin\AdminCourseEbookController;
 use App\Http\Controllers\Admin\AdminDiskonController;
 use App\Http\Controllers\member\MemberCourseController;
 use App\Http\Controllers\Admin\AdminStudentController;
-
-
-
-
+use App\Http\Controllers\Member\MemberReviewController;
 
 /*
 |--------------------------------------------------------------------------
@@ -68,6 +65,10 @@ Route::middleware('maintenance.middleware')->group(function () {
             Route::get('{slug}/play/episode/{episode}', [MemberCourseController::class, 'play'])->name('member.course.play');
             Route::get('detail/{slug}', [MemberCourseController::class, 'detail'])->name('member.course.detail');
         });
+        Route::prefix('review')->middleware(['students', 'verified'])->group(function () {
+            Route::get('{slug}', [MemberReviewController::class, 'index'])->name('member.review');
+            Route::post('store', [MemberReviewController::class, 'store'])->name('member.review.store');
+        });        
 
         Route::prefix('payment')->middleware(['students', 'verified'])->group(function () {
             Route::get('payment/', [MemberPaymentController::class, 'index'])->name('member.payment');
