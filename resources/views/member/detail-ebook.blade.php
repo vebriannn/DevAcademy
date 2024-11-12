@@ -9,49 +9,12 @@
 @section('content')
     <section class="detail-course-section" id="detail-course-section">
         <div class="container">
-            <a href="{{ route('member.course.join' , $courses->slug) }}">
+            <a href="{{ route('member.ebook.join' , $ebooks->slug) }}">
                 <i class="bi bi-arrow-left"></i>
             </a>
-            <h4 class="m-0 p-0 mt-5 mb-4 text-center">{{ $courses->name }}</h4>
+            <h4 class="m-0 p-0 mt-5 mb-4 text-center">{{ $ebooks->name }}</h4>
             <div class="content-images d-flex justify-content-center">
-                <img src="{{ asset('storage/images/covers/' . $courses->cover) }}" alt="" class="img-fluid">
-            </div>
-            <div class="subcontent-images mt-5">
-                <div class="row">
-                    <div class="col-12 col-sm-6 col-xl-4 mb-4">
-                        <a href="{{ $courses->link_grub }}" class="shadow">
-                            <img src="{{ asset('nemolab/member/img/img-konsultasi.png') }}" alt="">
-                            <div class="group-title-subtitle ms-3">
-                                <p class="m-0 p-0">Gabung Grub Konsultasi</p>
-                                <p class="m-0 p-0">Konsultasi Dengan Mentor</p>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-12 col-sm-6 col-xl-4 mb-4">
-                        @if (!$checkPorto && !$checkReview)
-                            <a href="{{ route('member.review', $courses->slug) }}" class="shadow">
-                            @else
-                            <a href="" class="shadow">
-                        @endif
-                            <img src="{{ asset('nemolab/member/img/img-achievement.png') }}" alt="">
-                            <div class="group-title-subtitle ms-3">
-                                <p class="m-0 p-0">Unduh Sertifikat</p>
-                                <p class="m-0 p-0">Unduh Sertifikat Anda</p>
-                            </div>
-                        </a>
-                    </div>
-                    @if ($courses->resources != 'null')
-                        <div class="col-12 col-sm-6 col-xl-4 mb-4">
-                            <a href="{{ $courses->resources }}" class="shadow">
-                                <img src="{{ asset('nemolab/member/img/img-asset.png') }}" alt="">
-                                <div class="group-title-subtitle ms-3">
-                                    <p class="m-0 p-0">Asset Belajar</p>
-                                    <p class="m-0 p-0">Unduh Asset disini</p>
-                                </div>
-                            </a>
-                        </div>
-                    @endif
-                </div>
+                <img src="{{ asset('storage/images/covers/ebook/' . $ebooks->cover) }}" alt="" class="img-fluid">
             </div>
             <div class="detail-courses mt-5 shadow-sm">
                 <div class="card">
@@ -68,21 +31,20 @@
                             <p class="m-0 p-0 ms-3">:</p>
                             <p class="m-0 p-0 ms-3">:</p>
                             <p class="m-0 p-0 ms-3">:</p>
-                            <p class="m-0 p-0 ms-3">:</p>
                         </div>
                         <div class="text-content">
-                            <p class="m-0 p-0 ms-3">{{ $courses->created_at->format('d F Y') }}</p>
-                            <p class="m-0 p-0 ms-3">
-                                @if ($courses->type == 'free')
+                            <p class="m-0 p-0 ms-3">{{ $ebooks->created_at->format('d F Y') }}</p>
+                            <p class="m-0 p-0 ms-3"> E-book
+                                {{-- @if ($ebooks->type == 'free')
                                     Gratis
                                 @else
                                     Berbayar
-                                @endif
+                                @endif --}}
                             </p>
                             <p class="m-0 p-0 ms-3">
-                                @if ($courses->type == 'beginner')
+                                @if ($ebooks->type == 'beginner')
                                     Pemula
-                                @elseif ($courses->type == 'intermediate')
+                                @elseif ($ebooks->type == 'intermediate')
                                     Menengah
                                 @else
                                     Ahli
@@ -98,31 +60,11 @@
                         <h5 class="m-0">Deskripsi Kursus</h5>
                     </div>
                     <div class="card-body d-flex align-items-center p-0 pt-3">
-                        <p class="m-0 p-0 ">{{ $courses->description }}</p>
+                        <p class="m-0 p-0 ">{{ $ebooks->description }}</p>
                     </div>
                 </div>
             </div>
-            <div class="tools-courses mt-5 shadow-sm">
-                <div class="card">
-                    <div class="card-header p-0">
-                        <h5 class="m-0">Tools</h5>
-                    </div>
-                    <div class="card-body p-0 pt-3 ">
 
-                        <div class="row">
-                            @foreach ($coursetools->tools as $tool)
-                                <div
-                                    class="col-6 col-sm-2 tools-group d-flex justify-content-center align-items-center flex-column">
-                                    <img src="{{ asset('storage/images/logoTools/' . $tool->logo_tools) }}" alt=""
-                                        width="70px" height="70px">
-                                    <p class="m-0 p-0 pt-1">{{ $tool->name_tools }}</p>
-                                </div>
-                            @endforeach
-                        </div>
-
-                    </div>
-                </div>
-            </div>
             <div class="testimoni mt-5">
                 <h1>Testimoni</h1>
                 <div class="col-12 mt-4">

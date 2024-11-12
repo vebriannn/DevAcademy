@@ -16,16 +16,26 @@ class ReviewSeeder extends Seeder
         $faker = Faker::create();
         $reviews = [];
 
-        // Generate 20 reviews, with user_id and course_id set to 1
         for ($i = 0; $i < 10; $i++) {
             $reviews[] = [
-                'user_id' => 1, // Fixed user ID
-                'course_id' => 1, // Fixed course ID
-                'note' => $faker->sentence(10), // Random sentence for review note
+                'user_id' => 1, 
+                // 'course_id' => 0,
+                'ebook_id' => 1, 
+                'note' => $faker->sentence(10), 
                 'created_at' => now(),
                 'updated_at' => now(),
             ];
         }
+        // for ($i = 0; $i < 10; $i++) {
+        //     $reviews[] = [
+        //         'user_id' => 1, 
+        //         'course_id' => 1,
+        //         'ebook_id' => 0, 
+        //         'note' => $faker->sentence(10), 
+        //         'created_at' => now(),
+        //         'updated_at' => now(),
+        //     ];
+        // }
 
         DB::table('tbl_reviews')->insert($reviews);
     }

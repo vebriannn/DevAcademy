@@ -13,7 +13,7 @@
         <div class="layout-kiri col-md-8">
             <h3 data-aos="fade-right">{{ $ebooks->name }}</h3>
             <div class="card-preview mb-3">
-                <img src="{{ asset('storage/images/covers/' . $ebooks->cover) }}" alt="">
+                <img src="{{ asset('storage/images/covers/ebook/' . $ebooks->cover) }}" alt="">
             </div>
             <div class="card mb-3 d-md-none">
                 <div class="card-buy-body">
@@ -25,31 +25,7 @@
                             <ul class="check-active-group mt-3 list-unstyled">
                                 <li class="check-active d-flex align-items-center mt-2" data-aos="zoom-out" data-aos-delay="100">
                                     <img src="{{ asset('nemolab/member/img/check-active.png') }}" alt="Check">
-                                    <p class="m-0 p-0 ms-2">Akses kelas selamanya</p>
-                                </li>
-                                <li class="check-active d-flex align-items-center mt-2" data-aos="zoom-out" data-aos-delay="200">
-                                    <img src="{{ asset('nemolab/member/img/check-active.png') }}" alt="Check">
-                                    <p class="m-0 p-0 ms-2">Asset gratis</p>
-                                </li>
-                                <li class="check-active d-flex mt-2 align-items-center" data-aos="zoom-out" data-aos-delay="300">
-                                    <img src="{{ asset('nemolab/member/img/check-active.png') }}" alt="Check">
-                                    <p class="m-0 p-0 ms-2">Belajar gratis</p>
-                                </li>
-                                <li class="check-active d-flex mt-2 align-items-center" data-aos="zoom-out" data-aos-delay="400">
-                                    <img src="{{ asset('nemolab/member/img/check-active.png') }}" alt="Check">
-                                    <p class="m-0 p-0 ms-2">Bonus E-Book</p>
-                                </li>
-                                <li class="check-active d-flex mt-2 align-items-center" data-aos="zoom-out" data-aos-delay="500">
-                                    <img src="{{ asset('nemolab/member/img/check-active.png') }}" alt="Check">
-                                    <p class="m-0 p-0 ms-2">Sertifikat premium</p>
-                                </li>
-                                <li class="check-active d-flex mt-2 align-items-center" data-aos="zoom-out" data-aos-delay="600">
-                                    <img src="{{ asset('nemolab/member/img/check-active.png') }}" alt="Check">
-                                    <p class="m-0 p-0 ms-2">Grup diskusi private</p>
-                                </li>
-                                <li class="check-active d-flex mt-2 align-items-center" data-aos="zoom-out" data-aos-delay="700">
-                                    <img src="{{ asset('nemolab/member/img/check-active.png') }}" alt="Check">
-                                    <p class="m-0 p-0 ms-2">Konsultasi dengan mentor secara langsung</p>
+                                    <p class="m-0 p-0 ms-2">Akses Ebook selamanya</p>
                                 </li>
                             </ul>>
                         </ul>
@@ -67,7 +43,7 @@
 
             <div class="card mb-3" data-aos="fade-up">
                 <div class="card-body">
-                    <h5>Detail Kursus</h5>
+                    <h5>Detail Ebook</h5>
                     <table class="detail">
                         <tr>
                             <td>Tanggal rilis</td>
@@ -95,6 +71,58 @@
                    <p>{{ $ebooks->description }}</p>
                 </div>
             </div>
+            <div class="testimoni" id="testimoni" data-aos="fade-up">
+                <div class="container-fluid">
+                    <h1>Testimoni</h1>
+                    <div class="col-12 mt-4">
+                        <div class="row card-testimoni d-none d-md-flex">
+                            @foreach ($reviews as $index => $review)
+                                <div class="col-12 col-md-6 testimoni-card review-item" data-index="{{ $index }}" style="{{ $index >= 2 ? 'display: none;' : '' }}">
+                                    <div class="card mb-4">
+                                        <div class="card-body">
+                                            <div class="card-head d-flex align-items-center">
+                                                <img src="{{ asset('storage/images/avatars/' . ($review->user->avatar ?? 'default-avatar.png')) }}" alt="User Avatar" class="avatar-img" style="border-radius: 50%">
+                                                
+                                                <div class="name ms-3">
+                                                    <h5 class="card-title m-0 fw-bold">{{ $review->user->name }}</h5>
+                                                    <p class="m-0">{{ $review->user->profession }}</p>
+                                                </div>
+                                            </div>
+                                            <p class="card-text p-0 m-0 mt-2">{{ $review->note }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                        <div class="swiper-container d-md-none">
+                            <div class="swiper-wrapper">
+                                @foreach ($reviews as $review)
+                                    <div class="swiper-slide testimoni-card review-item">
+                                        <div class="card mb-4">
+                                            <div class="card-body">
+                                                <div class="card-head d-flex align-items-center">
+                                                    <img src="{{ asset('storage/images/avatars/' . ($review->user->avatar ?? 'default-avatar.png')) }}" alt="User Avatar" class="avatar-img" style="border-radius: 50%">
+                                                    
+                                                    <div class="name ms-3">
+                                                        <h5 class="card-title m-0 fw-bold">{{ $review->user->name }}</h5>
+                                                        <p class="m-0">{{ $review->user->profession ?? 'Profession not specified' }}</p>
+                                                    </div>
+                                                </div>
+                                                <p class="card-text p-0 m-0 mt-2">{{ $review->note }}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            </div>
+                        </div>
+                        <div class="navtabs-more-testimoni d-flex justify-content-center mt-4 d-none d-md-flex">
+                            <button class="btn btn-primary px-4 pt-2 pb-2" id="show-more-btn">
+                                Lihat Lainnya
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
         </div>
 
@@ -110,31 +138,7 @@
                             <ul class="check-active-group mt-3 list-unstyled">
                                 <li class="check-active d-flex align-items-center mt-2" data-aos="zoom-out" data-aos-delay="100">
                                     <img src="{{ asset('nemolab/member/img/check-active.png') }}" alt="Check">
-                                    <p class="m-0 p-0 ms-2">Akses kelas selamanya</p>
-                                </li>
-                                <li class="check-active d-flex align-items-center mt-2" data-aos="zoom-out" data-aos-delay="200">
-                                    <img src="{{ asset('nemolab/member/img/check-active.png') }}" alt="Check">
-                                    <p class="m-0 p-0 ms-2">Asset gratis</p>
-                                </li>
-                                <li class="check-active d-flex mt-2 align-items-center" data-aos="zoom-out" data-aos-delay="300">
-                                    <img src="{{ asset('nemolab/member/img/check-active.png') }}" alt="Check">
-                                    <p class="m-0 p-0 ms-2">Belajar gratis</p>
-                                </li>
-                                <li class="check-active d-flex mt-2 align-items-center" data-aos="zoom-out" data-aos-delay="400">
-                                    <img src="{{ asset('nemolab/member/img/check-active.png') }}" alt="Check">
-                                    <p class="m-0 p-0 ms-2">Bonus E-Book</p>
-                                </li>
-                                <li class="check-active d-flex mt-2 align-items-center" data-aos="zoom-out" data-aos-delay="500">
-                                    <img src="{{ asset('nemolab/member/img/check-active.png') }}" alt="Check">
-                                    <p class="m-0 p-0 ms-2">Sertifikat premium</p>
-                                </li>
-                                <li class="check-active d-flex mt-2 align-items-center" data-aos="zoom-out" data-aos-delay="600">
-                                    <img src="{{ asset('nemolab/member/img/check-active.png') }}" alt="Check">
-                                    <p class="m-0 p-0 ms-2">Grup diskusi private</p>
-                                </li>
-                                <li class="check-active d-flex mt-2 align-items-center" data-aos="zoom-out" data-aos-delay="700">
-                                    <img src="{{ asset('nemolab/member/img/check-active.png') }}" alt="Check">
-                                    <p class="m-0 p-0 ms-2">Konsultasi dengan mentor secara langsung</p>
+                                    <p class="m-0 p-0 ms-2">Akses E-book selamanya</p>
                                 </li>
                             </ul>
                         </ul>
@@ -164,3 +168,53 @@
     </div>
 </main>
 @endsection
+@push('addon-script')
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const showMoreBtn = document.getElementById('show-more-btn');
+        let currentLimit = 4;
+
+        showMoreBtn.addEventListener('click', function() {
+            const reviews = document.querySelectorAll('.review-item');
+            for (let i = currentLimit; i < currentLimit + 4 && i < reviews.length; i++) {
+                reviews[i].style.display = 'block';
+            }
+            currentLimit += 4;
+            if (currentLimit >= reviews.length) {
+                showMoreBtn.style.display = 'none';
+            }
+        });
+    });
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        let swiper;
+
+        function initializeSwiper() {
+            if (window.innerWidth < 768 && !swiper) {
+                swiper = new Swiper('.swiper-container', {
+                    slidesPerView: 1,
+                    spaceBetween: 10,
+                    pagination: {
+                        el: '.swiper-pagination',
+                        clickable: true,
+                    },
+                    autoplay: {
+                        delay: 5000,
+                        disableOnInteraction: false,
+                    },
+                });
+            } else if (window.innerWidth >= 768 && swiper) {
+                swiper.destroy(true, true);
+                swiper = undefined;
+            }
+        }
+        initializeSwiper();
+        window.addEventListener('resize', initializeSwiper);
+    });
+</script>
+
+
+
+@endpush

@@ -152,7 +152,7 @@
                                                     
                                                     <div class="name ms-3">
                                                         <h5 class="card-title m-0 fw-bold">{{ $review->user->name }}</h5>
-                                                        <p class="m-0">{{ $review->user->profession ?? 'Profession not specified' }}</p>
+                                                        <p class="m-0">{{ $review->user->profession }}</p>
                                                     </div>
                                                 </div>
                                                 <p class="card-text p-0 m-0 mt-2">{{ $review->note }}</p>

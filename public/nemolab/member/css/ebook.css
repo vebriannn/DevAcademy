@@ -43,10 +43,25 @@ body::-webkit-scrollbar {
 }
 
 .pdf-height {
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
     height: 850px !important;
     background-color: var(--secondary-color);
     overflow-y: scroll;
+    box-shadow: rgba(17, 17, 17, 0.199) 0px 4px 8px 0px;
 }
+
+
+.pdf-height::-webkit-scrollbar {
+    display: none;
+}
+
+.pdf-height {
+    scrollbar-width: none; 
+}
+
+
+
 
 .pdf-preview {
     overflow-y: hidden;
@@ -66,6 +81,8 @@ body::-webkit-scrollbar {
 }
 
 .tools {
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
     padding: 10px 25px;
     width: 100%;
     background-color: var(--primary-color);

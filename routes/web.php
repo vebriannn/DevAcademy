@@ -27,6 +27,7 @@ use App\Http\Controllers\Admin\AdminDiskonController;
 use App\Http\Controllers\member\MemberCourseController;
 use App\Http\Controllers\Admin\AdminStudentController;
 use App\Http\Controllers\Member\MemberReviewController;
+use App\Http\Controllers\Member\MemberEbookController;
 
 /*
 |--------------------------------------------------------------------------
@@ -68,6 +69,8 @@ Route::middleware('maintenance.middleware')->group(function () {
         Route::prefix('review')->middleware(['students', 'verified'])->group(function () {
             Route::get('{slug}', [MemberReviewController::class, 'index'])->name('member.review');
             Route::post('store', [MemberReviewController::class, 'store'])->name('member.review.store');
+            Route::get('ebook/{slug}', [MemberReviewController::class, 'ebookFormReview'])->name('member.review.ebook');
+            Route::post('ebook/store', [MemberReviewController::class, 'storeReviewEbook'])->name('member.review.ebook.store');
         });        
 
         Route::prefix('payment')->middleware(['students', 'verified'])->group(function () {
@@ -75,10 +78,11 @@ Route::middleware('maintenance.middleware')->group(function () {
             Route::post('payment/store', [MemberPaymentController::class, 'store'])->name('member.transaction.store');
         });
 
-        // Route::prefix('ebook')->middleware(['students', 'verified'])->group(function () {
-        //     Route::get('ebook/{slug}', [MemberEbookController::class, 'index'])->name('member.ebook.join');
-        //     Route::get('ebook/read/{slug}', [MemberEbookController::class, 'read'])->name('member.ebook.read');
-        // });
+        Route::prefix('ebook')->middleware(['students', 'verified'])->group(function () {
+            Route::get('{slug}', [MemberEbookController::class, 'index'])->name('member.ebook.join');
+            Route::get('read/{slug}', [MemberEbookController::class, 'read'])->name('member.ebook.read');
+            Route::get('detail/{slug}', [MemberEbookController::class, 'detail'])->name('member.ebook.detail');
+        });
 
         // dashboard mycourse
         Route::get('/', [MemberMyCourseController::class, 'index'])->name('member.dashboard');

@@ -13,6 +13,7 @@ class Ebook extends Model
     protected $table = 'tbl_ebooks';
 
     protected $fillable = [
+        'cover',
         'category',
         'name',
         'type',

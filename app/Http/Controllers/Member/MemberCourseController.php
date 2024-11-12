@@ -49,7 +49,7 @@ class MemberCourseController extends Controller
         $ebookIdsInBundle = CourseEbook::pluck('ebook_id')->toArray();
 
         switch ($paketFilter) {
-            case 'paket-video':
+            case 'paket-kursus':
                 $coursesQuery->whereNotIn('id', $courseIdsInBundle);
                 break;
 
@@ -149,6 +149,7 @@ class MemberCourseController extends Controller
     public function detail($slug)
     {
         $courses = Course::where('slug', $slug)->first();
+        $reviews = Review::with('user')->where('course_id', $courses->id)->get();
         $user = User::where('id', $courses->mentor_id)->first();
         $chapters = Chapter::with('lessons')->where('course_id', $courses->id)->get();
         $checkTrx = Transaction::where('course_id', $courses->id)->where('user_id', Auth::user()->id)->first();
@@ -157,7 +158,7 @@ class MemberCourseController extends Controller
         $coursetools = Course::with('tools')->findOrFail($courses->id);
 
         if ($checkTrx) {
-            return view('member.detail-course', compact('chapters', 'slug', 'courses', 'user', 'checkReview','checkPorto', 'coursetools'));
+            return view('member.detail-course', compact('chapters', 'slug', 'courses', 'user', 'checkReview','checkPorto', 'coursetools','reviews'));
         } else {
             Alert::error('error', 'Maaf Akses Tidak Bisa, Karena Anda belum Beli Kelas!!!');
             return redirect()->route('member.course.join', $slug);
