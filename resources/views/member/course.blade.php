@@ -42,16 +42,59 @@
                                     <p class="mt-3">Kelas Yang Kamu Cari Tidak Tersedia</p>
                                 </div>
                             </div>
-                        {{-- sementara --}}
                         @elseif ($paketFilter == 'paket-bundling')
-                            <div class="col-md-12 d-flex justify-content-center align-items-center">
-                                <div class="not-found text-center">
-                                    <img src="{{ asset('nemolab/member/img/search-not-found.png') }}" class="logo-not-found w-50 h-50" alt="Not Found">
-                                    <p class="mt-3">Kelas Yang Kamu Cari Tidak Tersedia</p>
+                            @if($courses->isEmpty())
+                                <div class="col-md-12 d-flex justify-content-center align-items-center">
+                                    <div class="not-found text-center">
+                                        <img src="{{ asset('nemolab/member/img/search-not-found.png') }}" class="logo-not-found w-50 h-50" alt="Not Found">
+                                        <p class="mt-3">Kelas Yang Kamu Cari Tidak Tersedia</p>
+                                    </div>
                                 </div>
-                            </div>
+                            @endif
+                            @foreach($courses as $course)
+                                <div class="col-md-4 col-12 d-flex justify-content-center pb-3">
+                                    <div class="card d-flex flex-row d-md-block">
+                                        <img src="{{ asset('storage/images/covers/' . $course->cover) }}" class="card-img-top d-none d-md-block" alt="{{ $course->name }}" />
+                                        <div class="card-head d-block d-md-none">
+                                            <img src="{{ asset('storage/images/covers/' . $course->cover) }}" class="card-img-top" alt="{{ $course->name }}" />
+                                            <div class="harga mt-4">
+                                                <p class="p-0 m-0 fw-semibold">Harga</p>
+                                                <p class="p-0 m-0 fw-bold">{{ $course->price == 0 ? 'Gratis' : 'Rp' . number_format($course->price, 0, ',', '.') }}</p>
+                                            </div>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="paket d-flex">
+                                                @if(in_array($course->id, $InBundle))
+                                                    <p class="paket-item mt-md-2">Paket Combo</p>
+                                                @else
+                                                <p class="paket-item mt-md-2">Kursus</p>
+                                                @endif
+                                            </div>
+                                            <div class="title-card">
+                                                <h5 class="fw-bold truncate-text">{{ $course->category }} : {{ $course->name }}</h5>
+                                                <p class="avatar m-0 fw-bold me-1"><img class="me-2" src="{{ asset('storage/images/avatars/' . $course->users->avatar) }}" alt="" />{{ $course->users->name }}</p>
+                                            </div>
+                                            <div class="btn-group-harga d-flex justify-content-between align-items-center mt-md-3">
+                                                <div class="harga d-none d-md-block">
+                                                    <p class="p-0 m-0 fw-semibold">Harga</p>
+                                                    <p class="p-0 m-0 fw-semibold">{{ $course->price == 0 ? 'Gratis' : 'Rp' . number_format($course->price, 0, ',', '.') }}</p>
+                                                </div>
+                                                <a href="{{ route('member.course.join', $course->slug) }}" class="btn btn-primary">Mulai Belajar</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
                         @elseif ($paketFilter == 'paket-kursus')
-                        @foreach($courses as $course)
+                            @if($courses->isEmpty())
+                                <div class="col-md-12 d-flex justify-content-center align-items-center">
+                                    <div class="not-found text-center">
+                                        <img src="{{ asset('nemolab/member/img/search-not-found.png') }}" class="logo-not-found w-50 h-50" alt="Not Found">
+                                        <p class="mt-3">Kelas Yang Kamu Cari Tidak Tersedia</p>
+                                    </div>
+                                </div>
+                            @endif
+                            @foreach($courses as $course)
                                 <div class="col-md-4 col-12 d-flex justify-content-center pb-3">
                                     <div class="card d-flex flex-row d-md-block">
                                         <img src="{{ asset('storage/images/covers/' . $course->cover) }}" class="card-img-top d-none d-md-block" alt="{{ $course->name }}" />
@@ -83,12 +126,14 @@
                             @endforeach
                         
                         @elseif ($paketFilter == 'paket-ebook')
-                            {{-- <div class="col-md-12 d-flex justify-content-center align-items-center">
+                            @if($ebooks->isEmpty())
+                            <div class="col-md-12 d-flex justify-content-center align-items-center">
                                 <div class="not-found text-center">
                                     <img src="{{ asset('nemolab/member/img/search-not-found.png') }}" class="logo-not-found w-50 h-50" alt="Not Found">
                                     <p class="mt-3">Kelas Yang Kamu Cari Tidak Tersedia</p>
                                 </div>
-                            </div> --}}
+                            </div>
+                            @endif
                             @foreach($ebooks as $ebook)
                                 <div class="col-md-4 col-12 d-flex justify-content-center pb-3">
                                     <div class="card d-flex flex-row d-md-block">
@@ -120,6 +165,14 @@
                                 </div>
                             @endforeach
                         @else
+                            @if($courses->isEmpty() && $course->isEmpty())
+                            <div class="col-md-12 d-flex justify-content-center align-items-center">
+                                <div class="not-found text-center">
+                                    <img src="{{ asset('nemolab/member/img/search-not-found.png') }}" class="logo-not-found w-50 h-50" alt="Not Found">
+                                    <p class="mt-3">Kelas Yang Kamu Cari Tidak Tersedia</p>
+                                </div>
+                            </div>
+                            @endif
                             @foreach($ebooks as $ebook)
                                 <div class="col-md-4 col-12 d-flex justify-content-center pb-3">
                                     <div class="card d-flex flex-row d-md-block">
@@ -164,7 +217,11 @@
                                         </div>
                                         <div class="card-body">
                                             <div class="paket d-flex">
+                                                @if(in_array($course->id, $InBundle))
+                                                    <p class="paket-item mt-md-2">Paket Combo</p>
+                                                @else
                                                 <p class="paket-item mt-md-2">Kursus</p>
+                                                @endif
                                             </div>
                                             <div class="title-card">
                                                 <h5 class="fw-bold truncate-text">{{ $course->category }} : {{ $course->name }}</h5>

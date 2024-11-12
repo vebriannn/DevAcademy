@@ -58,6 +58,11 @@ class Course extends Model
     {
         return $this->belongsToMany(Tools::class, 'tbl_course_tools', 'course_id', 'tool_id');
     }
+    // In Course.php model
+    public function courseEbooks()
+    {
+        return $this->hasMany(CourseEbook::class, 'course_id');
+    }
 
 
 }

@@ -34,36 +34,35 @@ class MemberCourseController extends Controller
 
         $coursesQuery = Course::where('status', 'published');
         $ebooksQuery = Ebook::where('status', 'published');
-        // $courseEbookQuery = CourseEbook::where('status', 'published');
+
         if ($searchQuery) {
             $coursesQuery->where('name', 'LIKE', '%' . $searchQuery . '%');
             $ebooksQuery->where('name', 'LIKE', '%' . $searchQuery . '%');
         }
+        
         if ($categoryFilter && $categoryFilter != 'semua') {
             $coursesQuery->where('category', $categoryFilter);
             $ebooksQuery->where('category', $categoryFilter);
         }
-
-        //  non bundling check
-        $courseIdsInBundle = CourseEbook::pluck('course_id')->toArray();
-        $ebookIdsInBundle = CourseEbook::pluck('ebook_id')->toArray();
-
         switch ($paketFilter) {
             case 'paket-kursus':
-                $coursesQuery->whereNotIn('id', $courseIdsInBundle);
+                $coursesQuery->whereDoesntHave('courseEbooks');
                 break;
 
             case 'paket-ebook':
-                $coursesQuery->whereNotIn('id', $courseIdsInBundle);
+                $ebooksQuery->whereDoesntHave('courseEbooks');
                 break;
 
-                // case 'paket-bundling':
-                //     $coursesQuery->whereHas('courseEbook');
-                //     $ebooksQuery->whereHas('courseEbook');
-                //     break;
+            case 'paket-bundling':
+                $coursesQuery->whereHas('courseEbooks');
+                break;
 
             case 'semua':
+                $ebooksQuery->whereDoesntHave('courseEbooks');
+                break;
+
             default:
+                $ebooksQuery->whereDoesntHave('courseEbooks');
                 break;
         }
 
@@ -71,8 +70,8 @@ class MemberCourseController extends Controller
         $courses = $coursesQuery->orderBy('id', 'DESC')->get();
         $ebooks = $ebooksQuery->orderBy('id', 'DESC')->get();
         $categories = Category::orderBy('id', 'DESC')->get();
-
-        return view('member.course', compact('courses', 'categories', 'ebooks', 'paketFilter'));
+        $InBundle = CourseEbook::pluck('course_id')->toArray();
+        return view('member.course', compact('courses', 'categories', 'ebooks', 'paketFilter','InBundle'));
     }
 
 
@@ -80,30 +79,34 @@ class MemberCourseController extends Controller
     public function join($slug)
     {
         $courses = Course::where('slug', $slug)->first();
-    
+
         if ($courses) {
             $chapters = Chapter::with('lessons')->where('course_id', $courses->id)->get();
             $reviews = Review::with('user')->where('course_id', $courses->id)->get();
-    
+            $bundling = CourseEbook::with(['course', 'ebook'])
+                ->where('course_id', $courses->id)
+                ->first();
+
             $lesson = $chapters->isNotEmpty()
                 ? Lesson::with('chapters')->where('chapter_id', $chapters->first()->id)->first()
                 : null;
-    
+
             $transaction = Auth::check()
                 ? Transaction::where('user_id', Auth::id())
                     ->where('course_id', $courses->id)
                     ->orderBy('created_at', 'desc')
                     ->first()
                 : null;
-    
+
             $coursetools = Course::with('tools')->findOrFail($courses->id);
             $transactionForEbook = null;
-    
-            return view('member.joincourse', compact('chapters', 'courses', 'lesson', 'transaction', 'transactionForEbook', 'coursetools', 'reviews'));
+
+            return view('member.joincourse', compact('chapters', 'courses', 'lesson', 'transaction','transactionForEbook', 'coursetools', 'reviews', 'bundling'));
         } else {
             return redirect()->route('pages.error');
         }
-    }    
+    }
+
 
 
     public function play($slug, $episode)

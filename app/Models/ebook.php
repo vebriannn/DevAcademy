@@ -42,4 +42,10 @@ class Ebook extends Model
     {
         return $this->hasMany(Transaction::class);
     }
+    // In Ebook.php model
+    public function courseEbooks()
+    {
+        return $this->hasMany(CourseEbook::class, 'ebook_id');
+    }
+
 }

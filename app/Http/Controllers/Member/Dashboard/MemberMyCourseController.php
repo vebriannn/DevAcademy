@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use RealRashid\SweetAlert\Facades\Alert;
 
 use App\Models\Course;
+use App\Models\Ebook;
 use App\Models\Transaction;
 use App\Models\Submission;
 use App\Models\MyListCourse;
@@ -19,12 +20,16 @@ class MemberMyCourseController extends Controller
 
         // Ambil semua course_id dari daftar
         $courseIds = $lists->pluck('course_id');
+        $ebookIds = $lists->pluck('ebook_id');
+
         // Ambil semua kursus yang cocok dengan course_id yang ada
         $courses = Course::whereIn('id', $courseIds)->orderBy('id', 'DESC')->get();
+        $ebooks = Ebook::whereIn('id', $ebookIds)->orderBy('id', 'DESC')->get();
+
 
         $total_course = Transaction::where('user_id', Auth::user()->id)->where('status', 'success')->count();
         $submission = Submission::where('user_id', Auth::user()->id)->first();
-        return view('member.dashboard.mycourse', compact('courses', 'submission', 'total_course'));
+        return view('member.dashboard.mycourse', compact('courses','ebooks', 'submission', 'total_course'));
     }
 
     public function reqMentor(Request $requests, $id) {

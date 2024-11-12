@@ -17,7 +17,11 @@
                 </div>
                 <div class="card mb-3 d-md-none">
                     <div class="card-buy-body">
+                        @if ($bundling)
+                        <p class="paket text-center mt-2 mb-0">Paket Combo</p>
+                        @else
                         <p class="paket text-center mt-2 mb-0">Kursus</p>
+                        @endif
                         <h3 class="card-title text-center mt-3" data-aos="zoom-out" data-aos-delay="100">Mulai Belajar
                             Kursus Ini</h3>
                         <p class="text-center mx-3" data-aos="zoom-out" data-aos-delay="200">Belajar dimanapun dan kapanpun
@@ -40,11 +44,13 @@
                                         <img src="{{ asset('nemolab/member/img/check-active.png') }}" alt="Check">
                                         <p class="m-0 p-0 ms-2">Belajar gratis</p>
                                     </li>
+                                    @if ($bundling)
                                     <li class="check-active d-flex mt-2 align-items-center" data-aos="zoom-out"
                                         data-aos-delay="400">
                                         <img src="{{ asset('nemolab/member/img/check-active.png') }}" alt="Check">
                                         <p class="m-0 p-0 ms-2">Bonus E-Book</p>
                                     </li>
+                                    @endif
                                     <li class="check-active d-flex mt-2 align-items-center" data-aos="zoom-out"
                                         data-aos-delay="500">
                                         <img src="{{ asset('nemolab/member/img/check-active.png') }}" alt="Check">
@@ -60,21 +66,76 @@
                                         <img src="{{ asset('nemolab/member/img/check-active.png') }}" alt="Check">
                                         <p class="m-0 p-0 ms-2">Konsultasi dengan mentor secara langsung</p>
                                     </li>
-                                </ul>>
+                                </ul>
                             </ul>
                         </div>
                         <div class="p-0">
                             @if ($courses->price != 0)
                                 <h3 class="price text-center">Rp{{ number_format($courses->price, 0, ',', '.') }}</h3>
+                            @elseif ($bundling->price != 0)
+                                <h3 class="price text-center">Rp{{ number_format($bundling->price, 0, ',', '.') }}</h3>
                             @else
                                 <h3 class="price text-center">Gratis</h3>
                             @endif
-                            <a href="{{ route('member.payment', ['course_id' => $courses->id]) }}"
-                                class="buy btn btn-warning w-100">Ambil Kelas</a>
+
+                            @if ($transaction)
+                                @if ($transaction->status == 'pending')
+                                    <a href="#" class="buy btn btn-warning w-100">Dalam Proses Pembayaran</a>
+                                @elseif ($transaction->status == 'success')
+                                    @if (isset($lesson) && isset($lesson->episode))
+                                        <a href="{{ route('member.course.play', ['slug' => $courses->slug, 'episode' => $lesson->episode]) }}"
+                                            class="buy btn btn-warning w-100">Mulai Belajar</a>
+                                    @else
+                                        <a href="#" class="buy btn btn-warning w-100">Kelas Dalam Pembaruan</a>
+                                    @endif
+                                @else
+                                    <a href="{{ route('member.payment', ['course_id' => $courses->id]) }}"
+                                        class="buy btn btn-warning w-100">Ambil Kelas</a>
+                                @endif
+                            @else
+                                @if ($bundling)
+                                <a href="{{ route('member.payment', ['bundle_id' => $bundling->id]) }}"
+                                    class="buy btn btn-warning w-100">Ambil Kelas</a>
+                                @else
+                                    <a href="{{ route('member.payment', ['course_id' => $courses->id]) }}"
+                                        class="buy btn btn-warning w-100">Ambil Kelas</a>
+                                @endif
+                            @endif
                         </div>
                     </div>
                 </div>
-
+                @if ($bundling)
+                <div class="card-bonus mb-3" data-aos="fade-up">
+                    <div class="card-bonus-body">
+                        <h5>Bonus</h5>
+                        <div class="d-flex">
+                            <img src="{{ asset('storage/images/covers/ebook/' . $bundling->ebook->cover) }}" alt="" width="80" height="100" style="object-fit: cover; border-radius: 5px">
+                            <table class="detail">
+                                <tr>
+                                    <td>Judul E-Book</td>
+                                    <td><span>: {{ $bundling->ebook->name }}</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Kategori E-Book</td>
+                                    <td><span>: {{ $bundling->ebook->category }}</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Tingkatan</td>
+                                    <td><span>: 
+                                        @if ($bundling->ebook->level == 'beginner')
+                                        Pemula
+                                        @elseif ($bundling->ebook->level == 'intermediate')
+                                        Menengah
+                                        @else
+                                        Ahli
+                                        @endif</span></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div> 
+            @endif
+            
                 <div class="card mb-3" data-aos="fade-up">
                     <div class="card-body">
                         <h5>Detail Kursus</h5>
@@ -197,7 +258,11 @@
             <div class="layout-kanan col-md-4 d-none d-md-block">
                 <div class="card-buy card mb-3" style="position: sticky; top: 100px;">
                     <div class="card-buy-body">
+                        @if ($bundling)
+                        <p class="paket text-center mt-2 mb-0">Paket Combo</p>
+                        @else
                         <p class="paket text-center mt-2 mb-0">Kursus</p>
+                        @endif
                         <h3 class="card-title text-center mt-3" data-aos="zoom-out" data-aos-delay="100">Mulai Belajar
                             Kursus Ini</h3>
                         <p class="text-center mx-3" data-aos="zoom-out" data-aos-delay="200">Belajar dimanapun dan kapanpun
@@ -220,11 +285,13 @@
                                         <img src="{{ asset('nemolab/member/img/check-active.png') }}" alt="Check">
                                         <p class="m-0 p-0 ms-2">Belajar gratis</p>
                                     </li>
+                                    @if ($bundling)
                                     <li class="check-active d-flex mt-2 align-items-center" data-aos="zoom-out"
                                         data-aos-delay="400">
                                         <img src="{{ asset('nemolab/member/img/check-active.png') }}" alt="Check">
                                         <p class="m-0 p-0 ms-2">Bonus E-Book</p>
                                     </li>
+                                    @endif
                                     <li class="check-active d-flex mt-2 align-items-center" data-aos="zoom-out"
                                         data-aos-delay="500">
                                         <img src="{{ asset('nemolab/member/img/check-active.png') }}" alt="Check">
@@ -246,6 +313,8 @@
                         <div class="p-0">
                             @if ($courses->price != 0)
                                 <h3 class="price text-center">Rp{{ number_format($courses->price, 0, ',', '.') }}</h3>
+                            @elseif ($bundling->price != 0)
+                                <h3 class="price text-center">Rp{{ number_format($bundling->price, 0, ',', '.') }}</h3>
                             @else
                                 <h3 class="price text-center">Gratis</h3>
                             @endif
@@ -265,8 +334,13 @@
                                         class="buy btn btn-warning w-100">Ambil Kelas</a>
                                 @endif
                             @else
-                                <a href="{{ route('member.payment', ['course_id' => $courses->id]) }}"
+                                @if ($bundling)
+                                <a href="{{ route('member.payment', ['bundle_id' => $bundling->id]) }}"
                                     class="buy btn btn-warning w-100">Ambil Kelas</a>
+                                @else
+                                    <a href="{{ route('member.payment', ['course_id' => $courses->id]) }}"
+                                        class="buy btn btn-warning w-100">Ambil Kelas</a>
+                                @endif
                             @endif
                         </div>
                     </div>

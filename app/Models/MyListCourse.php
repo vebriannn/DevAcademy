@@ -14,6 +14,6 @@ class MyListCourse extends Model
     protected $fillable = [
         'user_id',
         'course_id',
-        // 'ebook_id',
+        'ebook_id',
     ];
 }

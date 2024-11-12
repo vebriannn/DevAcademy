@@ -59,6 +59,32 @@
                             </a>
                         @endif
                     @endforeach
+
+                    {{-- @foreach ($ebooks as $ebook)
+                        @if ($course->transactions->isNotEmpty())
+                            <a href="{{ route('member.ebook.join', $ebook->slug) }}" class="col-md-4 d-flex justify-content-center pb-3 text-decoration-none">
+                                <div class="card">
+                                    <img src="{{ asset('storage/images/covers/ebook/' . $ebook->cover) }}" class="card-img-top" alt="...">
+                                    <div class="card-body">
+                                        <div class="title-card">
+                                            <h5 class="fw-bold truncate-text">{{ $ebook->name }}</h5>
+                                            <p class="tipe">{{ $ebook->type }}</p>
+                                        </div>
+                                        <div class="btn-group-harga d-flex justify-content-between align-items-center mt-3">
+                                            <div class="harga d-block">
+                                                <p class="p-0 m-0 fw-semibold">Status</p>
+                                                <p class="p-0 m-0 fw-semibold">Belum Selesai</p>
+                                            </div>
+                                            <div class="harga d-block">
+                                                <p class="p-0 m-0 fw-semibold">Bergabung : </p>
+                                                <p class="p-0 m-0 fw-semibold">{{ $ebook-> created_at->format('d F Y')}}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        @endif
+                    @endforeach --}}
                     </div>
                 </div>
             </div>

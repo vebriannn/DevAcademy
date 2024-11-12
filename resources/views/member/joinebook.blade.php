@@ -36,7 +36,22 @@
                         @else
                             <h3 class="price text-center">Gratis</h3>
                         @endif
+                    
+                        @if ($transaction)
+                            @if ($transaction->status == 'pending')
+                                <a href="#" class="buy btn btn-warning w-100">Dalam Proses Pembayaran</a>
+                            @elseif ($transaction->status == 'success')
+                                <a href="{{ route('member.ebook.read', ['slug' => $ebooks->slug]) }}" class="buy btn btn-warning w-100">Mulai Belajar</a>
+                            @else
+                                <a href="{{ route('member.payment', ['ebook_id' => $ebooks->id]) }}" class="buy btn btn-warning w-100">Ambil Kelas</a>
+                            @endif
+                        @else
+                            @if (in_array($ebooks->id, $InBundle))
+                            <a href="" class="buy btn btn-warning w-100">Terdapat Paket Combo</a>
+                            @else
                             <a href="{{ route('member.payment', ['ebook_id' => $ebooks->id]) }}" class="buy btn btn-warning w-100">Ambil Kelas</a>
+                            @endif
+                        @endif
                     </div>
                 </div>
             </div>
@@ -159,7 +174,11 @@
                                 <a href="{{ route('member.payment', ['ebook_id' => $ebooks->id]) }}" class="buy btn btn-warning w-100">Ambil Kelas</a>
                             @endif
                         @else
+                            @if (in_array($ebooks->id, $InBundle))
+                            <a href="" class="buy btn btn-warning w-100">Terdapat Paket Combo</a>
+                            @else
                             <a href="{{ route('member.payment', ['ebook_id' => $ebooks->id]) }}" class="buy btn btn-warning w-100">Ambil Kelas</a>
+                            @endif
                         @endif
                     </div>                    
                 </div>

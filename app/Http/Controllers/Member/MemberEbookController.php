@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Transaction;
 use App\Models\Review;
 use App\Models\User;
+use App\Models\CourseEbook;
 
 class MemberEbookController extends Controller
 {
@@ -25,7 +26,9 @@ class MemberEbookController extends Controller
             } else {
                 $transaction = null;
             }
-            return view('member.joinebook', compact( 'transaction','ebooks','reviews'));
+            $InBundle = CourseEbook::pluck('ebook_id')->toArray();   
+            
+            return view('member.joinebook', compact( 'transaction','ebooks','reviews','InBundle'));
         } else {
             return redirect('pages.error');
         }

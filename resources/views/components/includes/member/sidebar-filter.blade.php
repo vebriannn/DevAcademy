@@ -31,6 +31,13 @@
                                 E-book
                             </label>
                         </li>
+                        <li>
+                            <input id="filter-paket-bundling" name="filter-paket" value="paket-bundling" type="radio" onchange="this.form.submit()" {{ request('filter-paket') == 'paket-bundling' ? 'checked' : '' }}>
+                            <label for="filter-paket-bundling">
+                                <span></span>
+                                Paket Combo
+                            </label>
+                        </li>
                     </ul>
             </div>
             
