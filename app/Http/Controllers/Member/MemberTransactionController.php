@@ -16,18 +16,28 @@ class MemberTransactionController extends Controller
     {
         $perPage = $request->input('per_page', 10);
         $status = $request->input('status'); 
-        $transactions = Transaction::with(['course' => function ($query) {
-                $query->select('id', 'name', 'cover', 'price');
-            }])
+
+        $transactions = Transaction::with([
+                'course' => function ($query) {
+                    $query->select('id', 'name', 'cover', 'price');
+                },
+                'ebook' => function ($query) {
+                    $query->select('id', 'name', 'cover', 'price');
+                },
+                'bundle.course' => function ($query) {
+                    $query->select('id', 'name', 'cover', 'price');
+                }
+            ])
             ->where('user_id', Auth::id())
             ->when($status, function ($query, $status) {
                 return $query->where('status', $status);
             })
             ->orderBy('created_at', 'desc')
             ->paginate($perPage);
-    
+
         return view('member.dashboard.transaction.view', compact('transactions', 'status'));
     }
+
     
     
     public function cancel($id)

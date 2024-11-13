@@ -72,7 +72,7 @@
                         <div class="p-0">
                             @if ($courses->price != 0)
                                 <h3 class="price text-center">Rp{{ number_format($courses->price, 0, ',', '.') }}</h3>
-                            @elseif ($bundling->price != 0)
+                            @elseif ($bundling && $bundling->price != 0)
                                 <h3 class="price text-center">Rp{{ number_format($bundling->price, 0, ',', '.') }}</h3>
                             @else
                                 <h3 class="price text-center">Gratis</h3>
@@ -313,8 +313,8 @@
                         <div class="p-0">
                             @if ($courses->price != 0)
                                 <h3 class="price text-center">Rp{{ number_format($courses->price, 0, ',', '.') }}</h3>
-                            @elseif ($bundling->price != 0)
-                                <h3 class="price text-center">Rp{{ number_format($bundling->price, 0, ',', '.') }}</h3>
+                            @elseif ($bundling && $bundling->price != 0)
+                                <h3 class="price text-center">Rp{{ number_format($bundling->price, 0, ',', '.') }}</h3> 
                             @else
                                 <h3 class="price text-center">Gratis</h3>
                             @endif

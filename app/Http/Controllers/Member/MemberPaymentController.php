@@ -73,8 +73,8 @@ class MemberPaymentController extends Controller
         if ($bundle) {
             $name = $bundle->course->name . ' (bundle)';
             $price = $bundle->price;
-            $course_id = $bundle->course_id;
-            $ebook_id = $bundle->ebook_id;
+            $courseId = $bundle->course_id;
+            $ebookId = $bundle->ebook_id;
         }
     
         // Periksa jika kursus gratis
@@ -101,24 +101,23 @@ class MemberPaymentController extends Controller
                     'price' => $price,
                     'status' => $status,
                 ]);
-                // jika bundle maka otomatis mengisi ebook_id dan course_id sesuai dengan nilai dari tbl_course_ebooks
-                if($bundle){
-                    MyListCourse::create([
-                        'user_id' => $user->id,
-                        'course_id' => $course_id,
-                        'ebook_id' => $ebook_id,
-                    ]);
-                }else{
+                // jika bundle maka otomatis mengisi ebook_id dan course_id sesuai dengan nilai dari tbl_course_ebook
                     MyListCourse::create([
                         'user_id' => $user->id,
                         'course_id' => $courseId,
                         'ebook_id' => $ebookId,
                     ]);
-                }
 
     
                 Alert::success('success', 'Kelas Berhasil Dibeli');
-                return redirect()->route('member.course.join', $course->slug);
+                if($course){
+                    return redirect()->route('member.course.join', $course->slug);
+                }elseif($ebook){
+                    return redirect()->route('member.ebook.join', $ebook->slug);
+                }elseif($bundle){
+                    return redirect()->route('member.course.join', $bundle->course->slug);
+                }
+               
             } else {
                 // Lakukan pemrosesan Midtrans jika belum sukses
                 \Midtrans\Config::$serverKey = env('MIDTRANS_SERVER_KEY');

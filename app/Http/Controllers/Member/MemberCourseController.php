@@ -100,6 +100,8 @@ class MemberCourseController extends Controller
 
             $coursetools = Course::with('tools')->findOrFail($courses->id);
             $transactionForEbook = null;
+            $InBundle = CourseEbook::pluck('course_id')->toArray();
+
 
             return view('member.joincourse', compact('chapters', 'courses', 'lesson', 'transaction','transactionForEbook', 'coursetools', 'reviews', 'bundling'));
         } else {
@@ -156,7 +158,7 @@ class MemberCourseController extends Controller
         $user = User::where('id', $courses->mentor_id)->first();
         $chapters = Chapter::with('lessons')->where('course_id', $courses->id)->get();
         $checkTrx = Transaction::where('course_id', $courses->id)->where('user_id', Auth::user()->id)->first();
-        $checkReview = Review::where('user_id', Auth::user()->id)->first();
+        $checkReview = Review::where('user_id', Auth::user()->id)->where('course_id', $courses->id)->first();
         $checkPorto = Portofolio::where('user_id', Auth::user()->id)->first();
         $coursetools = Course::with('tools')->findOrFail($courses->id);
 

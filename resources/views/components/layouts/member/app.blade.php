@@ -87,6 +87,18 @@
             }
         });
     </script>
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+            const sidebarLinks = document.querySelectorAll(".side-tabs li a");
+            sidebarLinks.forEach(link => {
+                if (link.href === window.location.href) {
+                    link.parentElement.classList.add("active");
+                } else {
+                    link.parentElement.classList.remove("active");
+                }
+            });
+        });
+        </script>
     @stack('addon-script')
 
 </body>

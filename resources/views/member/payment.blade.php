@@ -84,9 +84,9 @@
                                         @if ($course)
                                         <input type="hidden" name="course_id" value="{{ $course->id }}">
                                         @elseif ($ebook)
-                                        <input type="hidden" name="course_id" value="{{ $ebook->id }}">
+                                        <input type="hidden" name="ebook_id" value="{{ $ebook->id }}">
                                         @elseif ($bundle)
-                                        <input type="hidden" name="course_id" value="{{ $bundle->id }}">
+                                        <input type="hidden" name="bundle_id" value="{{ $bundle->id }}">
                                         @endif
                                         <input type="hidden" name="price" value="{{ $totalPrice }}">
                                         <div class="form-check mt-4">
