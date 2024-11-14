@@ -28,7 +28,7 @@
                         </a>
                     </div>
                     <div class="col-12 col-sm-6 col-xl-4 mb-4">
-                        <a href="#" class="shadow">
+                        <a href="{{ route('member.sertifikat', $courses->slug) }}" class="shadow">
                             <img src="{{ asset('nemolab/member/img/img-achievement.png') }}" alt="">
                             <div class="group-title-subtitle ms-3">
                                 <p class="m-0 p-0">Unduh Sertifikat</p>

@@ -4,11 +4,12 @@ namespace App\Http\Controllers\member;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Http;
 use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Env;
+use Barryvdh\DomPDF\Facade\Pdf;
+
+
 
 use App\Models\Ebook;
 use App\Models\Category;
@@ -22,6 +23,7 @@ use App\Models\CourseTools;
 use App\Models\Review;
 use App\Models\CourseEbook;
 use App\Models\CompleteEpisodeCourse;
+use App\Models\MyListCourse;
 
 class MemberCourseController extends Controller
 {
@@ -73,7 +75,6 @@ class MemberCourseController extends Controller
 
         return view('member.course', compact('courses', 'categories', 'ebooks', 'paketFilter'));
     }
-
 
 
     public function join($slug)
@@ -148,6 +149,7 @@ class MemberCourseController extends Controller
         }
     }
 
+
     public function detail($slug)
     {
         $courses = Course::where('slug', $slug)->first();
@@ -156,6 +158,7 @@ class MemberCourseController extends Controller
         $checkTrx = Transaction::where('course_id', $courses->id)->where('user_id', Auth::user()->id)->first();
         $checkReview = Review::where('user_id', Auth::user()->id)->first();
         $coursetools = Course::with('tools')->findOrFail($courses->id);
+        // $checkEpCompelete = CompleteEpisodeCourse::where('')
 
         if ($checkTrx) {
             return view('member.detail-course', compact('chapters', 'slug', 'courses', 'user', 'checkReview', 'coursetools'));
@@ -165,4 +168,25 @@ class MemberCourseController extends Controller
         }
     }
 
+
+    public function generateSertifikat($slug)
+    {
+        $course = Course::where('slug', $slug)->first();
+        $checkCourse = MyListCourse::where('course_id', $course->id);
+        if ($checkCourse) {
+
+            // Data dinamis
+            $data = [
+                'name' => Auth::user()->name,
+                'course' =>  $course->category . ' : ' . $course->name,
+                'date' => \Carbon\Carbon::now()->format('d F Y')
+            ];
+
+            $pdf = Pdf::loadView('sertifikat.view', $data)->setPaper('A4', 'landscape');
+
+            return $pdf->download('example.pdf');
+            // return view('sertifikat.view', $data);
+        }
+        return redirect()->back();
+    }
 }

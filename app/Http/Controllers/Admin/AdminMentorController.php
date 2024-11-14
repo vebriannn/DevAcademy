@@ -29,28 +29,28 @@ class AdminMentorController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|max:255|unique:users,email',
-            'password' => 'required|string|min:6',
             'profession' => 'required|string|max:255',
+            'password' => 'required|string|min:6',
         ]);
 
         User::create([
             'name' => $request->name,
-            'username' => $request->name,
             'email' => $request->email,
-            'avatar' => 'default.png',
+            'email_verified_at' => now(),
             'password' => Hash::make($request->password),
             'role' => 'mentor',
             'profession' => $request->profession,
         ]);
 
         Alert::success('Success', 'Data Mentor Berhasil Dibuat');
-        return redirect()->route('admin.mentor.index');
+        return redirect()->route('admin.mentor');
     }
 
-    public function edit($id)
+    public function edit(Request $requests)
     {
-        $mentor = User::findOrFail($id);
-        return view('admin.mentor.edit', compact('mentor'));
+        $id = $requests->query('id');
+        $mentor =  User::where('id', $id)->first();
+        return view('admin.mentor.update    ', compact('mentor'));
     }
 
     public function update(Request $request, $id)
@@ -65,13 +65,6 @@ class AdminMentorController extends Controller
             'profession' => 'required|string|max:255',
         ]);
 
-        if ($request->role == 'student') {
-            $submission = Submission::where('user_id', $id)->first();
-            if ($submission) {
-                $submission->delete();
-            }
-        }
-
         $mentor->update([
             'name' => $request->name,
             'username' => $request->name,
@@ -82,12 +75,13 @@ class AdminMentorController extends Controller
         ]);
 
         Alert::success('Success', 'Data Mentor Berhasil Diupdate');
-        return redirect()->route('admin.mentor.index');
+        return redirect()->route('admin.mentor');
     }
 
-    public function destroy($id)
+    public function delete(Request $requests)
     {
-        $mentor = User::findOrFail($id);
+        $id = $requests->query('id');
+        $mentor =  User::where('id', $id)->first();
 
         if ($mentor->avatar && $mentor->avatar !== 'default.png') {
             $avatarPath = 'public/images/avatars/' . $mentor->avatar;
@@ -99,6 +93,6 @@ class AdminMentorController extends Controller
         $mentor->delete();
 
         Alert::success('Success', 'Data Mentor Berhasil Dihapus');
-        return redirect()->route('admin.mentor.index');
+        return redirect()->route('admin.mentor');
     }
 }

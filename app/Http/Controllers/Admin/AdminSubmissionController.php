@@ -11,112 +11,46 @@ use App\Models\Submission;
 use App\Models\Course;
 use App\Models\User;
 use App\Mail\MailNotificationMentor;
+use App\Notifications\sendSubmissionMentorNotification;
 
 class AdminSubmissionController extends Controller
 {
     public function index()
     {
-        $mentors = Submission::with('user')->get();
-        $total_course = 0; 
+        $users = Submission::with('user')->get();
+        $total_course = 0;
 
         // check total course
-        foreach ($mentors as $mentor) {
-            $total_course = Course::with(['transactions' => function ($query) use ($mentor)  {
+        foreach ($users  as $mentor) {
+            $total_course = Course::with(['transactions' => function ($query) use ($mentor) {
                 $query->where('user_id', $mentor->user->id);
                 $query->where('status', 'success');
             }])->count();
         }
 
-        return view('admin.pengajuanmentor.view', compact('mentors', 'total_course'));
+        return view('admin.pengajuan-mentor.view', compact('users', 'total_course'));
     }
 
-    // public function create()
-    // {
-    //     return response()->json([
-    //         'message' => 'Create submission form',
-    //         // You can return additional data needed for creating a submission if required
-    //     ], 200);
-    // }
-
-    // public function store(Request $request)
-    // {
-    //     $request->validate([
-    //         'status' => 'required|in:pending,accept,deaccept',
-    //         'user_id' => 'required|exists:users,id',
-    //     ]);
-
-    //     $submission = Submission::create([
-    //         'status' => $request->status,
-    //         'user_id' => $request->user_id,
-    //     ]);
-
-    //     return response()->json([
-    //         'message' => 'Submission created successfully',
-    //         'data' => $submission
-    //     ], 201);
-    // }
-
-    // public function edit($id)
-    // {
-    //     $submission = Submission::find($id);
-
-    //     if (!$submission) {
-    //         return response()->json([
-    //             'message' => 'Submission not found'
-    //         ], 404);
-    //     }
-
-    //     return response()->json([
-    //         'message' => 'Edit submission form',
-    //         'data' => $submission
-    //     ], 200);
-    // }
-
-    public function update(Request $request, $id)
+    public function update(Request $requests, $id)
     {
-        $request->validate([
-            'action' => 'required|in:pending,accept,deaccept',
+        $requests->validate([
+            'link' => 'required|url',
+            'action' => 'required|in:pending,accept',
         ]);
 
         $submission = Submission::where('user_id', $id)->first();
 
-        if($submission) {
-            $submission->update([
-                'status' => $request->action,
-            ]);
+        if ($submission) {
             
-            $user = User::where('id', $id)->first();
-            
-            if($request->action == 'accept') {
-                $user->update([
-                    'role' => 'mentor'
-                ]);
-                Alert::success('Success', 'Pengajuan Berhasil Di Accepted');
-            }
-            else {
-                Alert::success('Success', 'Pengajuan Berhasil Di Rejected');
-            }
-
             // send mail
-            // Mail::to($user->email)->send(new MailNotificationMentor($request->action));
+            $submission->user->notify(new sendSubmissionMentorNotification($submission, $requests->link));
 
-            return redirect()->route('admin.submissions');   
+            $submission->update([
+                'status' => $requests->action,
+            ]);
+
+            Alert::success('Success', 'Pengajuan Berhasil Di Kirim');
+            return redirect()->route('admin.pengajuan');
         }
-    }
-
-    public function delete($id)
-    {
-        $submission = Submission::find($id);
-
-        if (!$submission) {
-            return response()->json([
-                'message' => 'Submission not found'
-            ], 404);
-        }
-
-        $submission->delete();
-
-        Alert::success('Success', 'Pengajuan Berhasil Di Hapus');
-        return redirect()->route('admin.submissions');
     }
 }

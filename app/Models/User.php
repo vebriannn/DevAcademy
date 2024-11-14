@@ -57,21 +57,9 @@ class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
         return $this->hasMany(Transaction::class, 'user_id');
     }
 
-    /**
-     * Relasi ke model Forum.
-     * Seorang user dapat membuat banyak forum.
-     */
-    public function forums()
+    public function submissions()
     {
-        return $this->hasMany(Forum::class);
+        return $this->hasMany(Submission::class);
     }
 
-    /**
-     * Relasi ke model Comments.
-     * Seorang user dapat membuat banyak komentar.
-     */
-    public function comments()
-    {
-        return $this->hasMany(Comments::class);
-    }
 }

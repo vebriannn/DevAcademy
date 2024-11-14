@@ -10,7 +10,7 @@ class Submission extends Model
     use HasFactory;
 
     protected $table = 'tbl_submissions';
-    
+
     protected $fillable = [
         'status',
         'user_id',

@@ -3,18 +3,22 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Hash;
 use RealRashid\SweetAlert\Facades\Alert;
+
 use App\Models\User;
+use App\Models\CompleteEpisodeCourse;
+use App\Models\MyListCourse;
+use Symfony\Component\Console\Command\CompleteCommand;
 
 class AdminStudentController extends Controller
 {
     public function index(Request $request)
     {
-        $perPage = $request->get('entries', 10);
-        $students = User::where('role', 'students')->paginate($perPage);
+        $students = User::where('role', 'students')->get();
         return view('admin.member.view', compact('students'));
     }
 
@@ -28,14 +32,12 @@ class AdminStudentController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|max:255|unique:users,email',
-            'password' => 'required|string|min:8|confirmed',
+            'password' => 'required|string|min:8',
             'profession' => 'required|string|max:255',
         ]);
 
         User::create([
             'name' => $request->name,
-            'username' => $request->name,
-            'avatar' => 'default.png',
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'role' => 'students',
@@ -43,18 +45,19 @@ class AdminStudentController extends Controller
         ]);
 
         Alert::success('Success', 'Data Member Berhasil Dibuat');
-        return redirect()->route('admin.member.index');
+        return redirect()->route('admin.student');
     }
 
-    public function edit($id)
+    public function edit(Request $requests)
     {
-        $student = User::findOrFail($id);
-        return view('admin.member.edit', compact('student'));
+        $id = $requests->query('id');
+        $student =  User::where('id', $id)->first();
+        return view('admin.member.update', compact('student'));
     }
 
     public function update(Request $request, $id)
     {
-        $student = User::findOrFail($id);
+        $student =  User::where('id', $id)->first();
 
         $request->validate([
             'name' => 'required|string|max:255',
@@ -65,30 +68,35 @@ class AdminStudentController extends Controller
 
         $student->update([
             'name' => $request->name,
-            'username' => $request->name,
             'email' => $request->email,
             'profession' => $request->profession,
             'password' => $request->filled('password') ? Hash::make($request->password) : $student->password,
         ]);
 
         Alert::success('Success', 'Data Member Berhasil Diupdate');
-        return redirect()->route('admin.member.index');
+        return redirect()->route('admin.student');
     }
 
-    public function destroy($id)
+    public function delete(Request $requests)
     {
-        $student = User::findOrFail($id);
+        $id = $requests->query('id');
+        $student = User::where('id', $id)->first();
 
-        if ($student->avatar && $student->avatar !== 'default.png') {
+        if ($student && !is_null($student->avatar) && $student->avatar !== 'default.png') {
             $avatarPath = 'public/images/avatars/' . $student->avatar;
             if (Storage::exists($avatarPath)) {
                 Storage::delete($avatarPath);
             }
         }
 
+
+        Transaction::where('user_id', $student->id)->delete();
+        MyListCourse::where('user_id', $student->id)->delete();
+        CompleteEpisodeCourse::where('user_id', $student->id)->delete();
         $student->delete();
 
+
         Alert::success('Success', 'Data Member Berhasil Dihapus');
-        return redirect()->route('admin.member.index');
+        return redirect()->route('admin.student');
     }
 }

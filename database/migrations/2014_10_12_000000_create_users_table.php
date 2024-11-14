@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('email', 255)->nullable(false);
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password', 255)->nullable(false);
-            $table->enum('profession', ['Pelajar Jangka Panjang', 'UI/UX Designer', 'Frontend Developer', 'Backend Developer', 'Wordpress Developer', 'Graphic Designer', 'Fullstack Developer'])->default('Pelajar Jangka Panjang');
+            $table->enum('profession', ['Pelajar Jangka Panjang', 'UI/UX Designer', 'Frontend Developer', 'Backend Developer', 'Wordpress Developer', 'Graphics Designer', 'Fullstack Developer'])->default('Pelajar Jangka Panjang');
             $table->enum('role', ['students', 'mentor', 'superadmin'])->default('students');
             $table->timestamps();
         });

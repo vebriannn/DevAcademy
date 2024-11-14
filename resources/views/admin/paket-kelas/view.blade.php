@@ -24,7 +24,7 @@
                                 <th>Tipe</th>
                                 <th>Status</th>
                                 <th>Harga</th>
-                                @if (Auth::user()->role == 'superadmin')
+                                @if (Auth::user()->role == 'superadmin' )
                                     <th>Mentor</th>
                                 @endif
                                 <th>Aksi</th>
@@ -55,7 +55,7 @@
                                             Berbayar
                                         @endif
                                     </td>
-                                    
+
                                     {{-- status --}}
                                     <td>
                                         @if ($kelas->status == 'draft')
@@ -65,7 +65,7 @@
                                         @endif
                                     </td>
                                     <td>Rp. {{ number_format($kelas->price, 0) }}</td>
-                                    @if (Auth::user()->role == 'superadmin')
+                                    @if (Auth::user()->role == 'superadmin' && !is_null($users))
                                         <td>{{ $users->name }}</td>
                                     @endif
                                     <td class="">

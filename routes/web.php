@@ -26,6 +26,9 @@ use App\Http\Controllers\Admin\AdminCourseEbookController;
 use App\Http\Controllers\Admin\AdminDiskonController;
 use App\Http\Controllers\member\MemberCourseController;
 use App\Http\Controllers\Admin\AdminStudentController;
+use App\Http\Controllers\Admin\AdminMentorController;
+use App\Http\Controllers\Admin\AdminSuperadminController;
+use App\Http\Controllers\Admin\AdminSubmissionController;
 
 
 
@@ -67,6 +70,7 @@ Route::middleware('maintenance.middleware')->group(function () {
             Route::get('join/{slug}', [MemberCourseController::class, 'join'])->name('member.course.join');
             Route::get('{slug}/play/episode/{episode}', [MemberCourseController::class, 'play'])->name('member.course.play');
             Route::get('detail/{slug}', [MemberCourseController::class, 'detail'])->name('member.course.detail');
+            Route::get('detail/sertifikat/{slug}', [MemberCourseController::class, 'generateSertifikat'])->name('member.sertifikat');
         });
 
         Route::prefix('payment')->middleware(['students', 'verified'])->group(function () {
@@ -138,33 +142,33 @@ Route::middleware('maintenance.middleware')->group(function () {
         Route::get('logout', [AdminLoginController::class, 'logout'])->name('admin.logout');
 
         // kelolah pengguna nemolab
-        Route::prefix('users')->middleware(['superadmin', 'verified'])->group(function () {
-            // Route::prefix('member')->group(function () {
-            //     Route::get('/', [AdminStudentController::class, 'index'])->name('admin.member');
-            //     Route::get('/create', [AdminStudentController::class, 'create'])->name('admin.member.create');
-            //     Route::post('/create/store', [AdminStudentController::class, 'store'])->name('admin.member.store');
-            //     Route::get('/edit/{id}', [AdminStudentController::class, 'edit'])->name('admin.member.edit');
-            //     Route::put('/edit/update/{id}', [AdminStudentController::class, 'update'])->name('admin.member.update');
-            //     Route::get('/delete/{id}', [AdminStudentController::class, 'destroy'])->name('admin.member.destroy');
-            // });
+        Route::prefix('data-users')->middleware(['superadmin', 'verified'])->group(function () {
+            Route::prefix('student')->group(function () {
+                Route::get('/', [AdminStudentController::class, 'index'])->name('admin.student');
+                Route::get('/create', [AdminStudentController::class, 'create'])->name('admin.student.create');
+                Route::post('/create/store', [AdminStudentController::class, 'store'])->name('admin.student.store');
+                Route::get('/edit/', [AdminStudentController::class, 'edit'])->name('admin.student.edit');
+                Route::put('/edit/update/{id}', [AdminStudentController::class, 'update'])->name('admin.student.update');
+                Route::get('/delete/', [AdminStudentController::class, 'delete'])->name('admin.student.delete');
+            });
 
-            // Route::prefix('mentor')->group(function () {
-            //     Route::get('/', [AdminMentorController::class, 'index'])->name('admin.mentor');
-            //     Route::get('/create', [AdminMentorController::class, 'create'])->name('admin.mentor.create');
-            //     Route::post('/create/store', [AdminMentorController::class, 'store'])->name('admin.mentor.store');
-            //     Route::get('/edit/{id}', [AdminMentorController::class, 'edit'])->name('admin.mentor.edit');
-            //     Route::put('/edit/update/{id}', [AdminMentorController::class, 'update'])->name('admin.mentor.update');
-            //     Route::get('/delete/{id}', [AdminMentorController::class, 'destroy'])->name('admin.mentor.destroy');
-            // });
+            Route::prefix('mentor')->group(function () {
+                Route::get('/', [AdminMentorController::class, 'index'])->name('admin.mentor');
+                Route::get('/create', [AdminMentorController::class, 'create'])->name('admin.mentor.create');
+                Route::post('/create/store', [AdminMentorController::class, 'store'])->name('admin.mentor.store');
+                Route::get('/edit/', [AdminMentorController::class, 'edit'])->name('admin.mentor.edit');
+                Route::put('/edit/update/{id}', [AdminMentorController::class, 'update'])->name('admin.mentor.update');
+                Route::get('/delete/', [AdminMentorController::class, 'delete'])->name('admin.mentor.delete');
+            });
 
-            // Route::prefix('superadmin')->group(function () {
-            //     Route::get('/', [AdminSuperadminController::class, 'index'])->name('admin.superadmin');
-            //     Route::get('/create', [AdminSuperadminController::class, 'create'])->name('admin.superadmin.create');
-            //     Route::post('/create/store', [AdminSuperadminController::class, 'store'])->name('admin.superadmin.store');
-            //     Route::get('/edit/{id}', [AdminSuperadminController::class, 'edit'])->name('admin.superadmin.edit');
-            //     Route::put('/edit/update/{id}', [AdminSuperadminController::class, 'update'])->name('admin.superadmin.update');
-            //     Route::get('/delete/{id}', [AdminSuperadminController::class, 'destroy'])->name('admin.superadmin.destroy');
-            // });
+            Route::prefix('superadmin')->group(function () {
+                Route::get('/', [AdminSuperadminController::class, 'index'])->name('admin.superadmin');
+                Route::get('/create', [AdminSuperadminController::class, 'create'])->name('admin.superadmin.create');
+                Route::post('/create/store', [AdminSuperadminController::class, 'store'])->name('admin.superadmin.store');
+                Route::get('/edit/', [AdminSuperadminController::class, 'edit'])->name('admin.superadmin.edit');
+                Route::put('/edit/update/{id}', [AdminSuperadminController::class, 'update'])->name('admin.superadmin.update');
+                Route::get('/delete/', [AdminSuperadminController::class, 'destroy'])->name('admin.superadmin.destroy');
+            });
 
             // Route::prefix('submission')->middleware('superadmin')->group(function () {
             //     Route::get('/', [AdminSubmissionController::class, 'index'])->name('admin.submissions');
@@ -234,6 +238,11 @@ Route::middleware('maintenance.middleware')->group(function () {
             Route::get('/edit/', [AdminDiskonController::class, 'edit'])->name('admin.diskon-kelas.edit');
             Route::put('/update/{id_diskon}', [AdminDiskonController::class, 'update'])->name('admin.diskon-kelas.edit.update');
             Route::get('/delete/', [AdminDiskonController::class, 'delete'])->name('admin.diskon-kelas.delete');
+        });
+
+        Route::prefix('kirim-pengajuan')->middleware(['superadmin', 'verified'])->group(function () {
+            Route::get('users', [AdminSubmissionController::class, 'index'])->name('admin.pengajuan');
+            Route::put('update/{id}', [AdminSubmissionController::class, 'update'])->name('admin.pengajuan.update');
         });
     });
 });

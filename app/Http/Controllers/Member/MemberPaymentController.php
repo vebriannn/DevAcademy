@@ -93,7 +93,7 @@ class MemberPaymentController extends Controller
                 \Midtrans\Config::$isSanitized = true;
                 // Set 3DS transaction for credit card to true
                 \Midtrans\Config::$is3ds = true;
-                
+
                 $params = [
                     'transaction_details' => [
                         'order_id' => $transaction_code,
@@ -199,38 +199,4 @@ class MemberPaymentController extends Controller
         return view('error.page404');
     }
 
-    // public function callback() {
-    //     $course = Course::where('id', $courseId)->first();
-    //     return url('/course/join/' . $course->slug);
-    // }
-
-    // public function test()
-    // {
-    //     $client = new \GuzzleHttp\Client();
-
-    //     try {
-    //         $response = $client->request('GET', 'https://api.sandbox.midtrans.com/v2/NEMOLAB-RUAH0Z0ADU/status', [
-    //             'headers' => [
-    //                 'accept' => 'application/json',
-    //                 'authorization' => 'Basic U0ItTWlkLXNlcnZlci1pNU9GbWpiR1ppSGc5cVBHVmg3MHdHcTI6',
-    //             ],
-    //         ]);
-
-    //         $responseBody = $response->getBody()->getContents();
-    //         $responseData = json_decode($responseBody, true); // Mengubah JSON menjadi array
-
-    //         // Mengambil object transaction_status
-    //         $transactionStatus = $responseData['transaction_status'];
-
-    //         echo $transactionStatus;
-    //     } catch (\GuzzleHttp\Exception\RequestException $e) {
-    //         // Handle the exception, for example, log the error
-    //         if ($e->hasResponse()) {
-    //             $errorResponse = $e->getResponse()->getBody()->getContents();
-    //             echo $errorResponse; // Show error response
-    //         } else {
-    //             echo $e->getMessage(); // Show the error message
-    //         }
-    //     }
-    // }
 }

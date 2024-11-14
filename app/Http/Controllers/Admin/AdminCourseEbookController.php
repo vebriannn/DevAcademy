@@ -18,7 +18,14 @@ class AdminCourseEbookController extends Controller
     public function index(Request $requests)
     {
         $paketKelas = CourseEbook::with(['course', 'ebook'])->get();
-        $users = User::where('id', $paketKelas->first()->course->mentor_id)->first();
+
+        $users = '';
+        $firstPaketKelas = $paketKelas->first();
+
+        if ($firstPaketKelas && !is_null($firstPaketKelas->course) && !is_null($firstPaketKelas->course->mentor_id)) {
+            $users = User::where('id', $firstPaketKelas->course->mentor_id)->first();
+        }
+
         return view('admin.paket-kelas.view', compact('paketKelas', 'users'));
     }
 
