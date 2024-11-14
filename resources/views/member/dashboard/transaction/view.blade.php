@@ -1,4 +1,4 @@
-@extends('components.layouts.member.dashboard')
+@extends('components.layouts.member.app')
 
 @section('title', 'Nemolab - Lihat informasi dan perkembangan anda disini')
 
@@ -12,16 +12,26 @@
             <div class="row">
                 @include('components.includes.member.sidebar-dashboard')
                 <div class="col-12 col-lg-9">
+                    <div>
+                        <h3 class="fw-bold">Transaksi Saya</h3>
+                    </div>
                     <!-- Navigation Tabs -->
                     <div class="filter-transaction">
                         <ul class="nav-tabs">
                             <li><a href="{{ route('member.transaction', ['status' => null]) }}" class="{{ is_null($status) ? 'active' : '' }}">Semua</a></li>
                             <li><a href="{{ route('member.transaction', ['status' => 'success']) }}" class="{{ $status === 'success' ? 'active' : '' }}">Berhasil</a></li>
                             <li><a href="{{ route('member.transaction', ['status' => 'pending']) }}" class="{{ $status === 'pending' ? 'active' : '' }}">Pending</a></li>
+                            <li><a href="{{ route('member.transaction', ['status' => 'refund']) }}" class="{{ $status === 'refund' ? 'active' : '' }}">Refund</a></li>
                             <li><a href="{{ route('member.transaction', ['status' => 'failed']) }}" class="{{ $status === 'failed' ? 'active' : '' }}">Gagal</a></li>
                         </ul>
                     </div>                    
-
+                    @if($transactions->isEmpty())
+                    <div class="col-md-12 d-flex justify-content-center align-items-center">
+                        <div class="not-found text-center">
+                            <p class="mt-3">Kamu Belum Melakukan Transaksi</p>
+                        </div>
+                    </div>
+                @endif
                     <!-- Transaction Cards -->
                     @foreach ($transactions as $transaction)
                     <div class="card mt-3">
@@ -38,7 +48,7 @@
                             @endphp
                             <img alt="Product image" src="{{ $coverPath }}" height="80" width="120" class="cover me-3" />
                             <div class="details">
-                                <p class="title">{{ $transaction->name }}</p>
+                                <p class="title" >{{ $transaction->name }}</p>
                                     @if ($transaction->price == 0)
                                 <p class="Premium">Kelas Gratis</p>
                                     @else
@@ -109,55 +119,5 @@
         }
     });
 }); --}}
-    </script>
-    <script>
-        function elementFollowScroll(object, sectionContainer, topMargin, stopOn = false, footer) {
-            $(window).on("scroll", function() {
-                if ($(window).width() > 962) {
-                    let originalY = sectionContainer.offset().top;
-                    let scrollTop = $(window).scrollTop();
-                    let footerTop = footer.offset().top;
-                    let sidebarHeight = object.outerHeight(true);
-                    let stopPoint = footerTop - sidebarHeight - topMargin;
-
-                    if (stopOn === false) {
-                        let newTop = scrollTop < originalY ? 0 : scrollTop - originalY + topMargin;
-                        if (scrollTop + sidebarHeight + topMargin >= footerTop) {
-                            object.stop(false, false).animate({
-                                top: stopPoint - originalY
-                            }, 50);
-                        } else {
-                            object.stop(false, false).animate({
-                                top: newTop
-                            }, 50);
-                        }
-                    } else {
-                        let newTop = scrollTop < originalY ? 0 : Math.min(sectionContainer.height() - object
-                            .height() - 52, scrollTop - originalY + topMargin);
-                        if (scrollTop + sidebarHeight + topMargin >= footerTop) {
-                            object.stop(true, true).animate({
-                                top: stopPoint - originalY
-                            }, 50);
-                        } else {
-                            object.stop(true, true).animate({
-                                top: newTop
-                            }, 50);
-                        }
-                    }
-                } else {
-                    object.stop(false, false).css({
-                        top: 0
-                    });
-                }
-            });
-        }
-        $(document).ready(function() {
-            // Inisialisasi sidebar sticky
-            const sidebar = $(".sidebar");
-            const sectionContainer = $(".col-md-3");
-            const topMargin = 90;
-            const footer = $("footer");
-            elementFollowScroll(sidebar, sectionContainer, topMargin, false, footer);
-        });
     </script>
 @endpush

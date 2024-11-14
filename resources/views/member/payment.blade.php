@@ -91,7 +91,7 @@
                                         <input type="hidden" name="price" value="{{ $totalPrice }}">
                                         <div class="form-check mt-4">
                                             <input class="form-cek" type="checkbox" id="termsCheck" name="termsCheck">
-                                            <label class="form-check-label ms-2" for="termsCheck">
+                                            <label class="form-check-label" for="termsCheck">
                                                 Saya menyetujui <a href="#" class="syarat">Syarat & Ketentuan</a>
                                                 <p class="text-danger d-none" id="important" style="font-size: 12px;">
                                                     Anda harus menyetujui syarat dan ketentuan sebelum melanjutkan.

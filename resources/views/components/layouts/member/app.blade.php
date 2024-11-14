@@ -56,11 +56,15 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 
+    {{-- sidebar scroll effect --}}
+    <script src="{{ asset('nemolab/member/js/scroll-dashboard.js') }}"></script>
 
     <!-- Inisialisasi AOS -->
     <script>
-        AOS.init();
-    </script>
+        AOS.init({
+            once: true
+        });
+    </script>    
     {{-- script khusus header --}}
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -87,17 +91,17 @@
             }
         });
     </script>
-        <script>
-            document.addEventListener("DOMContentLoaded", function() {
-            const sidebarLinks = document.querySelectorAll(".side-tabs li a");
-            sidebarLinks.forEach(link => {
-                if (link.href === window.location.href) {
-                    link.parentElement.classList.add("active");
-                } else {
-                    link.parentElement.classList.remove("active");
-                }
-            });
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+        const sidebarLinks = document.querySelectorAll(".side-tabs li a");
+        sidebarLinks.forEach(link => {
+            if (link.href === window.location.href) {
+                link.parentElement.classList.add("active");
+            } else {
+                link.parentElement.classList.remove("active");
+            }
         });
+    });
         </script>
     @stack('addon-script')
 

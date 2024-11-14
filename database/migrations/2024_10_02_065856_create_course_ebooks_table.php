@@ -16,8 +16,8 @@ return new class extends Migration
             $table->foreignId('course_id')->nullable()->constrained('tbl_courses')->onDelete('set null');
             $table->foreignId('ebook_id')->nullable()->constrained('tbl_ebooks')->onDelete('set null');
             $table->enum('type', ['free', 'premium']);
-            $table->enum('status', ['draft', 'published']);
-            $table->enum('category', ['Frontend Developer', 'Backend Developer', 'Wordpress Developer','Graphics Designer','Fullstack Developer','UI/UX Designer'])->default('Frontend Developer');
+            // $table->enum('status', ['draft', 'published']);
+            // $table->enum('category', ['Frontend Developer', 'Backend Developer', 'Wordpress Developer','Graphics Designer','Fullstack Developer','UI/UX Designer'])->default('Frontend Developer');
             $table->integer('price')->nullable();
             $table->timestamps();
         });

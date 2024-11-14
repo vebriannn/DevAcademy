@@ -1,10 +1,10 @@
-@extends('components.layouts.member.dashboard')
+@extends('components.layouts.member.app')
 
 @section('title', 'Nemolab - Lihat informasi dan perkembangan anda disini')
 
 @push('prepend-style')
     <link rel="stylesheet" href="{{ asset('nemolab/components/member/css/dashboard/sidebar-dashboard.css') }} ">
-    <link rel="stylesheet" href="{{ asset('nemolab/member/css/course.css') }} ">
+    <link rel="stylesheet" href="{{ asset('nemolab/member/css/dashboard-css/mycourse.css') }} ">
     @endpush
 @section('content')
 
@@ -25,7 +25,7 @@
 @endif
 @endif
 <section class="section-pilh-kelas" id="section-pilih-kelas">
-        <div class="container-fluid mt-5 pt-5">
+        <div class="container-fluid mt-5 pt-5 mb-5">
             <div class="row">
                 @include('components.includes.member.sidebar-dashboard')
                 <!-- Cards -->
@@ -33,25 +33,44 @@
                     <div>
                         <h3 class="fw-bold">Kelas Saya</h3>
                     </div>
+                    <div class="filter-transaction mb-3">
+                        <ul class="nav-tabs">
+                            <li><a href="{{ route('member.dashboard', ['filter' => 'semua']) }}" class="{{ request('filter') == 'semua' || !request('filter') ? 'active' : '' }}">Semua</a></li>
+                            <li><a href="{{ route('member.dashboard', ['filter' => 'kursus']) }}" class="{{ request('filter') == 'kursus' ? 'active' : '' }}">Kursus</a></li>
+                            <li><a href="{{ route('member.dashboard', ['filter' => 'ebook']) }}" class="{{ request('filter') == 'ebook' ? 'active' : '' }}">E-Book</a></li>
+                        </ul>
+                    </div>                                  
                     <div class="row">
+                    @if($courses->isEmpty() && $ebooks->isEmpty())
+                        <div class="col-md-12 d-flex justify-content-center align-items-center">
+                            <div class="not-found text-center">
+                                <img src="{{ asset('nemolab/member/img/search-not-found.png') }}" class="logo-not-found w-50 h-50" alt="Not Found">
+                                <p class="mt-3">Kelas Tidak Tersedia</p>
+                            </div>
+                        </div>
+                    @endif
                     @foreach ($courses as $course)
                         @if ($course->transactions->isNotEmpty())
                             <a href="{{ route('member.course.join', $course->slug) }}" class="col-md-4 d-flex justify-content-center pb-3 text-decoration-none">
                                 <div class="card">
-                                    <img src="{{ asset('storage/images/covers/' . $course->cover) }}" class="card-img-top" alt="...">
+                                    <img src="{{ asset('storage/images/covers/' . $course->cover) }}" class="card-img-top d-none d-md-block" alt="..." >
                                     <div class="card-body">
-                                        <div class="title-card">
-                                            <h5 class="fw-bold truncate-text">{{ $course->name }}</h5>
-                                            <p class="tipe">{{ $course->type }}</p>
+                                        <div>
+                                            <img src="{{ asset('storage/images/covers/' . $course->cover) }}" alt="..." style="height: 40px;width: 60px; border-radius: 5px;" class="d-block d-md-none">
                                         </div>
-                                        <div class="btn-group-harga d-flex justify-content-between align-items-center mt-3">
-                                            <div class="harga d-block">
-                                                <p class="p-0 m-0 fw-semibold">Status</p>
-                                                <p class="p-0 m-0 fw-semibold">Belum Selesai</p>
+                                        <div>
+                                            <div class="title-card">
+                                                <p class="fw-bold truncate-text">{{ $course->name }}</p>
+                                                <p class="tipe">Kelas {{ $course->type }}</p>
                                             </div>
-                                            <div class="harga d-block">
-                                                <p class="p-0 m-0 fw-semibold">Bergabung : </p>
-                                                <p class="p-0 m-0 fw-semibold">{{ $course-> created_at->format('d F Y')}}</p>
+                                            <div class="btn-group-harga d-flex justify-content-between align-items-center mt-md-3 gap-1 gap-md-0">
+                                                <div class="harga d-block">
+                                                    <p class="p-0 m-0 fw-semibold">Status : <br class="d-none d-md-block"> Belum Selesai</p>
+                                                </div>
+                                                <div class="harga d-block">
+                                                    <p class="p-0 m-0 fw-semibold">Bergabung : <br class="d-none d-md-block"> {{ $course-> created_at->format('d F Y')}}</p>
+                                                    {{-- <p class="p-0 m-0 fw-semibold"></p> --}}
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -62,23 +81,27 @@
 
                     @foreach ($ebooks as $ebook)
                         @if ($ebook->transactions->isNotEmpty())
-                            <a href="{{ route('member.ebook.join', $ebook->slug) }}" class="col-md-4 d-flex justify-content-center pb-3 text-decoration-none">
-                                <div class="card">
-                                    <img src="{{ asset('storage/images/covers/ebook/' . $ebook->cover) }}" class="card-img-top" alt="...">
-                                    <div class="card-body">
+                        <a href="{{ route('member.ebook.join', $ebook->slug) }}" class="col-md-4 d-flex justify-content-center pb-3 text-decoration-none">
+                            <div class="card">
+                                <img src="{{ asset('storage/images/covers/ebook/' . $ebook->cover) }}" class="card-img-top d-none d-md-block" alt="..." >
+                                <div class="card-body">
+                                    <div>
+                                        <img src="{{ asset('storage/images/covers/ebook/' . $ebook->cover) }}" alt="..." style="height: 40px;width: 60px; border-radius: 5px;" class="d-block d-md-none">
+                                    </div>
+                                    <div>
                                         <div class="title-card">
-                                            <h5 class="fw-bold truncate-text">{{ $ebook->name }}</h5>
-                                            <p class="tipe">E-Book</p>
+                                            <p class="fw-bold truncate-text">{{ $ebook->name }}</p>
+                                            <p class="tipe">E-Book {{ $ebook->type }}</p>
                                         </div>
-                                        <div class="btn-group-harga d-flex justify-content-between align-items-center mt-3">
+                                        <div class="btn-group-harga d-flex justify-content-between align-items-center mt-md-3 gap-1 gap-md-0">
                                             <div class="harga d-block">
-                                                <p class="p-0 m-0 fw-semibold">Bergabung : </p>
-                                                <p class="p-0 m-0 fw-semibold">{{ $ebook->created_at->format('d F Y')}}</p>
+                                                <p class="p-0 m-0 fw-semibold">Bergabung : <br class="d-none d-md-block"> {{ $ebook-> created_at->format('d F Y')}}</p>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </a>
+                            </div>
+                        </a>
                         @endif
                     @endforeach
                     </div>
@@ -88,46 +111,3 @@
     </section>
     @include('components.includes.member.sidebar-dashboard-mobile')
 @endsection
-@push('addon-script')
-<script>
-    function elementFollowScroll(object, sectionContainer, topMargin, stopOn = false, footer) {
-        $(window).on("scroll", function() {
-            if ($(window).width() > 962) { 
-                let originalY = sectionContainer.offset().top;
-                let scrollTop = $(window).scrollTop();
-                let footerTop = footer.offset().top; 
-                let sidebarHeight = object.outerHeight(true); 
-                let stopPoint = footerTop - sidebarHeight - topMargin; 
-
-                if (stopOn === false) {
-                    let newTop = scrollTop < originalY ? 0 : scrollTop - originalY + topMargin;
-                    if (scrollTop + sidebarHeight + topMargin >= footerTop) {
-                        object.stop(false, false).animate({ top: stopPoint - originalY }, 50);
-                    } else {
-                        object.stop(false, false).animate({ top: newTop }, 50);
-                    }
-                } else {
-                    let newTop = scrollTop < originalY ? 0 : Math.min(sectionContainer.height() - object.height() - 52, scrollTop - originalY + topMargin);
-                    if (scrollTop + sidebarHeight + topMargin >= footerTop) {
-                        object.stop(true, true).animate({ top: stopPoint - originalY }, 50);
-                    } else {
-                        object.stop(true, true).animate({ top: newTop }, 50);
-                    }
-                }
-            } else {
-                object.stop(false, false).css({
-                    top: 0
-                });
-            }
-        });
-    }
-    $(document).ready(function() {
-        // Inisialisasi sidebar sticky
-        const sidebar = $(".sidebar");
-        const sectionContainer = $(".col-md-3");
-        const topMargin = 90;
-        const footer = $("footer"); 
-        elementFollowScroll(sidebar, sectionContainer, topMargin, false, footer);
-    });
-</script>
-@endpush

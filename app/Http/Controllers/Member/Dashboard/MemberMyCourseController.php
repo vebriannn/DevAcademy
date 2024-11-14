@@ -15,22 +15,34 @@ use App\Models\MyListCourse;
 
 class MemberMyCourseController extends Controller
 {
-    public function index() {
+    public function index(Request $request) {
+        $filter = $request->input('filter');
         $lists = MyListCourse::where('user_id', Auth::user()->id)->get();
-
-        // Ambil semua course_id dari daftar
         $courseIds = $lists->pluck('course_id');
         $ebookIds = $lists->pluck('ebook_id');
-
-        // Ambil semua kursus yang cocok dengan course_id yang ada
-        $courses = Course::whereIn('id', $courseIds)->orderBy('id', 'DESC')->get();
-        $ebooks = Ebook::whereIn('id', $ebookIds)->orderBy('id', 'DESC')->get();
-
-
+        $coursesQuery = Course::whereIn('id', $courseIds)->orderBy('id', 'DESC');
+        $ebooksQuery = Ebook::whereIn('id', $ebookIds)->orderBy('id', 'DESC');
+        switch ($filter) {
+            case 'kursus':
+                $courses = $coursesQuery->get();
+                $ebooks = collect();
+                break;
+            case 'ebook':
+                $courses = collect();
+                $ebooks = $ebooksQuery->get();
+                break;
+            default:
+                $courses = $coursesQuery->get();
+                $ebooks = $ebooksQuery->get();
+                break;
+        }
+    
         $total_course = Transaction::where('user_id', Auth::user()->id)->where('status', 'success')->count();
         $submission = Submission::where('user_id', Auth::user()->id)->first();
-        return view('member.dashboard.mycourse', compact('courses','ebooks', 'submission', 'total_course'));
+    
+        return view('member.dashboard.mycourse', compact('courses', 'ebooks', 'submission', 'total_course'));
     }
+    
 
     public function reqMentor(Request $requests, $id) {
 

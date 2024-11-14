@@ -23,7 +23,7 @@
                     </h2>
                     <div class="link-group d-block mt-4">
                         @if (!is_null($paketKelas))
-                            <a href="{{ route('member.ebook.detail', $paketKelas->ebook->slug) }}" class="btn btn-primary w-100">Belajar E-Book</a>
+                            <a href="{{ route('member.ebook.join', $paketKelas->ebook->slug) }}" class="btn btn-primary w-100">Belajar E-Book</a>
                         @endif
                         <a href="{{ route('member.course.detail', $courses->slug) }}" class="btn btn-secondary w-100 mt-1">Detail Kelas</a>
                     </div>
