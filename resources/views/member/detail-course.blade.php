@@ -9,7 +9,7 @@
 @section('content')
     <section class="detail-course-section" id="detail-course-section">
         <div class="container">
-            <a href="javascript:void(0);" onclick="window.history.back();">
+            <a href="{{ route('member.course.join', $courses->slug) }}">
                 <i class="bi bi-arrow-left"></i>
             </a>
             <h4 class="m-0 p-0 mt-5 mb-4 text-center">{{ $courses->name }}</h4>
@@ -27,15 +27,21 @@
                             </div>
                         </a>
                     </div>
-                    <div class="col-12 col-sm-6 col-xl-4 mb-4">
-                        <a href="{{ route('member.sertifikat', $courses->slug) }}" class="shadow">
+                    @if ($checkSertifikat == true)
+                        <div class="col-12 col-sm-6 col-xl-4 mb-4">
+                            @if (!$checkReview)
+                                <a href="{{ route('member.review', $courses->slug) }}" class="shadow">
+                                @else
+                                    <a href="{{ route('member.sertifikat', $courses->slug) }}" class="shadow">
+                            @endif
                             <img src="{{ asset('nemolab/member/img/img-achievement.png') }}" alt="">
                             <div class="group-title-subtitle ms-3">
                                 <p class="m-0 p-0">Unduh Sertifikat</p>
                                 <p class="m-0 p-0">Unduh Sertifikat Anda</p>
                             </div>
-                        </a>
-                    </div>
+                            </a>
+                        </div>
+                    @endif
                     @if ($courses->resources != 'null')
                         <div class="col-12 col-sm-6 col-xl-4 mb-4">
                             <a href="{{ $courses->resources }}" class="shadow">
@@ -122,168 +128,51 @@
             <div class="testimoni mt-5">
                 <h1>Testimoni</h1>
                 <div class="col-12 mt-4">
-                    <div class="row card-testimoni col-12">
-                        <div class="col-12 col-md-6">
-                            <div class="card mb-4 border-0">
-                                <div class="card-body">
-                                    <div class="card-head d-flex align-items-center">
-                                        <img src="assets/img/images-testimoni-one.png" alt="">
-                                        <div class="name ms-3">
-                                            <h5 class="card-title m-0 fw-bold">Rahmat Tahalu</h5>
-                                            <p class="m-0">UI/UX Designer</p>
+                    <div class="row card-testimoni col-12  d-none d-md-flex">
+                        @foreach ($reviews as $index => $review)
+                            <div class="col-12 col-md-6 review-item" data-index="{{ $index }}"
+                                style="{{ $index >= 2 ? 'display: none;' : '' }}">
+                                <div class="card mb-4 border-0">
+                                    <div class="card-body">
+                                        <div class="card-head d-flex align-items-center">
+                                            <img src="{{ asset('storage/images/avatars/' . ($review->user->avatar ?? 'default-avatar.png')) }}"
+                                                alt="" width="45" height="45" style="border-radius: 50%">
+                                            <div class="name ms-3">
+                                                <h5 class="card-title m-0 fw-bold">{{ $review->user->name }}</h5>
+                                                <p class="m-0">{{ $review->user->proffession }}</p>
+                                            </div>
                                         </div>
+                                        <p class="card-text p-0 m-0 mt-2">{{ $review->note }}.</p>
                                     </div>
-                                    <p class="card-text p-0 m-0 mt-2">Di desa yang tenang, tinggal seorang anak
-                                        bernama Lila yang gemar menjelajahi alam. Setiap pagi, ia berkeliling
-                                        ladang, mengamati bunga liar dan hewan kecil. Suatu hari, ia menemukan
-                                        sekuntum bunga langka di tepi sungai. Bunga itu memancarkan warna-warni
-                                        indah, memikat hati Lila.</p>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-12 col-md-6">
-                            <div class="card mb-4 border-0">
-                                <div class="card-body">
-                                    <div class="card-head d-flex align-items-center">
-                                        <img src="assets/img/images-testimoni-one.png" alt="">
-                                        <div class="name ms-3">
-                                            <h5 class="card-title m-0 fw-bold">Rahmat Hidayat Sianturi</h5>
-                                            <p class="m-0">UI/UX Designer</p>
-                                        </div>
-                                    </div>
-                                    <p class="card-text p-0 m-0 mt-2">Kelas UI/UX ini memberi saya wawasan baru
-                                        tentang
-                                        cara
-                                        memahami kebutuhan pengguna. Sempurna untuk meningkatkan skill desainmu!</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12 col-md-6">
-                            <div class="card mb-4 border-0">
-                                <div class="card-body">
-                                    <div class="card-head d-flex align-items-center">
-                                        <img src="assets/img/images-testimoni-two.png" alt="">
-                                        <div class="name ms-3">
-                                            <h5 class="card-title m-0 fw-bold">Vindra Arya Yulian</h5>
-                                            <p class="m-0">Frontend Develeoper</p>
-                                        </div>
-                                    </div>
-                                    <p class="card-text p-0 m-0 mt-2">Belajar Frontend di sini benar-benar mengubah
-                                        cara
-                                        saya mengembangkan aplikasi web. Materinya langsung bisa diterapkan ke
-                                        proyek
-                                        nyata!
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12 col-md-6">
-                            <div class="card mb-4 border-0">
-                                <div class="card-body">
-                                    <div class="card-head d-flex align-items-center">
-                                        <img src="assets/img/images-testimoni-three.png" alt="">
-                                        <div class="name ms-3">
-                                            <h5 class="card-title m-0 fw-bold">Muhammad Fathur</h5>
-                                            <p class="m-0">Wordpress Develeoper</p>
-                                        </div>
-                                    </div>
-                                    <p class="card-text p-0 m-0 mt-2">Dari kelas WordPress Development, saya
-                                        sekarang
-                                        bisa
-                                        membuat dan mengelola website dengan mudah. Sangat membantu meningkatkan
-                                        bisnis
-                                        online
-                                        saya!
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12 col-md-6">
-                            <div class="card mb-4 border-0">
-                                <div class="card-body">
-                                    <div class="card-head d-flex align-items-center">
-                                        <img src="assets/img/images-testimoni-for.png" alt="">
-                                        <div class="name ms-3">
-                                            <h5 class="card-title m-0 fw-bold">Naufal Haidar Azhar</h5>
-                                            <p class="m-0">UI/UX Designer</p>
-                                        </div>
-                                    </div>
-                                    <p class="card-text p-0 m-0 mt-2">Setelah mengikuti kursus UI/UX di sini, saya
-                                        berhasil
-                                        membuat desain yang lebih user-friendly. Ini sangat membantu karir saya
-                                        sebagai
-                                        desainer! Kamu harus coba!</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12 col-md-6">
-                            <div class="card mb-4 border-0">
-                                <div class="card-body">
-                                    <div class="card-head d-flex align-items-center">
-                                        <img src="assets/img/images-testimoni-six.png" alt="">
-                                        <div class="name ms-3">
-                                            <h5 class="card-title m-0 fw-bold">Emilia Putri</h5>
-                                            <p class="m-0">Graphic Design</p>
-                                        </div>
-                                    </div>
-                                    <p class="card-text p-0 m-0 mt-2">Kursus Graphic Design ini benar-benar membantu
-                                        saya
-                                        menghasilkan desain yang lebih menarik dan profesional. Materinya mudah
-                                        dipahami,
-                                        bahkan untuk pemula!
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
+                        @endforeach
+                    </div>
+                    <div class="swiper-container d-md-none">
+                        <div class="swiper-wrapper">
+                            @foreach ($reviews as $review)
+                                <div class="swiper-slide testimoni-card review-item">
+                                    <div class="card mb-4">
+                                        <div class="card-body">
+                                            <div class="card-head d-flex align-items-center">
+                                                <img src="{{ asset('storage/images/avatars/' . ($review->user->avatar ?? 'default-avatar.png')) }} "
+                                                    alt="User Avatar" class="avatar-img" width="45" height="45"
+                                                    style="border-radius: 50%">
 
-                        <div id="additional-content" class="mt-3">
-                            <div class="row">
-                                <div class="col-12 col-md-6">
-                                    <div class="card mb-4 border-0">
-                                        <div class="card-body">
-                                            <div class="card-head d-flex align-items-center">
-                                                <img src="assets/img/images-testimoni-one.png" alt="">
                                                 <div class="name ms-3">
-                                                    <h5 class="card-title m-0 fw-bold">Rizqy Bagus Saputra </h5>
-                                                    <p class="m-0">Backend Develeoper</p>
+                                                    <h5 class="card-title m-0 fw-bold">{{ $review->user->name }}</h5>
+                                                    <p class="m-0">
+                                                        {{ $review->user->profession ?? 'Profession not specified' }}</p>
                                                 </div>
                                             </div>
-                                            <p class="card-text p-0 m-0 mt-2">Setelah mengikuti kursus Backend, saya
-                                                lebih
-                                                percaya
-                                                diri menangani proyek kompleks. Panduan yang jelas dan praktis
-                                                membuat
-                                                belajar
-                                                jadi
-                                                lebih mudah!</p>
+                                            <p class="card-text p-0 m-0 mt-2">{{ $review->note }}</p>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-12 col-md-6">
-                                    <div class="card mb-4 border-0">
-                                        <div class="card-body">
-                                            <div class="card-head d-flex align-items-center">
-                                                <img src="assets/img/images-testimoni-seven.png" alt="">
-                                                <div class="name ms-3">
-                                                    <h5 class="card-title m-0 fw-bold">Duiki Arbiyan</h5>
-                                                    <p class="m-0">Frontend Develeoper</p>
-                                                </div>
-                                            </div>
-                                            <p class="card-text p-0 m-0 mt-2">Saya sekarang bisa membangun website
-                                                interaktif
-                                                dengan
-                                                mudah setelah mengikuti kelas Frontend Development. Tools dan materi
-                                                yang
-                                                diberikan
-                                                sangat lengkap!
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            @endforeach
                         </div>
                     </div>
-                    <div class="navtabs-more-testimoni d-flex justify-content-center">
+                    <div class="navtabs-more-testimoni d-flex justify-content-center  d-none d-md-flex">
                         <button class="btn btn-primary px-4 pt-2 pb-2 " id="show-more-btn">
                             Lihat Lainnya
                         </button>
@@ -293,3 +182,49 @@
         </div>
     </section>
 @endsection
+@push('addon-script')
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const showMoreBtn = document.getElementById('show-more-btn');
+            let currentLimit = 4;
+
+            showMoreBtn.addEventListener('click', function() {
+                const reviews = document.querySelectorAll('.review-item');
+                for (let i = currentLimit; i < currentLimit + 4 && i < reviews.length; i++) {
+                    reviews[i].style.display = 'block';
+                }
+                currentLimit += 4;
+                if (currentLimit >= reviews.length) {
+                    showMoreBtn.style.display = 'none';
+                }
+            });
+        });
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            let swiper;
+
+            function initializeSwiper() {
+                if (window.innerWidth < 768 && !swiper) {
+                    swiper = new Swiper('.swiper-container', {
+                        slidesPerView: 1,
+                        spaceBetween: 10,
+                        pagination: {
+                            el: '.swiper-pagination',
+                            clickable: true,
+                        },
+                        autoplay: {
+                            delay: 5000,
+                            disableOnInteraction: false,
+                        },
+                    });
+                } else if (window.innerWidth >= 768 && swiper) {
+                    swiper.destroy(true, true);
+                    swiper = undefined;
+                }
+            }
+            initializeSwiper();
+            window.addEventListener('resize', initializeSwiper);
+        });
+    </script>
+@endpush

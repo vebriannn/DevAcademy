@@ -65,10 +65,17 @@
                             @enderror
                         </div>
                     </div>
-                    <div class="col-12 mb-3">
+                    <div class="col-6 mb-3">
                         <p class="m-0">File Pdf</p>
-                        <input type="file" name="file_ebook" class="" />
+                        <input type="file" name="file_ebook" accept="application/pdf" class="" />
                         @error('file_ebook')
+                            <span style="color: red">{{ $message }}</span>
+                        @enderror
+                    </div>
+                    <div class="col-6 mb-3">
+                        <p class="m-0">Cover Ebook</p>
+                        <input type="file" id="imageUpload" name="cover" accept="image/*" class="" />
+                        @error('cover')
                             <span style="color: red">{{ $message }}</span>
                         @enderror
                     </div>

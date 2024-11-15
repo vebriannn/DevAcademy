@@ -114,12 +114,12 @@
 
         .logo-groups-elips img:first-child {
             left: 0;
-            transform: translateY(-50%);
+            transform: translateY(-77%) translateX(-12%);
         }
 
         .logo-groups-elips img:last-child {
             right: 0;
-            transform: translateY(-50%) scaleX(-1);
+            transform: translateY(-77%) translateX(0%) scaleX(-1) scaleY(-1);
         }
 
         /* Elips di pojok bawah kiri dan kanan */
@@ -139,7 +139,7 @@
 
         .logo-groups-elips-bottom img:first-child {
             left: 0;
-            transform: translateY(10%) scaleX(1) scaleY(-1);
+            transform: scaleX(1) scaleY(1);
         }
 
         .logo-groups-elips-bottom img:last-child {
@@ -154,8 +154,8 @@
     <div class="certificate-container">
         <!-- Logo Elips atas -->
         <div class="logo-groups-elips">
-            <img src="{{ 'nemolab/member/img/sertifikat/elips-black.png' }}" alt="">
             <img src="{{ 'nemolab/member/img/sertifikat/elips-orange.png' }}" alt="">
+            <img src="{{ 'nemolab/member/img/sertifikat/elips-blue.png' }}" alt="">
         </div>
 
         <div class="content">
@@ -192,7 +192,7 @@
 
         <!-- Logo Elips bawah -->
         <div class="logo-groups-elips-bottom">
-            <img src="{{ 'nemolab/member/img/sertifikat/elips-black.png' }}" alt="">
+            <img src="{{ 'nemolab/member/img/sertifikat/elips-blue.png' }}" alt="">
             <img src="{{ 'nemolab/member/img/sertifikat/elips-orange.png' }}" alt="">
         </div>
     </div>

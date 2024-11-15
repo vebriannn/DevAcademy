@@ -22,61 +22,62 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($users as $mentor)
-                                <tr>
-                                    <td class="text-capitalize">{{ $mentor->user->name }}</td>
-                                    <td class="text-capitalize">{{ $total_course }}</td>
-
-                                    <td>
-                                        @if ($mentor->status == 'pending')
-                                            <button type="button" class="btn btn-success" data-bs-toggle="modal"
-                                                data-bs-target="#exampleModalUser-{{ $loop->iteration }}">
-                                                Kirim Pengajuan
-                                            </button>
-                                        @elseif ($mentor->status == 'accept')
-                                            <p class="btn btn-success me-2 disabled">
-                                                Pengajuan Terkirim
-                                            </p>
-                                        @endif
-                                        <!-- Modal -->
-                                        <div class="modal fade" id="exampleModalUser-{{ $loop->iteration }}" tabindex="-1"
-                                            aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                            <div class="modal-dialog">
-                                                <div class="modal-content">
-                                                    <form action="{{ route('admin.pengajuan.update', $mentor->user->id) }}"
-                                                        method="post">
-                                                        @csrf
-                                                        @method('put')
-                                                        <div class="modal-header">
-                                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Form
-                                                                Pengajuan
-                                                                Mentor
-                                                            </h1>
-                                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                                aria-label="Close"></button>
-                                                        </div>
-                                                        <div class="modal-body">
-                                                            <div class="mb-3 d-flex justify-content-start align-items-start flex-column">
-                                                                <label for="form-link" class="">Link</label>
-                                                                <input type="url" class="form-control" name="link" id="form-link"
-                                                                    placeholder="masukan link google form" required>
+                            @foreach ($mentorsWithCourses as $data)
+                                @if ($data['total_course'] > 0)
+                                    <tr>
+                                        <td class="text-capitalize">{{ $data['mentor']->name }}</td>
+                                        <td class="text-capitalize">{{ $data['total_course'] }}</td>
+                                        <td>
+                                            @if ($data['submission_status'] != 'accept')
+                                                <button type="button" class="btn btn-success" data-bs-toggle="modal"
+                                                    data-bs-target="#exampleModalUser-{{ $loop->iteration }}">
+                                                    Kirim Pengajuan
+                                                </button>
+                                            @else
+                                                <p class="btn btn-success me-2 disabled">
+                                                    Pengajuan Terkirim
+                                                </p>
+                                            @endif
+                                            <!-- Modal -->
+                                            <div class="modal fade" id="exampleModalUser-{{ $loop->iteration }}"
+                                                tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <form
+                                                            action="{{ route('admin.pengajuan.store', $data['mentor']->id) }}"
+                                                            method="post">
+                                                            @csrf
+                                                            <div class="modal-header">
+                                                                <h1 class="modal-title fs-5" id="exampleModalLabel">Form
+                                                                    Pengajuan Mentor
+                                                                </h1>
+                                                                <button type="button" class="btn-close"
+                                                                    data-bs-dismiss="modal" aria-label="Close"></button>
                                                             </div>
-                                                        </div>
-                                                        <div class="modal-footer">
-
-
-                                                            <button type="submit" name="action" value="accept"
-                                                                class="btn btn-success me-2">Kirim Pengajuan
-                                                            </button>
-                                                        </div>
-                                                    </form>
+                                                            <div class="modal-body">
+                                                                <div
+                                                                    class="mb-3 d-flex justify-content-start align-items-start flex-column">
+                                                                    <label for="form-link" class="">Link</label>
+                                                                    <input type="url" class="form-control"
+                                                                        name="link" id="form-link"
+                                                                        placeholder="Masukan link Google Form" required>
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="submit" name="action" value="accept"
+                                                                    class="btn btn-success me-2">Kirim Pengajuan
+                                                                </button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </td>
-                                </tr>
+                                        </td>
+                                    </tr>
+                                @endif
                             @endforeach
                         </tbody>
+
                     </table>
                 </div>
             </div>

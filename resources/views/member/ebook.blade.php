@@ -67,6 +67,13 @@
                         <canvas class="pdf-render mx-auto" id="pdf-render"></canvas>
                     </div>
                 </div>
+
+                <div class="mt-3 d-flex justify-content-between">
+                    <a href="{{ route('member.ebook.detail' , $ebook->slug) }}" class="btn btn-secondary flex-grow-1 me-2" style="background-color: #414142 !important;">Detail E-Book</a>
+                    @if (!$checkReview)
+                    <a href="{{ route('member.review.ebook' , $ebook->slug) }}" class="btn btn-primary flex-grow-1">Masukan Review</a>
+                    @endif
+                </div>
             </div>
         </div>
     </div>

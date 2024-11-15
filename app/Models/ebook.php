@@ -13,6 +13,7 @@ class Ebook extends Model
     protected $table = 'tbl_ebooks';
 
     protected $fillable = [
+        'cover',
         'category',
         'name',
         'type',
@@ -41,4 +42,10 @@ class Ebook extends Model
     {
         return $this->hasMany(Transaction::class);
     }
+    // In Ebook.php model
+    public function courseEbooks()
+    {
+        return $this->hasMany(CourseEbook::class, 'ebook_id');
+    }
+
 }

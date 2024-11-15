@@ -14,6 +14,8 @@ use App\Http\Controllers\Member\LandingpageController as MemberLandingPagesContr
 use App\Http\Controllers\Member\Dashboard\MemberMyCourseController;
 use App\Http\Controllers\Member\MemberPaymentController;
 use App\Http\Controllers\Member\MemberTransactionController;
+use App\Http\Controllers\Member\MemberReviewController;
+use App\Http\Controllers\Member\MemberEbookController;
 
 // admin routes
 use App\Http\Controllers\Admin\Auth\AdminLoginController;
@@ -26,13 +28,9 @@ use App\Http\Controllers\Admin\AdminCourseEbookController;
 use App\Http\Controllers\Admin\AdminDiskonController;
 use App\Http\Controllers\member\MemberCourseController;
 use App\Http\Controllers\Admin\AdminStudentController;
-use App\Http\Controllers\Admin\AdminMentorController;
 use App\Http\Controllers\Admin\AdminSuperadminController;
 use App\Http\Controllers\Admin\AdminSubmissionController;
-
-
-
-
+use App\Http\Controllers\Admin\AdminMentorController;
 
 /*
 |--------------------------------------------------------------------------
@@ -72,16 +70,23 @@ Route::middleware('maintenance.middleware')->group(function () {
             Route::get('detail/{slug}', [MemberCourseController::class, 'detail'])->name('member.course.detail');
             Route::get('detail/sertifikat/{slug}', [MemberCourseController::class, 'generateSertifikat'])->name('member.sertifikat');
         });
+        Route::prefix('review')->middleware(['students', 'verified'])->group(function () {
+            Route::get('{slug}', [MemberReviewController::class, 'index'])->name('member.review');
+            Route::post('store', [MemberReviewController::class, 'store'])->name('member.review.store');
+            Route::get('ebook/{slug}', [MemberReviewController::class, 'ebookFormReview'])->name('member.review.ebook');
+            Route::post('ebook/store', [MemberReviewController::class, 'storeReviewEbook'])->name('member.review.ebook.store');
+        });
 
         Route::prefix('payment')->middleware(['students', 'verified'])->group(function () {
             Route::get('payment/', [MemberPaymentController::class, 'index'])->name('member.payment');
             Route::post('payment/store', [MemberPaymentController::class, 'store'])->name('member.transaction.store');
         });
 
-        // Route::prefix('ebook')->middleware(['students', 'verified'])->group(function () {
-        //     Route::get('ebook/{slug}', [MemberEbookController::class, 'index'])->name('member.ebook.join');
-        //     Route::get('ebook/read/{slug}', [MemberEbookController::class, 'read'])->name('member.ebook.read');
-        // });
+        Route::prefix('ebook')->middleware(['students', 'verified'])->group(function () {
+            Route::get('{slug}', [MemberEbookController::class, 'index'])->name('member.ebook.join');
+            Route::get('read/{slug}', [MemberEbookController::class, 'read'])->name('member.ebook.read');
+            Route::get('detail/{slug}', [MemberEbookController::class, 'detail'])->name('member.ebook.detail');
+        });
 
         // dashboard mycourse
         Route::get('/', [MemberMyCourseController::class, 'index'])->name('member.dashboard');
@@ -170,11 +175,11 @@ Route::middleware('maintenance.middleware')->group(function () {
                 Route::get('/delete/', [AdminSuperadminController::class, 'destroy'])->name('admin.superadmin.destroy');
             });
 
-            // Route::prefix('submission')->middleware('superadmin')->group(function () {
-            //     Route::get('/', [AdminSubmissionController::class, 'index'])->name('admin.submissions');
-            //     Route::put('/edit/update/{id}', [AdminSubmissionController::class, 'update'])->name('admin.submissions.edit.update');
-            //     Route::get('/delete/{id}', [AdminSubmissionController::class, 'delete'])->name('admin.submissions.delete');
-            // });
+            Route::prefix('submission')->middleware('superadmin')->group(function () {
+                Route::get('/', [AdminSubmissionController::class, 'index'])->name('admin.submissions');
+                Route::put('/edit/update/{id}', [AdminSubmissionController::class, 'update'])->name('admin.submissions.edit.update');
+                Route::get('/delete/{id}', [AdminSubmissionController::class, 'delete'])->name('admin.submissions.delete');
+            });
         });
 
         // mentor course
@@ -242,7 +247,7 @@ Route::middleware('maintenance.middleware')->group(function () {
 
         Route::prefix('kirim-pengajuan')->middleware(['superadmin', 'verified'])->group(function () {
             Route::get('users', [AdminSubmissionController::class, 'index'])->name('admin.pengajuan');
-            Route::put('update/{id}', [AdminSubmissionController::class, 'update'])->name('admin.pengajuan.update');
+            Route::post('store/{id}', [AdminSubmissionController::class, 'store'])->name('admin.pengajuan.store');
         });
     });
 });

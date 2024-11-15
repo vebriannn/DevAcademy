@@ -6,87 +6,100 @@ use App\Http\Controllers\Controller;
 use App\Models\Review;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
+use RealRashid\SweetAlert\Facades\Alert;
+use App\Models\Transaction;
+use Illuminate\Support\Facades\Auth;
+use App\Models\Course;
+use App\Models\Ebook;
 
 class MemberReviewController extends Controller
 {
     /**
      * Display a listing of the reviews.
      */
-    public function index()
+    public function index($slug)
     {
-        $reviews = Review::with('user')->get(); 
-        return view('index', ['reviews' => $reviews]);
+        $course = Course::where('slug', $slug)->firstOrFail();
+        $checkTrx = Transaction::where('course_id', $course->id)->where('user_id', Auth::user()->id)->first();
+
+        if ($checkTrx) {
+            return view('member.review', compact('course'));
+        } else {
+            Alert::error('error', 'Maaf Akses Tidak Bisa, Karena Anda belum Beli Kelas!!!');
+            return redirect()->route('member.course.join', $slug);
+        }
     }
-    
+
 
     /**
      * Store a newly created review in storage.
      */
-    public function store(Request $request): JsonResponse
+    public function store(Request $request)
     {
         $validated = $request->validate([
-            'user_id' => 'required|exists:users,id',
             'course_id' => 'required|exists:tbl_courses,id',
-            'rating' => 'required|integer|min:1|max:5',
-            'note' => 'nullable|string',
+            'note' => 'nullable|string|min:1|max:100',
         ]);
-    
-        $review = Review::create($validated);
+        $course = Course::findOrFail($validated['course_id']);
+        $checkReview = Review::where('user_id', Auth::user()->id)
+            ->where('course_id', $course->id)
+            ->first();
+        if ($checkReview) {
+            Alert::error('error', 'Anda Sudah Melakukan Review.');
+            return redirect()->route('member.course.detail', ['slug' => $course->slug])
+                ->with('error', 'Review gagal ditambahkan.');
+        } else {
+            Review::create([
+                'user_id' => Auth::id(),
+                'course_id' => $validated['course_id'],
+                'note' => $validated['note'],
+            ]);
+            Alert::success('success', 'Review berhasil ditambahkan.');
 
-        return response()->json([
-            'message' => 'komentar ditambahkan',
-            'data' => $review,
-        ]);
+            return redirect()->route('member.course.detail', ['slug' => $course->slug]);
+        }
     }
 
-    /**
-     * Display the specified review.
-     */
-    public function show($id): JsonResponse
+    public function ebookFormReview($slug)
     {
-        $review = Review::find($id);
-
-        if (!$review) {
-            return response()->json(['message' => 'Review not found'], 404);
+        $ebook = Ebook::where('slug', $slug)->firstOrFail();
+        $checkTrx = Transaction::where('ebook_id', $ebook->id)->where('user_id', Auth::user()->id)->first();
+        // return view('member.review-ebook', compact('ebook'));
+        if ($checkTrx) {
+            return view('member.review', compact('ebook'));
+        } else {
+            Alert::error('error', 'Maaf Akses Tidak Bisa, Karena Anda belum Beli Kelas!!!');
+            return redirect()->route('member.ebook.join', $slug);
         }
-
-        return response()->json($review);
     }
 
+
     /**
-     * Update the specified review in storage.
+     * Store a newly created review in storage.
      */
-    public function update(Request $request, $id): JsonResponse
+    public function storeReviewEbook(Request $request)
     {
-        $review = Review::find($id);
-
-        if (!$review) {
-            return response()->json(['message' => 'Review not found'], 404);
-        }
-
         $validated = $request->validate([
-            'user_id' => 'required|exists:users,id',
-            'course_id' => 'required|exists:tbl_courses,id',
-            'rating' => 'required|integer|min:1|max:5',
-            'note' => 'nullable|string',
+            'ebook_id' => 'required|exists:tbl_ebooks,id',
+            'note' => 'nullable|string|min:1|max:100',
         ]);
 
-        $review->update($validated);
-        return response()->json($review);
-    }
-
-    /**
-     * Remove the specified review from storage.
-     */
-    public function destroy($id): JsonResponse
-    {
-        $review = Review::find($id);
-
-        if (!$review) {
-            return response()->json(['message' => 'Review not found'], 404);
+        // Find the course by course_id to get its slug for the redirection
+        $ebook = Ebook::findOrFail($validated['ebook_id']);
+        $checkReview = Review::where('user_id', Auth::user()->id)->where('ebook_id', $ebook->id)->first();
+        if ($checkReview) {
+            Alert::error('error', 'Anda Sudah Melakukan Review');
+            return redirect()->route('member.ebook.detail', ['slug' => $ebook->slug])
+                ->with('error', 'Review gagal ditambahkan.');
+        } else {
+            Review::create([
+                'user_id' => Auth::id(),
+                'ebook_id' => $validated['ebook_id'],
+                'note' => $validated['note'],
+            ]);
+            Alert::success('success', 'Review berhasil ditambahkan.');
+            return redirect()->route('member.ebook.detail', ['slug' => $ebook->slug])
+                ->with('success', 'Review berhasil ditambahkan.');
         }
-
-        $review->delete();
-        return response()->json(['message' => 'Review deleted successfully']);
     }
 }

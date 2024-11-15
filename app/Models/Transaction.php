@@ -17,6 +17,7 @@ class Transaction extends Model
         'transaction_code',
         'user_id',
         'ebook_id',
+        'bundle_id',
         'snap_token',
         'name',
         'price',
@@ -37,5 +38,9 @@ class Transaction extends Model
     public function ebook()
     {
         return $this->belongsTo(Ebook::class, 'ebook_id');
+    }
+    public function bundle()
+    {
+        return $this->belongsTo(CourseEbook::class, 'bundle_id');
     }
 }

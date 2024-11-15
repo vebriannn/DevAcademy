@@ -16,7 +16,7 @@
             </div>
             <div class="menu">
                 <ul class="side-tabs">
-                    <li class="active"><a href="{{ route('member.dashboard') }}"><img
+                    <li><a href="{{ route('member.dashboard') }}"><img
                                 src="{{ asset('nemolab/components/member/img/Frame 8.png') }}" alt="icon">Kelas
                             Saya</a></li>
                     <li><a href="{{ route('member.transaction') }}"><img

@@ -15,67 +15,72 @@
                     <!-- Navigation Tabs -->
                     <div class="filter-transaction">
                         <ul class="nav-tabs">
-                            <li><a href="#" class="active">Semua</a></li>
-                            <li><a href="#">Berhasil</a></li>
-                            <li><a href="#">Pending</a></li>
-                            <li><a href="#">Gagal</a></li>
+                            <li><a href="{{ route('member.transaction', ['status' => null]) }}" class="{{ is_null($status) ? 'active' : '' }}">Semua</a></li>
+                            <li><a href="{{ route('member.transaction', ['status' => 'success']) }}" class="{{ $status === 'success' ? 'active' : '' }}">Berhasil</a></li>
+                            <li><a href="{{ route('member.transaction', ['status' => 'pending']) }}" class="{{ $status === 'pending' ? 'active' : '' }}">Pending</a></li>
+                            <li><a href="{{ route('member.transaction', ['status' => 'failed']) }}" class="{{ $status === 'failed' ? 'active' : '' }}">Gagal</a></li>
                         </ul>
-                    </div>
+                    </div>                    
 
                     <!-- Transaction Cards -->
                     @foreach ($transactions as $transaction)
-                        <div class="card mt-3">
-                            <div class="card-body d-flex align-items-center">
-                                <img alt="Course image"
-                                    src="{{ asset('storage/images/covers/' . $transaction->course->cover) }}" height="80"
-                                    width="120" class="cover me-3" />
-                                <div class="details">
-                                    <p class="title">{{ $transaction->name }}</p>
-                                    <p class="Premium">Kelas Premium</p>
-                                    <div class="info mt-3">
-                                        <p class="price">Harga: Rp. {{ number_format($transaction->amount, 0, ',', '.') }}
-                                        </p>
-                                        <p class="date">Tanggal: {{ $transaction->created_at->format('d-M-Y') }}</p>
-                                        <p class="status">Status:</p>
-                                        <p class="status-info"
-                                            style="color: {{ $transaction->status === 'success' ? 'green' : ($transaction->status === 'pending' ? 'orange' : 'red') }};">
-                                            {{ ucfirst($transaction->status) }}
-                                        </p>
-                                    </div>
-                                </div>
-                                <div>
-                                    @if ($transaction->status === 'pending')
-                                        <form action="{{ route('member.transaction.cancel', $transaction->id) }}"
-                                            class="d-flex gap-2" method="POST"
-                                            onsubmit="return confirm('Apa anda yakin ingin membatalkan transaksi?');">
-                                            @csrf
-                                            @method('DELETE')
-                                            {{-- <a href="" class="btn btn-success btn-sm">Bayar Kelas</a> --}}
-                                            <button type="submit" class="btn btn-danger btn-sm">Batalkan
-                                                Pembelian</button>
-                                            <a href="{{ route('member.transaction.view-transaction', $transaction->transaction_code) }}"
-                                                class="btn btn-primary">
-                                                Bayar
-                                            </a>
-                                        </form>
-                                    @elseif ($transaction->status === 'failed')
-                                        <form action="{{ route('member.transaction.cancel', $transaction->id) }}"
-                                            method="POST"
-                                            onsubmit="return confirm('Apa anda yakin ingin membatalkan transaksi?');">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-danger btn-sm">Hapus
-                                                Transaksi</button>
-                                        </form>
+                    <div class="card mt-3">
+                        <div class="card-body d-flex align-items-center">
+                            @php
+                                $coverPath = '';
+                                if ($transaction->course) {
+                                    $coverPath = asset('storage/images/covers/' . $transaction->course->cover);
+                                } elseif ($transaction->ebook) {
+                                    $coverPath = asset('storage/images/covers/ebook/' . $transaction->ebook->cover);
+                                } elseif ($transaction->bundle && $transaction->bundle->course) {
+                                    $coverPath = asset('storage/images/covers/' . $transaction->bundle->course->cover);
+                                }
+                            @endphp
+                            <img alt="Product image" src="{{ $coverPath }}" height="80" width="120" class="cover me-3" />
+                            <div class="details">
+                                <p class="title">{{ $transaction->name }}</p>
+                                    @if ($transaction->price == 0)
+                                <p class="Premium">Kelas Gratis</p>
                                     @else
-                                        <div>
-                                            -
-                                        </div>
-                                    @endif
+                                <p class="Premium">Kelas Premium</p>
+
+                                @endif
+                                <div class="info mt-3">
+                                    <p class="price">Harga: Rp. {{ number_format($transaction->amount, 0, ',', '.') }}</p>
+                                    <p class="date">Tanggal: {{ $transaction->created_at->format('d-M-Y') }}</p>
+                                    <p class="status">Status:</p>
+                                    <p class="status-info"
+                                        style="color: {{ $transaction->status === 'success' ? 'green' : ($transaction->status === 'pending' ? 'orange' : 'red') }};">
+                                        {{ ucfirst($transaction->status) }}
+                                    </p>
                                 </div>
                             </div>
+                            <div>
+                                @if ($transaction->status === 'pending')
+                                    <form action="{{ route('member.transaction.cancel', $transaction->id) }}"
+                                        class="d-flex gap-2" method="POST"
+                                        onsubmit="return confirm('Apa anda yakin ingin membatalkan transaksi?');">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger btn-sm">Batalkan Pembelian</button>
+                                        <a href="{{ route('member.transaction.view-transaction', $transaction->transaction_code) }}"
+                                            class="btn btn-primary">Bayar</a>
+                                    </form>
+                                @elseif ($transaction->status === 'failed')
+                                    <form action="{{ route('member.transaction.cancel', $transaction->id) }}"
+                                        method="POST" onsubmit="return confirm('Apa anda yakin ingin membatalkan transaksi?');">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger btn-sm">Hapus Transaksi</button>
+                                    </form>
+                                @else
+                                    <div>-</div>
+                                @endif
+                            </div>
                         </div>
-                    @endforeach
+                    </div>
+                @endforeach
+                
 
                     <!-- Button for Load More -->
                     {{-- <div class="btn-more mt-lg-5 d-flex justify-content-center">

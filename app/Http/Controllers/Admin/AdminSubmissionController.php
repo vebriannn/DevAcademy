@@ -17,40 +17,47 @@ class AdminSubmissionController extends Controller
 {
     public function index()
     {
-        $users = Submission::with('user')->get();
-        $total_course = 0;
+        $users = User::all(); // Ambil semua pengguna
+        $mentorsWithCourses = $users->map(function ($mentor) {
+            $total_course = Course::whereHas('transactions', function ($query) use ($mentor) {
+                $query->where('user_id', $mentor->id)
+                    ->where('status', 'success');
+            })->count();
 
-        // check total course
-        foreach ($users  as $mentor) {
-            $total_course = Course::with(['transactions' => function ($query) use ($mentor) {
-                $query->where('user_id', $mentor->user->id);
-                $query->where('status', 'success');
-            }])->count();
-        }
+            $submission_check = Submission::where('user_id', $mentor->id)->first();
 
-        return view('admin.pengajuan-mentor.view', compact('users', 'total_course'));
+            // check jika tidak ada submission maka bernilai pending
+            $status_submission = $submission_check?->status ?? 'pending';
+
+            return [
+                'mentor' => $mentor,
+                'total_course' => $total_course,
+                'submission_status' => $status_submission
+            ];
+        });
+
+        return view('admin.pengajuan-mentor.view', compact('mentorsWithCourses'));
     }
 
-    public function update(Request $requests, $id)
+    public function store(Request $requests, $id)
     {
         $requests->validate([
             'link' => 'required|url',
             'action' => 'required|in:pending,accept',
         ]);
 
+        Submission::create([
+            'status' => 'accept',
+            'user_id' => $id
+        ]);
+
         $submission = Submission::where('user_id', $id)->first();
 
-        if ($submission) {
-            
-            // send mail
-            $submission->user->notify(new sendSubmissionMentorNotification($submission, $requests->link));
+        // send mail
+        $submission->user->notify(new sendSubmissionMentorNotification($submission, $requests->link));
 
-            $submission->update([
-                'status' => $requests->action,
-            ]);
 
-            Alert::success('Success', 'Pengajuan Berhasil Di Kirim');
-            return redirect()->route('admin.pengajuan');
-        }
+        Alert::success('Success', 'Pengajuan Berhasil Di Kirim');
+        return redirect()->route('admin.pengajuan');
     }
 }

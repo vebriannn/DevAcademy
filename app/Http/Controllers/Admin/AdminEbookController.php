@@ -122,6 +122,7 @@ class AdminEbookController extends Controller
         $ebook = Ebook::where('id', $id)->first();
         $ebook->delete();
         Storage::delete('public/file_pdf/' . $ebook->file_ebook);
+        Storage::delete('public/images/covers/ebook/' . $ebook->cover);
 
         Alert::success('Success', 'eBook Berhasil Di Hapus');
         return redirect()->route('admin.ebook');

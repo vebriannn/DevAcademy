@@ -7,6 +7,7 @@ use App\Models\Course;
 use App\Models\Review;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
+use App\Models\CourseEbook;
 
 
 class LandingpageController extends Controller
@@ -14,12 +15,12 @@ class LandingpageController extends Controller
     public function index()
     {
         $courses = Course::where('status', 'published')
-            ->orderBy('id', 'DESC')
-            ->take(8)
+            ->inRandomOrder() 
+            ->take(8)          
             ->get();
-
-        return view('member.home', compact('courses'));
-    }
+        $InBundle = CourseEbook::pluck('course_id')->toArray();   
+        return view('member.home', compact('courses', 'InBundle'));
+    }    
     public function tes()
     {
         return view('member.detail-play');

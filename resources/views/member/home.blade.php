@@ -53,7 +53,11 @@
                                 </div>
                                 <div class="card-body">
                                     <div class="paket d-flex">
+                                        @if(in_array($course->id, $InBundle))
+                                        <p class="paket-item mt-md-2">Paket Combo</p>
+                                        @else
                                         <p class="paket-item mt-md-2">Kursus</p>
+                                        @endif
                                     </div>
                                     <div class="title-card">
                                         <h5 class="fw-bold truncate-text">{{ $course->category }} : {{ $course->name }}

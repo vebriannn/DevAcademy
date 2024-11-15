@@ -35,36 +35,35 @@ class MemberCourseController extends Controller
 
         $coursesQuery = Course::where('status', 'published');
         $ebooksQuery = Ebook::where('status', 'published');
-        // $courseEbookQuery = CourseEbook::where('status', 'published');
+
         if ($searchQuery) {
             $coursesQuery->where('name', 'LIKE', '%' . $searchQuery . '%');
             $ebooksQuery->where('name', 'LIKE', '%' . $searchQuery . '%');
         }
+
         if ($categoryFilter && $categoryFilter != 'semua') {
             $coursesQuery->where('category', $categoryFilter);
             $ebooksQuery->where('category', $categoryFilter);
         }
-
-        //  non bundling check
-        $courseIdsInBundle = CourseEbook::pluck('course_id')->toArray();
-        $ebookIdsInBundle = CourseEbook::pluck('ebook_id')->toArray();
-
         switch ($paketFilter) {
-            case 'paket-video':
-                $coursesQuery->whereNotIn('id', $courseIdsInBundle);
+            case 'paket-kursus':
+                $coursesQuery->whereDoesntHave('courseEbooks');
                 break;
 
             case 'paket-ebook':
-                $coursesQuery->whereNotIn('id', $courseIdsInBundle);
+                $ebooksQuery->whereDoesntHave('courseEbooks');
                 break;
 
-                // case 'paket-bundling':
-                //     $coursesQuery->whereHas('courseEbook');
-                //     $ebooksQuery->whereHas('courseEbook');
-                //     break;
+            case 'paket-bundling':
+                $coursesQuery->whereHas('courseEbooks');
+                break;
 
             case 'semua':
+                $ebooksQuery->whereDoesntHave('courseEbooks');
+                break;
+
             default:
+                $ebooksQuery->whereDoesntHave('courseEbooks');
                 break;
         }
 
@@ -72,8 +71,8 @@ class MemberCourseController extends Controller
         $courses = $coursesQuery->orderBy('id', 'DESC')->get();
         $ebooks = $ebooksQuery->orderBy('id', 'DESC')->get();
         $categories = Category::orderBy('id', 'DESC')->get();
-
-        return view('member.course', compact('courses', 'categories', 'ebooks', 'paketFilter'));
+        $InBundle = CourseEbook::pluck('course_id')->toArray();
+        return view('member.course', compact('courses', 'categories', 'ebooks', 'paketFilter','InBundle'));
     }
 
 
@@ -83,30 +82,33 @@ class MemberCourseController extends Controller
 
         if ($courses) {
             $chapters = Chapter::with('lessons')->where('course_id', $courses->id)->get();
-            $reviews = Review::where('course_id', $courses->id)->get();
+            $reviews = Review::with('user')->where('course_id', $courses->id)->get();
+            $bundling = CourseEbook::with(['course', 'ebook'])
+                ->where('course_id', $courses->id)
+                ->first();
 
             $lesson = $chapters->isNotEmpty()
                 ? Lesson::with('chapters')->where('chapter_id', $chapters->first()->id)->first()
                 : null;
 
-            if (Auth::user()) {
-                $transaction = Transaction::where('user_id', Auth::user()->id)
+            $transaction = Auth::check()
+                ? Transaction::where('user_id', Auth::id())
                     ->where('course_id', $courses->id)
                     ->orderBy('created_at', 'desc')
-                    ->first();
-            } else {
-                $transaction = null;
-            }
+                    ->first()
+                : null;
 
             $coursetools = Course::with('tools')->findOrFail($courses->id);
             $transactionForEbook = null;
-            return view('member.joincourse', compact('chapters', 'courses', 'lesson', 'transaction', 'transactionForEbook', 'coursetools'));
-        } else {
-            return redirect('pages.error');
-        }
+            $InBundle = CourseEbook::pluck('course_id')->toArray();
 
-        return view('member.joincourse', compact('reviews', 'chapters', 'courses', 'lesson', 'transaction', 'transactionForEbook', 'coursetools'));
+
+            return view('member.joincourse', compact('chapters', 'courses', 'lesson', 'transaction','transactionForEbook', 'coursetools', 'reviews', 'bundling'));
+        } else {
+            return redirect()->route('pages.error');
+        }
     }
+
 
 
     public function play($slug, $episode)
@@ -137,7 +139,7 @@ class MemberCourseController extends Controller
         // get all episode complete
         $epComplete = CompleteEpisodeCourse::where('course_id', $courses->id)
             ->where('user_id', Auth::user()->id)
-            ->pluck('episode_id') // Ambil hanya episode_id yang complete
+            ->pluck('episode_id')
             ->toArray();
 
 
@@ -153,15 +155,27 @@ class MemberCourseController extends Controller
     public function detail($slug)
     {
         $courses = Course::where('slug', $slug)->first();
+        $reviews = Review::with('user')->where('course_id', $courses->id)->get();
         $user = User::where('id', $courses->mentor_id)->first();
         $chapters = Chapter::with('lessons')->where('course_id', $courses->id)->get();
         $checkTrx = Transaction::where('course_id', $courses->id)->where('user_id', Auth::user()->id)->first();
-        $checkReview = Review::where('user_id', Auth::user()->id)->first();
+        $checkReview = Review::where('user_id', Auth::user()->id)->where('course_id', $courses->id)->first();
         $coursetools = Course::with('tools')->findOrFail($courses->id);
-        // $checkEpCompelete = CompleteEpisodeCourse::where('')
+        $compeleteEps = CompleteEpisodeCourse::where('user_id', Auth::user()->id)->where('course_id', $courses->id)->get();
+
+        $totalLesson = 0;
+        foreach ($chapters as $chapter) {
+            $totalLesson += $chapter->lessons->count();
+        }
+
+        $checkSertifikat = false;
+        if($totalLesson == $compeleteEps->count()) {
+            $checkSertifikat = true;
+        }
+
 
         if ($checkTrx) {
-            return view('member.detail-course', compact('chapters', 'slug', 'courses', 'user', 'checkReview', 'coursetools'));
+            return view('member.detail-course', compact('chapters', 'slug', 'courses', 'user', 'checkReview', 'coursetools','reviews', 'checkSertifikat'));
         } else {
             Alert::error('error', 'Maaf Akses Tidak Bisa, Karena Anda belum Beli Kelas!!!');
             return redirect()->route('member.course.join', $slug);
@@ -184,8 +198,7 @@ class MemberCourseController extends Controller
 
             $pdf = Pdf::loadView('sertifikat.view', $data)->setPaper('A4', 'landscape');
 
-            return $pdf->download('example.pdf');
-            // return view('sertifikat.view', $data);
+            return $pdf->download('sertifikat-'.Auth::user()->name.'.pdf');
         }
         return redirect()->back();
     }

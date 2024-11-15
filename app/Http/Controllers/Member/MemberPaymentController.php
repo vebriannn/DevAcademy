@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Log;
 
 use App\Models\Transaction;
 use App\Models\Course;
+use App\Models\CourseEbook;
 use App\Models\Ebook;
 use App\Models\MyListCourse;
 use App\Models\DiskonKelas;
@@ -22,10 +23,17 @@ class MemberPaymentController extends Controller
     public function index(Request $request)
     {
         $courseId = $request->query('course_id');
+        $ebookId = $request->query('ebook_id');
+        $bundleId = $request->query('bundle_id');
+
         $course = Course::find($courseId);
+        $ebook = Ebook::find($ebookId);
+        $bundle = CourseEbook::find($bundleId);
         $diskonKelas = DiskonKelas::all();
         return view('member.payment', [
             'course' => $course,
+            'ebook' => $ebook,
+            'bundle' => $bundle,
             'kelasDiskon' => $diskonKelas
         ]);
     }
@@ -35,63 +43,85 @@ class MemberPaymentController extends Controller
         $request->validate([
             'course_id' => 'nullable|exists:tbl_courses,id',
             'ebook_id' => 'nullable|exists:tbl_ebooks,id',
-            'price' => 'required',
+            'bundle_id' => 'nullable|exists:tbl_course_ebooks,id',
+            'price' => 'required|numeric',
             'termsCheck' => 'required|accepted',
         ]);
 
-
         $courseId = $request->input('course_id');
         $ebookId = $request->input('ebook_id');
-        $User = Auth::user();
+        $bundleId = $request->input('bundle_id');
+        $user = Auth::user();
         $transaction_code = 'NEMOLAB-' . strtoupper(Str::random(10));
 
         $name = '';
         $price = 0;
         $status = 'pending';
-        $course = Course::where('id', $courseId)->first();
 
-        if ($courseId) {
+        $course = Course::find($courseId);
+        $ebook = Ebook::find($ebookId);
+        $bundle = CourseEbook::find($bundleId);
+
+        if ($course) {
             $name = $course->name . ' (video)';
-            $price = $request->price;
+            $price = $course->price;
+        }
+        if ($ebook) {
+            $name = $ebook->name . ' (eBook)';
+            $price = $ebook->price;
+        }
+        if ($bundle) {
+            $name = $bundle->course->name . ' (bundle)';
+            $price = $bundle->price;
+            $courseId = $bundle->course_id;
+            $ebookId = $bundle->ebook_id;
         }
 
-        if ($course->price == 0) {
+        // Periksa jika kursus gratis
+        if ($price == 0) {
             $status = 'success';
         }
 
+        // Cek apakah transaksi sudah ada dan pending
         $checkTransaction = Transaction::where('course_id', $courseId)
-            ->where('user_id', Auth::user()->id)
+            ->where('user_id', $user->id)
             ->where('status', 'pending')
             ->first();
 
         if (!isset($checkTransaction)) {
             if ($status == 'success') {
                 Transaction::create([
-                    'user_id' => $User->id,
+                    'user_id' => $user->id,
                     'transaction_code' => $transaction_code,
                     'snap_token' => '',
                     'course_id' => $courseId,
                     'ebook_id' => $ebookId,
+                    'bundle_id' => $bundleId,
                     'name' => $name,
                     'price' => $price,
                     'status' => $status,
                 ]);
-
+                // jika bundle maka otomatis mengisi ebook_id dan course_id sesuai dengan nilai dari tbl_course_ebook
                 MyListCourse::create([
-                    'user_id' => Auth::user()->id,
+                    'user_id' => $user->id,
                     'course_id' => $courseId,
+                    'ebook_id' => $ebookId,
                 ]);
-                Alert::success('success', 'Kelas Berhasil Di Beli');
-                return redirect()->route('member.course.join', $course->slug);
+
+
+                Alert::success('success', 'Kelas Berhasil Dibeli');
+                if ($course) {
+                    return redirect()->route('member.course.join', $course->slug);
+                } elseif ($ebook) {
+                    return redirect()->route('member.ebook.join', $ebook->slug);
+                } elseif ($bundle) {
+                    return redirect()->route('member.course.join', $bundle->course->slug);
+                }
             } else {
-                // Jangan Hapus
-                // Set your Merchant Server Key
+                // Lakukan pemrosesan Midtrans jika belum sukses
                 \Midtrans\Config::$serverKey = env('MIDTRANS_SERVER_KEY');
-                // Set to Production Environment (accept real transaction)
                 \Midtrans\Config::$isProduction = env('MIDTRANS_PRODUCTION');
-                // Set sanitization on (default)
                 \Midtrans\Config::$isSanitized = true;
-                // Set 3DS transaction for credit card to true
                 \Midtrans\Config::$is3ds = true;
 
                 $params = [
@@ -100,19 +130,16 @@ class MemberPaymentController extends Controller
                         'gross_amount' => intval($price),
                     ],
                     'customer_details' => [
-                        'name' => $User->name,
-                        'email' => $User->email,
+                        'name' => $user->name,
+                        'email' => $user->email,
                     ],
-                    // 'callbacks' => [
-                    //     'finish' => route('member.transaction.detail.view', $transaction_code),
-                    //     'error' => route('member.transaction.detail.view', $transaction_code),
-                    // ],
                 ];
 
                 $createdTransactionMidtrans = \Midtrans\Snap::createTransaction($params);
                 $midtransRedirectUrl = $createdTransactionMidtrans->redirect_url;
+
                 Transaction::create([
-                    'user_id' => $User->id,
+                    'user_id' => $user->id,
                     'transaction_code' => $transaction_code,
                     'snap_token' => $createdTransactionMidtrans->token,
                     'course_id' => $courseId,
@@ -125,14 +152,16 @@ class MemberPaymentController extends Controller
                 return redirect($midtransRedirectUrl);
             }
         } else {
-            $url = "https://app.sandbox.midtrans.com/snap/v4/redirection/$checkTransaction->snap_token";
-            if (env('MIDTRANS_PRODUCTION') === true) {
-                $url = "https://app.midtrans.com/snap/v4/redirection/$checkTransaction->snap_token";
-            }
+            // Redirect ke transaksi pending sebelumnya jika ada
+            $url = env('MIDTRANS_PRODUCTION')
+                ? "https://app.midtrans.com/snap/v4/redirection/{$checkTransaction->snap_token}"
+                : "https://app.sandbox.midtrans.com/snap/v4/redirection/{$checkTransaction->snap_token}";
 
             return redirect($url);
         }
     }
+
+
 
     public function checkout()
     {
@@ -198,5 +227,4 @@ class MemberPaymentController extends Controller
 
         return view('error.page404');
     }
-
 }
