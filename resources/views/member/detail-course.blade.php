@@ -14,7 +14,7 @@
             </a>
             <h4 class="m-0 p-0 mt-5 mb-4 text-center">{{ $courses->name }}</h4>
             <div class="content-images d-flex justify-content-center">
-                <img src="{{ asset('storage/images/covers/' . $courses->cover) }}" alt="" class="img-fluid">
+                <img src="{{ asset('storage/images/covers/' . $courses->cover) }}" alt="" class="img-fluid" width="900" height="800" style="border-radius: 15px; box-shadow: rgba(32, 32, 32, 0.322) 0px 8px 24px; object-fit: cover">
             </div>
             <div class="subcontent-images mt-5">
                 <div class="row">

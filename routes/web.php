@@ -63,7 +63,7 @@ Route::middleware('maintenance.middleware')->group(function () {
     Route::prefix('member')->group(function () {
 
         // member course
-        Route::prefix('course')->middleware(['students', 'verified'])->group(function () {
+        Route::prefix('course')->group(function () {
             Route::get('/', [MemberCourseController::class, 'index'])->name('member.course');
             Route::get('join/{slug}', [MemberCourseController::class, 'join'])->name('member.course.join');
             Route::get('{slug}/play/episode/{episode}', [MemberCourseController::class, 'play'])->name('member.course.play');

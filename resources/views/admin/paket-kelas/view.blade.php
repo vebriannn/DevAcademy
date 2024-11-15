@@ -22,7 +22,7 @@
                                 <th>Nama Kelas</th>
                                 <th>Nama Ebook</th>
                                 <th>Tipe</th>
-                                <th>Status</th>
+                                {{-- <th>Status</th> --}}
                                 <th>Harga</th>
                                 @if (Auth::user()->role == 'superadmin' )
                                     <th>Mentor</th>
@@ -57,13 +57,13 @@
                                     </td>
 
                                     {{-- status --}}
-                                    <td>
+                                    {{-- <td>
                                         @if ($kelas->status == 'draft')
                                             Draf
                                         @else
                                             Publik
                                         @endif
-                                    </td>
+                                    </td> --}}
                                     <td>Rp. {{ number_format($kelas->price, 0) }}</td>
                                     @if (Auth::user()->role == 'superadmin' && !is_null($users))
                                         <td>{{ $users->name }}</td>

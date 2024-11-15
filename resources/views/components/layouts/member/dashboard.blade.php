@@ -46,7 +46,7 @@
 
     <!-- box icon -->
     <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
-    <script src="{{ asset('nemolab/member/js/landing-pages.js') }}"></script>
+    {{-- <script src="{{ asset('nemolab/member/js/landing-pages.js') }}"></script> --}}
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const navbarToggler = document.querySelector('.navbar-toggler');

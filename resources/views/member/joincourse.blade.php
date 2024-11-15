@@ -11,7 +11,7 @@
         <div class="row">
             <!-- Kolom Kiri -->
             <div class="layout-kiri col-md-8">
-                <h3 data-aos="fade-right">{{ $courses->name }}</h3>
+                <h3 data-aos="fade-right" style="word-wrap: break-word; white-space: normal;">{{ $courses->name }}</h3>
                 <div class="card-preview mb-3">
                     <img src="{{ asset('storage/images/covers/' . $courses->cover) }}" alt="">
                 </div>
@@ -70,7 +70,7 @@
                             </ul>
                         </div>
                         <div class="p-0">
-                            @if ($courses->price != 0)
+                            @if ($courses->price != 0 && !$bundling)
                                 <h3 class="price text-center">Rp{{ number_format($courses->price, 0, ',', '.') }}</h3>
                             @elseif ($bundling && $bundling->price != 0)
                                 <h3 class="price text-center">Rp{{ number_format($bundling->price, 0, ',', '.') }}</h3>
@@ -192,7 +192,7 @@
                             @foreach ($coursetools->tools as $tool)
                                 <div class="card-tool px-2 pt-2 me-3 mb-3">
                                     <img src="{{ asset('storage/images/logoTools/' . $tool->logo_tools) }}" alt=""
-                                        class="">
+                                        class="" width="50" height="50">
                                     <p>{{ $tool->name_tools }}</p>
                                 </div>
                             @endforeach
@@ -201,6 +201,7 @@
                 </div>
                 <div class="testimoni" id="testimoni" data-aos="fade-up">
                     <div class="container-fluid">
+                        @if ($reviews->isNotEmpty())
                         <h1>Testimoni</h1>
                         <div class="col-12 mt-4">
                             <div class="row card-testimoni d-none d-md-flex">
@@ -249,6 +250,7 @@
                                 </button>
                             </div>
                         </div>
+                        @endif
                     </div>
                 </div>
                 
@@ -311,7 +313,7 @@
                             </ul>
                         </div>
                         <div class="p-0">
-                            @if ($courses->price != 0)
+                            @if ($courses->price != 0 && !$bundling)
                                 <h3 class="price text-center">Rp{{ number_format($courses->price, 0, ',', '.') }}</h3>
                             @elseif ($bundling && $bundling->price != 0)
                                 <h3 class="price text-center">Rp{{ number_format($bundling->price, 0, ',', '.') }}</h3> 

@@ -11,7 +11,7 @@
     <div class="row">
         <!-- Kolom Kiri -->
         <div class="layout-kiri col-md-8">
-            <h3 data-aos="fade-right">{{ $ebooks->name }}</h3>
+            <h3 data-aos="fade-right" style="word-wrap: break-word; white-space: normal;">{{ $ebooks->name }}</h3>
             <div class="card-preview mb-3">
                 <img src="{{ asset('storage/images/covers/ebook/' . $ebooks->cover) }}" alt="">
             </div>
@@ -27,7 +27,7 @@
                                     <img src="{{ asset('nemolab/member/img/check-active.png') }}" alt="Check">
                                     <p class="m-0 p-0 ms-2">Akses Ebook selamanya</p>
                                 </li>
-                            </ul>>
+                            </ul>
                         </ul>
                     </div>
                     <div class="p-0">
@@ -88,6 +88,7 @@
             </div>
             <div class="testimoni" id="testimoni" data-aos="fade-up">
                 <div class="container-fluid">
+                    @if ($reviews->isNotEmpty())
                     <h1>Testimoni</h1>
                     <div class="col-12 mt-4">
                         <div class="row card-testimoni d-none d-md-flex">
@@ -136,6 +137,7 @@
                             </button>
                         </div>
                     </div>
+                    @endif
                 </div>
             </div>
 

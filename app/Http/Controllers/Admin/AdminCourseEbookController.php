@@ -45,27 +45,25 @@ class AdminCourseEbookController extends Controller
         $requests->validate([
             'name_course' => 'required',
             'name_ebook' => 'required',
-            'status' => 'required|in:draft,published',
+            'price' => 'required|numeric|min:0',
+            'type' => 'required|in:free,premium',
         ]);
 
         $course = Course::where('name', $requests->name_course)->first();
         $ebook = Ebook::where('name', $requests->name_ebook)->first();
 
-        $harga = ($course->price + $ebook->price) * 0.8;
-
         CourseEbook::create([
             'course_id' => $course->id,
             'ebook_id' => $ebook->id,
-            'type' => $course->type,
-            'status' => $requests->status,
-            'price' => $harga,
+            'type' => $requests->type,
+            'price' => $requests->price,
             'mentor_id' => Auth::user()->id
         ]);
-
 
         Alert::success('Success', 'Paket Berhasil Di Buat');
         return redirect()->route('admin.paket-kelas');
     }
+
 
     public function edit(Request $requests)
     {
@@ -79,9 +77,10 @@ class AdminCourseEbookController extends Controller
     public function update(Request $requests, $id)
     {
         $requests->validate([
-            'name_course' => 'required',
-            'name_ebook' => 'required',
-            'status' => 'required|in:draft,published',
+            'name_course' => 'required|max:60',
+            'name_ebook' => 'required|max:60',
+            'price' => 'required|numeric|min:0',
+            'type' => 'required|in:free,premium',
         ]);
 
 
@@ -90,14 +89,14 @@ class AdminCourseEbookController extends Controller
         $course = Course::where('name', $requests->name_course)->first();
         $ebook = Ebook::where('name', $requests->name_ebook)->first();
 
-        $harga = ($course->price + $ebook->price) * 0.8;
+        // $harga = ($course->price + $ebook->price) * 0.8;
 
         $courseEbook->update([
             'course_id' => $course->id,
             'ebook_id' => $ebook->id,
-            'type' => $course->type,
-            'status' => $requests->status,
-            'price' => $harga,
+            'type' => $requests->type,
+            // 'status' => $requests->status,
+            'price' => $requests->price,
         ]);
 
         Alert::success('Success', 'Paket Berhasil Di Update');

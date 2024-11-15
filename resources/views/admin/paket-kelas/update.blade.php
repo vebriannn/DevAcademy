@@ -22,12 +22,11 @@
                         <p>Cari Kursus Video</p>
                         <div class="custom-entryarea">
                             @if (is_null($courses) || $courses->isEmpty())
-                                <span style="color: red">Maaf Belum Ada Ebook</span>
+                                <span style="color: red">Maaf Belum Ada Kelas</span>
                             @else
-                                <select id="category" name="name_course">
+                                <select id="courseSelect" name="name_course">
                                     @foreach ($courses as $course)
-                                        <option value="{{ $course->name }}"
-                                            {{ $paketKelas->course && $paketKelas->course->name == $course->name ? 'selected' : '' }}>
+                                        <option value="{{ $course->name }}" data-price="{{ $course->price }}">
                                             {{ $course->name }}
                                         </option>
                                     @endforeach
@@ -37,7 +36,6 @@
                                 <span style="color: red">{{ $message }}</span>
                             @enderror
                         </div>
-
                     </div>
                     <div class="col-6">
                         <p>Cari Kursus Ebook</p>
@@ -45,32 +43,40 @@
                             @if (is_null($ebooks) || $ebooks->isEmpty())
                                 <span style="color: red">Maaf Belum Ada Ebook</span>
                             @else
-                                <select id="ebook" name="name_ebook">
+                                <select id="ebookSelect" name="name_ebook">
                                     @foreach ($ebooks as $ebook)
-                                        <option value="{{ $ebook->name }}"
-                                            {{ $paketKelas->ebook && $paketKelas->ebook->name == $ebook->name ? 'selected' : '' }}>
+                                        <option value="{{ $ebook->name }}" data-price="{{ $ebook->price }}">
                                             {{ $ebook->name }}
                                         </option>
                                     @endforeach
                                 </select>
                             @endif
-
                             @error('name_ebook')
                                 <span style="color: red">{{ $message }}</span>
                             @enderror
                         </div>
                     </div>
                     <div class="col-12">
-                        <p>Status</p>
                         <div class="custom-entryarea">
-                            <select id="category" name="status">
-                                <option value="draft" {{ $paketKelas->status == 'draft' ? 'selected' : '' }}>Draf</option>
-                                <option value="published" {{ $paketKelas->status == 'published' ? 'selected' : '' }}>Publik
-                                </option>
+                            <select id="type" name="type">
+                                <option value="free">Gratis</option>
+                                <option value="premium">Premium</option>
                             </select>
-                            @error('status')
+                            @error('type')
                                 <span style="color: red">{{ $message }}</span>
                             @enderror
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="entryarea d-none">
+                            <input type="number" id="discount" name="discount" placeholder="" min="0" max="100"/>
+                            <div class="labelline">Diskon Paket</div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="entryarea d-none">
+                            <input type="number" id="totalPrice" name="price" placeholder="" readonly/>
+                            <div class="labelline">Harga</div>
                         </div>
                     </div>
                     <div class="col-12">
@@ -85,29 +91,46 @@
 @endsection
 
 @push('addon-script')
-    {{-- <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const type = document.getElementById('type');
-            const price = document.getElementById('price');
-            // Pastikan elemen "type" sudah ada sebelum melanjutkan
-            if (type) {
-                if (type.value == 'premium') {
-                    price.classList.replace('d-none', 'd-block');
-                } else if (type.value == 'free') {
-                    price.classList.replace('d-block', 'd-none')
-                    price.querySelector('input[name="price"]').value = '0';
-                }
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const courseSelect = document.getElementById('courseSelect');
+        const ebookSelect = document.getElementById('ebookSelect');
+        const discountInput = document.getElementById('discount');
+        const priceInput = document.getElementById('totalPrice');
+        const typeSelect = document.getElementById('type');
 
-                // Event listener untuk perubahan nilai pada "type"
-                type.addEventListener('change', (e) => {
-                    if (e.target.value == 'premium') {
-                        price.classList.replace('d-none', 'd-block');
-                    } else if (e.target.value == 'free') {
-                        price.classList.replace('d-block', 'd-none');
-                        price.querySelector('input[name="price"]').value = '0';
-                    }
-                });
+        const discountContainer = discountInput.closest('.entryarea');
+        const priceContainer = priceInput.closest('.entryarea');
+
+        function updateTotalPrice() {
+            const coursePrice = parseInt(courseSelect.selectedOptions[0].getAttribute('data-price'), 10) || 0;
+            const ebookPrice = parseInt(ebookSelect.selectedOptions[0].getAttribute('data-price'), 10) || 0;
+            let discount = parseInt(discountInput.value, 10) || 0;
+            
+            if (typeSelect.value === 'premium') {
+                discountContainer.classList.remove('d-none');
+                priceContainer.classList.remove('d-none');
+                
+                if (discount < 0) discount = 0;
+                if (discount > 100) discount = 100;
+                
+                let totalPrice = coursePrice + ebookPrice;
+                totalPrice -= Math.floor(totalPrice * discount / 100);
+                totalPrice = totalPrice < 0 ? 0 : totalPrice;
+                
+                priceInput.value = totalPrice;
+            } else {
+                discountContainer.classList.add('d-none');
+                priceContainer.classList.add('d-none');
+                priceInput.value = 0;
             }
-        });
-    </script> --}}
+        }
+
+        courseSelect.addEventListener('change', updateTotalPrice);
+        ebookSelect.addEventListener('change', updateTotalPrice);
+        discountInput.addEventListener('input', updateTotalPrice);
+        typeSelect.addEventListener('change', updateTotalPrice);
+        updateTotalPrice();
+    });
+</script>
 @endpush

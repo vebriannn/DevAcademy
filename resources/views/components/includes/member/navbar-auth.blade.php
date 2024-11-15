@@ -93,22 +93,8 @@
                                 Paket Kelas
                                 <box-icon name='chevron-down' color="#414142"></box-icon>
                             </button>
-                            <ul class="dropdown-menu mt-lg-3 mb-3">
-                                <div class="head-submenu d-flex justify-content-between align-items-center">
-                                    <p class="m-0 p-0 fw-bold">Pilihan Paket Kelas</p>
-                                    <a href="{{ route('member.course') }}" class="m-0 p-0">Lihat Semua</a>
-                                </div>
-                                <div class="content-submenu mt-2 ">
-                                    <div class="row m-0">
-                                        <div class="col-sm-12 ps-0 pl-1 mb-1">
-                                            <a
-                                                href="#">Course</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </ul>
 
-                            {{-- <ul class="dropdown-menu mt-lg-3 mb-3">
+                            <ul class="dropdown-menu mt-lg-3 mb-3">
                                 <div class="head-submenu d-flex justify-content-between align-items-center">
                                     <p class="m-0 p-0 fw-bold">Pilihan Paket Kelas</p>
                                     <a href="{{ route('member.course') }}" class="m-0 p-0">Lihat Semua</a>
@@ -122,11 +108,11 @@
                                             <a href="{{ route('member.course', ['filter-paket' => 'paket-ebook']) }}">Ebook</a>
                                         </div>
                                         <div class="col-sm-12 ps-0 pl-1 mb-1">
-                                            <a href="{{ route('member.course', ['filter-paket' => 'paket-bundling']) }}">Paket Course Dan Ebook</a>
+                                            <a href="{{ route('member.course', ['filter-paket' => 'paket-bundling']) }}">Paket Combo</a>
                                         </div>
                                     </div>
                                 </div>
-                            </ul> --}}
+                            </ul>
                         </div>
 
                         <a href="https://blog.nemolab.id/" class="text-decoration-none  pb-2 pb-lg-0">Artikel</a>

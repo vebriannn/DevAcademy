@@ -66,7 +66,7 @@ class MemberReviewController extends Controller
         $checkTrx = Transaction::where('ebook_id', $ebook->id)->where('user_id', Auth::user()->id)->first();
         // return view('member.review-ebook', compact('ebook'));
         if ($checkTrx) {
-            return view('member.review', compact('ebook'));
+            return view('member.review-ebook', compact('ebook'));
         } else {
             Alert::error('error', 'Maaf Akses Tidak Bisa, Karena Anda belum Beli Kelas!!!');
             return redirect()->route('member.ebook.join', $slug);

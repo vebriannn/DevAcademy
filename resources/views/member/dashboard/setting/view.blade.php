@@ -76,7 +76,3 @@
 
     @include('components.includes.member.sidebar-dashboard-mobile')
 @endsection
-
-@push('addon-script')
-    <script src="{{ asset('nemolab/member/js/scroll-dashboard.js') }}"></script>
-@endpush

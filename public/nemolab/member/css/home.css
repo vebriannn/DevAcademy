@@ -83,7 +83,7 @@ html::-webkit-scrollbar {
 #section-pilih-kelas .card {
     width: 25rem;
     border-radius: 14px;
-    height: max-content;
+    /* height: max-content; */
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
@@ -445,6 +445,7 @@ html::-webkit-scrollbar {
     #section-pilih-kelas .title-card h5 {
         font-size: 12px;
         margin-bottom: 2px;
+        max-width: 200px;
     }
 
     #section-pilih-kelas .title-card img {

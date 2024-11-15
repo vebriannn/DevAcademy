@@ -40,7 +40,7 @@
                         <div class="col-md-3 col-12 d-flex justify-content-center pb-3">
                             <div class="card d-flex flex-row d-md-block">
                                 <img src="{{ asset('storage/images/covers/' . $course->cover) }}"
-                                    class="card-img-top d-none d-md-block" alt="{{ $course->name }}" />
+                                    class="card-img-top d-none d-md-block" alt="{{ $course->name }}" width="50" height="40" />
                                 <div class="card-head d-block d-md-none">
                                     <img src="{{ asset('storage/images/covers/' . $course->cover) }}" class="card-img-top"
                                         alt="{{ $course->name }}" />
@@ -195,7 +195,7 @@
                 <a href="{{ route('member.course') }}" class="btn btn-primary px-4">Coba Kursus</a>
             </div>
             <div class="row p-0" id="testimonials">
-                <div class="col-md-4 scroll-up">
+                <div class="col-md-4 scroll-up d-none d-md-block">
                     <div class="col-md-12 d-flex justify-content-center">
                         <div class="card mb-4">
                             <div class="card-body">
@@ -298,7 +298,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4 scroll-up">
+                <div class="col-md-4 scroll-up d-none d-md-block">
                     <div class="col-md-12 d-flex justify-content-center">
                         <div class="card mb-4">
                             <div class="card-body">
