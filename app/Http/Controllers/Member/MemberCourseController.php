@@ -63,13 +63,13 @@ class MemberCourseController extends Controller
         }
         $courses = $coursesQuery->orderBy('id', 'DESC')->get();
         $ebooks = $ebooksQuery->orderBy('id', 'DESC')->get();
-        $courseIds = $courses->pluck('id'); 
+        $courseIds = $courses->pluck('id');
         $bundling = CourseEbook::with(['course', 'ebook'])
-            ->whereIn('course_id', $courseIds) 
+            ->whereIn('course_id', $courseIds)
             ->first();
         return view('member.course', compact('courses', 'ebooks', 'paketFilter','bundling'));
     }
-    
+
 
     public function join($slug)
     {
@@ -173,7 +173,7 @@ class MemberCourseController extends Controller
             return view('member.detail-course', compact('chapters', 'slug', 'courses', 'user', 'checkReview', 'coursetools','reviews', 'checkSertifikat'));
         } else {
             Alert::error('error', 'Maaf Akses Tidak Bisa, Karena Anda belum Beli Kelas!!!');
-            return redirect()->route('member.course.join', $slug);
+                return redirect()->route('member.course.join', $slug);
         }
     }
 

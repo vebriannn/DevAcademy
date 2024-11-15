@@ -67,13 +67,13 @@
                             @enderror
                         </div>
                     </div>
-                    <div class="col-6">
+                    <div class="col-6 d-none">
                         <div class="entryarea d-none">
                             <input type="number" id="discount" name="discount" placeholder="" min="0" max="100"/>
                             <div class="labelline">Diskon Paket</div>
                         </div>
                     </div>
-                    <div class="col-6">
+                    <div class="col-12">
                         <div class="entryarea d-none">
                             <input type="number" id="totalPrice" name="price" placeholder="" readonly/>
                             <div class="labelline">Harga</div>
@@ -106,18 +106,18 @@
             const coursePrice = parseInt(courseSelect.selectedOptions[0].getAttribute('data-price'), 10) || 0;
             const ebookPrice = parseInt(ebookSelect.selectedOptions[0].getAttribute('data-price'), 10) || 0;
             let discount = parseInt(discountInput.value, 10) || 0;
-            
+
             if (typeSelect.value === 'premium') {
                 discountContainer.classList.remove('d-none');
                 priceContainer.classList.remove('d-none');
-                
+
                 if (discount < 0) discount = 0;
                 if (discount > 100) discount = 100;
-                
+
                 let totalPrice = coursePrice + ebookPrice;
                 totalPrice -= Math.floor(totalPrice * discount / 100);
                 totalPrice = totalPrice < 0 ? 0 : totalPrice;
-                
+
                 priceInput.value = totalPrice;
             } else {
                 discountContainer.classList.add('d-none');

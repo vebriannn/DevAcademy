@@ -65,10 +65,10 @@ Route::middleware('maintenance.middleware')->group(function () {
         // member course
         Route::prefix('course')->group(function () {
             Route::get('/', [MemberCourseController::class, 'index'])->name('member.course');
-            Route::get('join/{slug}', [MemberCourseController::class, 'join'])->name('member.course.join');
-            Route::get('{slug}/play/episode/{episode}', [MemberCourseController::class, 'play'])->name('member.course.play');
-            Route::get('detail/{slug}', [MemberCourseController::class, 'detail'])->name('member.course.detail');
-            Route::get('detail/sertifikat/{slug}', [MemberCourseController::class, 'generateSertifikat'])->name('member.sertifikat');
+            Route::get('join/{slug}', [MemberCourseController::class, 'join'])->name('member.course.join')->middleware(['students', 'verified']);
+            Route::get('{slug}/play/episode/{episode}', [MemberCourseController::class, 'play'])->name('member.course.play')->middleware(['students', 'verified']);
+            Route::get('detail/{slug}', [MemberCourseController::class, 'detail'])->name('member.course.detail')->middleware(['students', 'verified']);
+            Route::get('detail/sertifikat/{slug}', [MemberCourseController::class, 'generateSertifikat'])->name('member.sertifikat')->middleware(['students', 'verified']);
         });
         Route::prefix('review')->middleware(['students', 'verified'])->group(function () {
             Route::get('{slug}', [MemberReviewController::class, 'index'])->name('member.review');
@@ -89,7 +89,7 @@ Route::middleware('maintenance.middleware')->group(function () {
         });
 
         // dashboard mycourse
-        Route::get('/', [MemberMyCourseController::class, 'index'])->name('member.dashboard');
+        Route::get('/', [MemberMyCourseController::class, 'index'])->name('member.dashboard')->middleware(['students', 'verified']);
         // dashboard setting member
         Route::prefix('setting')->middleware(['students', 'verified'])->group(function () {
             Route::view('/', 'member.dashboard.setting.view')->name('member.setting');
