@@ -15,7 +15,7 @@
     {{-- aos --}}
     <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
-
+    <link rel="icon" href="{{ asset('nemolab/member/img/nemolab.ico') }}" type="image/x-icon">
 
 
     @stack('prepend-style')
@@ -65,13 +65,16 @@
             once: true
         });
     </script>    
-    {{-- script khusus header --}}
+    <script>
+        document.querySelector('.filter-togle').addEventListener('click', function() {
+            const sidebar = document.querySelector('.sidebar');
+            sidebar.classList.toggle('show-sidebar');
+        });
+      </script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const navbarToggler = document.querySelector('.dropdown-logout');
             const registerBtn = document.getElementById('dropdownMenuButton1');
-
-
             function LinkLogoutFunc() {
                 if (window.innerWidth < 992) {
 
@@ -93,15 +96,18 @@
     </script>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-        const sidebarLinks = document.querySelectorAll(".side-tabs li a");
-        sidebarLinks.forEach(link => {
-            if (link.href === window.location.href) {
-                link.parentElement.classList.add("active");
-            } else {
-                link.parentElement.classList.remove("active");
-            }
+            const sidebarLinks = document.querySelectorAll(".side-tabs li a");
+            
+            sidebarLinks.forEach(link => {
+                const linkUrl = new URL(link.href);
+                const currentUrl = new URL(window.location.href);
+                if (linkUrl.origin === currentUrl.origin && linkUrl.pathname === currentUrl.pathname) {
+                    link.parentElement.classList.add("active");
+                } else {
+                    link.parentElement.classList.remove("active");
+                }
+            });
         });
-    });
         </script>
     @stack('addon-script')
 

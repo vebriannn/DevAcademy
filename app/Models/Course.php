@@ -25,6 +25,7 @@ class Course extends Model
         'type',
         'status',
         'price',
+        'pruduct_type',
         'level',
         'description',
         'resources',

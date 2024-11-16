@@ -19,16 +19,16 @@ return new class extends Migration
             $table->string('slug')->unique();
             $table->text('cover')->nullable();
             $table->enum('type', ['free', 'premium']);
+            $table->string('product_type')->default('ebook');
             $table->enum('category', ['Frontend Developer', 'Backend Developer', 'Wordpress Developer','Graphics Designer','Fullstack Developer','UI/UX Designer'])->default('Frontend Developer');
             $table->enum('status', ['draft', 'published']);
             $table->integer('price')->nullable();
             $table->enum('level', ['beginner', 'intermediate', 'expert']);
             $table->text('description', 255);
             $table->text('file_ebook')->nullable(false);
-            $table->text('rating')->nullable(true);
+            // $table->text('rating')->nullable(true);
             $table->timestamps();
             // Change cascade to set null for course_id
-            // $table->foreign('course_id')->references('id')->on('tbl_courses')->onDelete('set null');
             $table->foreign('mentor_id')->references('id')->on('users')->onDelete('cascade');
         });
     }

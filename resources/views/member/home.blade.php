@@ -1,6 +1,6 @@
 @extends('components.layouts.member.app')
 
-@section('title', 'Nemolab - Belajar Kursus Online Kapan Saja dan Dimanapun')
+@section('title', 'Belajar Kursus Online Kapan Saja dan Dimanapun')
 
 @push('prepend-style')
     <link rel="stylesheet" href="{{ asset('nemolab/member/css/home.css') }} ">
@@ -39,11 +39,22 @@
                     @foreach($courses as $course)
                         <div class="col-md-3 col-12 d-flex justify-content-center pb-3">
                             <div class="card d-flex flex-row d-md-block">
+                                @if ($course->cover != null)
                                 <img src="{{ asset('storage/images/covers/' . $course->cover) }}"
-                                    class="card-img-top d-none d-md-block" alt="{{ $course->name }}" width="50" height="40" />
+                                class="card-img-top d-none d-md-block" alt="{{ $course->name }}" width="50" height="40" />
+                                @else
+                                <img src="{{ asset('nemolab/member/img/NemolabBG.jpg') }}"
+                                class="card-img-top d-none d-md-block" alt="{{ $course->name }}" width="50" height="40" />
+                                @endif
                                 <div class="card-head d-block d-md-none">
-                                    <img src="{{ asset('storage/images/covers/' . $course->cover) }}" class="card-img-top"
+                                    @if ($course->cover != null)
+                                        <img src="{{ asset('storage/images/covers/' . $course->cover) }}" class="card-img-top"
+                                            alt="{{ $course->name }}" />
+                                    @else
+                                        <img src="{{ asset('nemolab/member/img/NemolabBG.jpg') }}" class="card-img-top"
                                         alt="{{ $course->name }}" />
+                                    @endif
+
                                     <div class="harga mt-4">
                                         <p class="p-0 m-0 fw-semibold">Harga</p>
                                         <p class="p-0 m-0 fw-bold">

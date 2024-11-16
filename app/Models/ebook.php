@@ -17,6 +17,7 @@ class Ebook extends Model
         'category',
         'name',
         'type',
+        'product_type',
         'status',
         'level',
         'price',

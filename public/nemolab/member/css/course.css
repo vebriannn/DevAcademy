@@ -87,7 +87,7 @@ html::-ms-overflow-style {
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: 1;
   max-height: 3em;
   text-overflow: ellipsis;
   transition: max-height 0.3s ease, -webkit-line-clamp 0.3s ease;
@@ -121,26 +121,50 @@ html::-ms-overflow-style {
   color: #666;
 }
 
-/* Loading Placeholder */
-/* .loading-placeholder .loading-card {
-  background-color: #f0f0f0;
-  border: 1px solid #ddd;
-  height: 150px;
-  margin-bottom: 20px;
+.pagination {
   display: flex;
-  justify-content: center;
-  align-items: center;
+  padding-left: 0;
+  list-style: none;
+  border-radius: 0.15rem;
 }
 
-.loading-placeholder .loading-title,
-.loading-placeholder .loading-text {
-  background-color: #ddd;
-  height: 20px;
-  width: 80%;
-  margin: 10px 0;
-  border-radius: 4px;
-  animation: loading 1.5s infinite;
-} */
+.page-item {
+  margin: 0 0.2rem;
+}
+
+.page-item.disabled .page-link {
+  color: #ff9800;
+  background-color: #eeeeee;
+  pointer-events: none;
+  cursor: not-allowed;
+}
+
+.page-item.active .page-link {
+  color: #fff;
+  background-color: #ff9800;
+  border-color: #ff9800;
+}
+
+.page-link {
+  color: #ff9800;
+  background-color: #eeeeee;
+  padding: 0.4rem 0.65rem;
+  border-radius: 0.25rem;
+  transition: all 0.3s;
+}
+
+.page-link:hover {
+  transform: translateY(-5px);
+  color: #fff;
+  background-color: #ff9800; 
+  border-color: #ff9800;
+  text-decoration: none;
+}
+
+.page-link span {
+  display: inline-block;
+  vertical-align: middle;
+}
 
 @keyframes loading {
   0% {

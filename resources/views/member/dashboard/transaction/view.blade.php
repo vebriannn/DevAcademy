@@ -28,7 +28,7 @@
                     @if($transactions->isEmpty())
                     <div class="col-md-12 d-flex justify-content-center align-items-center">
                         <div class="not-found text-center">
-                            <p class="mt-3">Kamu Belum Melakukan Transaksi</p>
+                            <p class="mt-3">Tidak Ada Transaksi</p>
                         </div>
                     </div>
                 @endif
@@ -50,7 +50,15 @@
                             <div class="details">
                                 <p class="title" >{{ $transaction->name }}</p>
                                     @if ($transaction->price == 0)
-                                <p class="Premium">Kelas Gratis</p>
+                                        <p class="Premium">
+                                            @if ($transaction->bundle && $transaction->bundle->course)
+                                            Paket
+                                            @elseif($transaction->ebook)
+                                            Buku
+                                            @else
+                                            Kelas
+                                            @endif
+                                        Gratis</p>
                                     @else
                                 <p class="Premium">Kelas Premium</p>
 

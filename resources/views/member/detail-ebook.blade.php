@@ -14,7 +14,11 @@
             </a>
             <h4 class="m-0 p-0 mt-5 mb-4 text-center" style="word-wrap: break-word; white-space: normal;">{{ $ebooks->name }}</h4>
             <div class="content-images d-flex justify-content-center">
-                <img src="{{ asset('storage/images/covers/ebook/' . $ebooks->cover) }}" alt="" class="img-fluid" width="900" style="border-radius: 15px; box-shadow: rgba(32, 32, 32, 0.322) 0px 8px 24px; object-fit: contain">
+                @if ($ebooks->cover !=null)
+                <img src="{{ asset('storage/images/covers/ebook/' . $ebooks->cover) }}" alt="" class="img-fluid" width="900" height="800" style="border-radius: 15px; box-shadow: rgba(32, 32, 32, 0.322) 0px 8px 24px; object-fit: cover">
+                @else
+                <img src="{{ asset('nemolab/member/img/NemolabBG.jpg') }}" alt="" class="img-fluid" width="900" height="800" style="border-radius: 15px; box-shadow: rgba(32, 32, 32, 0.322) 0px 8px 24px; object-fit: cover">
+                @endif
             </div>
             <div class="detail-courses mt-5 shadow-sm">
                 <div class="card">

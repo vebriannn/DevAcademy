@@ -1,63 +1,49 @@
 <?php
-
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Faker\Factory as Faker;
+use Carbon\Carbon;
 
 class CourseSeeder extends Seeder
 {
     public function run()
     {
-        // Ensure mentor_id exists in users table
-        $courses = [
-            [
-                'category' => 'Fullstack ',
-                'name' => 'Introduction to Programming',
-                'slug' => 'Introduction to Programming',
-                'cover' => 'cover_image_1.jpg',
-                'type' => 'free',
-                'status' => 'published',
-                'price' => 0,
-                'level' => 'beginner',
-                'description' => 'A basic course on programming concepts.',
-                'resources' => 'https://gedangsuket.id',
-                'link_grub' => 'https://gedangsuket.id',
-                'mentor_id' => 1
-            ],
-            [
-                'category' => 'Frontend ',
-                'name' => 'Advanced Laravel',
-                'slug' => 'Advanced Laravel',
-                'cover' => 'cover_image_2.jpg',
-                'type' => 'premium',
-                'status' => 'draft',
-                'price' => 100,
-                'level' => 'intermediate',
-                'description' => 'An advanced course on Laravel framework.',
-                'resources' => 'https://gedangsuket.id',
-                'link_grub' => 'https://gedangsuket.id',
-                'mentor_id' => 1
-            ],
-
-            [
-                'category' => 'Backend',
-                'name' => 'Advanced Linux',
-                'slug' => 'Advanced Linux',
-                'cover' => 'cover_image_3.jpg',
-                'type' => 'premium',
-                'status' => 'draft',
-                'price' => 100,
-                'level' => 'intermediate',
-                'description' => 'An advanced course on Laravel framework.',
-                'resources' => 'https://gedangsuket.id',
-                'link_grub' => 'https://gedangsuket.id',
-                'mentor_id' => 1
-            ],
+        // List of categories
+        $categories = [
+            'Frontend Developer', 
+            'Backend Developer', 
+            'Wordpress Developer',
+            'Graphics Designer',
+            'Fullstack Developer',
+            'UI/UX Designer'
         ];
 
-        foreach ($courses as $course) {
-            DB::table('tbl_courses')->insert($course);
+        // Use Faker to generate data
+        $faker = Faker::create();
+        $timestamp = Carbon::now();
+        // Determine how many courses you want to seed, for example 10
+        $numCourses = 1; // You can adjust this number or make it dynamic
+
+        // Loop to create the desired number of courses
+        for ($i = 0; $i < $numCourses; $i++) {
+            DB::table('tbl_courses')->insert([
+                'category' => $categories[array_rand($categories)], // Random category from the list
+                'name' => $faker->sentence(7), // Random course name
+                'slug' => $faker->slug(), // Random slug
+                'type' => $faker->randomElement(['free', 'premium']), // Random type
+                'status' => $faker->randomElement(['published']), // Random status
+                'price' => $faker->randomFloat(2, 0, 200),
+                // 'price' => 0,
+                'level' => $faker->randomElement(['beginner', 'intermediate', 'expert']), // Random level
+                'description' => $faker->paragraph(), // Random description
+                'resources' => $faker->url(), // Random resource URL
+                'link_grub' => $faker->url(), // Random link
+                'mentor_id' => 1, // Random mentor ID, assuming mentors 1-5 exist
+                'created_at' => $timestamp,
+                'updated_at' => $timestamp
+            ]);
         }
     }
 }

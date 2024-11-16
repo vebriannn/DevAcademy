@@ -13,7 +13,11 @@
         <div class="layout-kiri col-md-8">
             <h3 data-aos="fade-right" style="word-wrap: break-word; white-space: normal;">{{ $ebooks->name }}</h3>
             <div class="card-preview mb-3">
-                <img src="{{ asset('storage/images/covers/ebook/' . $ebooks->cover) }}" alt="">
+                @if ($ebooks->cover != null)
+                    <img src="{{ asset('storage/images/covers/ebook/' . $ebooks->cover) }}" alt="">
+                @else
+                    <img src="{{ asset('nemolab/member/img/NemolabBG.jpg') }}" alt="">
+                @endif
             </div>
             <div class="card mb-3 d-md-none">
                 <div class="card-buy-body">

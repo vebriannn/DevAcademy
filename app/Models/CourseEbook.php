@@ -14,7 +14,6 @@ class CourseEbook extends Model
         'course_id',
         'ebook_id',
         'type',
-        // 'status',
         'price',
     ];
 

@@ -138,7 +138,6 @@ class AdminCourseController extends Controller
         $slug = Str::slug($request->name);
 
         $resources = 'null';
-        $rating = '0';
 
         if ($request->resources) {
             $resources = $request->resources;
@@ -155,7 +154,6 @@ class AdminCourseController extends Controller
             'resources' => $resources,
             'link_grub' => $request->link_grub,
             'description' => $request->description,
-            'rating' => $rating,
         ]);
 
         $course->tools()->sync($request->tools);

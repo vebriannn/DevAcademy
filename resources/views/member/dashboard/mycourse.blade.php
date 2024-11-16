@@ -41,7 +41,7 @@
                         </ul>
                     </div>                                  
                     <div class="row">
-                    @if($courses->isEmpty() && $ebooks->isEmpty())
+                    @if($coursesProgress->isEmpty() && $ebooks->isEmpty())
                         <div class="col-md-12 d-flex justify-content-center align-items-center">
                             <div class="not-found text-center">
                                 <img src="{{ asset('nemolab/member/img/search-not-found.png') }}" class="logo-not-found w-50 h-50" alt="Not Found">
@@ -49,27 +49,34 @@
                             </div>
                         </div>
                     @endif
-                    @foreach ($courses as $course)
+                    @foreach ($coursesProgress as $course)
                         @if ($course->transactions->isNotEmpty())
                             <a href="{{ route('member.course.join', $course->slug) }}" class="col-md-4 d-flex justify-content-center pb-3 text-decoration-none">
                                 <div class="card">
-                                    <img src="{{ asset('storage/images/covers/' . $course->cover) }}" class="card-img-top d-none d-md-block" alt="..." >
+                                    @if ($course->cover !=null)
+                                        <img src="{{ asset('storage/images/covers/' . $course->cover) }}" class="card-img-top d-none d-md-block" alt="...">
+                                    @else
+                                        <img src="{{ asset('nemolab/member/img/NemolabBG.jpg') }}" class="card-img-top d-none d-md-block" alt="...">
+                                    @endif
                                     <div class="card-body">
                                         <div>
+                                        @if ($course->cover !=null)
                                             <img src="{{ asset('storage/images/covers/' . $course->cover) }}" alt="..." style="height: 40px;width: 60px; border-radius: 5px;" class="d-block d-md-none">
+                                        @else
+                                            <img src="{{ asset('nemolab/member/img/NemolabBG.jpg') }}" alt="..." style="height: 40px;width: 60px; border-radius: 5px;" class="d-block d-md-none">
+                                        @endif
                                         </div>
                                         <div>
                                             <div class="title-card">
-                                                <p class="fw-bold truncate-text">{{ $course->name }}</p>
+                                                <p class="fw-bold truncate-text" style="">{{ $course->name }}</p>
                                                 <p class="tipe">Kelas {{ $course->type }}</p>
                                             </div>
                                             <div class="btn-group-harga d-flex justify-content-between align-items-center mt-md-3 gap-1 gap-md-0">
                                                 <div class="harga d-block">
-                                                    <p class="p-0 m-0 fw-semibold">Status : <br class="d-none d-md-block"> Belum Selesai</p>
+                                                    <p class="p-0 m-0 ">Status: <br class="d-none d-md-block"><span style="color: #666666">{{ $course->status }}</span></p>
                                                 </div>
                                                 <div class="harga d-block">
-                                                    <p class="p-0 m-0 fw-semibold">Bergabung : <br class="d-none d-md-block"> {{ $course-> created_at->format('d F Y')}}</p>
-                                                    {{-- <p class="p-0 m-0 fw-semibold"></p> --}}
+                                                    <p class="p-0 m-0">Bergabung: <br class="d-none d-md-block"> <span style="color: #666666">{{ $course->created_at->format('d F Y') }}</span></p>
                                                 </div>
                                             </div>
                                         </div>
@@ -79,14 +86,23 @@
                         @endif
                     @endforeach
 
+
                     @foreach ($ebooks as $ebook)
                         @if ($ebook->transactions->isNotEmpty())
                         <a href="{{ route('member.ebook.join', $ebook->slug) }}" class="col-md-4 d-flex justify-content-center pb-3 text-decoration-none">
                             <div class="card">
-                                <img src="{{ asset('storage/images/covers/ebook/' . $ebook->cover) }}" class="card-img-top d-none d-md-block" alt="..." >
+                                @if ($ebook->cover !=null)
+                                    <img src="{{ asset('storage/images/covers/ebook/' . $ebook->cover) }}" class="card-img-top d-none d-md-block" alt="..." >
+                                @else
+                                        <img src="{{ asset('nemolab/member/img/NemolabBG.jpg') }}" class="card-img-top d-none d-md-block" alt="..." >
+                                @endif
                                 <div class="card-body">
                                     <div>
+                                    @if ($ebook->cover !=null)
                                         <img src="{{ asset('storage/images/covers/ebook/' . $ebook->cover) }}" alt="..." style="height: 40px;width: 60px; border-radius: 5px;" class="d-block d-md-none">
+                                    @else
+                                        <img src="{{ asset('nemolab/member/img/NemolabBG.jpg') }}" alt="..." style="height: 40px;width: 60px; border-radius: 5px;" class="d-block d-md-none">
+                                    @endif
                                     </div>
                                     <div>
                                         <div class="title-card">

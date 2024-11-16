@@ -20,8 +20,11 @@ body {
 
 a {
     text-decoration: none;
-    font-size: 14px;
 }
+p {
+    font-weight: bold !important;
+}
+
 
 #mycourse {
     margin-top: 130px;
