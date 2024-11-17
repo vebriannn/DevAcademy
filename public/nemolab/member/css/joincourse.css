@@ -104,9 +104,16 @@ p {
 .card-tool img {
     border-radius:  5px;
     max-width: 70px;
-    height: auto; /* Mempertahankan rasio aspek gambar */
+    height: auto;
+}
+.book-img img{
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
+.book-img img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
 .card-tool p {
     margin-bottom: 0px;
     color: var(--charcoal-gray);

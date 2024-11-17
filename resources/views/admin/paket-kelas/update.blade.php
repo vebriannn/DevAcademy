@@ -22,7 +22,7 @@
                         <p>Cari Kursus Video</p>
                         <div class="custom-entryarea">
                             @if (is_null($courses) || $courses->isEmpty())
-                                <span style="color: red">Maaf Belum Ada Kelas</span>
+                                <span style="color: red">Kelas Sudah Dalam Paket</span>
                             @else
                                 <select id="courseSelect" name="name_course">
                                     @foreach ($courses as $course)
@@ -41,7 +41,7 @@
                         <p>Cari Kursus Ebook</p>
                         <div class="custom-entryarea">
                             @if (is_null($ebooks) || $ebooks->isEmpty())
-                                <span style="color: red">Maaf Belum Ada Ebook</span>
+                                <span style="color: red">E-Book Sudah Dalam Paket</span>
                             @else
                                 <select id="ebookSelect" name="name_ebook">
                                     @foreach ($ebooks as $ebook)

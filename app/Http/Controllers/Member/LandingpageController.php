@@ -14,7 +14,7 @@ class LandingpageController extends Controller
 {
     public function index()
     {
-        $courses = Course::where('status', 'published')
+        $courses = Course::with('users')->where('status', 'published')
             ->inRandomOrder() 
             ->take(8)          
             ->get();
