@@ -76,8 +76,8 @@ class MemberCourseController extends Controller
     
         $courses = $coursesQuery ? $coursesQuery->with('users','courseEbooks')->select('id','mentor_id','cover', 'name', 'category','slug', 'created_at','product_type','price')->get() : collect();
         $ebooks = $ebooksQuery ? $ebooksQuery->with('users')->select('id','mentor_id','cover', 'name', 'category','slug', 'created_at','product_type','price')->get() : collect();
+        $merged = $courses->concat($ebooks)->sortByDesc('created_at');
     
-        $merged = $courses->merge($ebooks)->sortByDesc('created_at');
         $page = $request->input('page', 1);
         $paginatedData = new \Illuminate\Pagination\LengthAwarePaginator(
             $merged->forPage($page, $perPage),
@@ -86,14 +86,17 @@ class MemberCourseController extends Controller
             $page,
             ['path' => $request->url(), 'query' => $request->query()]
         );
+    
         $courseIds = $courses->pluck('id')->toArray();
         $bundling = CourseEbook::whereIn('course_id', $courseIds)->get()->groupBy('course_id');
+    
         return view('member.course', [
             'data' => $paginatedData,
             'paketFilter' => $paketFilter,
             'bundling' => $bundling, 
         ]);
     }
+    
     
     
     

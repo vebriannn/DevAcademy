@@ -16,10 +16,11 @@ class UserSeeder extends Seeder
         // Seed 20 users
         DB::table('users')->insert([
             'name' => 'superadmin',
-            'avatar' => 'default.png',
+            // 'avatar' => 'default.png',
             'email' => 'superadmin@nemolab.com',
             'password' => Hash::make('password123'),
             'role' => 'superadmin',
+            'email_verified_at' => now(),
             'created_at' => now(),
             'updated_at' => now(),
         ]);
