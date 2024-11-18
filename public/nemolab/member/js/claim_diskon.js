@@ -5,7 +5,17 @@ const hargaInput = document.querySelector('input[name="price"]');
 const promoSelect = document.getElementById('promo');
 const diskonInput = document.getElementById('diskonInput');
 const originalPrice = parseFloat(hargaInput.value);
-btnPromo.addEventListener('click', function() {
+
+function convertIDR(price) {
+    hargaTanpaDesimal = Math.floor(price);
+    return new Intl.NumberFormat('id-ID', {
+        style: 'currency',
+        currency: 'IDR',
+        maximumFractionDigits: 0 // Menghilangkan angka desimal
+    }).format(hargaTanpaDesimal);
+}
+
+btnPromo.addEventListener('click', function () {
     if (promoSelect && hargaInput) {
         // Ambil nilai kode promo yang dipilih dan konversi ke angka
         const selectedPromo = parseFloat(promoSelect.value);
@@ -14,12 +24,11 @@ btnPromo.addEventListener('click', function() {
         // Hitung total harga setelah diskon
         const totalHarga = originalPrice - diskon;
         // Tampilkan diskon dalam format Rupiah
-        textPromo.innerHTML = 'Rp ' + diskon.toLocaleString();
+        textPromo.innerHTML = convertIDR(diskon);
         // Tampilkan total harga setelah diskon dalam format Rupiah
-        textTotalHarga.innerHTML = 'Rp ' + totalHarga.toLocaleString();
-        // Update nilai input harga dengan total harga setelah diskon
-        hargaInput.value = totalHarga.toFixed(2);
+        textTotalHarga.innerHTML = convertIDR(totalHarga);
         // Update nilai input hidden diskon dengan nilai diskon yang dihitung
         diskonInput.value = selectedPromo;
     }
 });
+

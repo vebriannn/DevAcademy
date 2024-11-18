@@ -15,7 +15,7 @@ class AdminChapterController extends Controller
     public function index($slug_course) {
         $id_course =  Course::where('slug', $slug_course)->first()->id;
 
-        $chapters = Chapter::where('course_id', $id_course)->get();
+        $chapters = Chapter::where('course_id', $id_course)->orderBy('created_at', 'ASC')->get();
         return view('admin.chapter.view', compact('slug_course', 'chapters', 'id_course'));
     }
 

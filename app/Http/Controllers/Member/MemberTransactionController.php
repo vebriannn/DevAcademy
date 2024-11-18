@@ -14,8 +14,7 @@ class MemberTransactionController extends Controller
 {
     public function index(Request $request)
     {
-        $perPage = $request->input('per_page', 10);
-        $status = $request->input('status'); 
+        $status = $request->input('status');
 
         $transactions = Transaction::with([
                 'course' => function ($query) {
@@ -33,13 +32,13 @@ class MemberTransactionController extends Controller
                 return $query->where('status', $status);
             })
             ->orderBy('created_at', 'desc')
-            ->paginate($perPage);
+            ->get();
 
         return view('member.dashboard.transaction.view', compact('transactions', 'status'));
     }
 
-    
-    
+
+
     public function cancel($id)
     {
         $transaction = Transaction::findOrFail($id);
@@ -47,5 +46,5 @@ class MemberTransactionController extends Controller
         Alert::success('Success', 'Transaction Berhasil Di Cancel');
         return redirect()->route('member.transaction');
     }
-    
+
 }

@@ -65,38 +65,38 @@ class MemberPaymentController extends Controller
 
         if ($course) {
             $name = $course->name . ' (Kursus)';
-            $price = $course->price;
+            $harga = $course->price;
+            $price = $harga * 1.11 + 5000;
+
         }
         if ($ebook) {
             $name = $ebook->name . ' (E-Book)';
-            $price = $ebook->price;
+            $harga = $ebook->price;
+            $price = $harga * 1.11 + 5000;
         }
         if ($bundle) {
             $name = $bundle->course->name . ' (Paket Combo)';
-            $price = $bundle->price;
             $courseId = $bundle->course_id;
             $ebookId = $bundle->ebook_id;
+            $harga = $bundle->price;
+            $price = $harga * 1.11 + 5000;
         }
 
         // devinisi
         $diskonRate = $request->input('diskon');
         $validDiskon = DiskonKelas::where('rate_diskon', $diskonRate)->first();
+
         // Validasi Diskon
-        if ($diskonRate && !$validDiskon) {
-            Alert::error('error', 'Pembayran Tidak Valid');
-            return redirect()->back()->withErrors(['diskon' => 'Diskon tidak valid.']);
-        }
-        // Hitung potongan harga jika ada diskon
-        if ($diskonRate) {
-            $potonganHarga = ($diskonRate / 100) * $price;
-            $calculatedPrice = $price - $potonganHarga;
+        if ($validDiskon) {
+            $diskon = ($diskonRate / 100) * $price;
+            $potonganHarga = $price - $diskon;
             // Validasi apakah potongan harga sesuai
-            if ($calculatedPrice < 0) {
-                Alert::error('error', 'Pembayran Tidak Valid');
+            if ($potonganHarga < 0) {
+                Alert::error('error', 'Pembayaran Tidak Valid');
                 return redirect()->back()->withErrors(['price' => 'Harga Tidak Valid']);
             }
             // Update harga dengan harga setelah diskon
-            $price = $calculatedPrice;
+            $price = intval($potonganHarga);
         }
         // Periksa jika kursus gratis
         if ($price == 0) {
@@ -109,25 +109,67 @@ class MemberPaymentController extends Controller
             ->where('status', 'pending')
             ->first();
 
+
+        // array untuk simpan data transaksi dan list course
+        $dataTransaction = [];
+        $myListCourse = [];
+
+        // perkondisian untuk mengatur setiap pembelian supaya tidak bug
+        if ($courseId != null) {
+            $dataTransaction = [
+                'user_id' => $user->id,
+                'transaction_code' => $transaction_code,
+                'snap_token' => '',
+                'course_id' => $courseId,
+                'name' => $name,
+                'price' => $price,
+                'status' => $status,
+            ];
+
+            $myListCourse = [
+                'user_id' => $user->id,
+                'course_id' => $courseId,
+            ];
+        } else if ($ebookId != null) {
+            $dataTransaction = [
+                'user_id' => $user->id,
+                'transaction_code' => $transaction_code,
+                'snap_token' => '',
+                'ebook_id' => $ebookId,
+                'name' => $name,
+                'price' => $price,
+                'status' => $status,
+            ];
+
+            $myListCourse = [
+                'user_id' => $user->id,
+                'ebook_id' => $ebookId,
+            ];
+        } else if ($bundleId != null) {
+            $dataTransaction = [
+                'user_id' => $user->id,
+                'transaction_code' => $transaction_code,
+                'snap_token' => '',
+                'bundle_id' => $bundleId,
+                'name' => $name,
+                'price' => $price,
+                'status' => $status,
+            ];
+
+            $myListCourse = [
+                'user_id' => $user->id,
+                'course_id' => $courseId,
+                'ebook_id' => $ebookId,
+            ];
+        }
+
         if (!isset($checkTransaction)) {
             if ($status == 'success') {
-                Transaction::create([
-                    'user_id' => $user->id,
-                    'transaction_code' => $transaction_code,
-                    'snap_token' => '',
-                    'course_id' => $courseId,
-                    'ebook_id' => $ebookId,
-                    'bundle_id' => $bundleId,
-                    'name' => $name,
-                    'price' => $price,
-                    'status' => $status,
-                ]);
+
+                Transaction::create($dataTransaction);
+
                 // jika bundle maka otomatis mengisi ebook_id dan course_id sesuai dengan nilai dari tbl_course_ebook
-                MyListCourse::create([
-                    'user_id' => $user->id,
-                    'course_id' => $courseId,
-                    'ebook_id' => $ebookId,
-                ]);
+                MyListCourse::create($myListCourse);
 
                 Alert::success('success', 'Kelas Berhasil Dibeli');
                 if ($course) {
@@ -153,20 +195,18 @@ class MemberPaymentController extends Controller
                         'name' => $user->name,
                         'email' => $user->email,
                     ],
+                    'callbacks' => [
+                        'finish' => route('member.transaction'),
+                        'error' => route('member.transaction'),
+                    ],
                 ];
 
                 $createdTransactionMidtrans = \Midtrans\Snap::createTransaction($params);
                 $midtransRedirectUrl = $createdTransactionMidtrans->redirect_url;
-                Transaction::create([
-                    'user_id' => $user->id,
-                    'transaction_code' => $transaction_code,
-                    'snap_token' => $createdTransactionMidtrans->token,
-                    'course_id' => $courseId,
-                    'ebook_id' => $ebookId,
-                    'name' => $name,
-                    'price' => $price,
-                    'status' => $status,
-                ]);
+
+                $dataTransaction['snap_token'] = $createdTransactionMidtrans->token;
+                Transaction::create($dataTransaction);
+
                 return redirect($midtransRedirectUrl);
             }
         } else {
@@ -209,10 +249,25 @@ class MemberPaymentController extends Controller
 
         if ($status == 'success') {
             try {
-                MyListCourse::create([
-                    'user_id' => $transaction->user_id,
-                    'course_id' => $transaction->course_id, // Pastikan ini valid
-                ]);
+
+                if ($transaction->course_id != null) {
+                    MyListCourse::create([
+                        'user_id' => $transaction->user_id,
+                        'course_id' => $transaction->course_id, // Pastikan ini valid
+                    ]);
+                } elseif ($transaction->ebook_id != null) {
+                    MyListCourse::create([
+                        'user_id' => $transaction->user_id,
+                        'ebook_id' => $transaction->ebook_id, // Pastikan ini valid
+                    ]);
+                } elseif ($transaction->bundle_id != null) {
+                    $bundle = CourseEbook::whereIn('course_id', $transaction->bundle_id)->first();
+                    MyListCourse::create([
+                        'user_id' => $transaction->user_id,
+                        'course_id' => $bundle->course_id, // Pastikan ini valid
+                        'ebook_id' => $bundle->ebook_id, // Pastikan ini valid
+                    ]);
+                }
             } catch (\Exception $e) {
                 Log::error('Failed to create MyListCourse: ' . $e->getMessage());
             }

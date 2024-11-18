@@ -13,7 +13,7 @@
             <p class="text-center description">Setelah pembelian kelas sukses, anda dapat mengakses kelas dan mendapatkan
                 benefit lainnya seperti grup diskusi dan sertifikat resmi dari kami</p>
 
-                @if (($course && $course->price == 0) || ($ebook && $ebook->price == 0) || ($bundle && $bundle->price == 0))
+            @if (($course && $course->price == 0) || ($ebook && $ebook->price == 0) || ($bundle && $bundle->price == 0))
                 <div class="row justify-content-center">
                     <div class="col-md-6 mt-5">
                         <div class="card card-bayar shadow p-4">
@@ -34,11 +34,11 @@
                                 <div class="harga mb-3">
                                     <div class="d-flex justify-content-between">
                                         @if ($course)
-                                        <p class="item mb-1 fw-bold">Harga Kelas</p>
+                                            <p class="item mb-1 fw-bold">Harga Kelas</p>
                                         @elseif ($ebook)
-                                        <p class="item mb-1 fw-bold">Harga E-Book</p>
+                                            <p class="item mb-1 fw-bold">Harga E-Book</p>
                                         @elseif ($bundle)
-                                        <p class="item mb-1 fw-bold">Harga Paket</p>
+                                            <p class="item mb-1 fw-bold">Harga Paket</p>
                                         @endif
                                         <p class="price mb-1 fw-bold">Rp. 0</p>
                                     </div>
@@ -68,25 +68,25 @@
                                 </div>
 
                                 @php
-                                if ($course) {
-                                    $totalPrice = $course->price * 1.11 + 5000;
-                                }elseif ($ebook) {
-                                    $totalPrice = $ebook->price * 1.11 + 5000;
-                                }elseif ($bundle) {
-                                    $totalPrice = $bundle->price * 1.11 + 5000;
-                                }
-                                    
+                                    if ($course) {
+                                        $totalPrice = $course->price * 1.11 + 5000;
+                                    } elseif ($ebook) {
+                                        $totalPrice = $ebook->price * 1.11 + 5000;
+                                    } elseif ($bundle) {
+                                        $totalPrice = $bundle->price * 1.11 + 5000;
+                                    }
+
                                 @endphp
 
                                 <div class="text-center mt-1">
                                     <form id="paymentForm" action="{{ route('member.transaction.store') }}" method="POST">
                                         @csrf
                                         @if ($course)
-                                        <input type="hidden" name="course_id" value="{{ $course->id }}">
+                                            <input type="hidden" name="course_id" value="{{ $course->id }}">
                                         @elseif ($ebook)
-                                        <input type="hidden" name="ebook_id" value="{{ $ebook->id }}">
+                                            <input type="hidden" name="ebook_id" value="{{ $ebook->id }}">
                                         @elseif ($bundle)
-                                        <input type="hidden" name="bundle_id" value="{{ $bundle->id }}">
+                                            <input type="hidden" name="bundle_id" value="{{ $bundle->id }}">
                                         @endif
                                         <input type="hidden" name="price" value="{{ $totalPrice }}">
                                         <div class="form-check mt-4">
@@ -172,22 +172,28 @@
 
                                 <div class="harga mb-3">
                                     <div class="d-flex justify-content-between">
-                                        @if ($course)<p class="item mb-1 fw-bold">Harga Kelas</p>
+                                        @if ($course)
+                                            <p class="item mb-1 fw-bold">Harga Kelas</p>
                                             <p class="tax mb-1 fw-bold">+ Rp. {{ number_format($course->price) }}</p>
-                                        @elseif ($ebook)<p class="item mb-1 fw-bold">Harga E-Book</p>
+                                        @elseif ($ebook)
+                                            <p class="item mb-1 fw-bold">Harga E-Book</p>
                                             <p class="tax mb-1 fw-bold">+ Rp. {{ number_format($ebook->price) }}</p>
-                                        @elseif ($bundle)<p class="item mb-1 fw-bold">Harga Paket</p>
+                                        @elseif ($bundle)
+                                            <p class="item mb-1 fw-bold">Harga Paket</p>
                                             <p class="tax mb-1 fw-bold">+ Rp. {{ number_format($bundle->price) }}</p>
                                         @endif
                                     </div>
                                     <div class="d-flex justify-content-between">
                                         <p class="item mb-1 fw-bold">PPN (11%)</p>
                                         @if ($course)
-                                            <p class="tax mb-1 fw-bold">+ Rp. {{ number_format($course->price * 0.11, 0) }}</p>
+                                            <p class="tax mb-1 fw-bold">+ Rp.
+                                                {{ number_format($course->price * 0.11, 0) }}</p>
                                         @elseif ($ebook)
-                                            <p class="tax mb-1 fw-bold">+ Rp. {{ number_format($ebook->price * 0.11, 0) }}</p>
+                                            <p class="tax mb-1 fw-bold">+ Rp. {{ number_format($ebook->price * 0.11, 0) }}
+                                            </p>
                                         @elseif ($bundle)
-                                            <p class="tax mb-1 fw-bold">+ Rp. {{ number_format($bundle->price * 0.11, 0) }}</p>
+                                            <p class="tax mb-1 fw-bold">+ Rp.
+                                                {{ number_format($bundle->price * 0.11, 0) }}</p>
                                         @endif
                                     </div>
                                     <div class="d-flex justify-content-between">
@@ -201,13 +207,13 @@
                                 </div>
 
                                 @php
-                                if ($course) {
-                                    $totalPrice = $course->price * 1.11 + 5000;
-                                }elseif ($ebook) {
-                                    $totalPrice = $ebook->price * 1.11 + 5000;
-                                }elseif ($bundle) {
-                                    $totalPrice = $bundle->price * 1.11 + 5000;
-                                }
+                                    if ($course) {
+                                        $totalPrice = $course->price * 1.11 + 5000;
+                                    } elseif ($ebook) {
+                                        $totalPrice = $ebook->price * 1.11 + 5000;
+                                    } elseif ($bundle) {
+                                        $totalPrice = $bundle->price * 1.11 + 5000;
+                                    }
                                 @endphp
 
                                 <div class="total d-flex justify-content-between align-items-center">
@@ -220,16 +226,17 @@
                                         method="POST">
                                         @csrf
                                         @if ($course)
-                                        <input type="hidden" name="course_id" value="{{ $course->id }}">
+                                            <input type="hidden" name="course_id" value="{{ $course->id }}">
                                         @elseif ($ebook)
-                                        <input type="hidden" name="course_id" value="{{ $ebook->id }}">
+                                            <input type="hidden" name="ebook_id" value="{{ $ebook->id }}">
                                         @elseif ($bundle)
-                                        <input type="hidden" name="course_id" value="{{ $bundle->id }}">
+                                            <input type="hidden" name="bundle_id" value="{{ $bundle->id }}">
                                         @endif
                                         <input type="hidden" id="diskonInput" name="diskon">
                                         <input type="hidden" name="price" value="{{ $totalPrice }}">
                                         <div class="form-check mt-4">
-                                            <input class="form-cek" type="checkbox" id="termsCheck" name="termsCheck">
+                                            <input class="form-cek" type="checkbox" id="termsCheck" name="termsCheck"
+                                                required>
                                             <label class="form-check-label ms-2" for="termsCheck">
                                                 Saya menyetujui <a href="#" class="syarat">Syarat & Ketentuan</a>
                                                 <p class="text-danger d-none" id="important" style="font-size: 12px;">
@@ -249,6 +256,5 @@
     </section>
 @endsection
 @push('addon-script')
-<script src="{{ asset('nemolab/member/js/claim_diskon.js') }}">
-</script>
+    <script src="{{ asset('nemolab/member/js/claim_diskon.js') }}"></script>
 @endpush

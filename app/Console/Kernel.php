@@ -13,7 +13,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule): void
     {
         $schedule->command('update:transaction-status')->everyMinute();
-        $schedule->command('update:ranting-course')->everyMinute();
+        $schedule->command('update:delete-users-verif')->every(24)->hours();
     }
 
     /**
@@ -21,7 +21,7 @@ class Kernel extends ConsoleKernel
      */
     protected function commands(): void
     {
-        $this->load(__DIR__.'/Commands');
+        $this->load(__DIR__ . '/Commands');
 
         require base_path('routes/console.php');
     }
