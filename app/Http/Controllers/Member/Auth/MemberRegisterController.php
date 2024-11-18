@@ -24,8 +24,6 @@ class MemberRegisterController extends Controller
 
     public function store(Request $requests)
     {
-        // Validasi input sesi pertama (nama, email, password)
-
         $requests->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email',
@@ -40,65 +38,32 @@ class MemberRegisterController extends Controller
         ], [
             'password.regex' => 'Password harus berisi kombinasi huruf dan angka',
         ]);
-
+    
         $avatar = null;
-
+    
         if ($requests->hasFile('avatar')) {
             $requests->validate([
-                'avatar' => 'image|mimes:jpg,jpeg,png,svg|max:2048', // Validasi hanya jika ada file
+                'avatar' => 'image|mimes:jpg,jpeg,png,svg|max:2048', 
             ]);
-
+    
             $getNameImageAvatar = $requests->avatar->getClientOriginalName();
             $avatar = Str::random(10) . $getNameImageAvatar;
-            // simpan avatar ke storage
             $requests->avatar->storeAs('public/images/avatars', $avatar);
         }
-
+    
         $user = User::create([
             'avatar' => $avatar,
             'name' => $requests->name,
             'email' => $requests->email,
             'profession' => $requests->profession,
-            'password' => Hash::make($requests->password)
+            'password' => Hash::make($requests->password),
         ]);
-
+    
         // Kirim notifikasi verifikasi email
         $user->sendEmailVerificationNotification();
         event(new Registered($user));
         Auth::login($user);
         Alert::success('Success', 'Berhasil Mengirimkan Tautan Verifikasi');
         return redirect()->route('verification.notice');
-    }
-
-    public function storeProfile(Request $requests)
-    {
-        // Validasi input sesi kedua (profesi dan avatar)
-        $requests->validate([
-            'profession' => 'required|string|max:255',
-            'avatar' => 'nullable|image|mimes:jpeg,png,jpg',
-        ]);
-        $registerData = $requests->session()->get('register_data');
-        if (!$registerData) {
-            return redirect()->route('register')->withErrors(['error' => 'Sesi pendaftaran telah habis, silahkan ulangi.']);
-        }
-        $imagesGetNewName = 'default.png';
-        if ($requests->hasFile('avatar')) {
-            $images = $requests->file('avatar');
-            $imagesGetNewName = Str::random(10) . $images->getClientOriginalName();
-            $images->storeAs('public/images/avatars', $imagesGetNewName);
-        }
-        // Buat user baru dengan data dari kedua sesi
-        $user = User::create([
-            'name' => $registerData['name'],
-            'email' => $registerData['email'],
-            'password' => $registerData['password'],
-            'profession' => $requests->profession,
-            'avatar' => $imagesGetNewName,
-            'role' => 'students',
-        ]);
-
-        auth()->login($user);
-        Alert::success('Success', 'Register Berhasil');
-        return redirect()->route('home');
-    }
+    }    
 }
