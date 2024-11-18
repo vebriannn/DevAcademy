@@ -103,26 +103,26 @@
                     {{-- <h1>{{ $data->count() }}</h1> --}}
             </div>
             <ul class="pagination justify-content-center justify-content-md-end">
-                <li class="page-item fw-bold {{ $data->onFirstPage() ? 'disabled' : '' }}">
+                <li class="page-item-button fw-bold {{ $data->onFirstPage() ? 'disabled' : '' }}">
                     <a class="page-link" href="{{ $data->previousPageUrl() }}" aria-label="Previous">
                         <span aria-hidden="true">&laquo;</span>
                     </a>
                 </li>
                 @php
-                    $start = max($data->currentPage() - 3, 1); 
-                    $end = min($start + 6, $data->lastPage());
+                    $start = max($data->currentPage() - 2, 1); 
+                    $end = min($start + 5, $data->lastPage());
                 @endphp
                 @for ($i = $start; $i <= $end; $i++)
                     <li class="page-item fw-bold {{ $i == $data->currentPage() ? 'active' : '' }}">
                         <a class="page-link" href="{{ $data->url($i) }}">{{ $i }}</a>
                     </li>
                 @endfor
-                <li class="page-item fw-bold {{ $data->hasMorePages() ? '' : 'disabled' }}">
+                <li class="page-item-button fw-bold {{ $data->hasMorePages() ? '' : 'disabled' }}">
                     <a class="page-link" href="{{ $data->nextPageUrl() }}" aria-label="Next">
                         <span aria-hidden="true">&raquo;</span>
                     </a>
                 </li>
-            </ul>
+            </ul>            
         </div>
     </div>
 </section>

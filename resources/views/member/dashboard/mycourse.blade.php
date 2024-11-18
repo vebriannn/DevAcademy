@@ -111,7 +111,7 @@
                                         </div>
                                         <div class="btn-group-harga d-flex justify-content-between align-items-center mt-md-3 gap-1 gap-md-0">
                                             <div class="harga d-block">
-                                                <p class="p-0 m-0 fw-semibold">Bergabung : <br class="d-none d-md-block"> {{ $ebook-> created_at->format('d F Y')}}</p>
+                                                <p class="p-0 m-0 fw-bold">Bergabung : <br class="d-none d-md-block"> <span style="color: #666666">{{ $ebook-> created_at->format('d F Y')}}</span></p>
                                             </div>
                                         </div>
                                     </div>

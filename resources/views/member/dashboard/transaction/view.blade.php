@@ -54,17 +54,24 @@
                                             @if ($transaction->bundle && $transaction->bundle->course)
                                             Paket
                                             @elseif($transaction->ebook)
-                                            Buku
+                                            E-Book
                                             @else
                                             Kelas
                                             @endif
                                         Gratis</p>
                                     @else
-                                <p class="Premium">Kelas Premium</p>
-
+                                    <p class="Premium">
+                                        @if ($transaction->bundle && $transaction->bundle->course)
+                                        Paket
+                                        @elseif($transaction->ebook)
+                                        E-Book
+                                        @else
+                                        Kelas
+                                        @endif
+                                    Premium</p>
                                 @endif
                                 <div class="info mt-3">
-                                    <p class="price">Harga: Rp. {{ number_format($transaction->amount, 0, ',', '.') }}</p>
+                                    <p class="price">Harga: Rp. {{ number_format($transaction->price, 0, ',', '.') }}</p>
                                     <p class="date">Tanggal: {{ $transaction->created_at->format('d-M-Y') }}</p>
                                     <p class="status">Status:</p>
                                     <p class="status-info"

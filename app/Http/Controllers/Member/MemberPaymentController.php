@@ -45,6 +45,7 @@ class MemberPaymentController extends Controller
             'ebook_id' => 'nullable|exists:tbl_ebooks,id',
             'bundle_id' => 'nullable|exists:tbl_course_ebooks,id',
             'price' => 'required|numeric',
+            'diskon' => 'nullable|numeric',
             'termsCheck' => 'required|accepted',
         ]);
 
@@ -63,20 +64,40 @@ class MemberPaymentController extends Controller
         $bundle = CourseEbook::find($bundleId);
 
         if ($course) {
-            $name = $course->name . ' (video)';
+            $name = $course->name . ' (Kursus)';
             $price = $course->price;
         }
         if ($ebook) {
-            $name = $ebook->name . ' (eBook)';
+            $name = $ebook->name . ' (E-Book)';
             $price = $ebook->price;
         }
         if ($bundle) {
-            $name = $bundle->course->name . ' (bundle)';
+            $name = $bundle->course->name . ' (Paket Combo)';
             $price = $bundle->price;
             $courseId = $bundle->course_id;
             $ebookId = $bundle->ebook_id;
         }
 
+        // devinisi
+        $diskonRate = $request->input('diskon');
+        $validDiskon = DiskonKelas::where('rate_diskon', $diskonRate)->first();
+        // Validasi Diskon
+        if ($diskonRate && !$validDiskon) {
+            Alert::error('error', 'Pembayran Tidak Valid');
+            return redirect()->back()->withErrors(['diskon' => 'Diskon tidak valid.']);
+        }
+        // Hitung potongan harga jika ada diskon
+        if ($diskonRate) {
+            $potonganHarga = ($diskonRate / 100) * $price;
+            $calculatedPrice = $price - $potonganHarga;
+            // Validasi apakah potongan harga sesuai
+            if ($calculatedPrice < 0) {
+                Alert::error('error', 'Pembayran Tidak Valid');
+                return redirect()->back()->withErrors(['price' => 'Harga Tidak Valid']);
+            }
+            // Update harga dengan harga setelah diskon
+            $price = $calculatedPrice;
+        }
         // Periksa jika kursus gratis
         if ($price == 0) {
             $status = 'success';
@@ -108,7 +129,6 @@ class MemberPaymentController extends Controller
                     'ebook_id' => $ebookId,
                 ]);
 
-
                 Alert::success('success', 'Kelas Berhasil Dibeli');
                 if ($course) {
                     return redirect()->route('member.course.join', $course->slug);
@@ -137,7 +157,6 @@ class MemberPaymentController extends Controller
 
                 $createdTransactionMidtrans = \Midtrans\Snap::createTransaction($params);
                 $midtransRedirectUrl = $createdTransactionMidtrans->redirect_url;
-
                 Transaction::create([
                     'user_id' => $user->id,
                     'transaction_code' => $transaction_code,
@@ -148,7 +167,6 @@ class MemberPaymentController extends Controller
                     'price' => $price,
                     'status' => $status,
                 ]);
-
                 return redirect($midtransRedirectUrl);
             }
         } else {

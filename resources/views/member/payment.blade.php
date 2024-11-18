@@ -152,7 +152,6 @@
 
                             <div class="promo d-flex justify-content-between align-items-center mb-3">
                                 <p class="mb-0 fw-bold">Gunakan Kode Promo</p>
-
                                 <button type="button" class="btn btn-promo" data-bs-toggle="modal"
                                     data-bs-target="#myModal">
                                     Klaim Promo
@@ -227,6 +226,7 @@
                                         @elseif ($bundle)
                                         <input type="hidden" name="course_id" value="{{ $bundle->id }}">
                                         @endif
+                                        <input type="hidden" id="diskonInput" name="diskon">
                                         <input type="hidden" name="price" value="{{ $totalPrice }}">
                                         <div class="form-check mt-4">
                                             <input class="form-cek" type="checkbox" id="termsCheck" name="termsCheck">
@@ -249,33 +249,6 @@
     </section>
 @endsection
 @push('addon-script')
-    <script>
-        const btnPromo = document.getElementById('btnPromo');
-        const textPromo = document.getElementById('text-potongan-harga');
-        const textTotalHarga = document.getElementById('totalHarga');
-        const hargaInput = document.querySelector('input[name="price"]');
-        const promoSelect = document.getElementById('promo');
-
-        // Menyimpan harga asli (asumsi ini adalah harga awal sebelum diskon)
-        const originalPrice = parseFloat(hargaInput.value);
-
-        btnPromo.addEventListener('click', function() {
-            // Pastikan ada opsi yang dipilih
-            if (promoSelect && hargaInput) {
-                // Ambil nilai kode promo yang dipilih dan konversi ke angka
-                const selectedPromo = parseFloat(promoSelect
-                .value); // Ambil nilai sebagai angka (misalnya, 10 untuk 10%)
-                // Hitung jumlah diskon dalam Rupiah berdasarkan harga asli
-                const diskon = (selectedPromo / 100) * originalPrice;
-                // Hitung total harga setelah diskon
-                const totalHarga = originalPrice - diskon;
-                // Tampilkan diskon dalam format Rupiah
-                textPromo.innerHTML = 'Rp ' + diskon.toLocaleString(); // tampilkan diskon dalam format Rupiah
-                // Tampilkan total harga setelah diskon dalam format Rupiah
-                textTotalHarga.innerHTML = 'Rp ' + totalHarga.toLocaleString();
-                // Update nilai input harga dengan total harga setelah diskon
-                hargaInput.value = totalHarga.toFixed(2);
-            }
-        });
-    </script>
+<script src="{{ asset('nemolab/member/js/claim_diskon.js') }}">
+</script>
 @endpush

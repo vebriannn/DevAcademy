@@ -10,6 +10,7 @@
   --light-shade: #fdf8f8;
   --shade-gray: #8f8f8f;
   --lavender: #fff6f6;
+  --blue: #0774FA;
   --lavender-mist: #f0eaff;
 }
 
@@ -87,7 +88,7 @@ html::-ms-overflow-style {
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 1;
+  -webkit-line-clamp: 2;
   max-height: 3em;
   text-overflow: ellipsis;
   transition: max-height 0.3s ease, -webkit-line-clamp 0.3s ease;
@@ -126,14 +127,21 @@ html::-ms-overflow-style {
   padding-left: 0;
   list-style: none;
   border-radius: 0.15rem;
+  align-items: center; /* Pastikan semua item sejajar secara vertikal */
 }
 
-.page-item {
+.page-item, .page-item-button {
   margin: 0 0.2rem;
 }
+.page-item-button .page-link span {
+  font-size: 1.8rem;
+  font-weight: bold;
+}
 
-.page-item.disabled .page-link {
-  color: #ff9800;
+
+.page-item.disabled .page-link,
+.page-item-button.disabled .page-link {
+  color: var(--blue);
   background-color: #eeeeee;
   pointer-events: none;
   cursor: not-allowed;
@@ -141,23 +149,27 @@ html::-ms-overflow-style {
 
 .page-item.active .page-link {
   color: #fff;
-  background-color: #ff9800;
-  border-color: #ff9800;
+  background-color: var(--blue);
+  border-color: var(--blue);
 }
 
-.page-link {
-  color: #ff9800;
+.page-link, .page-item-button .page-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--blue);
   background-color: #eeeeee;
-  padding: 0.4rem 0.65rem;
-  border-radius: 0.25rem;
+  width: 40px; 
+  height: 40px;
+  border-radius: 50%;
   transition: all 0.3s;
 }
 
-.page-link:hover {
+.page-link:hover, .page-item-button .page-link:hover {
   transform: translateY(-5px);
   color: #fff;
-  background-color: #ff9800; 
-  border-color: #ff9800;
+  background-color: var(--blue); 
+  border-color: var(--blue);
   text-decoration: none;
 }
 
