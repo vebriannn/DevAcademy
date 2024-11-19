@@ -225,6 +225,7 @@ html::-ms-overflow-style {
     width: 100%;
     padding: 0 !important;
   }
+
   .ms-sm-2 {
     margin-left: 2.5rem !important;
   }
@@ -233,13 +234,13 @@ html::-ms-overflow-style {
   }
 }
 /* Responsive Design */
-@media (max-width: 768px) {
+@media (max-width: 568px) {
   .filter-head {
     font-size: 17px;
   }
-  #course-card {
-    padding: 0 15px;
-}
+    #course-card {
+      padding: 0 15px;
+  }
 
   .card .card-img-top {
     object-fit: cover;
