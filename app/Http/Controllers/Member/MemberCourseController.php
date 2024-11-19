@@ -4,7 +4,6 @@ namespace App\Http\Controllers\member;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Http;
 use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Facades\Auth;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -12,14 +11,11 @@ use Barryvdh\DomPDF\Facade\Pdf;
 
 
 use App\Models\Ebook;
-use App\Models\Category;
 use App\Models\Course;
 use App\Models\Chapter;
 use App\Models\Lesson;
 use App\Models\User;
-use App\Models\Comments;
 use App\Models\Transaction;
-use App\Models\CourseTools;
 use App\Models\Review;
 use App\Models\CourseEbook;
 use App\Models\CompleteEpisodeCourse;
@@ -33,51 +29,51 @@ class MemberCourseController extends Controller
         $categoryFilter = $request->input('filter-kelas');
         $paketFilter = $request->input('filter-paket');
         $perPage = 9; // Jumlah data per halaman
-    
+
         // Query untuk kursus
         $coursesQuery = Course::where('status', 'published');
-    
+
         // Query untuk ebook
         $ebooksQuery = Ebook::where('status', 'published');
-    
+
         // Filter pencarian
         if ($searchQuery) {
             $coursesQuery->where('name', 'LIKE', '%' . $searchQuery . '%');
             $ebooksQuery->where('name', 'LIKE', '%' . $searchQuery . '%');
         }
-    
+
         // Filter kategori
         if ($categoryFilter && $categoryFilter != 'semua') {
             $coursesQuery->where('category', $categoryFilter);
             $ebooksQuery->where('category', $categoryFilter);
         }
-    
+
         // Filter paket
         switch ($paketFilter) {
             case 'paket-kursus':
                 $coursesQuery->whereDoesntHave('courseEbooks');
                 $ebooksQuery = null; // Jangan ambil data ebook
                 break;
-    
+
             case 'paket-ebook':
                 $ebooksQuery->whereDoesntHave('courseEbooks');
                 $coursesQuery = null; // Jangan ambil data kursus
                 break;
-    
+
             case 'paket-bundling':
                 $coursesQuery->whereHas('courseEbooks');
                 $ebooksQuery = null; // Jangan ambil data ebook
                 break;
-    
+
             default:
                 $ebooksQuery->whereDoesntHave('courseEbooks');
                 break;
         }
-    
-        $courses = $coursesQuery ? $coursesQuery->with('users','courseEbooks')->select('id','mentor_id','cover', 'name', 'category','slug', 'created_at','product_type','price')->get() : collect();
-        $ebooks = $ebooksQuery ? $ebooksQuery->with('users')->select('id','mentor_id','cover', 'name', 'category','slug', 'created_at','product_type','price')->get() : collect();
+
+        $courses = $coursesQuery ? $coursesQuery->with('users', 'courseEbooks')->select('id', 'mentor_id', 'cover', 'name', 'category', 'slug', 'created_at', 'product_type', 'price')->get() : collect();
+        $ebooks = $ebooksQuery ? $ebooksQuery->with('users')->select('id', 'mentor_id', 'cover', 'name', 'category', 'slug', 'created_at', 'product_type', 'price')->get() : collect();
         $merged = $courses->concat($ebooks)->sortByDesc('created_at');
-    
+
         $page = $request->input('page', 1);
         $paginatedData = new \Illuminate\Pagination\LengthAwarePaginator(
             $merged->forPage($page, $perPage),
@@ -86,21 +82,16 @@ class MemberCourseController extends Controller
             $page,
             ['path' => $request->url(), 'query' => $request->query()]
         );
-    
+
         $courseIds = $courses->pluck('id')->toArray();
         $bundling = CourseEbook::whereIn('course_id', $courseIds)->get()->groupBy('course_id');
-    
+
         return view('member.course', [
             'data' => $paginatedData,
             'paketFilter' => $paketFilter,
-            'bundling' => $bundling, 
+            'bundling' => $bundling,
         ]);
     }
-    
-    
-    
-    
-    
 
 
     public function join($slug)
@@ -120,9 +111,9 @@ class MemberCourseController extends Controller
 
             $transaction = Auth::check()
                 ? Transaction::where('user_id', Auth::id())
-                    ->where('course_id', $courses->id)
-                    ->orderBy('created_at', 'desc')
-                    ->first()
+                ->where('course_id', $courses->id)
+                ->orderBy('created_at', 'desc')
+                ->first()
                 : null;
 
             $coursetools = Course::with('tools')->findOrFail($courses->id);
@@ -130,7 +121,7 @@ class MemberCourseController extends Controller
             $InBundle = CourseEbook::pluck('course_id')->toArray();
 
 
-            return view('member.joincourse', compact('chapters', 'courses', 'lesson', 'transaction','transactionForEbook', 'coursetools', 'reviews', 'bundling'));
+            return view('member.joincourse', compact('chapters', 'courses', 'lesson', 'transaction', 'transactionForEbook', 'coursetools', 'reviews', 'bundling'));
         } else {
             return redirect()->route('pages.error');
         }
@@ -194,16 +185,16 @@ class MemberCourseController extends Controller
         }
 
         $checkSertifikat = false;
-        if($totalLesson == $compeleteEps->count()) {
+        if ($totalLesson == $compeleteEps->count()) {
             $checkSertifikat = true;
         }
 
 
         if ($checkTrx) {
-            return view('member.detail-course', compact('chapters', 'slug', 'courses', 'user', 'checkReview', 'coursetools','reviews', 'checkSertifikat'));
+            return view('member.detail-course', compact('chapters', 'slug', 'courses', 'user', 'checkReview', 'coursetools', 'reviews', 'checkSertifikat'));
         } else {
             Alert::error('error', 'Maaf Akses Tidak Bisa, Karena Anda belum Beli Kelas!!!');
-                return redirect()->route('member.course.join', $slug);
+            return redirect()->route('member.course.join', $slug);
         }
     }
 
@@ -223,7 +214,7 @@ class MemberCourseController extends Controller
 
             $pdf = Pdf::loadView('sertifikat.view', $data)->setPaper('A4', 'landscape');
 
-            return $pdf->download('sertifikat-'.Auth::user()->name.'.pdf');
+            return $pdf->download('sertifikat-' . Auth::user()->name . '.pdf');
         }
         return redirect()->back();
     }

@@ -14,6 +14,7 @@ use App\Models\Category;
 use App\Models\Course;
 use App\Models\Tools;
 use App\Models\Chapter;
+use App\Models\CompleteEpisodeCourse;
 use App\Models\Lesson;
 use App\Models\Forum;
 use App\Models\Transaction;
@@ -187,7 +188,17 @@ class AdminCourseController extends Controller
 
         // foreach semua chapter dan semua lesson yang mempunyai id course sama untuk hapus lesson
         foreach ($chapters as $chapter) {
-            Lesson::where('chapter_id', $chapter->id)->delete();
+            Lesson::where('chapter_id', $chapter->id)->each(function ($lesson) {
+                $totalep = CompleteEpisodeCourse::where('episode_id', $lesson->id)->count();
+
+                if ($totalep > 0) {
+                    CompleteEpisodeCourse::where('episode_id', $lesson->id)->delete();
+                }
+
+
+                $lesson->delete();
+            });
+
             $chapter->delete();
         }
 
