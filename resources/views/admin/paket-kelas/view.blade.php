@@ -66,8 +66,12 @@
                                         @endif
                                     </td> --}}
                                         <td>Rp. {{ number_format($kelas->price, 0) }}</td>
-                                        @if (Auth::user()->role == 'superadmin' && !is_null($users))
-                                            <td>{{ $users->name }}</td>
+                                        @if (Auth::user()->role == 'superadmin')
+                                            @if (!is_null($users))
+                                                <td>{{ $users->name }}</td>
+                                            @else
+                                                <td>-</td>
+                                            @endif
                                         @endif
                                         <td class="">
                                             <a class="btn btn-warning"

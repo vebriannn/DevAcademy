@@ -62,7 +62,11 @@
                                         </td>
                                         <td>Rp. {{ number_format($course->price, 0) }}</td>
                                         @if (Auth::user()->role == 'superadmin')
-                                            <td>{{ $course->users->name }}</td>
+                                            @if (!is_null($course->users))
+                                                <td>{{ $course->users->name }}</td>
+                                            @else
+                                                <td>-</td>
+                                            @endif
                                         @endif
                                         <td class="d-flex justify-content-around align-items-center"
                                             style="border: none !important; ">

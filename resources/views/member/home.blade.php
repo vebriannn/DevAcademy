@@ -36,8 +36,8 @@
             </div>
             <div class="content-kelas">
                 <div class="row m-0 p-0">
-                    @if ($courses)
-                        @foreach ($courses as $course)
+                    @foreach ($courses as $course)
+                        @if ($course)
                             <div class="col-md-3 col-12 d-flex justify-content-center pb-3">
                                 <div class="card d-flex flex-row d-md-block">
                                     @if ($course->cover != null)
@@ -77,12 +77,17 @@
                                             <h5 class="fw-bold truncate-text">{{ $course->category }} :
                                                 {{ $course->name }}
                                             </h5>
-                                            <p class="avatar m-0 fw-bold me-1"><img class="me-2"
-                                                    src="
-                                            @if ($course->users->avatar != null) {{ asset('storage/images/avatars/' . $course->users->avatar) }}
+                                            <p class="avatar m-0 fw-bold me-1">
+                                                @if ($course->users && $course->users->avatar)
+                                                    <img class="me-2"
+                                                        src="{{ asset('storage/images/avatars/' . $course->users->avatar) }}"
+                                                        alt="" />
                                                 @else
-                                                {{ asset('nemolab/member/img/icon/Group 7.png') }} @endif
-                                            "alt="" />{{ $course->users->name }}
+                                                    <img class="me-2"
+                                                        src="{{ asset('nemolab/member/img/icon/Group 7.png') }}"
+                                                        alt="" />
+                                                @endif
+                                                {{ $course->users ? $course->users->name : '' }}
                                             </p>
                                         </div>
                                         <div
@@ -99,8 +104,9 @@
                                     </div>
                                 </div>
                             </div>
-                        @endforeach
-                    @endif
+                        @endif
+                    @endforeach
+
                 </div>
                 <div class="d-flex justify-content-center">
                     <a href="{{ route('member.course') }}" class="btn fw-bold d-md-none">Lihat Kelas Lainnya</a>
