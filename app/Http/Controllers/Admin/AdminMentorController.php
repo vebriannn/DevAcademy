@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use RealRashid\SweetAlert\Facades\Alert;
+use Carbon\Carbon;
+
 use App\Models\User;
 use App\Models\Submission;
 
@@ -36,7 +38,6 @@ class AdminMentorController extends Controller
         User::create([
             'name' => $request->name,
             'email' => $request->email,
-            'email_verified_at' => now(),
             'password' => Hash::make($request->password),
             'role' => 'mentor',
             'profession' => $request->profession,

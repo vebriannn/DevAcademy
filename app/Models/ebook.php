@@ -48,5 +48,4 @@ class Ebook extends Model
     {
         return $this->hasMany(CourseEbook::class, 'ebook_id');
     }
-
 }
