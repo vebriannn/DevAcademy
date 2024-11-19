@@ -16,6 +16,7 @@ use App\Http\Controllers\Member\MemberPaymentController;
 use App\Http\Controllers\Member\MemberTransactionController;
 use App\Http\Controllers\Member\MemberReviewController;
 use App\Http\Controllers\Member\MemberEbookController;
+use App\Http\Controllers\member\MemberCourseController;
 
 // admin routes
 use App\Http\Controllers\Admin\Auth\AdminLoginController;
@@ -26,7 +27,6 @@ use App\Http\Controllers\Admin\AdminLessonController;
 use App\Http\Controllers\Admin\AdminEbookController;
 use App\Http\Controllers\Admin\AdminCourseEbookController;
 use App\Http\Controllers\Admin\AdminDiskonController;
-use App\Http\Controllers\member\MemberCourseController;
 use App\Http\Controllers\Admin\AdminStudentController;
 use App\Http\Controllers\Admin\AdminSuperadminController;
 use App\Http\Controllers\Admin\AdminSubmissionController;
