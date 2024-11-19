@@ -220,11 +220,26 @@ html::-ms-overflow-style {
   border-radius: 5px;
 }
 
+@media screen and (max-width: 1024px) {
+  #course-card {
+    width: 100%;
+    padding: 0 !important;
+  }
+  .ms-sm-2 {
+    margin-left: 2.5rem !important;
+  }
+  .not-found img {
+    max-width: 100% !important;
+  }
+}
 /* Responsive Design */
 @media (max-width: 768px) {
   .filter-head {
     font-size: 17px;
   }
+  #course-card {
+    padding: 0 15px;
+}
 
   .card .card-img-top {
     object-fit: cover;
