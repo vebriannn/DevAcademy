@@ -87,7 +87,7 @@
                                                         src="{{ asset('nemolab/member/img/icon/Group 7.png') }}"
                                                         alt="" />
                                                 @endif
-                                                {{ $course->users ? $course->users->name : '' }}
+                                                {{ $course->users ? $course->users->name : '-' }}
                                             </p>
                                         </div>
                                         <div

@@ -66,20 +66,23 @@ class MemberPaymentController extends Controller
         if ($course) {
             $name = $course->name . ' (Kursus)';
             $harga = $course->price;
-            $price = $harga * 1.11 + 5000;
-
-        }
-        if ($ebook) {
+            if ($harga != 0) {
+                $price = $harga * 1.11 + 5000;
+            }
+        } elseif ($ebook) {
             $name = $ebook->name . ' (E-Book)';
             $harga = $ebook->price;
-            $price = $harga * 1.11 + 5000;
-        }
-        if ($bundle) {
+            if ($harga != 0) {
+                $price = $harga * 1.11 + 5000;
+            }
+        } elseif ($bundle) {
             $name = $bundle->course->name . ' (Paket Combo)';
             $courseId = $bundle->course_id;
             $ebookId = $bundle->ebook_id;
             $harga = $bundle->price;
-            $price = $harga * 1.11 + 5000;
+            if ($harga != 0) {
+                $price = $harga * 1.11 + 5000;
+            }
         }
 
         // devinisi
@@ -98,6 +101,7 @@ class MemberPaymentController extends Controller
             // Update harga dengan harga setelah diskon
             $price = intval($potonganHarga);
         }
+
         // Periksa jika kursus gratis
         if ($price == 0) {
             $status = 'success';
@@ -210,12 +214,29 @@ class MemberPaymentController extends Controller
                 return redirect($midtransRedirectUrl);
             }
         } else {
-            // Redirect ke transaksi pending sebelumnya jika ada
-            $url = env('MIDTRANS_PRODUCTION')
-                ? "https://app.midtrans.com/snap/v4/redirection/{$checkTransaction->snap_token}"
-                : "https://app.sandbox.midtrans.com/snap/v4/redirection/{$checkTransaction->snap_token}";
+            if ($status == 'success') {
 
-            return redirect($url);
+                Transaction::create($dataTransaction);
+
+                // jika bundle maka otomatis mengisi ebook_id dan course_id sesuai dengan nilai dari tbl_course_ebook
+                MyListCourse::create($myListCourse);
+
+                Alert::success('success', 'Kelas Berhasil Dibeli');
+                if ($course) {
+                    return redirect()->route('member.course.join', $course->slug);
+                } elseif ($ebook) {
+                    return redirect()->route('member.ebook.join', $ebook->slug);
+                } elseif ($bundle) {
+                    return redirect()->route('member.course.join', $bundle->course->slug);
+                }
+            } else {
+                $url = env('MIDTRANS_PRODUCTION')
+                    ? "https://app.midtrans.com/snap/v4/redirection/{$checkTransaction->snap_token}"
+                    : "https://app.sandbox.midtrans.com/snap/v4/redirection/{$checkTransaction->snap_token}";
+
+                return redirect($url);
+            }
+            // Redirect ke transaksi pending sebelumnya jika ada
         }
     }
 

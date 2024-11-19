@@ -17,11 +17,17 @@
             @endif
             <div class="harga mt-4">
                 <p class="p-0 m-0 fw-semibold">Harga</p>
-                @php
-                    $currentBundling = $bundling->firstWhere('course_id', $course->id);
-                @endphp
                 <p class="p-0 m-0 fw-semibold">
-                    {{ $currentBundling ? ($currentBundling->price == 0 ? 'Gratis' : 'Rp' . number_format($currentBundling->price, 0, ',', '.')) : ($course->price == 0 ? 'Gratis' : 'Rp' . number_format($course->price, 0, ',', '.')) }}
+                    @php
+                        $currentBundling = $bundling[$course->id] ?? null;
+                    @endphp
+                    {{ $currentBundling
+                        ? ($currentBundling->price == 0
+                            ? 'Gratis'
+                            : 'Rp' . number_format($currentBundling->price, 0, ',', '.'))
+                        : ($course->price == 0
+                            ? 'Gratis'
+                            : 'Rp' . number_format($course->price, 0, ',', '.')) }}
                 </p>
             </div>
         </div>
@@ -32,24 +38,32 @@
             <div class="title-card">
                 <h5 class="fw-bold truncate-text">{{ $course->category }} : {{ $course->name }}</h5>
                 <p class="avatar m-0 fw-bold me-1">
-                    @if ($course->users && $course->users->avatar)
+                    @if ($course->users->avatar != null)
                         <img class="me-2" src="{{ asset('storage/images/avatars/' . $course->users->avatar) }}"
                             alt="" />
                     @else
                         <img class="me-2" src="{{ asset('nemolab/member/img/icon/Group 7.png') }}" alt="" />
                     @endif
-                    {{ $course->users ? $course->users->name : '' }}
+                    {{ $course->users->name }}
                 </p>
             </div>
             <div class="btn-group-harga d-flex justify-content-between align-items-center mt-md-3">
                 <div class="harga d-none d-md-block">
                     <p class="p-0 m-0 fw-semibold">Harga</p>
-                    @php
-                        $currentBundling = $bundling->firstWhere('course_id', $course->id);
-                    @endphp
                     <p class="p-0 m-0 fw-semibold">
-                        {{ $currentBundling ? ($currentBundling->price == 0 ? 'Gratis' : 'Rp' . number_format($currentBundling->price, 0, ',', '.')) : ($course->price == 0 ? 'Gratis' : 'Rp' . number_format($course->price, 0, ',', '.')) }}
+                        @php
+                            $currentBundling = $bundling[$course->id] ?? null;
+                        @endphp
+                        {{ $currentBundling
+                            ? ($currentBundling->price == 0
+                                ? 'Gratis'
+                                : 'Rp' . number_format($currentBundling->price, 0, ',', '.'))
+                            : ($course->price == 0
+                                ? 'Gratis'
+                                : 'Rp' . number_format($course->price, 0, ',', '.')) }}
                     </p>
+
+
                 </div>
                 <a href="{{ route('member.course.join', $course->slug) }}" class="btn btn-primary">Mulai Belajar</a>
             </div>

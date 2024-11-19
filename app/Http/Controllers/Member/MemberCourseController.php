@@ -84,7 +84,12 @@ class MemberCourseController extends Controller
         );
 
         $courseIds = $courses->pluck('id')->toArray();
-        $bundling = CourseEbook::whereIn('course_id', $courseIds)->get()->groupBy('course_id');
+        $bundling = CourseEbook::whereIn('course_id', $courses->pluck('id'))
+            ->get()
+            ->mapWithKeys(function ($item) {
+                return [$item->course_id => $item];
+            });
+
 
         return view('member.course', [
             'data' => $paginatedData,

@@ -29,18 +29,18 @@ class AdminCourseEbookController extends Controller
     public function create()
     {
         $user = Auth::user();
-        if($user->role === 'superadmin'){
+        if ($user->role === 'superadmin') {
             $courses = Course::with('users')->where('status', 'published')->whereDoesntHave('courseEbooks')->OrderBy('id', 'DESC')->get();
             $ebooks = Ebook::with('users')->where('status', 'published')->whereDoesntHave('courseEbooks')->orderBy('id', 'DESC')->get();
-        }else{
+        } else {
             $courses = Course::where('mentor_id', Auth::user()->id)
-            ->where('status', 'published')
-            ->whereDoesntHave('courseEbooks')
-            ->get();
+                ->where('status', 'published')
+                ->whereDoesntHave('courseEbooks')
+                ->get();
             $ebooks = Ebook::where('mentor_id', Auth::user()->id)
-            ->where('status', 'published')
-            ->whereDoesntHave('courseEbooks')
-            ->get();
+                ->where('status', 'published')
+                ->whereDoesntHave('courseEbooks')
+                ->get();
         }
         return view('admin.paket-kelas.create', compact('courses', 'ebooks'));
     }
@@ -76,16 +76,16 @@ class AdminCourseEbookController extends Controller
         $id = $requests->query('id');
         $paketKelas = CourseEbook::with(['course', 'ebook'])->where('id', $id)->first();
         $user = Auth::user();
-        if($user->role === 'superadmin'){
+        if ($user->role === 'superadmin') {
             $courses = Course::with('users')->where('status', 'published')->OrderBy('id', 'DESC')->get();
             $ebooks = Ebook::with('users')->where('status', 'published')->orderBy('id', 'DESC')->get();
-        }else{
+        } else {
             $courses = Course::where('mentor_id', Auth::user()->id)
-            ->where('status', 'published')
-            ->get();
+                ->where('status', 'published')
+                ->get();
             $ebooks = Ebook::where('mentor_id', Auth::user()->id)
-            ->where('status', 'published')
-            ->get();
+                ->where('status', 'published')
+                ->get();
         }
         return view('admin.paket-kelas.update', compact('courses', 'ebooks', 'paketKelas'));
     }
@@ -108,7 +108,7 @@ class AdminCourseEbookController extends Controller
             'type' => $requests->type,
             'price' => $harga,
         ]);
-    
+
         Alert::success('Success', 'Paket Berhasil Di Update');
         return redirect()->route('admin.paket-kelas');
     }
