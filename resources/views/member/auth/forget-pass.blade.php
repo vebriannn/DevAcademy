@@ -30,7 +30,7 @@
                             <div class="mb-5">
                                 @csrf
                                 <label for="email" class="form-label fw-bold">Email</label>
-                                <input type="email" id="email" name="email" class="form-control fw-bold"
+                                <input type="email" id="email" name="email" class="form-control fw-bold py-2"
                                     placeholder="masukan email disini" required>
                                 @error('email')
                                     <div class="text-danger">{{ $message }}</div>
@@ -38,10 +38,10 @@
                             </div>
                             <div class="mb-3">
                                 @if (session('statusSend') != 'limit')
-                                    <button type="submit" class="btn btn-primary w-100 rounded-start fw-bold">Reset
+                                    <button type="submit" class="btn btn-primary py-2 w-100 rounded-start fw-bold">Reset
                                         Password</button>
                                 @else
-                                    <button class="btn btn-orange w-100 rounded-start fw-bold" disabled>Reset
+                                    <button class="btn btn-orange py-2 w-100 rounded-start fw-bold" disabled>Reset
                                         Password</button>
                                 @endif
                             </div>

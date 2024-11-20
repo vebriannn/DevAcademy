@@ -4,20 +4,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="assets/img/logo-nemolab.png" type="image/x-icon" />
+    <link rel="icon" href="{{ asset('nemolab/member/img/logo-nemolab.png') }}" type="image/x-icon" />
     <title>Nemolab - @yield('title')</title>
 
     <!-- boostrap css -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
-
     {{-- aos --}}
     <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
-    <link rel="icon" href="{{ asset('nemolab/member/img/nemolab.ico') }}" type="image/x-icon">
-
-
     @stack('prepend-style')
     <link rel="stylesheet" href="{{ asset('nemolab/components/member/css/navbar.css') }} ">
     <link rel="stylesheet" href="{{ asset('nemolab/components/member/css/footer.css') }} ">
@@ -56,8 +51,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 
-    {{-- sidebar scroll effect --}}
-    <script src="{{ asset('nemolab/member/js/scroll-dashboard.js') }}"></script>
 
     <!-- Inisialisasi AOS -->
     <script>
@@ -65,12 +58,6 @@
             once: true
         });
     </script>    
-    <script>
-        document.querySelector('.filter-togle').addEventListener('click', function() {
-            const sidebar = document.querySelector('.sidebar');
-            sidebar.classList.toggle('show-sidebar');
-        });
-      </script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const navbarToggler = document.querySelector('.dropdown-logout');
@@ -94,21 +81,6 @@
             }
         });
     </script>
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const sidebarLinks = document.querySelectorAll(".side-tabs li a");
-            
-            sidebarLinks.forEach(link => {
-                const linkUrl = new URL(link.href);
-                const currentUrl = new URL(window.location.href);
-                if (linkUrl.origin === currentUrl.origin && linkUrl.pathname === currentUrl.pathname) {
-                    link.parentElement.classList.add("active");
-                } else {
-                    link.parentElement.classList.remove("active");
-                }
-            });
-        });
-        </script>
     @stack('addon-script')
 
 </body>

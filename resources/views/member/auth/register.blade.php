@@ -15,7 +15,7 @@
                         <img src="{{ asset('nemolab/member/img/bismen.jpeg') }}" alt="Team collaboration"
                             class="img-fluid rounded-start">
                     </div>
-                    <div class="card-body ps-4">
+                    <div class="card-body">
                         <a href="{{ route('home') }}" class="btn-back mb-4">
                             <img src="{{ asset('nemolab/member/img/icon/arrow.png') }}" alt="Back" class="back-icon">
                         </a>
@@ -46,7 +46,7 @@
                                         <div class="">
                                             <label for="name" class="form-label fw-bold">Nama pengguna</label>
                                             <input type="text" name="name" placeholder="Masukan nama disini"
-                                                value="{{ old('name') }}" class="form-control fw-bold" required>
+                                                value="{{ old('name') }}" class="form-control py-2 fw-bold" required>
                                             @error('name')
                                                 <div class="text-danger">{{ $message }}</div>
                                             @enderror
@@ -56,7 +56,7 @@
                                         <div class="">
                                             <label for="email" class="form-label fw-bold">Email</label>
                                             <input type="email" name="email" placeholder="Masukan email disini"
-                                                value="{{ old('email') }}" class="form-control fw-bold" required>
+                                                value="{{ old('email') }}" class="form-control py-2 fw-bold" required>
                                             @error('email')
                                                 <div class="text-danger">{{ $message }}</div>
                                             @enderror
@@ -65,13 +65,13 @@
                                 </div>
                                 <div class="mb-3">
                                     <label for="posisi" class="form-label fw-bold">Pilih Posisi Impian Anda</label>
-                                    <select name="profession" id="posisi" class="form-select">
+                                    <select name="profession" id="posisi" class="py-2 form-select">
                                         <option value="Pelajar Jangka Panjang">Pelajar Jangka Panjang</option>
                                         <option value="UI/UX Designer">UI/UX Designer</option>
                                         <option value="Frontend Developer">Frontend Developer</option>
                                         <option value="Backend Developer">Backend Developer</option>
                                         <option value="Wordpress Developer">Wordpress Developer</option>
-                                        <option value="Graphic Designer">Graphic Designer</option>
+                                        <option value="Graphics Designer">Graphics Designer</option>
                                         <option value="Fullstack Developer">Fullstack Developer</option>
                                     </select>
                                     @error('profession')
@@ -81,7 +81,7 @@
                                 <div class="mb-3">
                                     <label for="password" class="form-label fw-bold">Buat Kata sandi</label>
                                     <input type="password" name="password" placeholder="Masukan kata sandi disini"
-                                        id="password" class="form-control fw-bold" required>
+                                        id="password" class="form-control py-2 fw-bold" required>
                                     @error('password')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
@@ -89,7 +89,7 @@
 
                                 <div class="mb-3">
                                     <button type="submit"
-                                        class="btn btn-primary w-100 rounded-start fw-bold">Daftar</button>
+                                        class="btn btn-primary py-2 w-100 rounded-start fw-bold">Daftar</button>
                                 </div>
                             </div>
                         </form>

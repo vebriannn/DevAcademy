@@ -57,12 +57,15 @@ class AdminCourseEbookController extends Controller
 
         $course = Course::where('name', $requests->name_course)->first();
         $ebook = Ebook::where('name', $requests->name_ebook)->first();
+        $harga = $requests->type === 'premium' 
+        ? ($course->price + $ebook->price) * 0.8 
+        : 0;
 
         CourseEbook::create([
             'course_id' => $course->id,
             'ebook_id' => $ebook->id,
             'type' => $requests->type,
-            'price' => $requests->price,
+            'price' =>  $harga,
             'mentor_id' => Auth::user()->id
         ]);
 
@@ -98,20 +101,22 @@ class AdminCourseEbookController extends Controller
             'price' => 'required|numeric|min:0',
             'type' => 'required|in:free,premium',
         ]);
-        $courseEbook = CourseEbook::where('id', $id)->first();
-        $course = Course::where('name', $requests->name_course)->first();
-        $ebook = Ebook::where('name', $requests->name_ebook)->first();
-        $harga = ($course->price + $ebook->price) * 0.8;
+        $courseEbook = CourseEbook::where('id', $id)->firstOrFail();
+        $course = Course::where('name', $requests->name_course)->firstOrFail();
+        $ebook = Ebook::where('name', $requests->name_ebook)->firstOrFail();
+        $harga = $requests->type === 'premium' 
+            ? ($course->price + $ebook->price) * 0.8 
+            : 0;
         $courseEbook->update([
             'course_id' => $course->id,
             'ebook_id' => $ebook->id,
             'type' => $requests->type,
             'price' => $harga,
         ]);
-
         Alert::success('Success', 'Paket Berhasil Di Update');
         return redirect()->route('admin.paket-kelas');
     }
+    
 
     public function delete(Request $requests)
     {

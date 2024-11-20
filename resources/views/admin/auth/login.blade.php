@@ -14,7 +14,7 @@
                 <div class="img-container">
                     <img src="{{ asset('nemolab/member/img/bismen.jpeg') }}" alt="Team collaboration" class="img-fluid rounded-start">
                 </div>
-                <div class="card-body ps-4">
+                <div class="card-body">
                     <a href="{{ route('home') }}" class="btn-back mb-4">
                         <img src="{{ asset('nemolab/member/img/icon/arrow.png') }}" alt="Back" class="back-icon">
                     </a>
@@ -26,14 +26,14 @@
                         @csrf
                         <div class="mb-1" >
                             <label for="email" class="form-label fw-bold">Email</label>
-                            <input type="email" name="email" placeholder="Masukan email anda" value="{{ old('email') }}" class="form-control fw-bold" required>
+                            <input type="email" name="email" placeholder="Masukan email anda" value="{{ old('email') }}" class="form-control fw-bold py-2" required>
                             @error('email')
                             <div class="text-danger">{{ $message }}</div>
                             @enderror
                         </div>
                         <div class="mb-5" >
                             <label for="password" class="form-label fw-bold">Kata sandi</label>
-                            <input type="password" name="password" placeholder="Masukan password anda" id="password" class="form-control fw-bold" required>
+                            <input type="password" name="password" placeholder="Masukan password anda" id="password" class="form-control fw-bold py-2" required>
                             @error('password')
                             <div class="text-danger">{{ $message }}</div>
                             @enderror

@@ -19,6 +19,12 @@ body {
 .section-main {
     margin-top: 120px;
 } 
+.filter-transaction {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch; 
+    scrollbar-width: thin;
+    scrollbar-color: rgba(165, 165, 165, 0.678); 
+}
 
 .filter-transaction .nav-tabs {
     display: flex;
@@ -26,17 +32,21 @@ body {
     padding: 0;
     margin: 0;
     border: none;
+    white-space: nowrap; 
 }
 
 .filter-transaction .nav-tabs li {
     margin-right: 15px;
+    flex-shrink: 0;
 }
 
 .filter-transaction .nav-tabs a {
     text-decoration: none;
+    margin-bottom: .5rem;
     padding: 10px 15px;
     border-radius: 20px;
     color: var(--primary-color);
+    display: inline-block;
 }
 
 .filter-transaction .nav-tabs a:hover {
@@ -48,6 +58,7 @@ body {
     background-color: var(--primary-color);
     color: var(--text-color);
 }
+
 
 .card {
     background-color: var(--card-bg-color);

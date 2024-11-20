@@ -12,26 +12,26 @@
 <section class="section-pilh-kelas" id="section-pilih-kelas">
     <div class="container-fluid mt-5 pt-5">
         <div class="row">
-            <div class="col-12 mb-5 d-lg-none">
+            <div class="mobile-filter col-12 mb-5 d-lg-none fixed-top py-3">
                 <h3 class="fw-bold">Pilihan Kelas</h3>
-                <div class="filter-menu d-flex justify-content-between align-items-center">
-                    <form action="{{ route('member.course') }}" method="GET" class="d-flex">
-                        <div class="row">
-                            <div class="search">
-                                <input type="text" name="search-input" class="searchTerm" placeholder="Cari Kelas Disini" id="search-input" value="{{ request('search-input') }}">
-                                <button type="submit" class="searchButton">
-                                    <i class="bi bi-search"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </form>                        
+                <div class="filter-menu d-flex align-items-center gap-2">
                     <button class="filter-togle btn btn-warning">
                         <img src="{{ asset('nemolab/components/member/img/filter.png') }}" alt="">
                     </button>
+                    <form action="{{ route('member.course') }}" method="GET" class="d-flex flex-grow-1">
+                        <div class="search position-relative w-100">
+                            <input type="text" name="search-input" class="searchTerm form-control" 
+                                placeholder="Cari Kelas Disini" id="search-input" 
+                                value="{{ request('search-input') }}">
+                            <button type="submit" class="searchButton position-absolute">
+                                <i class="bi bi-search"></i>
+                            </button>
+                        </div>
+                    </form>
                 </div>
             </div>
-            @include('components.includes.member.sidebar-filter')
-            <div class="card-container col-md-9 pe-4" id="course-card">
+            @include('components.includes.member.sidebar-filter')            
+            <div class="card-container col-md-9 pe-md-4 mt-5 mt-md-0" id="course-card">
                 <div class="row" id="row">
                     @if($data->isEmpty() && $data->isEmpty())
                         <div class="col-md-12 d-flex justify-content-center align-items-center">
@@ -127,3 +127,12 @@
     </div>
 </section>
 @endsection
+@push('addon-script')
+<script src="{{ asset('nemolab/member/js/scroll-dashboard.js') }}"></script>
+<script>
+    document.querySelector('.filter-togle').addEventListener('click', function() {
+        const sidebar = document.querySelector('.sidebar');
+        sidebar.classList.toggle('show-sidebar');
+    });
+</script>
+@endpush

@@ -1,4 +1,4 @@
-@extends('components.layouts.member.app')
+@extends('components.layouts.member.dashboard')
 
 @section('title', 'Nemolab - Lihat informasi dan perkembangan anda disini')
 
@@ -21,7 +21,7 @@
                             <li><a href="{{ route('member.transaction', ['status' => null]) }}" class="{{ is_null($status) ? 'active' : '' }}">Semua</a></li>
                             <li><a href="{{ route('member.transaction', ['status' => 'success']) }}" class="{{ $status === 'success' ? 'active' : '' }}">Berhasil</a></li>
                             <li><a href="{{ route('member.transaction', ['status' => 'pending']) }}" class="{{ $status === 'pending' ? 'active' : '' }}">Pending</a></li>
-                            <li><a href="{{ route('member.transaction', ['status' => 'refund']) }}" class="{{ $status === 'refund' ? 'active' : '' }}">Refund</a></li>
+                            {{-- <li><a href="{{ route('member.transaction', ['status' => 'refund']) }}" class="{{ $status === 'refund' ? 'active' : '' }}">Refund</a></li> --}}
                             <li><a href="{{ route('member.transaction', ['status' => 'failed']) }}" class="{{ $status === 'failed' ? 'active' : '' }}">Gagal</a></li>
                         </ul>
                     </div>                    
@@ -123,16 +123,4 @@
     @include('components.includes.member.sidebar-dashboard-mobile')
 @endsection
 @push('addon-script')
-    {{-- <script>
-    document.addEventListener("DOMContentLoaded", function() {
-    const sidebarLinks = document.querySelectorAll(".nav-tabs li a");
-    sidebarLinks.forEach(link => {
-        if (link.href === window.location.href) {
-            link.parentElement.classList.add("active");
-        } else {
-            link.parentElement.classList.remove("active");
-        }
-    });
-}); --}}
-    </script>
 @endpush

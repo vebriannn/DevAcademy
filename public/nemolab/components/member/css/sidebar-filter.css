@@ -102,7 +102,7 @@ input[type="radio"]:checked + label span {
     transition: background-color 0.24s linear;
 }
 /* Scrollbar sidebar */
-.sidebar::-webkit-scrollbar {
+/* .sidebar::-webkit-scrollbar {
     width: 6px;
     margin-right: 100px;
 }
@@ -114,37 +114,67 @@ input[type="radio"]:checked + label span {
 .sidebar::-webkit-scrollbar-thumb {
     background-color: rgb(177, 176, 176) ;
     border-radius: 15px;
+} */
+
+/* General Styling */
+.mobile-filter {
+    margin-top: 2rem;
+    z-index: 999;
+    background-color: var(--lavender);
 }
 
-/* Responsive Design */
+/* Search Input and Button Styling */
+.search {
+    position: relative;
+    display: flex;
+    width: 100%;
+}
+
+.searchTerm {
+    width: 100%;
+    padding-right: 45px; 
+    border: 1px solid #ddd;
+    border-radius: 25px;
+    padding: 8px 15px;
+    font-size: 14px;
+}
+
+.searchButton {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    font-size: 18px;
+    color: #666;
+    cursor: pointer;
+}
+
+.searchButton i {
+    pointer-events: none;
+}
+
+/* Sidebar Styling */
 @media (max-width: 1024px) {
     .sidebar {
         position: fixed;
-        top: 80px;
+        top: 135px;
         left: 0;
-        transform: translateX(-100%); 
-        height: 100vh;
-        width: 40%; 
-        z-index: 999; 
-        transition: transform 0.3s ease-in-out; 
+        transform: translateX(-100%);
+        height: calc(100vh - 135px);
+        width: 40%;
+        z-index: 10000;
+        transition: transform 0.3s ease-in-out;
     }
+
     .sidebar.show-sidebar {
-        transform: translateX(0); 
+        transform: translateX(0);
     }
 }
-/* Sidebar Mobile */
+
 @media (max-width: 767px) {
     .sidebar {
-        position: fixed;
-        top: 80px;
-        left: 0;
-        transform: translateX(-100%); 
-        height: 100vh;
-        width: 80%; 
-        z-index: 999; 
-        transition: transform 0.3s ease-in-out; 
-    }
-    .sidebar.show-sidebar {
-        transform: translateX(0); 
+        width: 80%;
     }
 }

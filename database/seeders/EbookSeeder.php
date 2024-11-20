@@ -22,7 +22,7 @@ class EbookSeeder extends Seeder
 
         // Use Faker to generate data
         $faker = Faker::create();
-        $numEbooks = 200;
+        $numEbooks = 3;
 
     
         $timestamp = Carbon::now();

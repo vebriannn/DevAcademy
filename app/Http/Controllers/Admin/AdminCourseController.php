@@ -54,7 +54,7 @@ class AdminCourseController extends Controller
         $request->validate([
             'category' => 'required|string|max:255',
             'name' => 'required|string|max:255',
-            'cover' => 'required|image|mimes:jpeg,png,jpg',
+            'cover' => 'required|image|mimes:jpeg,png,jpg|max:2048',
             'type' => 'required|in:free,premium',
             'status' => 'required|in:draft,published',
             'price' => 'required|integer',
@@ -113,6 +113,7 @@ class AdminCourseController extends Controller
         $course = Course::where('id', $id)->first();
 
         $request->validate([
+            'cover' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
             'category' => 'required|string|max:255',
             'name' => 'required|string|max:255',
             'type' => 'required|in:free,premium',

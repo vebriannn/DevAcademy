@@ -92,46 +92,36 @@
 @endsection
 
     @push('addon-script')
-        <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                const courseSelect = document.getElementById('courseSelect');
-                const ebookSelect = document.getElementById('ebookSelect');
-                const discountInput = document.getElementById('discount');
-                const priceInput = document.getElementById('totalPrice');
-                const typeSelect = document.getElementById('type');
-
-                const discountContainer = discountInput.closest('.entryarea');
-                const priceContainer = priceInput.closest('.entryarea');
-
-                function updateTotalPrice() {
-                    const coursePrice = parseInt(courseSelect.selectedOptions[0].getAttribute('data-price'), 10) || 0;
-                    const ebookPrice = parseInt(ebookSelect.selectedOptions[0].getAttribute('data-price'), 10) || 0;
-                    let discount = parseInt(discountInput.value, 10) || 0;
-
-                    if (typeSelect.value === 'premium') {
-                        discountContainer.classList.remove('d-none');
-                        priceContainer.classList.remove('d-none');
-
-                        if (discount < 0) discount = 0;
-                        if (discount > 100) discount = 100;
-
-                        let totalPrice = coursePrice + ebookPrice;
-                        totalPrice -= Math.floor(totalPrice * discount / 100);
-                        totalPrice = totalPrice < 0 ? 0 : totalPrice;
-
-                        priceInput.value = totalPrice;
-                    } else {
-                        discountContainer.classList.add('d-none');
-                        priceContainer.classList.add('d-none');
-                        priceInput.value = 0;
-                    }
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const courseSelect = document.getElementById('courseSelect');
+            const ebookSelect = document.getElementById('ebookSelect');
+            const priceInput = document.getElementById('totalPrice');
+            const typeSelect = document.getElementById('type');
+        
+            const priceContainer = priceInput.closest('.entryarea');
+        
+            function updateTotalPrice() {
+                const coursePrice = parseInt(courseSelect.selectedOptions[0].getAttribute('data-price'), 10) || 0;
+                const ebookPrice = parseInt(ebookSelect.selectedOptions[0].getAttribute('data-price'), 10) || 0;
+        
+                if (typeSelect.value === 'premium') {
+                    priceContainer.classList.remove('d-none');
+        
+                    let totalPrice = (coursePrice + ebookPrice) * 0.8;
+                    totalPrice = Math.max(totalPrice, 0);
+        
+                    priceInput.value = Math.floor(totalPrice);
+                } else {
+                    priceContainer.classList.add('d-none');
+                    priceInput.value = 0;
                 }
-
-                courseSelect.addEventListener('change', updateTotalPrice);
-                ebookSelect.addEventListener('change', updateTotalPrice);
-                discountInput.addEventListener('input', updateTotalPrice);
-                typeSelect.addEventListener('change', updateTotalPrice);
-                updateTotalPrice();
-            });
+            }
+            courseSelect.addEventListener('change', updateTotalPrice);
+            ebookSelect.addEventListener('change', updateTotalPrice);
+            typeSelect.addEventListener('change', updateTotalPrice);
+            updateTotalPrice();
+        });
+        
         </script>
     @endpush
