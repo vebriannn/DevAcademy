@@ -150,9 +150,15 @@ body {
 }
 
 @media screen and (max-width: 576px) {
+
+    #view-course-section .container-fluid .row .col-lg-8 iframe {
+        border-radius: 20px 20px 0px 0px;
+    }
+
     #view-course-section .container-fluid .row .col-lg-8 {
         width: 100%;
         height: max-content;
+        box-shadow: 0 .125rem .25rem rgba(0, 0, 0, 0.075) !important;
     }
 
     #view-course-section .container-fluid .row .col-lg-4 {
@@ -171,6 +177,7 @@ body {
 
     #view-course-section .container-fluid .row .col-lg-8 h2 {
         font-size: 20px;
+        margin-top: 4px !important;
     }
 
     #view-course-section .container-fluid .row .col-lg-4 .card .card-body .content h5 {

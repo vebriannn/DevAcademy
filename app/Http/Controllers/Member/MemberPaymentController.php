@@ -199,6 +199,13 @@ class MemberPaymentController extends Controller
                         'name' => $user->name,
                         'email' => $user->email,
                     ],
+                    'enabled_payments' => [
+                        'bank_transfer',
+                        'qris',
+                        'credit_card',
+                        'gopay',
+                        'shopeepay'
+                    ],
                     'callbacks' => [
                         'finish' => route('member.transaction'),
                         'error' => route('member.transaction'),
