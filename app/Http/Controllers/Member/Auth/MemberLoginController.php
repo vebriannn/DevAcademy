@@ -12,14 +12,16 @@ use App\Models\User;
 
 class MemberLoginController extends Controller
 {
-    public function index() {
+    public function index()
+    {
         if (Auth::check()) {
             return redirect()->route('home');
         }
         return view('member.auth.login');
     }
 
-    public function login(Request $requests) {
+    public function login(Request $requests)
+    {
 
         $requests->validate([
             'email' => 'required|email',
@@ -53,11 +55,15 @@ class MemberLoginController extends Controller
 
     public function logout(Request $request)
     {
+        $role = Auth::user()->role;
         Auth::logout();
         // Log::info('Logout Berhasil ');
         $request->session()->invalidate();
         $request->session()->regenerateToken();
         Alert::success('Success', 'Logout Berhasil');
+        if ($role != 'students') {
+            return redirect()->route('admin.login');
+        }
         return redirect()->route('member.login');
     }
 }

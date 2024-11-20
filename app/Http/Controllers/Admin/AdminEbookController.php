@@ -44,14 +44,14 @@ class AdminEbookController extends Controller
             $validatedData['price'] = 0;
         }
 
-        $cover = $request->file('cover');
+        $cover =  $request->cover;
         $coverName = Str::random(10) . '_' . $cover->getClientOriginalName();
-        $cover->storeAs('public/images/covers/ebook', $coverName);
+        $cover->storeAs('public/images/covers/'.$coverName);
         $validatedData['cover'] = $coverName;
 
-        $ebookFile = $request->file('file_ebook');
+        $ebookFile = $request->file_ebook;
         $ebookFileName = Str::random(10) . '_' . $ebookFile->getClientOriginalName();
-        $ebookFile->storeAs('public/file_pdf', $ebookFileName);
+        $ebookFile->storeAs('public/file_pdf/' . $ebookFileName);
         $validatedData['file_ebook'] = $ebookFileName;
 
         $validatedData['slug'] = Str::slug($validatedData['name']);
@@ -91,18 +91,18 @@ class AdminEbookController extends Controller
         }
 
         if ($request->hasFile('cover')) {
-            $cover = $request->file('cover');
+            $cover = $request->cover;
             $coverName = Str::random(10) . '_' . $cover->getClientOriginalName();
-            $cover->storeAs('public/images/covers/ebook', $coverName);
+            $cover->storeAs('public/images/covers/'.$coverName);
 
-            Storage::delete('public/images/covers/ebook/' . $ebook->cover);
+            Storage::delete('public/images/covers/'.$ebook->cover);
             $validatedData['cover'] = $coverName;
         }
 
         if ($request->hasFile('file_ebook')) {
-            $ebookFile = $request->file('file_ebook');
+            $ebookFile = $request->file_ebook;
             $ebookFileName = Str::random(10) . '_' . $ebookFile->getClientOriginalName();
-            $ebookFile->storeAs('public/file_pdf', $ebookFileName);
+            $ebookFile->storeAs('public/file_pdf/' . $ebookFileName);
 
             Storage::delete('public/file_pdf/' . $ebook->file_ebook);
             $validatedData['file_ebook'] = $ebookFileName;
@@ -122,7 +122,7 @@ class AdminEbookController extends Controller
         $ebook = Ebook::where('id', $id)->first();
         $ebook->delete();
         Storage::delete('public/file_pdf/' . $ebook->file_ebook);
-        Storage::delete('public/images/covers/ebook/' . $ebook->cover);
+        Storage::delete('public/images/covers/' . $ebook->cover);
 
         Alert::success('Success', 'eBook Berhasil Di Hapus');
         return redirect()->route('admin.ebook');

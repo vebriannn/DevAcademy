@@ -7,14 +7,14 @@
 @endpush
 
 @section('content')
-<main class="container mt-5 pt-5 pb-5"> 
+<main class="container mt-5 pt-5 pb-5">
     <div class="row">
         <!-- Kolom Kiri -->
         <div class="layout-kiri col-md-8">
             <h3 data-aos="fade-right" style="word-wrap: break-word; white-space: normal;">{{ $ebooks->name }}</h3>
             <div class="card-preview mb-3">
                 @if ($ebooks->cover != null)
-                    <img src="{{ asset('storage/images/covers/ebook/' . $ebooks->cover) }}" alt="">
+                    <img src="{{ asset('storage/images/covers/' . $ebooks->cover) }}" alt="">
                 @else
                     <img src="{{ asset('nemolab/member/img/NemolabBG.jpg') }}" alt="">
                 @endif
@@ -40,7 +40,7 @@
                         @else
                             <h3 class="price text-center">Gratis</h3>
                         @endif
-                    
+
                         @if ($transaction)
                             @if ($transaction->status == 'pending')
                                 <a href="#" class="buy btn btn-warning w-100">Dalam Proses Pembayaran</a>
@@ -102,7 +102,7 @@
                                         <div class="card-body">
                                             <div class="card-head d-flex align-items-center">
                                                 <img src="{{ asset('storage/images/avatars/' . ($review->user->avatar ?? 'default-avatar.png')) }}" alt="User Avatar" class="avatar-img" style="border-radius: 50%">
-                                                
+
                                                 <div class="name ms-3">
                                                     <h5 class="card-title m-0 fw-bold">{{ $review->user->name }}</h5>
                                                     <p class="m-0">{{ $review->user->profession }}</p>
@@ -122,7 +122,7 @@
                                             <div class="card-body">
                                                 <div class="card-head d-flex align-items-center">
                                                     <img src="{{ asset('storage/images/avatars/' . ($review->user->avatar ?? 'default-avatar.png')) }}" alt="User Avatar" class="avatar-img" style="border-radius: 50%">
-                                                    
+
                                                     <div class="name ms-3">
                                                         <h5 class="card-title m-0 fw-bold">{{ $review->user->name }}</h5>
                                                         <p class="m-0">{{ $review->user->profession ?? 'Profession not specified' }}</p>
@@ -170,7 +170,7 @@
                         @else
                             <h3 class="price text-center">Gratis</h3>
                         @endif
-                    
+
                         @if ($transaction)
                             @if ($transaction->status == 'pending')
                                 <a href="#" class="buy btn btn-warning w-100">Dalam Proses Pembayaran</a>
@@ -186,7 +186,7 @@
                             <a href="{{ route('member.payment', ['ebook_id' => $ebooks->id]) }}" class="buy btn btn-warning w-100">Ambil Kelas</a>
                             @endif
                         @endif
-                    </div>                    
+                    </div>
                 </div>
             </div>
         </div>

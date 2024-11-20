@@ -32,6 +32,9 @@ class ResendEmailVerif extends Controller
         $request->fulfill(); // Panggil method fulfill untuk menyelesaikan verifikasi
 
         Alert::success('Success', 'Akun Anda Berhasil Terverifikasi');
+        if (Auth::user()->role != 'students') {
+            return redirect()->route('admin.course');
+        }
         return redirect()->route('member.setting'); // Redirect dengan pesan
     }
 }

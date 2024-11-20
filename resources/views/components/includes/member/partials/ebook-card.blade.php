@@ -1,13 +1,13 @@
 <div class="col-md-4 col-12 d-flex justify-content-center pb-3">
     <div class="card d-flex flex-row d-md-block">
         @if ($ebook->cover != null)
-        <img src="{{ asset('storage/images/covers/ebook/' . $ebook->cover) }}" class="card-img-top d-none d-md-block" alt="{{ $ebook->name }}" />
+        <img src="{{ asset('storage/images/covers/' . $ebook->cover) }}" class="card-img-top d-none d-md-block" alt="{{ $ebook->name }}" />
         @else
             <img src="{{ asset('nemolab/member/img/NemolabBG.jpg') }}" class="card-img-top d-none d-md-block" alt="{{ $ebook->name }}" />
         @endif
         <div class="card-head d-block d-md-none">
             @if ($ebook->cover != null)
-            <img src="{{ asset('storage/images/covers/ebook/' . $ebook->cover) }}" class="card-img-top" alt="{{ $ebook->name }}" />
+            <img src="{{ asset('storage/images/covers/' . $ebook->cover) }}" class="card-img-top" alt="{{ $ebook->name }}" />
             @else
                 <img src="{{ asset('nemolab/member/img/NemolabBG.jpg') }}" class="card-img-top" alt="{{ $ebook->name }}" />
             @endif
@@ -29,7 +29,7 @@
                     <img class="me-2" src="{{ asset('nemolab/member/img/icon/Group 7.png') }}" alt="" />
                     @endif
                     {{ $ebook->users->name }}
-                </p>                
+                </p>
             </div>
             <div class="btn-group-harga d-flex justify-content-between align-items-center mt-md-3">
                 <div class="harga d-none d-md-block">

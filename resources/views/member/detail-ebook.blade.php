@@ -15,7 +15,7 @@
             <h4 class="m-0 p-0 mt-5 mb-4 text-center" style="word-wrap: break-word; white-space: normal;">{{ $ebooks->name }}</h4>
             <div class="content-images d-flex justify-content-center">
                 @if ($ebooks->cover !=null)
-                <img src="{{ asset('storage/images/covers/ebook/' . $ebooks->cover) }}" alt="" class="img-fluid" width="900" height="800" style="border-radius: 15px; box-shadow: rgba(32, 32, 32, 0.322) 0px 8px 24px; object-fit: cover">
+                <img src="{{ asset('storage/images/covers/' . $ebooks->cover) }}" alt="" class="img-fluid" width="900" height="800" style="border-radius: 15px; box-shadow: rgba(32, 32, 32, 0.322) 0px 8px 24px; object-fit: cover">
                 @else
                 <img src="{{ asset('nemolab/member/img/NemolabBG.jpg') }}" alt="" class="img-fluid" width="900" height="800" style="border-radius: 15px; box-shadow: rgba(32, 32, 32, 0.322) 0px 8px 24px; object-fit: cover">
                 @endif
@@ -88,7 +88,7 @@
                                     </div>
                                 </div>
                             </div>
-                        @endforeach                     
+                        @endforeach
                     </div>
                     <div class="swiper-container d-md-none">
                         <div class="swiper-wrapper">
@@ -98,7 +98,7 @@
                                         <div class="card-body">
                                             <div class="card-head d-flex align-items-center">
                                                 <img src="{{ asset('storage/images/avatars/' . ($review->user->avatar ?? 'default-avatar.png')) }} " alt="User Avatar" class="avatar-img" width="45" height="45" style="border-radius: 50%">
-                                                
+
                                                 <div class="name ms-3">
                                                     <h5 class="card-title m-0 fw-bold">{{ $review->user->name }}</h5>
                                                     <p class="m-0">{{ $review->user->profession ?? 'Profession not specified' }}</p>

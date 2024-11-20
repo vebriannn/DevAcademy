@@ -11,17 +11,17 @@
     <section class="view-course-section" id="view-course-section">
         <div class="container-fluid">
             <div class="row justify-content-between">
-                <div class="col-11 col-lg-8">
+                <div class="col-11 col-lg-8 ">
                     <iframe id="youtubePlayer" width="100%" height="70%" src="{{ $play->video }}"
                         title="YouTube video player" frameborder="0"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowfullscreen>
                     </iframe>
 
-                    <h2 class="m-0 p-0 mt-3">
-                        {{ $play->name }}
+                    <h2 class="m-0 p-0 mt-3 ps-2">
+                        Episode: {{ $play->name }}
                     </h2>
-                    <div class="link-group d-block mt-4">
+                    <div class="link-group d-block mt-3 mt-sm-4">
                         @if (!is_null($paketKelas))
                             <a href="{{ route('member.ebook.join', $paketKelas->ebook->slug) }}" class="btn btn-primary w-100">Belajar E-Book</a>
                         @endif
@@ -29,7 +29,7 @@
                     </div>
                 </div>
                 <div class="col-11 col-lg-4 mt-5 mt-lg-0  ">
-                    <div class="card">
+                    <div class="card mt-4 mt-sm-0">
                         <div class="card-body overflow-scroll">
                             @foreach ($chapters as $chapter)
                                 <div class="content mb-5">
