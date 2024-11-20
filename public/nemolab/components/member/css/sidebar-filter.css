@@ -141,8 +141,8 @@ input[type="radio"]:checked + label span {
 
 .searchButton {
     position: absolute;
-    top: 50%;
-    right: 10px;
+    top: 45%;
+    right: 16px;
     transform: translateY(-50%);
     background: transparent;
     border: none;
