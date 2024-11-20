@@ -22,7 +22,7 @@ class Transaction extends Model
         'name',
         'price',
     ];
-    
+
 
     public function user()
     {
@@ -39,6 +39,7 @@ class Transaction extends Model
     {
         return $this->belongsTo(Ebook::class, 'ebook_id');
     }
+
     public function bundle()
     {
         return $this->belongsTo(CourseEbook::class, 'bundle_id');

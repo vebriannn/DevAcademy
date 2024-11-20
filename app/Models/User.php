@@ -48,10 +48,6 @@ class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
         return $this->hasMany(Course::class, 'mentor_id', 'id');
     }
 
-    /**
-     * Relasi ke model Transaction.
-     * Seorang user dapat memiliki banyak transaksi.
-     */
     public function transactions()
     {
         return $this->hasMany(Transaction::class, 'user_id');
