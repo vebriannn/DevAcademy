@@ -23,7 +23,7 @@
                         </thead>
                         <tbody>
                             @foreach ($mentorsWithCourses as $data)
-                                @if ($data['total_course'] > 0)
+                                @if ($data['total_course'] > 5)
                                     <tr>
                                         <td class="text-capitalize">{{ $data['mentor']->name }}</td>
                                         <td class="text-capitalize">{{ $data['total_course'] }}</td>

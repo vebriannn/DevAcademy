@@ -201,8 +201,8 @@ class MemberPaymentController extends Controller
                     ],
                     'enabled_payments' => [
                         'bank_transfer',
+                        'va_bank',
                         'qris',
-                        'credit_card',
                         'gopay',
                         'shopeepay'
                     ],
