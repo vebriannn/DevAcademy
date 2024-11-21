@@ -27,6 +27,7 @@ class MemberRegisterController extends Controller
         $requests->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email',
+            'avatar' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
             'profession' => 'required',
             'password' => [
                 'required',

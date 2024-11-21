@@ -27,7 +27,7 @@
                             <input type="hidden" name="token" value="{{ $token }}">
                             <input type="hidden" name="email" value="{{ $email }}">
                             <div class="mb-1">
-                                <label for="password" class="form-label fw-bold">Kata sandi baru</label>
+                                <label for="password" class="form-label fw-bold py-2">Kata sandi baru</label>
                                 <input type="password" id="password" name="password" class="form-control fw-bold"
                                     placeholder="Masukan kata sandi disini" required>
                             </div>
@@ -35,12 +35,12 @@
                                 <div class="text-danger">{{ $message }}</div>
                             @enderror
                             <div class="mb-3">
-                                <label for="password" class="form-label fw-bold">Konfirmasi kata sandi</label>
+                                <label for="password" class="form-label fw-bold py-2">Konfirmasi kata sandi</label>
                                 <input type="password" id="confirm-password" name="password_confirmation"
                                     class="form-control fw-bold" placeholder="Masukan kata sandi disini" required>
                             </div>
                             <div class="mb-3">
-                                <button type="submit" class="btn btn-primary w-100 rounded-start fw-bold"
+                                <button type="submit" class="btn btn-primary w-100 py-2 rounded-start fw-bold"
                                     id="submitBtn">Ubah Kata Sandi</button>
                             </div>
                         </form>

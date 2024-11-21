@@ -8,6 +8,7 @@
     --color-orange: #FAA907;
     --color-grey: #414142;
     --dim-grey: #696969;
+    --placeholder: rgba(0, 0, 0, 0.3);
     --charcoal-gray: #414142;
     --light-shade: #FDF8F8;
     --shade-gray: #8F8F8F;
@@ -64,10 +65,22 @@ p {
     border: none;
     background-color: var(--lavender);
     border-radius: 10px;
-    padding: 0.5rem 1rem;
+    font-size: 16px;
+    padding: 0.8rem 1rem !important;
 }
 .form-control::placeholder {
-    color: var(--dim-grey);
+    color: var(--placeholder);
+    opacity: 1;
+}
+.form-select {
+    border: none;
+    background-color: var(--lavender);
+    border-radius: 10px;
+    font-size: 16px;
+    padding: 0.8rem 1rem !important;
+}
+.form-select::placeholder {
+    color: var(--placeholder);
     opacity: 1;
 }
 

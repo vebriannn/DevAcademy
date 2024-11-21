@@ -19,26 +19,29 @@
                     <div class="col-3 col-md-2">
                         <h5 class="title text-white fw-bold mb-3">Pilih Kelas</h5>
                         <div class="content-kelas">
-                            <p class="m-0 p-0 text-white mb-2">
+                            <a href="{{ route('member.course', ['filter-kelas' => 'UI/UX Designer']) }}" class="m-0 p-0 text-white mb-2">
                                 UI/UX Designer
-                            </p>
-                            <p class="m-0 p-0 text-white mb-2">
+                            </a>
+                            <a href="{{ route('member.course', ['filter-kelas' => 'Wordpress Developer']) }}" class="m-0 p-0 text-white mb-2">
                                 Wordpress Developer
-                            </p>
-                            <p class="m-0 p-0 text-white">
-                                Graphic Designer
-                            </p>
+                            </a>
+                            <a href="{{ route('member.course', ['filter-kelas' => 'Fullstack Developer']) }}"  class="m-0 p-0 text-white">
+                                Fullstack Developer
+                            </a>
                         </div>
                     </div>
                     <div class="col-3 col-md-2">
                         <h5 class="title text-white fw-bold mb-3">Paket Kelas</h5>
                         <div class="content-paket-kelas">
-                            <p class="m-0 p-0 text-white mb-2">
+                            <a href="{{ route('member.course', ['filter-paket' => 'paket-kursus']) }}" class="m-0 p-0 text-white mb-2">
                                 Kursus
-                            </p>
-                            <p class="m-0 p-0 text-white mb-2">
+                            </a>
+                            <a href="{{ route('member.course', ['filter-paket' => 'paket-ebook']) }}" class="m-0 p-0 text-white mb-2">
                                 Ebook
-                            </p>
+                            </a>
+                            <a href="{{ route('member.course', ['filter-paket' => 'paket-bundling']) }}" class="m-0 p-0 text-white">
+                                Paket Combo
+                            </a>
                         </div>
                     </div>
                     <div class="col-3 col-md-2">
@@ -66,7 +69,7 @@
                 </div>
             </div>
             <div class="copyright d-sm-flex justify-content-sm-center align-items-sm-center pt-sm-4 pb-sm-4">
-                <p class="m-0 p-0 text-white">© 2024 All Rights Reserved. Design by Vibrant Ecosystem</p>
+                <p class="m-0 p-0 text-white">© 2024 All Rights Reserved. Design by <a href="https://vibrant.web.id/">Vibrant Ecosystem</a></p>
             </div>
         </div>
     </footer>

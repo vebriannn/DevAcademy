@@ -36,8 +36,8 @@ class AdminEbookController extends Controller
             'price' => 'nullable|integer',
             'description' => 'required|string',
             'level' => 'required',
-            'file_ebook' => 'required|mimes:pdf|max:15120',
-            'cover' => 'required|image|mimes:jpeg,png,jpg|max:2050',
+            'file_ebook' => 'required|mimes:pdf|max:10240',
+            'cover' => 'required|image|mimes:jpeg,png,jpg|max:2048',
         ]);
 
         if ($validatedData['type'] === 'free') {
@@ -81,8 +81,8 @@ class AdminEbookController extends Controller
             'price' => 'nullable|integer',
             'description' => 'required|string',
             'level' => 'required',
-            'file_ebook' => 'nullable|mimes:pdf|max:5120',
-            'cover' => 'nullable|image|mimes:jpeg,png,jpg|max:2050',
+            'file_ebook' => 'nullable|mimes:pdf|max:10240',
+            'cover' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
         ]);
 
 

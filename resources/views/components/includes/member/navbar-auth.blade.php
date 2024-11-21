@@ -79,8 +79,12 @@
                                         </div>
                                         <div class="col-12 col-sm-6 ps-0 pl-1 mb-1">
                                             <a
-                                                href="{{ route('member.course', ['filter-kelas' => 'Grapic Designer']) }}">Grapic
+                                                href="{{ route('member.course', ['filter-kelas' => 'Grapics Designer']) }}">Grapics
                                                 Designer</a>
+                                        </div>
+                                        <div class="col-12 col-sm-6 ps-0 pl-1 mb-1">
+                                            <a
+                                                href="{{ route('member.course', ['filter-kelas' => 'Fullstack Developer']) }}">Fullstack Developer</a>
                                         </div>
                                     </div>
                                 </div>
