@@ -1,4 +1,4 @@
-<div class="col-md-4 col-12 d-flex justify-content-center pb-3">
+<div class="col-md-4 col-12 d-flex justify-content-center my-1 pb-3">
     <div class="card d-flex flex-row d-md-block">
         @if ($ebook->cover != null)
         <img src="{{ asset('storage/images/covers/' . $ebook->cover) }}" class="card-img-top d-none d-md-block" alt="{{ $ebook->name }}" />
@@ -12,7 +12,7 @@
                 <img src="{{ asset('nemolab/member/img/NemolabBG.jpg') }}" class="card-img-top" alt="{{ $ebook->name }}" />
             @endif
             <div class="harga mt-4">
-                <p class="p-0 m-0 fw-semibold">Harga</p>
+                <p class="p-0 m-0 fw-bold">Harga</p>
                 <p class="p-0 m-0 fw-bold">{{ $ebook->price == 0 ? 'Gratis' : 'Rp' . number_format($ebook->price, 0, ',', '.') }}</p>
             </div>
         </div>

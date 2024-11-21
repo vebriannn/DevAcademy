@@ -10,9 +10,10 @@
                     <img src="{{ asset('nemolab/member/img/icon/Group 7.png') }}" alt="avatar" width="100"
                         height="100" class="avatar class mb-3" style="border-radius: 50%; object-fit: cover" />
                 @endif
-
-                <p class="name fs-5">{{ Auth::user()->name }}</p>
-                <p class="posisi mt-0">{{ Auth::user()->profession }}</p>
+                <div>
+                    <p class="name fs-5">{{ Auth::user()->name }}</p>
+                    <p class="posisi mt-0">{{ Auth::user()->profession }}</p>
+                </div>
             </div>
             <div class="menu">
                 <ul class="side-tabs">

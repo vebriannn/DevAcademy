@@ -21,14 +21,15 @@
                                 </a>
                                 <h5 class="title p-0 ps-3 fw-bold m-0">Ubah profil anda</h5>
                             </div>
-                            <form action="{{ route('member.setting.profile.updated') }}" method="POST"
+                            <form action="{{ route('member.setting.profile.updated') }}" id="profileForm" method="POST"
                                 enctype="multipart/form-data">
                                 @csrf
                                 @method('put')
                                 <div class="mb-4">
-                                    <h6 class="fw-bold">Foto Profil</h6>
-
-                                    <p>Ukuran Foto Maksimal (1 MB)</p>
+                                    <div>
+                                        <h6 class="fw-bold">Foto Profil</h6>
+                                        <p>Ukuran Foto Maksimal (1 MB)</p>
+                                    </div>
                                     <img src="{{ Auth::user()->avatar !== null ? asset('storage/images/avatars/' . Auth::user()->avatar) : asset('nemolab/member/img/icon/Group 7.png') }}"
                                         alt="avatar" width="130" height="130" class="avatar mb-3"
                                         style="border-radius: 50%; object-fit: cover;" id="avatarPreview" />
@@ -91,7 +92,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-12 mb-3">
-                                        <button type="submit" class="btn btn-primary w-100 rounded-start fw-bold">Simpan
+                                        <button type="submit" id="submitButton" class="btn btn-primary w-100 rounded-start fw-bold" style="">Simpan
                                             Perubahan</button>
                                     </div>
                                 </div>
@@ -118,5 +119,36 @@
         });
 
         document.getElementById('parent-sidebar').remove();
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.getElementById('profileForm');
+            const inputs = form.querySelectorAll('input, select');
+            const submitButton = document.getElementById('submitButton');
+
+            // Asal warna default
+            const defaultBackground = '#fff'; 
+            const changedBackground = '#E8E8E8';
+            const defaultButtonColor = '#ce8e0e'; 
+            const changedButtonColor = '#faa907'; 
+
+            // Deteksi perubahan
+            inputs.forEach(input => {
+                input.addEventListener('input', () => {
+                    input.style.backgroundColor = changedBackground;
+                    submitButton.style.backgroundColor = changedButtonColor;
+                    submitButton.style.borderColor = changedButtonColor;
+                });
+            });
+
+            // Reset tombol ke default setelah submit
+            form.addEventListener('submit', () => {
+                inputs.forEach(input => {
+                    input.style.backgroundColor = defaultBackground;
+                });
+                submitButton.style.backgroundColor = defaultButtonColor;
+                submitButton.style.borderColor = defaultButtonColor;
+            });
+        });
     </script>
 @endpush

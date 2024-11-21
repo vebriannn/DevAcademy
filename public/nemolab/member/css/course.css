@@ -4,6 +4,7 @@
 /* Color Variables */
 :root {
   --color-orange: #faa907;
+  --hover-orange: #CA8907;
   --color-grey: #414142;
   --dim-grey: #696969;
   --charcoal-gray: #414142;
@@ -179,16 +180,9 @@ html::-ms-overflow-style {
   vertical-align: middle;
 }
 
-@keyframes loading {
-  0% {
-      opacity: 0.3;
-  }
-  50% {
-      opacity: 1;
-  }
-  100% {
-      opacity: 0.3;
-  }
+
+.no-scroll {
+  overflow: hidden;
 }
 
 /* Button Group for Prices */
@@ -199,11 +193,15 @@ html::-ms-overflow-style {
   border: none;
   box-shadow: none;
   font-weight: 600;
+  transition: all 0.5s ease;
+}
+.btn-group-harga .btn-primary:hover{
+  background-color: var(--hover-orange);
 }
 
 /* Price Styles */
 .harga p:first-child {
-  color: var(--color-grey);
+  color: var(--dim-grey);
 }
 
 /* Package Styles */
@@ -223,15 +221,22 @@ html::-ms-overflow-style {
 
 @media screen and (max-width: 1024px) {
   .card-container {
-      width: 100%;
-      padding: 0 !important;
-      margin: 0 !important;
+    width: 100%;
+    padding: 0 !important;
+    margin: 0 !important;
   }
   .row {
       margin: 0 !important;
   }
+  #course-card {
+    width: 100%;
+    padding: 0 !important;
+  }
+  .pe-md-4 {
+    padding-right: 0px !important;
+  }
   .not-found img {
-      max-width: 100% !important;
+    max-width: 100% !important;
   }
 }
 /* Responsive Design */
@@ -239,7 +244,7 @@ html::-ms-overflow-style {
   .filter-head {
     font-size: 17px;
   }
-    .card-container{
+    #course-card {
       padding: 0 15px;
   }
 

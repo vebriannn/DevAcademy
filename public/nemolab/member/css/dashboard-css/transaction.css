@@ -42,11 +42,14 @@ body {
 
 .filter-transaction .nav-tabs a {
     text-decoration: none;
+    font-size: 14px;
     margin-bottom: .5rem;
-    padding: 10px 15px;
+    padding: 8px 25px;
     border-radius: 20px;
     color: var(--primary-color);
     display: inline-block;
+    font-size: 14px;
+    padding: 5px 15px;
 }
 
 .filter-transaction .nav-tabs a:hover {
@@ -99,8 +102,8 @@ body {
 
 .info {
     display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
+    /* flex-wrap: wrap; */
+    gap: 8px;
 }
 
 .price {
@@ -112,12 +115,12 @@ body {
     font-weight: bold;
 }
 
-.btn-blue {
+.btn-primary {
     background-color: var(--button-blue);
     color: var(--text-color);
 }
 
-.btn-red {
+.btn-danger {
     background-color: var(--button-red);
     color: var(--text-color);
 }
@@ -165,11 +168,45 @@ transition: ease-in-out 0.3s;
   }
 
 @media (max-width: 768px){
+    .filter-transaction .nav-tabs a {
+        font-size: 8px;
+        padding: 5px 15px;
+    }
+    .card-body img {
+        width: 60px;
+        height: 40px;
+    }
     .not-found img {
         max-width: 100% !important;
       }
       .details p {
         margin: 0;
+        font-size: 8px !important;
         max-width: 270px;
+    }
+    .btn-primary {
+        padding: 5px 10px;
+        font-size: 8px !important;
+        background-color: var(--button-blue);
+        color: var(--text-color);
+    }
+    
+    .btn-danger {
+        padding: 5px 10px;
+        font-size: 8px !important;
+        background-color: var(--button-red);
+        color: var(--text-color);
+    }
+    
+    .btn-outline-red {
+        padding: 5px 10px;
+        font-size: 8px !important;
+        border-color: var(--button-red);
+        color: var(--button-red);
+    }
+    
+    .btn-outline-red:hover {
+        background-color: var(--button-red);
+        color: var(--text-color);
     }
 }

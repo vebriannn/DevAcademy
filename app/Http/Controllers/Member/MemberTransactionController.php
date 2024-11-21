@@ -37,6 +37,10 @@ class MemberTransactionController extends Controller
         return view('member.dashboard.transaction.view', compact('transactions', 'status'));
     }
 
+    public function show(){
+        $transaction = Transaction::where();
+    }
+
 
 
     public function cancel($id)

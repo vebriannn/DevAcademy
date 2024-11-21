@@ -1,4 +1,4 @@
-<div class="col-md-4 col-12 d-flex justify-content-center pb-3">
+<div class="col-md-4 col-12 d-flex justify-content-center my-1 pb-3">
     <div class="card d-flex flex-row d-md-block">
         @if ($course->cover != null)
             <img src="{{ asset('storage/images/covers/' . $course->cover) }}" class="card-img-top d-none d-md-block"
@@ -16,8 +16,8 @@
                     alt="{{ $course->name }}" />
             @endif
             <div class="harga mt-4">
-                <p class="p-0 m-0 fw-semibold">Harga</p>
-                <p class="p-0 m-0 fw-semibold">
+                <p class="p-0 m-0 fw-bold">Harga</p>
+                <p class="p-0 m-0 fw-bold">
                     @php
                         $currentBundling = $bundling[$course->id] ?? null;
                     @endphp

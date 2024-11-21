@@ -8,10 +8,10 @@ if ('serviceWorker' in navigator) {
 pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.14.305/pdf.worker.min.js';
 
 const ebookElement = document.getElementById('ebook');
-const pdfFilename = ebookElement.getAttribute('data-pdf');
-const url = `/storage/file_pdf/${encodeURIComponent(pdfFilename)}`;
+const url = ebookElement.getAttribute('data-pdf');
 const canvas = document.getElementById('pdf-render');
 const ctx = canvas.getContext('2d');
+console.log(url);
 
 let pdfDoc = null;
 let pageNum = 1;
@@ -65,9 +65,6 @@ const renderPage = (num) => {
     });
 };
 
-
-
-
 // Mengambil dokumen PDF
 pdfjsLib.getDocument(url).promise.then(pdf => {
     pdfDoc = pdf;
@@ -77,6 +74,7 @@ pdfjsLib.getDocument(url).promise.then(pdf => {
     console.error('Error loading PDF:', error);
     alert('Failed to load PDF.');
 });
+
 
 // Fungsi untuk memperbarui zoom
 const updateZoom = (factor) => {

@@ -8,7 +8,7 @@
 
 @section('content')
     <!-- Section Hero -->
-    <section class="section-hero-img d-flex align-items-center" id="section-hero-img">
+    <section class="section-hero-img d-flex align-items-center mb-5" id="section-hero-img">
         <div class="row">
             <div class="col-md-6 mt-lg-5" data-aos="zoom-out">
                 <div class="text-center text-md-start me-md-3">
@@ -38,7 +38,7 @@
                 <div class="row m-0 p-0 ">
                     @foreach ($courses as $course)
                         @if ($course)
-                            <div class="col-md-3 col-12 d-flex justify-content-center pb-3">
+                            <div class="col-md-6 col-xl-3 col-12 d-flex justify-content-center my-2 pb-2">
                                 <div class="card d-flex flex-row d-md-block">
                                     @if ($course->cover != null)
                                         <img src="{{ asset('storage/images/covers/' . $course->cover) }}"
@@ -115,7 +115,7 @@
 
     <section class="section-tentang-nemolab" id="section-tentang-nemolab">
         <div class="container-fluid">
-            <div class="row align-items-center">
+            <div class="row align-items-center my-5 mx-md-3">
                 <div class="col-md-6 justify-content-center d-none d-md-flex" id="service" data-aos="fade-up"
                     data-aos-delay="100">
                     <div class="col-9 d-flex align-items-center justify-content-center">
@@ -161,9 +161,9 @@
 
 
     <!-- section 4 -->
-    <section class="section-benefit-kelas" id="section-benefit-kelas" data-aos="fade-up">
+    <section class="section-benefit-kelas my-5" id="section-benefit-kelas" data-aos="fade-up">
         <div class="container-fluid">
-            <div class="row align-items-center">
+            <div class="row align-items-center my-5 mx-md-3">
                 <div class="col-md-6">
                     <div class="me-md-4 text-center text-md-start">
                         <h1 class="fw-bold">Benefit Yang Bisa Kamu Dapatkan Jika Belajar Disini</h1>
@@ -216,7 +216,7 @@
 
 
     <!-- section 5 -->
-    <section class="section-testimoni-kelas" id="section-testimoni-kelas" data-aos="fade-up">
+    <section class="section-testimoni-kelas mt-5" id="section-testimoni-kelas" data-aos="fade-up">
         <div class="container-fluid">
             <div class="testimoni-title pb-5">
                 <h1 class="fw-bold m-0">Selangkah Lebih Maju menjadi <br> Professional!!</h1>
@@ -224,7 +224,7 @@
                     membuktikan dengan belajar di kelas kami</p>
                 <a href="{{ route('member.course') }}" class="btn btn-warning px-4">Coba Kursus</a>
             </div>
-            <div class="row p-0" id="testimonials">
+            <div class="row p-0 mx-md-3" id="testimonials">
                 <div class="col-md-4 scroll-up d-none d-md-block">
                     <div class="col-md-12 d-flex justify-content-center">
                         <div class="card mb-4">
@@ -540,8 +540,8 @@
     <!-- end section 5 -->
 
     <!-- section 6 -->
-    <section class="section-pusat-bantuan" id="section-pusat-bantuan" data-aos="fade-up">
-        <div class="row align-items-center mt-0">
+    <section class="section-pusat-bantuan mt-5" id="section-pusat-bantuan" data-aos="fade-up">
+        <div class="row align-items-center mt-0 mx-md-3">
             <div class="col-md-6">
                 <div class="text-center me-md-4 text-md-start" data-aos="fade-up" data-aos-delay="100">
                     <h1 class="fw-bold">Hubungi Kami Jika Anda Memiliki Kendala</h1>

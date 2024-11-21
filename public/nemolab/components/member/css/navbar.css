@@ -78,6 +78,8 @@ header .container-fluid .navbar .container-fluid #navbarNavAltMarkup .navbar-nav
 header .container-fluid .navbar .container-fluid #navbarNavAltMarkup .navbar-nav:last-child .dropdown .dropdown-menu {
     width: 380px;
     padding: 14px;
+    border: none;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
 
 header .container-fluid .navbar .container-fluid #navbarNavAltMarkup .navbar-nav:last-child .dropdown .dropdown-menu .head-submenu p,
@@ -104,6 +106,7 @@ header .container-fluid .navbar .container-fluid #navbarNavAltMarkup .navbar-nav
     transition: all ease-in-out 0.5ms;
     font-weight: 400 !important;
 }
+
 
 header .container-fluid .navbar .container-fluid #navbarNavAltMarkup .navbar-nav:last-child .dropdown .dropdown-menu .content-submenu a:hover {
     color: var(--blue-link);

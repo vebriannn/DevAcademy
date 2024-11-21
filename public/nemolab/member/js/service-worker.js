@@ -47,7 +47,6 @@ self.addEventListener('fetch', (event) => {
                 return cachedResponse;
             }
             return fetch(event.request).then((networkResponse) => {
-                // Only cache static files, don't cache PDFs
                 if (STATIC_FILES_TO_CACHE.some(file => event.request.url.includes(file))) {
                     return caches.open(CACHE_NAME).then((cache) => {
                         cache.put(event.request, networkResponse.clone());

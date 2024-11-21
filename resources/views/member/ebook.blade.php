@@ -27,7 +27,7 @@
     </div>
 
     <!-- Content -->
-    <div class="container mb-5" id="ebook" data-pdf="{{ $ebook->file_ebook }}">
+    <div class="container mb-5" id="ebook" data-pdf="{{ asset('storage/file_pdf/' . $ebook->file_ebook) }}">
         <div class="row">
             <div class="col-12 rounded-3 position-relative p-0 overflow-hidden">
                 <!-- Ebook Tools -->

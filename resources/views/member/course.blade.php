@@ -12,8 +12,7 @@
 <section class="section-pilh-kelas" id="section-pilih-kelas">
     <div class="container-fluid mt-5 pt-5">
         <div class="row">
-            <div class="mobile-filter col-12 mb-5 d-lg-none">
-                <h3 class="fw-bold">Pilihan Kelas</h3>
+            <div class="mobile-filter col-12 mb-5 d-lg-none fixed-top py-2">
                 <div class="filter-menu d-flex align-items-center gap-2">
                     <button class="filter-togle btn btn-warning">
                         <img src="{{ asset('nemolab/components/member/img/filter.png') }}" alt="">
@@ -31,98 +30,102 @@
                 </div>
             </div>
             @include('components.includes.member.sidebar-filter')
-            <div class="card-container col-md-9" id="course-card">
-                <div class="row" id="row">
-                    @if($data->isEmpty() && $data->isEmpty())
-                        <div class="col-md-12 d-flex justify-content-center align-items-center">
-                            <div class="not-found text-center">
-                                <img src="{{ asset('nemolab/member/img/search-not-found.png') }}" class="logo-not-found w-50 h-50" alt="Not Found">
-                                <p class="mt-3">Kelas Yang Kamu Cari Tidak Tersedia</p>
-                            </div>
-                        </div>
-                    @elseif ($paketFilter == 'paket-kursus')
-                        @if ($data->isEmpty())
+            <div class="col-md-9 mt-5 mt-md-0" id="course-card">
+                <div class="card-container">
+                    <div class="row" id="row">
+                        @if($data->isEmpty() && $data->isEmpty())
                             <div class="col-md-12 d-flex justify-content-center align-items-center">
                                 <div class="not-found text-center">
                                     <img src="{{ asset('nemolab/member/img/search-not-found.png') }}" class="logo-not-found w-50 h-50" alt="Not Found">
                                     <p class="mt-3">Kelas Yang Kamu Cari Tidak Tersedia</p>
                                 </div>
                             </div>
-                        @endif
-                        @foreach($data as $course)
-                            @include('components.includes.member.partials.course-card', ['course' => $course, 'bundling' => $bundling])
-                        @endforeach
-                    @elseif ($paketFilter == 'paket-ebook')
-                        @if ($data->isEmpty())
-                            <div class="col-md-12 d-flex justify-content-center align-items-center">
-                                <div class="not-found text-center">
-                                    <img src="{{ asset('nemolab/member/img/search-not-found.png') }}" class="logo-not-found w-50 h-50" alt="Not Found">
-                                    <p class="mt-3">Kelas Yang Kamu Cari Tidak Tersedia</p>
+                        @elseif ($paketFilter == 'paket-kursus')
+                            @if ($data->isEmpty())
+                                <div class="col-md-12 d-flex justify-content-center align-items-center">
+                                    <div class="not-found text-center">
+                                        <img src="{{ asset('nemolab/member/img/search-not-found.png') }}" class="logo-not-found w-50 h-50" alt="Not Found">
+                                        <p class="mt-3">Kelas Yang Kamu Cari Tidak Tersedia</p>
+                                    </div>
                                 </div>
-                            </div>
-                        @endif
-                        @foreach($data as $ebook)
-                            @include('components.includes.member.partials.ebook-card', ['ebook' => $ebook])
-                        @endforeach
-                    @elseif ($paketFilter == 'paket-bundling')
-                        @if ($data->isEmpty())
-                            <div class="col-md-12 d-flex justify-content-center align-items-center">
-                                <div class="not-found text-center">
-                                    <img src="{{ asset('nemolab/member/img/search-not-found.png') }}" class="logo-not-found w-50 h-50" alt="Not Found">
-                                    <p class="mt-3">Kelas Yang Kamu Cari Tidak Tersedia</p>
+                            @endif
+                            @foreach($data as $course)
+                                @include('components.includes.member.partials.course-card', ['course' => $course, 'bundling' => $bundling])
+                            @endforeach
+                        @elseif ($paketFilter == 'paket-ebook')
+                            @if ($data->isEmpty())
+                                <div class="col-md-12 d-flex justify-content-center align-items-center">
+                                    <div class="not-found text-center">
+                                        <img src="{{ asset('nemolab/member/img/search-not-found.png') }}" class="logo-not-found w-50 h-50" alt="Not Found">
+                                        <p class="mt-3">Kelas Yang Kamu Cari Tidak Tersedia</p>
+                                    </div>
                                 </div>
-                            </div>
-                        @endif
-                        @foreach($data as $course)
-                            @include('components.includes.member.partials.course-card', ['course' => $course, 'bundling' => $bundling])
-                        @endforeach
-                    @else
-                        @if($data->isEmpty())
-                            <div class="col-md-12 d-flex justify-content-center align-items-center">
-                                <div class="not-found text-center">
-                                    <img src="{{ asset('nemolab/member/img/search-not-found.png') }}" class="logo-not-found w-50 h-50" alt="Not Found">
-                                    <p class="mt-3">Kelas Yang Kamu Cari Tidak Tersedia</p>
+                            @endif
+                            @foreach($data as $ebook)
+                                @include('components.includes.member.partials.ebook-card', ['ebook' => $ebook])
+                            @endforeach
+                        @elseif ($paketFilter == 'paket-bundling')
+                            @if ($data->isEmpty())
+                                <div class="col-md-12 d-flex justify-content-center align-items-center">
+                                    <div class="not-found text-center">
+                                        <img src="{{ asset('nemolab/member/img/search-not-found.png') }}" class="logo-not-found w-50 h-50" alt="Not Found">
+                                        <p class="mt-3">Kelas Yang Kamu Cari Tidak Tersedia</p>
+                                    </div>
                                 </div>
-                            </div>
+                            @endif
+                            @foreach($data as $course)
+                                @include('components.includes.member.partials.course-card', ['course' => $course, 'bundling' => $bundling])
+                            @endforeach
                         @else
-                            {{-- Periksa apakah ada data course --}}
-                            @if($data->where('product_type', 'video')->isNotEmpty())
-                                @foreach($data->where('product_type', 'video') as $course)
-                                    @include('components.includes.member.partials.course-card', ['course' => $course, 'bundling' => $bundling])
-                                @endforeach
+                            @if($data->isEmpty())
+                                <div class="col-md-12 d-flex justify-content-center align-items-center">
+                                    <div class="not-found text-center">
+                                        <img src="{{ asset('nemolab/member/img/search-not-found.png') }}" class="logo-not-found w-50 h-50" alt="Not Found">
+                                        <p class="mt-3">Kelas Yang Kamu Cari Tidak Tersedia</p>
+                                    </div>
+                                </div>
+                            @else
+                                {{-- Periksa apakah ada data course --}}
+                                @if($data->where('product_type', 'video')->isNotEmpty())
+                                    @foreach($data->where('product_type', 'video') as $course)
+                                        @include('components.includes.member.partials.course-card', ['course' => $course, 'bundling' => $bundling])
+                                    @endforeach
+                                @endif
+                                {{-- Periksa apakah ada data ebook --}}
+                                @if($data->where('product_type', 'ebook')->isNotEmpty())
+                                    @foreach($data->where('product_type', 'ebook') as $ebook)
+                                        @include('components.includes.member.partials.ebook-card', ['ebook' => $ebook])
+                                    @endforeach
+                                @endif
                             @endif
-                            {{-- Periksa apakah ada data ebook --}}
-                            @if($data->where('product_type', 'ebook')->isNotEmpty())
-                                @foreach($data->where('product_type', 'ebook') as $ebook)
-                                    @include('components.includes.member.partials.ebook-card', ['ebook' => $ebook])
-                                @endforeach
-                            @endif
-                        @endif
-                    @endif                    
-                </div>                
-                    {{-- <h1>{{ $data->count() }}</h1> --}}
-            </div>          
-            <ul class="pagination justify-content-center justify-content-md-end">
-                <li class="page-item-button fw-bold {{ $data->onFirstPage() ? 'disabled' : '' }}">
-                    <a class="page-link" href="{{ $data->previousPageUrl() }}" aria-label="Previous">
-                        <span aria-hidden="true">&laquo;</span>
-                    </a>
-                </li>
-                @php
-                    $start = max($data->currentPage() - 2, 1); 
-                    $end = min($start + 5, $data->lastPage());
-                @endphp
-                @for ($i = $start; $i <= $end; $i++)
-                    <li class="page-item fw-bold {{ $i == $data->currentPage() ? 'active' : '' }}">
-                        <a class="page-link" href="{{ $data->url($i) }}">{{ $i }}</a>
+                        @endif                    
+                    </div>                
+                        {{-- <h1>{{ $data->count() }}</h1> --}}
+                </div>
+            </div>
+            <div class="my-2">
+                <ul class="pagination justify-content-center justify-content-md-end">
+                    <li class="page-item-button fw-bold {{ $data->onFirstPage() ? 'disabled' : '' }}">
+                        <a class="page-link" href="{{ $data->previousPageUrl() }}" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
                     </li>
-                @endfor
-                <li class="page-item-button fw-bold {{ $data->hasMorePages() ? '' : 'disabled' }}">
-                    <a class="page-link" href="{{ $data->nextPageUrl() }}" aria-label="Next">
-                        <span aria-hidden="true">&raquo;</span>
-                    </a>
-                </li>
-            </ul>            
+                    @php
+                        $start = max($data->currentPage() - 2, 1); 
+                        $end = min($start + 5, $data->lastPage());
+                    @endphp
+                    @for ($i = $start; $i <= $end; $i++)
+                        <li class="page-item fw-bold {{ $i == $data->currentPage() ? 'active' : '' }}">
+                            <a class="page-link" href="{{ $data->url($i) }}">{{ $i }}</a>
+                        </li>
+                    @endfor
+                    <li class="page-item-button fw-bold {{ $data->hasMorePages() ? '' : 'disabled' }}">
+                        <a class="page-link" href="{{ $data->nextPageUrl() }}" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </ul>   
+            </div>                     
         </div>
     </div>
 </section>
@@ -130,26 +133,40 @@
 @push('addon-script')
 <script src="{{ asset('nemolab/member/js/scroll-dashboard.js') }}"></script>
 <script>
-document.querySelector('.filter-togle').addEventListener('click', function() {
-    const sidebar = document.querySelector('.sidebar');
-    const body = document.body;
+    document.querySelector('.filter-togle').addEventListener('click', function () {
+        const sidebar = document.querySelector('.sidebar');
+        const body = document.body;
 
-    sidebar.classList.toggle('show-sidebar');
+        sidebar.classList.toggle('show-sidebar');
+        body.classList.toggle('no-scroll');
+    });
 
-    // Jika sidebar ditampilkan, cegah scroll dengan menambahkan class ke body
-    if (sidebar.classList.contains('show-sidebar')) {
-        body.classList.add('no-scroll');
-    } else {
-        body.classList.remove('no-scroll');
-    }
-});
-// Logika untuk tombol "close"
-document.querySelector('.close-sidebar').addEventListener('click', function() {
-    const sidebar = document.querySelector('.sidebar');
-    const body = document.body;
-    sidebar.classList.remove('show-sidebar');
-    body.classList.remove('no-scroll');
-});
+    // Menutup sidebar saat mencapai footer
+    window.addEventListener('scroll', function () {
+        const sidebar = document.querySelector('.sidebar');
+        const footer = document.querySelector('#footer');
+        const body = document.body;
 
+        const footerTop = footer.getBoundingClientRect().top;
+        const sidebarBottom = sidebar.getBoundingClientRect().bottom; 
+        if (sidebarBottom >= footerTop) {
+            sidebar.classList.remove('show-sidebar');
+            body.classList.remove('no-scroll');
+        }
+    });
+
+    document.addEventListener('click', function (event) {
+        const sidebar = document.querySelector('.sidebar');
+        const toggleButton = document.querySelector('.filter-togle');
+        const body = document.body;
+
+        if (sidebar.classList.contains('show-sidebar') &&
+            !sidebar.contains(event.target) &&
+            !toggleButton.contains(event.target)) {
+            sidebar.classList.remove('show-sidebar');
+            body.classList.remove('no-scroll');
+        }
+    });
 </script>
+
 @endpush

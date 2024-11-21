@@ -11,7 +11,6 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
     {{-- aos --}}
     <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
     @stack('prepend-style')
     <link rel="stylesheet" href="{{ asset('nemolab/components/member/css/navbar.css') }} ">
     <link rel="stylesheet" href="{{ asset('nemolab/components/member/css/footer.css') }} ">
@@ -50,7 +49,6 @@
 
     <!-- AOS JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
-    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 
 
     <!-- Inisialisasi AOS -->

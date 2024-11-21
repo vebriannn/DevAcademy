@@ -116,6 +116,11 @@ class MemberCourseController extends Controller
         $bundling = CourseEbook::whereIn('course_id', $courses->pluck('id'))->get()->mapWithKeys(function ($item) {
             return [$item->course_id => $item];
         });
+
+        if($request->ajax()){
+
+        }
+
         // Mengembalikan tampilan dengan data yang sudah diproses
         return view('member.course', [
             'data' => $paginatedData, // Data yang sudah dipaginasi

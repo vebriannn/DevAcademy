@@ -8,6 +8,8 @@
     --dark-grey: #414142;
     --blue: #0774FA;
     --color-orange: #faa907;
+    --disable-orange: #ce8e0e;
+
 }
 
 body {
@@ -16,12 +18,18 @@ body {
     font-weight: bold;
     color: #000;
 }
-
+p{
+    color: var(--color-silver);
+}
 .setting-section,
 .profile-saya-section {
     height: 110vh;
 }
-
+.card{
+    padding: 5px 5px;
+    border: none;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
 
 .setting-section .setting-item {
     display: flex;
@@ -79,6 +87,8 @@ body {
     color: var(--dark-grey);
 }
 
+
+
 /* Untuk memastikan 2 kolom dalam 1 baris, tambahkan ini */
 @media (min-width: 768px) {
     .setting-section .col-md-6 {
@@ -112,7 +122,14 @@ body {
 }
 
 button.btn-primary {
-    background-color: var(--color-orange) !important;
+    background-color: var(--disable-orange);
     outline: none;
     border: none;
+    transition: all .5s ease;
+}
+button.btn-primary:hover {
+    background-color: var(--disable-orange) !important;
+}
+.form-control, .form-select {
+    transition: all 0.5s ease;
 }

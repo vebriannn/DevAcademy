@@ -40,7 +40,7 @@
                             <li><a href="{{ route('member.dashboard', ['filter' => 'ebook']) }}" class="{{ request('filter') == 'ebook' ? 'active' : '' }}">E-Book</a></li>
                         </ul>
                     </div>                                  
-                    <div class="row">
+                    <div class="row mt-4">
                     @if($coursesProgress->isEmpty() && $ebooks->isEmpty())
                         <div class="col-md-12 d-flex justify-content-center align-items-center">
                             <div class="not-found text-center">
@@ -51,7 +51,7 @@
                     @endif
                     @foreach ($coursesProgress as $course)
                         @if ($course->transactions->isNotEmpty())
-                            <a href="{{ route('member.course.join', $course->slug) }}" class="col-md-4 d-flex justify-content-center pb-3 text-decoration-none">
+                            <a href="{{ route('member.course.join', $course->slug) }}" class="col-md-4 d-flex justify-content-center pb-3 my-2 text-decoration-none">
                                 <div class="card">
                                     @if ($course->cover !=null)
                                         <img src="{{ asset('storage/images/covers/' . $course->cover) }}" class="card-img-top d-none d-md-block" alt="...">
@@ -89,7 +89,7 @@
 
                     @foreach ($ebooks as $ebook)
                         @if ($ebook->transactions->isNotEmpty())
-                        <a href="{{ route('member.ebook.join', $ebook->slug) }}" class="col-md-4 d-flex justify-content-center pb-3 text-decoration-none">
+                        <a href="{{ route('member.ebook.join', $ebook->slug) }}" class="col-md-4 d-flex justify-content-center my-2 pb-3 text-decoration-none">
                             <div class="card">
                                 @if ($ebook->cover !=null)
                                     <img src="{{ asset('storage/images/covers/' . $ebook->cover) }}" class="card-img-top d-none d-md-block" alt="..." >
@@ -127,3 +127,6 @@
     </section>
     @include('components.includes.member.sidebar-dashboard-mobile')
 @endsection
+@push('addon-script')
+<script src="{{ asset('nemolab/member/js/scroll-dashboard.js') }}"></script>
+@endpush

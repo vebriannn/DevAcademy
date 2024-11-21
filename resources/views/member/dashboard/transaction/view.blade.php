@@ -79,8 +79,31 @@
                                         {{ ucfirst($transaction->status) }}
                                     </p>
                                 </div>
+                                <div class="aksi d-flex mt-1 justify-content-end d-md-none">
+                                    @if ($transaction->status === 'pending')
+                                        <form action="{{ route('member.transaction.cancel', $transaction->id) }}" 
+                                              class="d-flex gap-2" method="POST"
+                                              onsubmit="return confirm('Apa anda yakin ingin membatalkan transaksi?');">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-danger btn-sm">Batalkan Pembelian</button>
+                                            <a href="{{ route('member.transaction.view-transaction', $transaction->transaction_code) }}" 
+                                               class="btn btn-primary">Bayar</a>
+                                        </form>
+                                    @elseif ($transaction->status === 'failed')
+                                        <form action="{{ route('member.transaction.cancel', $transaction->id) }}" 
+                                              method="POST" 
+                                              onsubmit="return confirm('Apa anda yakin ingin membatalkan transaksi?');">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-danger btn-sm">Hapus Transaksi</button>
+                                        </form>
+                                    @else
+                                        <a href="{{ route('member.transaction.view-transaction' , $transaction->transaction_code) }}" class="btn btn-primary">Cek Transaksi</a>
+                                    @endif
+                                </div>                                
                             </div>
-                            <div>
+                            <div class="action d-none d-md-block">
                                 @if ($transaction->status === 'pending')
                                     <form action="{{ route('member.transaction.cancel', $transaction->id) }}"
                                         class="d-flex gap-2" method="POST"
@@ -99,7 +122,7 @@
                                         <button type="submit" class="btn btn-danger btn-sm">Hapus Transaksi</button>
                                     </form>
                                 @else
-                                    <div>-</div>
+                                    <a href="{{ route('member.transaction.view-transaction' , $transaction->transaction_code) }}"class="btn btn-primary">Cek Transaksi</a>
                                 @endif
                             </div>
                         </div>
@@ -123,4 +146,5 @@
     @include('components.includes.member.sidebar-dashboard-mobile')
 @endsection
 @push('addon-script')
+<script src="{{ asset('nemolab/member/js/scroll-dashboard.js') }}"></script>
 @endpush
