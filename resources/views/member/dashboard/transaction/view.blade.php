@@ -41,7 +41,7 @@
                                 if ($transaction->course) {
                                     $coverPath = asset('storage/images/covers/' . $transaction->course->cover);
                                 } elseif ($transaction->ebook) {
-                                    $coverPath = asset('storage/images/covers/ebook/' . $transaction->ebook->cover);
+                                    $coverPath = asset('storage/images/covers/' . $transaction->ebook->cover);
                                 } elseif ($transaction->bundle && $transaction->bundle->course) {
                                     $coverPath = asset('storage/images/covers/' . $transaction->bundle->course->cover);
                                 }

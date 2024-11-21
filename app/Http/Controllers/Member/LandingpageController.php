@@ -14,15 +14,17 @@ class LandingpageController extends Controller
 {
     public function index()
     {
+        // Mengambil data kursus yang memiliki status 'published'
+        // Data kursus juga dimuat dengan relasi 'users
+        // Data kursus dipilih secara acak menggunakan inRandomOrder() dan dibatasi sebanyak 8 kursus
         $courses = Course::with('users')->where('status', 'published')
-            ->inRandomOrder() 
-            ->take(8)          
+            ->inRandomOrder() // Pilih secara acak
+            ->take(8)          // Batasi hasilnya menjadi 8 kursus
             ->get();
-        $InBundle = CourseEbook::pluck('course_id')->toArray();   
+        // Mengambil semua ID kursus yang termasuk dalam bundle
+        $InBundle = CourseEbook::pluck('course_id')->toArray();
+    
+        // Mengirimkan data kursus dan ID bundle ke view 'member.home'
         return view('member.home', compact('courses', 'InBundle'));
     }    
-    public function tes()
-    {
-        return view('member.detail-play');
-    }
 }

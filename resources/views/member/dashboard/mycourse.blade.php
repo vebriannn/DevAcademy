@@ -92,14 +92,14 @@
                         <a href="{{ route('member.ebook.join', $ebook->slug) }}" class="col-md-4 d-flex justify-content-center pb-3 text-decoration-none">
                             <div class="card">
                                 @if ($ebook->cover !=null)
-                                    <img src="{{ asset('storage/images/covers/ebook/' . $ebook->cover) }}" class="card-img-top d-none d-md-block" alt="..." >
+                                    <img src="{{ asset('storage/images/covers/' . $ebook->cover) }}" class="card-img-top d-none d-md-block" alt="..." >
                                 @else
                                         <img src="{{ asset('nemolab/member/img/NemolabBG.jpg') }}" class="card-img-top d-none d-md-block" alt="..." >
                                 @endif
                                 <div class="card-body">
                                     <div>
                                     @if ($ebook->cover !=null)
-                                        <img src="{{ asset('storage/images/covers/ebook/' . $ebook->cover) }}" alt="..." style="height: 40px;width: 60px; border-radius: 5px;" class="d-block d-md-none">
+                                        <img src="{{ asset('storage/images/covers/' . $ebook->cover) }}" alt="..." style="height: 40px;width: 60px; border-radius: 5px;" class="d-block d-md-none">
                                     @else
                                         <img src="{{ asset('nemolab/member/img/NemolabBG.jpg') }}" alt="..." style="height: 40px;width: 60px; border-radius: 5px;" class="d-block d-md-none">
                                     @endif

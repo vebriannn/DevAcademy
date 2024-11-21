@@ -10,6 +10,7 @@
     --shade-gray: #8F8F8F;
     --lavender:#FFF6F6;
     --lavender-mist: #F0EAFF;
+    --color-light-hover:#EAEAEA;   
 }
 
 * {
@@ -102,24 +103,16 @@ input[type="radio"]:checked + label span {
     transition: background-color 0.24s linear;
 }
 /* Scrollbar sidebar */
-/* .sidebar::-webkit-scrollbar {
-    width: 6px;
-    margin-right: 100px;
+.sidebar {
+    overflow: scroll;
+    scrollbar-width: none; 
 }
-
-.sidebar::-webkit-scrollbar-track {
-    background: transparent; 
+.sidebar::-webkit-scrollbar {
+    display: none;
 }
-
-.sidebar::-webkit-scrollbar-thumb {
-    background-color: rgb(177, 176, 176) ;
-    border-radius: 15px;
-} */
 
 /* General Styling */
 .mobile-filter {
-    margin-top: 2rem;
-    z-index: 999;
     background-color: var(--lavender);
 }
 
@@ -154,27 +147,69 @@ input[type="radio"]:checked + label span {
 .searchButton i {
     pointer-events: none;
 }
+button.btn-primary {
+    border: none;
+    font-size: 12px;
+    padding: 5px 15px;
+    background-color: white !important;
+    color: var(--color-orange) !important;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+button.btn-primary:hover {
+    background-color: var(--color-light-hover) !important;
+    color: var(--color-orange) !important;
+}
+
+button.btn-primary:focus {
+    background-color: var(--color-light-hover) !important;
+    color: var(--color-orange) !important; 
+    transform: scale(0.98) !important;
+}
+
 
 /* Sidebar Styling */
 @media (max-width: 1024px) {
+    button.btn-primary {
+        padding: 10px 15px;
+    }
+    a.close.position-absolute {
+        font-size: 35px !important;
+        color: white !important; 
+        font-weight: 600 !important;
+        transition: transform 0.3s ease;
+    }
+    
+    a.close.position-absolute:hover {
+        color: white !important;
+        transform: scale(1.2);
+        font-weight: 800 !important;
+    }
+    
+      
     .sidebar {
         position: fixed;
-        top: 135px;
+        bottom: 0; 
         left: 0;
-        transform: translateX(-100%);
-        height: calc(100vh - 135px);
-        width: 40%;
+        transform: translateY(100%);
+        height: calc(100vh - 185px); 
+        width: 100%; 
         z-index: 10000;
+        overflow-y: auto; 
         transition: transform 0.3s ease-in-out;
     }
-
+    
     .sidebar.show-sidebar {
-        transform: translateX(0);
+        transform: translateY(0);
+    }
+    
+    .no-scroll {
+        overflow: hidden;
     }
 }
 
 @media (max-width: 767px) {
     .sidebar {
-        width: 80%;
+        width: 100%;
     }
 }

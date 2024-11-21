@@ -1,4 +1,4 @@
-@extends('components.layouts.member.setting')
+@extends('components.layouts.member.dashboard')
 
 @section('title', 'Ubah Password Anda Di Sini')
 

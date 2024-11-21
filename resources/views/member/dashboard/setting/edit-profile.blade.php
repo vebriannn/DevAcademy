@@ -1,4 +1,4 @@
-@extends('components.layouts.member.setting')
+@extends('components.layouts.member.dashboard')
 
 @section('title', 'Ubah Profil Anda Di Sini')
 
@@ -77,9 +77,12 @@
                                             <option value="Wordpress Developer"
                                                 {{ old('profession', Auth::user()->profession) == 'Wordpress Developer' ? 'selected' : '' }}>
                                                 Wordpress Developer</option>
-                                            <option value="Graphic Designer"
-                                                {{ old('profession', Auth::user()->profession) == 'Graphic Designer' ? 'selected' : '' }}>
-                                                Graphic Designer</option>
+                                            <option value="Graphics Designer"
+                                                {{ old('profession', Auth::user()->profession) == 'Graphics Designer' ? 'selected' : '' }}>
+                                                Graphics Designer</option>
+                                            <option value="Fullstack Developer"
+                                            {{ old('profession', Auth::user()->profession) == 'Fullstack Developer' ? 'selected' : '' }}>
+                                            Fullstack Developer</option>
                                         </select>
                                         @error('profession')
                                             <div class="text-danger">{{ $message }}</div>

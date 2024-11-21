@@ -12,7 +12,7 @@
 <section class="section-pilh-kelas" id="section-pilih-kelas">
     <div class="container-fluid mt-5 pt-5">
         <div class="row">
-            <div class="mobile-filter col-12 mb-5 d-lg-none fixed-top py-3">
+            <div class="mobile-filter col-12 mb-5 d-lg-none">
                 <h3 class="fw-bold">Pilihan Kelas</h3>
                 <div class="filter-menu d-flex align-items-center gap-2">
                     <button class="filter-togle btn btn-warning">
@@ -30,8 +30,8 @@
                     </form>
                 </div>
             </div>
-            @include('components.includes.member.sidebar-filter')            
-            <div class="card-container col-md-9 pe-md-4 mt-5 mt-md-0" id="course-card">
+            @include('components.includes.member.sidebar-filter')
+            <div class="card-container col-md-9" id="course-card">
                 <div class="row" id="row">
                     @if($data->isEmpty() && $data->isEmpty())
                         <div class="col-md-12 d-flex justify-content-center align-items-center">
@@ -101,7 +101,7 @@
                     @endif                    
                 </div>                
                     {{-- <h1>{{ $data->count() }}</h1> --}}
-            </div>
+            </div>          
             <ul class="pagination justify-content-center justify-content-md-end">
                 <li class="page-item-button fw-bold {{ $data->onFirstPage() ? 'disabled' : '' }}">
                     <a class="page-link" href="{{ $data->previousPageUrl() }}" aria-label="Previous">
@@ -130,9 +130,26 @@
 @push('addon-script')
 <script src="{{ asset('nemolab/member/js/scroll-dashboard.js') }}"></script>
 <script>
-    document.querySelector('.filter-togle').addEventListener('click', function() {
-        const sidebar = document.querySelector('.sidebar');
-        sidebar.classList.toggle('show-sidebar');
-    });
+document.querySelector('.filter-togle').addEventListener('click', function() {
+    const sidebar = document.querySelector('.sidebar');
+    const body = document.body;
+
+    sidebar.classList.toggle('show-sidebar');
+
+    // Jika sidebar ditampilkan, cegah scroll dengan menambahkan class ke body
+    if (sidebar.classList.contains('show-sidebar')) {
+        body.classList.add('no-scroll');
+    } else {
+        body.classList.remove('no-scroll');
+    }
+});
+// Logika untuk tombol "close"
+document.querySelector('.close-sidebar').addEventListener('click', function() {
+    const sidebar = document.querySelector('.sidebar');
+    const body = document.body;
+    sidebar.classList.remove('show-sidebar');
+    body.classList.remove('no-scroll');
+});
+
 </script>
 @endpush

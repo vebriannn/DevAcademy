@@ -222,13 +222,16 @@ html::-ms-overflow-style {
 }
 
 @media screen and (max-width: 1024px) {
-  #course-card {
-    width: 100%;
-    padding: 0 !important;
+  .card-container {
+      width: 100%;
+      padding: 0 !important;
+      margin: 0 !important;
   }
-
+  .row {
+      margin: 0 !important;
+  }
   .not-found img {
-    max-width: 100% !important;
+      max-width: 100% !important;
   }
 }
 /* Responsive Design */
@@ -236,7 +239,7 @@ html::-ms-overflow-style {
   .filter-head {
     font-size: 17px;
   }
-    #course-card {
+    .card-container{
       padding: 0 15px;
   }
 
