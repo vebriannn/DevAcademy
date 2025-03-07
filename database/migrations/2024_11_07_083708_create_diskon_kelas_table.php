@@ -11,10 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tbl_diskon_kelas', function (Blueprint $table) {
+        Schema::create('tbl_discount_class', function (Blueprint $table) {
             $table->id();
-            $table->string('kode_diskon', 255);
-            $table->integer('rate_diskon');
+            $table->string('code_discount', 255);
+            $table->integer('rate_discount');
             $table->timestamps();
         });
     }

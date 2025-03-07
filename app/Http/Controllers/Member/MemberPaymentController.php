@@ -114,7 +114,6 @@ class MemberPaymentController extends Controller
         }
 
 
-
         // Cek apakah transaksi sudah ada dan pending
         $checkTransaction = Transaction::where('course_id', $courseId)
             ->where('user_id', $user->id)

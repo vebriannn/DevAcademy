@@ -14,23 +14,20 @@ return new class extends Migration
         Schema::create('tbl_courses', function (Blueprint $table) {
             $table->id();
             // Foreign key constraint
-            $table->foreignId('mentor_id')->constrained('users')->onDelete('cascade');
-            $table->enum('category', ['Frontend Developer', 'Backend Developer', 'Wordpress Developer','Graphics Designer','Fullstack Developer','UI/UX Designer'])->default('Frontend Developer');
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->string('category')->nullable(false);
             $table->string('name', 255);
             $table->string('slug', 255);
-            $table->text('cover')->nullable();
+            $table->text('cover')->nullable(false);
             $table->enum('type', ['free', 'premium']);
-            $table->string('product_type')->default('video');
             $table->enum('status', ['draft', 'published']);
-            $table->integer('price');
+            $table->decimal('price', 10, 2)->nullable(false);
             $table->enum('level', ['beginner', 'intermediate', 'expert']);
-            $table->text('description')->nullable();
-            $table->text('resources')->nullable(true);
-            $table->text('link_grub')->nullable(false);
-            // $table->text('rating')->nullable(true);
+            $table->text('sort_description')->nullable(false);
+            $table->text('long_description')->nullable(false);
+            $table->text('link_resources')->nullable(true);
+            $table->text('link_groups')->nullable(false);
             $table->timestamps();
-    
-
         });
     }
 

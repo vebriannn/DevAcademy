@@ -27,6 +27,7 @@ class AdminLoginController extends Controller
             'email' => 'required|email',
             'password' => 'required',
         ]);
+        
         if (Auth::check()) {
             Auth::logout();
             $request->session()->invalidate();

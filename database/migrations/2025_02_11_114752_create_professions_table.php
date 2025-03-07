@@ -11,13 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tbl_submissions', function (Blueprint $table) {
+        Schema::create('tbl_professions', function (Blueprint $table) {
             $table->id();
-            $table->enum('status', ['accept'])->default('accept');
-            $table->unsignedBigInteger('user_id');
+            $table->string('name');
             $table->timestamps();
-
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
@@ -26,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('tbl_submissions');
+        Schema::dropIfExists('tbl_professions');
     }
 };

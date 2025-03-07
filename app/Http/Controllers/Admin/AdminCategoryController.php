@@ -11,8 +11,7 @@ class AdminCategoryController extends Controller
 {
     public function index(Request $request)
     {
-        $perPage = $request->get('entries', 10);
-        $categories = Category::paginate($perPage);
+        $categories = Category::all();
         return view('admin.category.view', compact('categories'));
     }
 
@@ -28,18 +27,18 @@ class AdminCategoryController extends Controller
         ]);
 
         $check = Category::where('name', strtolower($request->name))->first();
-        
+
         if(!$check) {
             $category = Category::create([
                 'name' => $request->name,
             ]);
-            
-            Alert::success('Success', 'Category Berhasil Di Buat');
+
+            Alert::success('Success', 'Kategori Berhasil Di Buat');
         } else {
             Alert::error('Error', 'Maaf Kategori Sudah Pernah Dibuat!');
             return redirect()->route('admin.category.create');
         }
-        
+
         return redirect()->route('admin.category');
     }
 
@@ -61,8 +60,8 @@ class AdminCategoryController extends Controller
             $category->update([
                 'name' => $request->name,
             ]);
-    
-            Alert::success('Success', 'Category Berhasil Di Update');
+
+            Alert::success('Berhasil', 'Kategori Berhasil Di Ubah');
         }
         else {
             $check = Category::where('name', $request->name)->first();
@@ -70,15 +69,15 @@ class AdminCategoryController extends Controller
                 $category->update([
                     'name' => $request->name,
                 ]);
-        
-                Alert::success('Success', 'Category Berhasil Di Update');
+
+                Alert::success('Berhasil', 'Kategori Berhasil Di Ubah');
             }
             else {
-                Alert::error('Error', 'Maaf Kategori Sudah Pernah Dibuat!');
+                Alert::error('Gagal', 'Maaf Kategori Sudah Pernah Dibuat!');
                 return redirect()->route('admin.category.edit', $id);
             }
         }
-        
+
         return redirect()->route('admin.category');
     }
 
@@ -87,7 +86,7 @@ class AdminCategoryController extends Controller
         $category = Category::findOrFail($id);
         $category->delete();
 
-        Alert::success('Success', 'Category Berhasil Di Hapus');
+        Alert::success('Berhasil', 'Berhasil Berhasil Di Hapus');
         return redirect()->route('admin.category');
     }
 }

@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name_tools', 255)->nullable(false);
             $table->text('logo_tools', 255)->nullable(true);
-            $table->string('link')->nullable('false'); 
+            $table->string('link_tools')->nullable(false);
             $table->timestamps();
         });
     }

@@ -13,12 +13,13 @@ return new class extends Migration
     {
         Schema::create('tbl_chapters', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 255)->nullable(false);
-            
             // foreign key
             $table->unsignedBigInteger('course_id');
             $table->foreign('course_id')->references('id')->on('tbl_courses');
             
+            $table->string('name', 255)->nullable(false);
+
+
             $table->timestamps();
         });
     }
