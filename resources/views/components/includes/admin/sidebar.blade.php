@@ -1,63 +1,77 @@
-<div class="col-3 d-none d-lg-block p-4 rounded-4 text-white scroll-sidebar" style="background-color: #faa907"
-    id="sidebar-id">
-    @if (Auth::user()->role == 'superadmin')
-        <p class="tittle-list-sidebar my-3">Lihat Data</p>
-        <a href="{{ route('admin.student') }}"
-            class="list-sidebar {{ request()->is('admin/data-users/student') ? 'active' : '' }}">
-            <img src="{{ asset(request()->is('admin/data-users/student') ? 'nemolab/admin/img/datamember-active.png' : 'nemolab/admin/img/datamember.png') }}"
-                alt="" width="30" />
-            <p class="m-0">Data student</p>
+<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+    <!-- Sidebar - Brand -->
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="#">
+        <div class="sidebar-brand-text mx-3">Dev Academy</div>
+    </a>
+
+    <!-- Divider -->
+    <hr class="sidebar-divider my-0">
+
+    <!-- Nav Item - Pages Collapse Menu -->
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
+            aria-expanded="true" aria-controls="collapsePages">
+            <i class="fas fa-fw fa-user"></i>
+            <span>Kelolah Akun</span>
         </a>
-        <a href="{{ route('admin.mentor') }}"
-            class="list-sidebar {{ request()->is('admin/data-users/mentor') ? 'active' : '' }}">
-            <img src="{{ asset(request()->is('admin/data-users/mentor') ? 'nemolab/admin/img/datamember-active.png' : 'nemolab/admin/img/datamember.png') }}"
-                alt="" width="30" />
-            <p class="m-0">Data Mentor</p>
-        </a>
-        <a href="{{ route('admin.superadmin') }}"
-            class="list-sidebar {{ request()->is('admin/data-users/superadmin') ? 'active' : '' }}">
-            <img src="{{ asset(request()->is('admin/data-users/superadmin') ? 'nemolab/admin/img/datamember-active.png' : 'nemolab/admin/img/datamember.png') }}"
-                alt="" width="30" />
-            <p class="m-0">Data Super Admin</p>
-        </a>
-        <a href="{{ route('admin.pengajuan') }}"
-            class="list-sidebar {{ request()->is('admin/kirim-pengajuan/users') ? 'active' : '' }}">
-            <img src="{{ asset(request()->is('admin/kirim-pengajuan/users') ? 'nemolab/admin/img/datamember-active.png' : 'nemolab/admin/img/datamember.png') }}"
-                alt="" width="30" />
-            <p class="m-0">Pengajuan Mentor</p>
-        </a>
-    @endif
-    <p class="title-list-sidebar mt-3">Kursus</p>
-    <a href="{{ route('admin.course') }}" class="list-sidebar {{ request()->is('admin/course') ? 'active' : '' }}">
-        <img src="{{ asset(request()->is('admin/course') ? 'nemolab/admin/img/datacourses-active.png' : 'nemolab/admin/img/datacourses.png') }}"
-            alt="" width="30" />
-        <p class="m-0">Kursus Video</p>
-    </a>
+        <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item" href="member.html">Member</a>
+                <a class="collapse-item" href="mentor.html">Mentor</a>
+                <a class="collapse-item" href="superadmin.html">Superadmin</a>
+            </div>
+        </div>
+    </li>
 
-    <a href="{{ route('admin.ebook') }}" class="list-sidebar {{ request()->is('admin/ebooks') ? 'active' : '' }}">
-        <img src="{{ asset(request()->is('admin/ebooks') ? 'nemolab/admin/img/datacourses-active.png' : 'nemolab/admin/img/datacourses.png') }}"
-            alt="" width="30" />
-        <p class="m-0">Kursus Ebook</p>
-    </a>
+    <!-- Nav Item - Kategori -->
+    <li class="nav-item ">
+        <a class="nav-link" href="{{ route('admin.category') }}">
+            <i class="fas fa-layer-group"></i>
+            <span>Kategori Kelas</span></a>
+    </li>
+    
+    <!-- Nav Item - Kelas -->
+    <li class="nav-item ">
+        <a class="nav-link" href="kelas.html">
+            <i class="fas fa-fw fa-video"></i>
+            <span>Kelolah Kelas</span></a>
+    </li>
 
-    <a href="{{ route('admin.paket-kelas') }}"
-        class="list-sidebar {{ request()->is('admin/paket-kelas') ? 'active' : '' }}">
-        <img src="{{ asset(request()->is('admin/paket-kelas') ? 'nemolab/admin/img/datacourses-active.png' : 'nemolab/admin/img/datacourses.png') }}"
-            alt="" width="30" />
-        <p class="m-0">Paket Video Ebook</p>
-    </a>
+    <!-- Nav Item - Diskon -->
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('admin.discount') }}">
+            <i class="fas fa-fw fa-tags"></i>
+            <span>Diskon Kelas</span></a>
+    </li>
 
-    <a href="{{ route('admin.tools') }}" class="list-sidebar {{ request()->is('admin/tools') ? 'active' : '' }}">
-        <img src="{{ asset(request()->is('admin/tools') ? 'nemolab/admin/img/datacourses-active.png' : 'nemolab/admin/img/datacourses.png') }}"
-            alt="" width="30" />
-        <p class="m-0">Tools</p>
-    </a>
+    <!-- Nav Item - Tools Kelas -->
+    <li class="nav-item ">
+        <a class="nav-link" href="{{ route('admin.tools') }}">
+            <i class="fas fa-fw fa-code"></i>
+            <span>Tools Kelas</span></a>
+    </li>
 
-    <a href="{{ route('admin.diskon-kelas') }}"
-        class="list-sidebar {{ request()->is('admin/diskon-kelas') ? 'active' : '' }}">
-        <img src="{{ asset(request()->is('admin/diskon-kelas') ? 'nemolab/admin/img/datacourses-active.png' : 'nemolab/admin/img/datacourses.png') }}"
-            alt="" width="30" />
-        <p class="m-0">Atur Diskon</p>
-    </a>
+    <!-- Nav Item - Profesi -->
+    <li class="nav-item">
+        <a class="nav-link" href="profesi.html">
+            <i class="fas fa-fw fa-user-tie"></i>
+            <span>Profesi Pengguna</span></a>
+    </li>
 
-</div>
+    <!-- Nav Item - Profesi -->
+    <li class="nav-item active">
+        <a class="nav-link" href="{{ route('admin.transaction') }}">
+            <i class="fas fa-fw fa-clipboard-list"></i>
+            <span>History Transaksi</span></a>
+    </li>
+
+    <!-- Divider -->
+    <hr class="sidebar-divider d-none d-md-block">
+
+    <!-- Sidebar Toggler (Sidebar) -->
+    <div class="text-center d-none d-md-inline">
+        <button class="rounded-circle border-0" id="sidebarToggle"></button>
+    </div>
+
+</ul>

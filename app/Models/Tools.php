@@ -14,7 +14,7 @@ class Tools extends Model
     protected $fillable = [
         'name_tools',
         'logo_tools',
-        'link'
+        'link_tools',
     ];
 
     public function courses()

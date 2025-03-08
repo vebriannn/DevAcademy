@@ -1,48 +1,29 @@
-@extends('components.layouts.admin.create-update')
+@extends('components.layouts.admin.form')
 
-@push('prepend-style')
-    <link rel="stylesheet" href="{{ asset('nemolab/admin/css/create-update.css') }}">
-@endpush
-
-@section('title', 'Edit Category')
+@section('title', 'Edit Kategori')
 
 @section('content')
+    <div id="content" class="d-flex align-items-center justify-content-center" style="height: 100vh; padding: 30px 0;">
+        <div class="col-12 col-sm-6" style="margin-top: 3rem;">
+            <div class="card p-4 shadow">
+                <h4 class="text-primary fw-bold">Edit Kategori</h4>
+                <form method="POST" action="{{ route('admin.category.edit.update', $category->id) }}"
+                    enctype="multipart/form-data">
+                    @csrf
+                    @method('PUT')
+                    {{-- Nama Kategori --}}
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Nama Kategori</label>
+                        <input type="text" class="form-control @error('name') is-invalid @enderror" name="name"
+                            placeholder="Frontend Developer" value="{{ old('name', $category->name) }}">
 
-    <div class="card card-custom-width" style="border: none !important;">
-        <div class="card-header d-flex justify-content-between bg-transparent pb-0" style="border: none !important;">
-            <h2 class="fw-semibold fs-4 mb-4" style="color: #faa907">Edit Data</h2>
-            <a href="{{ route('admin.category') }}" class="btn btn-orange"> Kembali </a>
-        </div>
-        <div class="card-body pt-2">
-            <form class="col-12" action="{{ route('admin.category.edit.update', $category->id) }}" method="post">
-                @csrf
-                @method('put')
-                <div class="entryarea">
-                    <input type="text" id="name" name="name" value="{{ $category->name }}" placeholder="" />
-                    <div class="labelline" for="name">Kategori<span class="required-field"></span></div>
-                    @error('name')
-                        <span style="color: red">{{ $message }}</span>
-                    @enderror
-                </div>
-                <div class="col-12 pt-2">
-                    <button type="submit"
-                        class="d-block w-100 text-center text-decoration-none py-2 rounded-3 text-white fw-semibold btn-kirim"
-                        style="background-color: #faa907">Kirim</button>
-                </div>
-                <div class="col-6">
-                    {{-- <a href=""
-                                class="d-block w-100 text-center text-decoration-none py-2 rounded-3 text-white btn-batal"
-                                style="background-color: gray">Reset</a> --}}
-                </div>
-            </form>
+                        @error('name')
+                            <span class="text-danger" style="font-size: 0.875rem;">{{ $message }}</span>
+                        @enderror
+                    </div>
+                    <button type="submit" class="btn btn-primary">Perbarui Kategori</button>
+                </form>
+            </div>
         </div>
     </div>
-
 @endsection
-
-{{-- @push('addon-script')
-    <script>
-        document.getElementById('sidebar-id').remove();
-        document.getElementById('navbar-id').remove();
-    </script>
-@endpush --}}

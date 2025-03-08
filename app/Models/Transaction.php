@@ -12,15 +12,13 @@ class Transaction extends Model
     protected $table = 'tbl_transactions';
 
     protected $fillable = [
-        'status',
-        'course_id',
         'transaction_code',
         'user_id',
-        'ebook_id',
-        'bundle_id',
-        'snap_token',
-        'name',
+        'name_class',
+        'type_class',
         'price',
+        'status',
+        'snap_token',
     ];
 
 
@@ -29,19 +27,4 @@ class Transaction extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    public function course()
-    {
-        return $this->belongsTo(Course::class, 'course_id');
-    }
-
-    // Relasi dengan model Ebook
-    public function ebook()
-    {
-        return $this->belongsTo(Ebook::class, 'ebook_id');
-    }
-
-    public function bundle()
-    {
-        return $this->belongsTo(CourseEbook::class, 'bundle_id');
-    }
 }

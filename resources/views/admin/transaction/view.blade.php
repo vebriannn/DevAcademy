@@ -1,120 +1,99 @@
 @extends('components.layouts.admin.app')
 
-@push('prepend-style')
-    <link rel="stylesheet" href="{{ asset('nemolab/admin/css/tabel-content.css') }}">
-@endpush
-
-@section('title', 'View Transaction')
+@section('title', 'Lihat Data Transaksi')
 
 @section('content')
-    <link rel="stylesheet" href="{{ asset('nemolab/member/css/tabel.css') }}">
+    <div class="container-fluid">
 
-    <!-- Tabel -->
-    <div class="col-lg-9 col-sm-12 px-4">
-        <div class="mb-3">
-            <h1 class="judul-table">Transaksi</h1>
-        </div>
-
-        <div class="table-responsive p-3 border border-2">
-            <div class="d-flex justify-content-between align-items-center mb-3">
-                <div class="d-flex align-items-center ms-3 mt-2">
-                    <p class="mb-0 me-2">Menampilkan</p>
-                    <form method="GET" action="{{ route('admin.transaction') }}" id="entries-form">
-                        <select id="entries" name="per_page" class="form-select form-select-sm rounded-3"
-                            onchange="document.getElementById('entries-form').submit();">
-                            <option value="10" {{ request('per_page') == 10 ? 'selected' : '' }}>10</option>
-                            <option value="25" {{ request('per_page') == 25 ? 'selected' : '' }}>25</option>
-                            <option value="50" {{ request('per_page') == 50 ? 'selected' : '' }}>50</option>
-                            <option value="100" {{ request('per_page') == 100 ? 'selected' : '' }}>100</option>
-                        </select>
-                    </form>
-                    <p class="mb-0 ms-2">entri</p>
-                </div>
+        <!-- DataTales Example -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3 d-flex justify-content-between align-items-center">
+                <h6 class="m-0 font-weight-bold text-primary">Data Transaksi</h6>
+                <!-- <a href="#" class="btn btn-primary">Tambahkan Transaksi</a> -->
             </div>
-
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Nama</th>
-                        <th>Kursus</th>
-                        <th>Tanggal</th>
-                        <th>Harga</th>
-                        <th>Status</th>
-                        <th>Aksi</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @forelse ($transactions as $transaction)
-                        @if ($transaction->course)
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
                             <tr>
-                                <td>{{ $transaction->user->name }}</td>
-                                <td>{{ $transaction->course->name }}</td>
-                                <td>{{ $transaction->created_at->format('d-M-Y') }}</td>
-                                <td>Rp {{ number_format($transaction->course->price, 2, ',', '.') }}</td>
-                                @if ($transaction->status === 'success')
-                                    <td class="text-capitalize text-success">{{ ucfirst($transaction->status) }}</td>
-                                @elseif($transaction->status === 'failed')
-                                    <td class="text-capitalize text-danger">{{ ucfirst($transaction->status) }}</td>
-                                @else
-                                    <td class="text-capitalize text-warning">{{ ucfirst($transaction->status) }}</td>
-                                @endif
-                                <td>
-                                    @if ($transaction->status == 'pending')
-                                        <form action="{{ route('admin.transactions.accept', $transaction->id) }}"
-                                            method="POST" style="display:inline;">
-                                            @csrf
-                                            <button type="submit" class="btn btn-success btn-sm">Accept</button>
-                                        </form>
-                                        <form action="{{ route('admin.transactions.cancel', $transaction->id) }}"
-                                            method="POST" style="display:inline;">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-danger btn-sm">Cancel</button>
-                                        </form>
-                                    @else
-                                        -
-                                    @endif
-                                </td>
+                                <th>Invoice Pembeli</th>
+                                <th>Nama Pembeli</th>
+                                <th>Nama Kelas</th>
+                                <th>Tipe Kelas</th>
+                                <th>Harga Kelas</th>
+                                <th>Status Kelas</th>
+                                <th>Tanggal</th>
+                                <th>Aksi</th>
                             </tr>
-                        @endif
-                    @empty
-                        <tr>
-                            <td colspan="6">Belum ada data transaksi</td>
-                        </tr>
-                    @endforelse
-                </tbody>
-            </table>
+                        </thead>
+                        <tbody>
+                            @foreach ($transactions as $transaction)
+                                <tr>
+                                    <td>{{ $transaction->transaction_code }}</td>
+                                    <td>{{ $transaction->user->name ?? 'Guest' }}</td>
+                                    <td>{{ $transaction->name_class }}</td>
+                                    <td>{{ $transaction->type_class }}</td>
+                                    <td>Rp. {{ number_format($transaction->price, 0, ',', '.') }}</td>
 
-            <div class="d-flex justify-content-between p-1">
-                <p class="show">Menampilkan {{ $transactions->count() }} dari {{ $transactions->total() }}</p>
-                <div class="d-flex gap-3">
-                    <button class="pagination mx-1 {{ $transactions->onFirstPage() ? 'disabled' : '' }}" id="prev-button"
-                        {{ $transactions->onFirstPage() ? 'disabled' : '' }}
-                        data-url="{{ $transactions->previousPageUrl() }}">Sebelumnya</button>
-                    <button class="pagination mx-1 {{ $transactions->hasMorePages() ? '' : 'disabled' }}" id="next-button"
-                        {{ $transactions->hasMorePages() ? '' : 'disabled' }}
-                        data-url="{{ $transactions->nextPageUrl() }}">Berikutnya</button>
+                                    <!-- Status dengan warna -->
+                                    <td
+                                        class="
+                                    {{ $transaction->status == 'pending' ? 'text-warning' : '' }}
+                                    {{ $transaction->status == 'success' ? 'text-success' : '' }}
+                                    {{ $transaction->status == 'failed' ? 'text-danger' : '' }}">
+                                        {{ ucfirst($transaction->status) }}
+                                    </td>
+
+                                    <td>{{ $transaction->created_at->format('d/m/Y') }}</td>
+
+                                    <!-- Action -->
+                                    <td class="d-flex align-items-center" style="gap: 1rem;">
+                                        @if ($transaction->status == 'pending')
+                                            <!-- Tombol Batalkan -->
+                                            <form action="{{ route('admin.transaction.cancel', $transaction->id) }}"
+                                                method="POST">
+                                                @csrf
+                                                @method('PUT')
+                                                <input type="hidden" name="status" value="failed">
+                                                <button type="submit" class="btn btn-danger">
+                                                    Batalkan
+                                                </button>
+                                            </form>
+
+                                            <!-- Tombol Selesaikan -->
+                                            <form action="{{ route('admin.transaction.accept', $transaction->id) }}"
+                                                method="POST">
+                                                @csrf
+                                                @method('PUT')
+                                                <input type="hidden" name="status" value="success">
+                                                <button type="submit" class="btn btn-success">
+                                                    Selesaikan
+                                                </button>
+                                            </form>
+                                        @else
+                                            <!-- Jika bukan pending -->
+                                            <span>-</span>
+                                        @endif
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
+
     </div>
-
-    <!-- Popup YouTube -->
-    {{-- <div id="youtube-popup" class="youtube-popup hidden">
-        <iframe id="youtube-iframe"src="" frameborder="0" allowfullscreen></iframe>
-        <img id="close-btn" class="close-btn" src="{{asset('nemolab/admin/img/close.png')}}" alt="">
-    </div> --}}
+@endsection
+@push('scripts')
     <script>
-        document.getElementById('prev-button').addEventListener('click', function() {
-            if (!this.classList.contains('disabled')) {
-                window.location.href = this.getAttribute('data-url');
-            }
-        });
-
-        document.getElementById('next-button').addEventListener('click', function() {
-            if (!this.classList.contains('disabled')) {
-                window.location.href = this.getAttribute('data-url');
-            }
+        $('#dataTable').DataTable({
+            "order": [], // Mematikan default sorting
+            "columnDefs": [{
+                    "orderable": false,
+                    "targets": [7]
+                } // Kolom aksi (ke-8) tidak bisa disort
+            ]
         });
     </script>
-@endsection
+@endpush

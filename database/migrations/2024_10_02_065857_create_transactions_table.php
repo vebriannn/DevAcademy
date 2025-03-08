@@ -14,14 +14,15 @@ return new class extends Migration
         Schema::create('tbl_transactions', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('course_id')->nullable();
-            $table->string('transaction_code')->nullable(false);
-            $table->string('snap_token')->nullable(false);
-            $table->decimal('price', 15, 2)->nullable(false);
-            $table->enum('status', ['success', 'pending', 'failed', 'refund'])->default('pending');
-            $table->timestamps();
-            $table->foreign('course_id')->references('id')->on('tbl_courses')->onDelete('set null');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+
+            $table->string('transaction_code')->nullable(false);
+            $table->string('name_class');
+            $table->string('type_class');
+            $table->decimal('price', 15, 2);
+            $table->enum('status', ['success', 'pending', 'failed', 'refund'])->default('pending');
+            $table->string('snap_token')->nullable();
+            $table->timestamps();
         });
     }
 

@@ -1,0 +1,131 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
+
+:root {
+    --card-bg: #fff;
+    --lavender: #FFF6F6;
+    --blue: #5c67f2;
+    --dark-blue: #4a54e1;
+    --light-blue: #d4d7f7;
+    --color-orange: #FAA907;
+    --color-grey: #414142;
+    --dim-grey: #696969;
+    --placeholder: rgba(0, 0, 0, 0.3);
+    --charcoal-gray: #414142;
+    --light-shade: #FDF8F8;
+    --shade-gray: #8F8F8F;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #f8f9fa;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card-body {
+    padding: 3rem;
+}
+
+.btn-primary {
+    background-color: var(--blue);
+    border: none;
+}
+
+.btn-primary:hover {
+    background-color: var(--dark-blue);
+}
+
+.form-label {
+    font-weight: 600;
+}
+
+.card {
+    height: 98%;
+}
+
+.login-card {
+    border: none;
+    border-radius: 1rem;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    max-width: 1200px;
+    height: 850px;
+}
+
+
+.img-container img {
+    height: 100%;
+    object-fit: cover;
+    border-top-left-radius: 1rem;
+    border-bottom-left-radius: 1rem;
+}
+
+.card {
+    height: 98%;
+}
+
+.card-body {
+    padding: 3rem;
+}
+
+h3 {
+    text-align: center;
+    font-weight: 900;
+}
+
+p {
+    color: var(--dim-grey);
+    margin-bottom: 1px;
+}
+
+.form-control,
+.form-select {
+    border-radius: 10px;
+    font-size: 16px;
+    padding: 0.8rem 1rem !important;
+    border: 2px solid var(--light-blue) !important;
+}
+
+.form-control::placeholder,
+.form-select::placeholder {
+    color: var(--placeholder);
+    opacity: 1;
+}
+
+.btn-primary {
+    background-color: var(--blue);
+    border: none;
+}
+
+.btn-primary:hover {
+    background-color: var(--dark-blue);
+}
+
+.form-label {
+    font-weight: 600;
+}
+
+a {
+    color: var(--dark-blue);
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+    .img-container {
+        display: none;
+    }
+
+    .login-card {
+        height: auto;
+    }
+
+    .card-body {
+        padding: 1.5rem;
+    }
+}

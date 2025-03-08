@@ -21,7 +21,10 @@ class LandingpageController extends Controller
             ->inRandomOrder() // Pilih secara acak
             ->take(8)          // Batasi hasilnya menjadi 8 kursus
             ->get();
+        // Mengambil semua ID kursus yang termasuk dalam bundle
+        $InBundle = CourseEbook::pluck('course_id')->toArray();
+    
         // Mengirimkan data kursus dan ID bundle ke view 'member.home'
-        return view('member.home', compact('courses'));
-    }
+        return view('member.home', compact('courses', 'InBundle'));
+    }    
 }

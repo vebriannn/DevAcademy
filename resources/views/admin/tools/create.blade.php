@@ -1,60 +1,50 @@
-@extends('components.layouts.admin.create-update')
-
-@push('prepend-style')
-    <link rel="stylesheet" href="{{ asset('nemolab/admin/css/create-update.css') }}">
-@endpush
+@extends('components.layouts.admin.form')
 
 @section('title', 'Tambah Tools')
 
 @section('content')
+    <div id="content" class="d-flex align-items-center justify-content-center" style="height: 100vh; padding: 30px 0;">
+        <div class="col-12 col-sm-6" style="margin-top: 3rem;">
+            <div class="card p-4 shadow">
+                <h4 class="text-primary fw-bold">Form Tools</h4>
+                
+                <form method="POST" action="{{ route('admin.tools.create.store') }}" enctype="multipart/form-data">
+                    @csrf
 
-    <div class="card card-custom-width" style="border: none !important;">
-        <div class="card-header d-flex justify-content-between bg-transparent pb-0" style="border: none !important;">
-            <h2 class="fw-semibold fs-4 mb-4" style="color: #faa907">Tambah Data</h2>
-            <a href="{{ route('admin.tools') }}" class="btn btn-orange"> Back </a>
-        </div>
-        <div class="card-body pt-2">
-            <form class="col-12" action="{{ route('admin.tools.create.store') }}" method="post"
-                enctype="multipart/form-data">
-                @csrf
-                <div class="col-12">
-                    <div class="entryarea">
-                        <input type="text" id="name" name="name_tools" placeholder="" />
-                        <div class="labelline" for="name">Nama Tools<span class="required-field"></span></div>
+                    {{-- Nama Tools --}}
+                    <div class="mb-3">
+                        <label for="name_tools" class="form-label">Nama Tools</label>
+                        <input type="text" class="form-control @error('name_tools') is-invalid @enderror"
+                            name="name_tools" value="{{ old('name_tools') }}" placeholder="HTML">
                         @error('name_tools')
-                            <span style="color: red">{{ $message }}</span>
+                            <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
-                </div>
-                <div class="col-12 mt-4 pt-1">
-                    <div class="entryarea">
-                        <input type="text" id="name" name="link" placeholder="" />
-                        <div class="labelline" for="name">Link<span class="required-field"></span></div>
-                        @error('link')
-                            <span style="color: red">{{ $message }}</span>
+
+                    {{-- Upload Logo Tools --}}
+                    <div class="mb-3">
+                        <label for="imageUpload" class="form-label">Upload Image Tools</label>
+                        <input type="file" class="form-control @error('logo_tools') is-invalid @enderror"
+                            id="imageUpload" accept="image/*" onchange="previewImage()" name="logo_tools">
+                        @error('logo_tools')
+                            <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
-                </div>
-                <div class="col-12 ">
-                    <p class="m-0">Gambar Alat<span class="required-field"></span></p>
-                    <input type="file" id="imageUpload" name="logo_tools" accept="image/*" class="" />
-                    @error('logo_tools')
-                        <span style="color: red">{{ $message }}</span>
-                    @enderror
-                </div>
-                <div class="col-12 pt-2">
-                    <button type="submit"
-                        class="d-block w-100 text-center text-decoration-none py-2 rounded-3 text-white fw-semibold btn-kirim"
-                        style="background-color: #faa907">Kirim</button>
-                </div>
-                <div class="col-6">
-                    {{-- <a href=""
-                                class="d-block w-100 text-center text-decoration-none py-2 rounded-3 text-white btn-batal"
-                                style="background-color: gray">Reset</a> --}}
-                </div>
-            </form>
+
+                    {{-- Link Tools --}}
+                    <div class="mb-3">
+                        <label for="link_tools" class="form-label">Link Tools</label>
+                        <input type="text" class="form-control @error('link_tools') is-invalid @enderror"
+                            name="link_tools" value="{{ old('link_tools') }}" placeholder="https://devdocs.io/html">
+                        @error('link_tools')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    {{-- Submit --}}
+                    <button type="submit" class="btn btn-primary">Tambahkan Sekarang</button>
+                </form>
+            </div>
         </div>
     </div>
-
 @endsection
-

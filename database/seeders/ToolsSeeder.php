@@ -17,17 +17,17 @@ class ToolsSeeder extends Seeder
         $Tools = [
             [
                 'name_tools' => 'Visual Studio Code',
-                'link' => 'https://code.visualstudio.com/download',
+                'link_tools' => 'https://code.visualstudio.com/download',
                 'logo_tools' => 'vscode.png'
             ],
             [
                 'name_tools' => 'Mysql',
-                'link' => 'https://www.mysql.com/downloads',
+                'link_tools' => 'https://www.mysql.com/downloads',
                 'logo_tools' => 'mysql.png'
             ],
             [
                 'name_tools' => 'Figma',
-                'link' => 'https://www.figma.com/downloads',
+                'link_tools' => 'https://www.figma.com/downloads',
                 'logo_tools' => 'figma.png'
             ]
         ];

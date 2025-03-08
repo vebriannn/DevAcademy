@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use RealRashid\SweetAlert\Facades\Alert;
 use App\Models\Category;
 
 class AdminCategoryController extends Controller
@@ -26,21 +25,20 @@ class AdminCategoryController extends Controller
             'name' => 'required|string|max:255',
         ]);
 
-        $check = Category::where('name', strtolower($request->name))->first();
+        // Cek apakah kategori sudah ada
+        $check = Category::where('name', $request->name)->first();
 
-        if(!$check) {
-            $category = Category::create([
-                'name' => $request->name,
-            ]);
-
-            Alert::success('Success', 'Kategori Berhasil Di Buat');
-        } else {
-            Alert::error('Error', 'Maaf Kategori Sudah Pernah Dibuat!');
-            return redirect()->route('admin.category.create');
+        if ($check) {
+            return redirect()->route('admin.category')->with('error', 'Maaf, Kategori sudah pernah dibuat');
         }
 
-        return redirect()->route('admin.category');
+        Category::create([
+            'name' => $request->name,
+        ]);
+
+        return redirect()->route('admin.category')->with('success', 'Kategori berhasil ditambahkan');
     }
+
 
     public function edit($id)
     {
@@ -54,39 +52,30 @@ class AdminCategoryController extends Controller
             'name' => 'required|string|max:255',
         ]);
 
-        $category = Category::findOrFail($id)->first();
+        $category = Category::findOrFail($id);
 
-        if($category->name == $request->name) {
-            $category->update([
-                'name' => $request->name,
-            ]);
+        // Cek apakah nama baru sudah digunakan oleh kategori lain
+        $check = Category::where('name', $request->name)
+            ->where('id', '!=', $id)
+            ->first();
 
-            Alert::success('Berhasil', 'Kategori Berhasil Di Ubah');
-        }
-        else {
-            $check = Category::where('name', $request->name)->first();
-            if(!$check) {
-                $category->update([
-                    'name' => $request->name,
-                ]);
-
-                Alert::success('Berhasil', 'Kategori Berhasil Di Ubah');
-            }
-            else {
-                Alert::error('Gagal', 'Maaf Kategori Sudah Pernah Dibuat!');
-                return redirect()->route('admin.category.edit', $id);
-            }
+        if ($check) {
+            return redirect()->route('admin.category', $id)->with('error', 'Maaf, Kategori sudah pernah dibuat!');
         }
 
-        return redirect()->route('admin.category');
+        $category->update([
+            'name' => $request->name,
+        ]);
+
+        return redirect()->route('admin.category')->with('success', 'Kategori berhasil diubah');
     }
+
 
     public function delete($id)
     {
         $category = Category::findOrFail($id);
         $category->delete();
 
-        Alert::success('Berhasil', 'Berhasil Berhasil Di Hapus');
-        return redirect()->route('admin.category');
+        return redirect()->route('admin.category')->with('success', 'Kategori berhasil dihapus');
     }
 }

@@ -1,60 +1,50 @@
 @extends('components.layouts.admin.app')
 
-@push('prepend-style')
-    <link rel="stylesheet" href="{{ asset('nemolab/admin/css/tabel-content.css') }}">
-@endpush
-
-@section('title', 'Lihat Tools ')
+@section('title', 'Lihat Data Tools')
 
 @section('content')
-    <div class="container-fluid px-2 px-sm-5 mt-5">
-        <div class="row ">
-            @include('components.includes.admin.sidebar')
-
-            <div class="col-12 col-lg-9 ps-xl-3 d-flex justify-content-center" style="height: 600px">
-                <div class="table-responsive shadow-lg rounded-3 p-3 w-100" style="background-color: #ffffff;">
-                    <a href="{{ route('admin.tools.create') }}" class="btn"
-                        style="background-color: #faa907; color: white; border-radius: 10px; padding: 6px 10px;">Tambahkan
-                        Data</a>
-                    <table class=" table table-bordered table-striped shadow-none mb-0" id="tablesContent">
-                        <thead class="table-dark">
+    <div class="container-fluid">
+        <!-- DataTales Example -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3 d-flex justify-content-between align-items-center">
+                <h6 class="m-0 font-weight-bold text-primary">Data Tools</h6>
+                <a href="{{ route('admin.tools.create') }}" class="btn btn-primary">Tambahkan Tools</a>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
                             <tr>
-                                <th>Judul</th>
-                                <th>Link</th>
-                                <th>Gambar</th>
+                                <th>Nama Tools</th>
+                                <th>Logo Tools</th>
+                                <th>Link Tools</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($tools as $item)
+                            @foreach ($tools as $tool)
                                 <tr>
-                                    <td>{{ $item->name_tools }}</td>
-                                    <td><a href="{{ $item->link }}">Kunjungi</a></td>
+                                    <td>{{ $tool->name_tools }}</td>
                                     <td>
-                                        <img src="{{ asset('storage/images/logoTools/' . $item->logo_tools) }}"
-                                            alt="" width="50" height="50" class="rounded-2 object-fit-cover">
+                                        <img src="{{ asset('storage/images/logoTools/' . $tool->logo_tools) }}"
+                                            alt="{{ $tool->name_tools }} Logo" width="40" height="40">
                                     </td>
-                                    <td class="d-flex justify-content-around align-items-center"
-                                        style="border: none !important; ">
-                                        <a class="btn btn-warning" href="{{ route('admin.tools.edit', $item->id) }}">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                viewBox="0 0 24 24"
-                                                style="fill: rgba(255, 255, 255, 1);transform: ;msFilter:;">
-                                                <path
-                                                    d="m7 17.013 4.413-.015 9.632-9.54c.378-.378.586-.88.586-1.414s-.208-1.036-.586-1.414l-1.586-1.586c-.756-.756-2.075-.752-2.825-.003L7 12.583v4.43zM18.045 4.458l1.589 1.583-1.597 1.582-1.586-1.585 1.594-1.58zM9 13.417l6.03-5.973 1.586 1.586-6.029 5.971L9 15.006v-1.589z">
-                                                </path>
-                                                <path
-                                                    d="M5 21h14c1.103 0 2-.897 2-2v-8.668l-2 2V19H8.158c-.026 0-.053.01-.079.01-.033 0-.066-.009-.1-.01H5V5h6.847l2-2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2z">
-                                                </path>
-                                            </svg>
+                                    <td>
+                                        <a href="{{ $tool->link_tools }}" class="btn btn-success"
+                                            target="_blank">Kunjungi</a>
+                                    </td>
+                                    <td class="d-flex align-items-center" style="gap: 1rem;">
+                                        <a href="{{ route('admin.tools.edit', $tool->id) }}" class="btn btn-primary me-2">
+                                            <i class="fas fa-edit"></i>
                                         </a>
-                                        <a href="{{ route('admin.tools.delete', $item->id) }}" class="btn btn-danger ">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                                fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
-                                                <path
-                                                    d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5M11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47M8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5" />
-                                            </svg>
-                                        </a>
+                                        <form action="{{ route('admin.tools.delete', $tool->id) }}" method="POST"
+                                            onsubmit="return confirm('Apakah Anda yakin ingin menghapus ini?');">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-danger">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </form>
                                     </td>
                                 </tr>
                             @endforeach
@@ -63,11 +53,6 @@
                 </div>
             </div>
         </div>
+
     </div>
 @endsection
-@push('prepend-script')
-    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
-    <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
-    <script src="https://cdn.datatables.net/2.1.8/js/dataTables.bootstrap5.js"></script>
-@endpush
-

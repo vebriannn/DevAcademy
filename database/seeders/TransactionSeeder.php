@@ -4,9 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use App\Models\Transaction;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Support\Str;
-use Faker\Factory as Faker;
 
 class TransactionSeeder extends Seeder
 {
@@ -15,21 +13,26 @@ class TransactionSeeder extends Seeder
      */
     public function run(): void
     {
-        Transaction::create([
-            'course_id' => 1,
-            'user_id' => 2,
-            'status' => 'pending'
-        ]);
+        $dummyData = [
+            'UI UX',
+            'Web Development',
+            'Data Science',
+            'Digital Marketing',
+            'Graphic Design',
+            'Cyber Security'
+        ];
 
-        // $faker = Faker::create();
+        foreach ($dummyData as $class) {
+            Transaction::create([
+                'transaction_code' => 'Dev-' . Str::random(8),
+                'user_id' => rand(1, 3),
+                'name_class' => $class,
+                'type_class' => 'Berbayar',
+                'price' => rand(500000, 10000000), // Antara 500rb - 10 juta
+                'status' => 'pending',
+                'snap_token' => Str::random(16)
+            ]);
+        }
 
-        // // Menambahkan 50 transaksi contoh
-        // foreach (range(1, 50) as $index) {
-        //     Transaction::create([
-        //         'course_id' => $faker->numberBetween(1, 20), // Asumsi ada 20 kursus di database
-        //         'user_id' => $faker->numberBetween(1, 10), // Asumsi ada 10 pengguna di database
-        //         'status' => $faker->randomElement(['success', 'pending', 'failed']),
-        //     ]);
-        // }
     }
 }
