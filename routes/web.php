@@ -27,9 +27,9 @@ use App\Http\Controllers\Admin\AdminCategoryController;
 use App\Http\Controllers\Admin\AdminProfessionController;
 
 // sdm pengguna
-use App\Http\Controllers\Admin\AdminStudentController;
-use App\Http\Controllers\Admin\AdminSuperadminController;
-use App\Http\Controllers\Admin\AdminMentorController;
+use App\Http\Controllers\Admin\Sdm\AdminStudentController;
+use App\Http\Controllers\Admin\Sdm\AdminMentorController;
+use App\Http\Controllers\Admin\Sdm\AdminSuperadminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -151,21 +151,21 @@ Route::prefix('admin')->group(function () {
         });
 
         Route::prefix('mentor')->group(function () {
-            Route::get('/', [AdminMentorController::class, 'index'])->name('admin.mentor');
-            Route::get('/create', [AdminMentorController::class, 'create'])->name('admin.mentor.create');
-            Route::post('/create/store', [AdminMentorController::class, 'store'])->name('admin.mentor.store');
-            Route::get('/edit/', [AdminMentorController::class, 'edit'])->name('admin.mentor.edit');
-            Route::put('/edit/update/{id}', [AdminMentorController::class, 'update'])->name('admin.mentor.update');
-            Route::get('/delete/', [AdminMentorController::class, 'delete'])->name('admin.mentor.delete');
+            // Route::get('/', [AdminMentorController::class, 'index'])->name('admin.mentor');
+            // Route::get('/create', [AdminMentorController::class, 'create'])->name('admin.mentor.create');
+            // Route::post('/create/store', [AdminMentorController::class, 'store'])->name('admin.mentor.store');
+            // Route::get('/edit/', [AdminMentorController::class, 'edit'])->name('admin.mentor.edit');
+            // Route::put('/edit/update/{id}', [AdminMentorController::class, 'update'])->name('admin.mentor.update');
+            // Route::get('/delete/', [AdminMentorController::class, 'delete'])->name('admin.mentor.delete');
         });
 
         Route::prefix('superadmin')->group(function () {
-            Route::get('/', [AdminSuperadminController::class, 'index'])->name('admin.superadmin');
-            Route::get('/create', [AdminSuperadminController::class, 'create'])->name('admin.superadmin.create');
-            Route::post('/create/store', [AdminSuperadminController::class, 'store'])->name('admin.superadmin.store');
-            Route::get('/edit/', [AdminSuperadminController::class, 'edit'])->name('admin.superadmin.edit');
-            Route::put('/edit/update/{id}', [AdminSuperadminController::class, 'update'])->name('admin.superadmin.update');
-            Route::get('/delete/', [AdminSuperadminController::class, 'destroy'])->name('admin.superadmin.destroy');
+            // Route::get('/', [AdminSuperadminController::class, 'index'])->name('admin.superadmin');
+            // Route::get('/create', [AdminSuperadminController::class, 'create'])->name('admin.superadmin.create');
+            // Route::post('/create/store', [AdminSuperadminController::class, 'store'])->name('admin.superadmin.store');
+            // Route::get('/edit/', [AdminSuperadminController::class, 'edit'])->name('admin.superadmin.edit');
+            // Route::put('/edit/update/{id}', [AdminSuperadminController::class, 'update'])->name('admin.superadmin.update');
+            // Route::get('/delete/', [AdminSuperadminController::class, 'destroy'])->name('admin.superadmin.destroy');
         });
     });
 
@@ -208,6 +208,40 @@ Route::prefix('admin')->group(function () {
 });
 
 // test non admin
+
+Route::prefix('sdm')->group(function () {
+
+    // route member
+    Route::prefix('students')->group(function () {
+        Route::get('/', [AdminStudentController::class, 'index'])->name('admin.students');
+        Route::get('/create', [AdminStudentController::class, 'create'])->name('admin.students.create');
+        Route::post('/create/store', [AdminStudentController::class, 'store'])->name('admin.students.create.store');
+        Route::get('/edit/{id}', [AdminStudentController::class, 'edit'])->name('admin.students.edit');
+        Route::put('/edit/update/{id}', [AdminStudentController::class, 'update'])->name('admin.students.update');
+        Route::delete('/delete/{id}', [AdminStudentController::class, 'delete'])->name('admin.students.delete');
+    });
+
+    // route mentor
+    Route::prefix('mentor')->group(function () {
+        Route::get('/', [AdminMentorController::class, 'index'])->name('admin.mentor');
+        Route::get('/create', [AdminMentorController::class, 'create'])->name('admin.mentor.create');
+        Route::post('/create/store', [AdminMentorController::class, 'store'])->name('admin.mentor.create.store');
+        Route::get('/edit/{id}', [AdminMentorController::class, 'edit'])->name('admin.mentor.edit');
+        Route::put('/edit/update/{id}', [AdminMentorController::class, 'update'])->name('admin.mentor.edit.update');
+        Route::delete('/delete/{id}', [AdminMentorController::class, 'delete'])->name('admin.mentor.delete');
+    });
+
+    // route superadmin
+    Route::prefix('superadmin')->group(function () {
+        Route::get('/', [AdminSuperadminController::class, 'index'])->name('admin.superadmin');
+        // Route::get('/create', [AdminMentorController::class, 'create'])->name('admin.mentor.create');
+        // Route::post('/create/store', [AdminMentorController::class, 'store'])->name('admin.mentor.create.store');
+        // Route::get('/edit/{id}', [AdminMentorController::class, 'edit'])->name('admin.mentor.edit');
+        // Route::put('/edit/update/{id}', [AdminMentorController::class, 'update'])->name('admin.mentor.edit.update');
+        // Route::delete('/delete/{id}', [AdminMentorController::class, 'delete'])->name('admin.mentor.delete');
+    });
+});
+
 
 Route::prefix('category')->group(function () {
     Route::get('/', [AdminCategoryController::class, 'index'])->name('admin.category');

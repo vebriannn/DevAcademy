@@ -19,20 +19,19 @@ class Course extends Model
     protected $table = 'tbl_courses';
 
     protected $fillable = [
-        'category',
-        'name',
-        'slug',
-        'cover',
-        'type',
-        'status',
-        'price',
-        'pruduct_type',
-        'level',
-        'description',
-        'resources',
-        'link_grub',
-        'rating',
-        'mentor_id',
+        'mentor_id',           // Foreign key untuk mentor
+        'category',          // Kategori kursus
+        'name',              // Nama kursus
+        'slug',              // Slug kursus
+        'cover',             // Gambar cover
+        'type',              // free atau premium
+        'status',            // draft atau published
+        'price',             // Harga kursus
+        'level',             // Tingkat kesulitan (beginner, intermediate, expert)
+        'sort_description',  // Deskripsi singkat
+        'long_description',  // Deskripsi panjang
+        'link_resources',    // Link sumber daya
+        'link_groups',       // Link grup
     ];
 
     public function sluggable(): array
@@ -50,7 +49,6 @@ class Course extends Model
         return $this->belongsTo(User::class, 'mentor_id', 'id');
     }
 
-
     public function transactions()
     {
         return $this->hasMany(Transaction::class);
@@ -60,9 +58,5 @@ class Course extends Model
     {
         return $this->belongsToMany(Tools::class, 'tbl_course_tools', 'course_id', 'tool_id');
     }
-    // In Course.php model
-    public function courseEbooks()
-    {
-        return $this->hasMany(CourseEbook::class, 'course_id');
-    }
+
 }

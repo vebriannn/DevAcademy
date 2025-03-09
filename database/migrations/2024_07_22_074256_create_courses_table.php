@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('tbl_courses', function (Blueprint $table) {
             $table->id();
             // Foreign key constraint
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('mentor_id')->constrained('users')->onDelete('cascade');
             $table->string('category')->nullable(false);
             $table->string('name', 255);
             $table->string('slug', 255);

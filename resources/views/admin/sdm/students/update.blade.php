@@ -1,6 +1,6 @@
 @extends('components.layouts.admin.form')
 
-@section('title', 'Tambahkan Mentor')
+@section('title', 'Edit Students')
 
 @push('styles')
     <style>
@@ -43,15 +43,16 @@
     <div id="content" class="d-flex align-items-center justify-content-center" style="height: 100vh; padding: 30px 0;">
         <div class="col-12 col-sm-6" style="margin-top: 3rem;">
             <div class="card p-4 shadow">
-                <h4 class="text-primary fw-bold">Form Mentor</h4>
-                <form method="POST" action="{{ route('admin.mentor.create.store') }}" enctype="multipart/form-data">
+                <h4 class="text-primary fw-bold">Edit Students</h4>
+                <form method="POST" action="{{ route('admin.students.update', $student->id) }}" enctype="multipart/form-data">
                     @csrf
+                    @method('PUT')
 
                     {{-- Nama --}}
                     <div class="mb-3">
                         <label for="name" class="form-label">Nama</label>
                         <input type="text" class="form-control @error('name') is-invalid @enderror" name="name"
-                            placeholder="Vebrian Nikola Saputra" value="{{ old('name') }}">
+                            value="{{ old('name', $student->name) }}">
                         @error('name')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
@@ -70,7 +71,7 @@
                                     <div>
                                         <input type="radio" id="profesi-{{ $profession->id }}" name="profession"
                                             value="{{ $profession->name }}"
-                                            {{ old('profession') == $profession->name ? 'checked' : '' }}>
+                                            {{ old('profession', $student->profession) == $profession->name ? 'checked' : '' }}>
                                         <label for="profesi-{{ $profession->id }}"
                                             class="m-0 p-0 mr-sm-3">{{ $profession->name }}</label>
                                     </div>
@@ -86,7 +87,7 @@
                     <div class="mb-3">
                         <label for="email" class="form-label">Email</label>
                         <input type="email" class="form-control @error('email') is-invalid @enderror" name="email"
-                            placeholder="vebndev@gmail.com" value="{{ old('email') }}">
+                            value="{{ old('email', $student->email) }}">
                         @error('email')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
@@ -107,7 +108,8 @@
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </div>
-                    <button type="submit" class="btn btn-primary">Tambahkan Sekarang</button>
+
+                    <button type="submit" class="btn btn-primary">Perbarui Sekarang</button>
                 </form>
             </div>
         </div>

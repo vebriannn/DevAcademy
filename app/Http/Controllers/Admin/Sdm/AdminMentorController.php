@@ -1,29 +1,29 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin\Sdm;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Hash;
-use RealRashid\SweetAlert\Facades\Alert;
-use Carbon\Carbon;
+
 
 use App\Models\User;
-use App\Models\Submission;
+use App\Models\Profession;
+use App\Models\Course;
 
 class AdminMentorController extends Controller
 {
     public function index(Request $request)
     {
-        $perPage = $request->get('entries', 10);
-        $mentors = User::where('role', 'mentor')->paginate($perPage);
-        return view('admin.mentor.view', compact('mentors'));
+        $mentors = User::where('role', 'mentor')->with('courses')->get();
+        return view('admin.sdm.mentor.view', compact('mentors'));
     }
 
     public function create()
     {
-        return view('admin.mentor.create');
+        $professions = Profession::all(); // Ambil semua profesi dari tabel professions
+        return view('admin.sdm.mentor.create', compact('professions'));
     }
 
     public function store(Request $request)
@@ -43,15 +43,15 @@ class AdminMentorController extends Controller
             'profession' => $request->profession,
         ]);
 
-        Alert::success('Success', 'Data Mentor Berhasil Dibuat');
-        return redirect()->route('admin.mentor');
+
+        return redirect()->route('admin.mentor')->with('success', 'Mentor berhasil ditambahkan.');
     }
 
-    public function edit(Request $requests)
+    public function edit(Request $requests, $id)
     {
-        $id = $requests->query('id');
         $mentor =  User::where('id', $id)->first();
-        return view('admin.mentor.update    ', compact('mentor'));
+        $professions = Profession::all(); // Pastikan model Profession sudah ada
+        return view('admin.sdm.mentor.update', compact('mentor', 'professions'));
     }
 
     public function update(Request $request, $id)
@@ -61,27 +61,25 @@ class AdminMentorController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|max:255|unique:users,email,' . $mentor->id,
-            'password' => 'nullable|string|min:6|confirmed',
-            'role' => 'required|string',
+            'role' => 'required|string|in:mentor,superadmin',
             'profession' => 'required|string|max:255',
+            'password' => 'nullable|string|min:6|confirmed',
         ]);
 
         $mentor->update([
             'name' => $request->name,
             'username' => $request->name,
             'email' => $request->email,
-            'role' => $request->role,
             'profession' => $request->profession,
+            'role' => $request->role,
             'password' => $request->filled('password') ? Hash::make($request->password) : $mentor->password,
         ]);
 
-        Alert::success('Success', 'Data Mentor Berhasil Diupdate');
-        return redirect()->route('admin.mentor');
+        return redirect()->route('admin.mentor')->with('success', 'Mentor berhasil diubah.');
     }
 
-    public function delete(Request $requests)
+    public function delete(Request $requests, $id)
     {
-        $id = $requests->query('id');
         $mentor =  User::where('id', $id)->first();
 
         if ($mentor->avatar && $mentor->avatar !== 'default.png') {
@@ -93,7 +91,6 @@ class AdminMentorController extends Controller
 
         $mentor->delete();
 
-        Alert::success('Success', 'Data Mentor Berhasil Dihapus');
-        return redirect()->route('admin.mentor');
+        return redirect()->route('admin.mentor')->with('success', 'Mentor berhasil dihapus.');
     }
 }

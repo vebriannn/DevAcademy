@@ -45,17 +45,11 @@ class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
      */
     public function courses()
     {
-        return $this->hasMany(Course::class, 'mentor_id', 'id');
+        return $this->hasMany(Course::class, 'mentor_id');
     }
 
     public function transactions()
     {
         return $this->hasMany(Transaction::class, 'user_id');
     }
-
-    public function submissions()
-    {
-        return $this->hasMany(Submission::class);
-    }
-
 }

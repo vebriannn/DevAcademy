@@ -17,9 +17,9 @@
         </a>
         <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="member.html">Member</a>
-                <a class="collapse-item" href="mentor.html">Mentor</a>
-                <a class="collapse-item" href="superadmin.html">Superadmin</a>
+                <a class="collapse-item" href="{{ route('admin.students') }}">Students</a>
+                <a class="collapse-item" href="{{ route('admin.mentor') }}">Mentor</a>
+                <a class="collapse-item" href="{{ route('admin.superadmin') }}">Superadmin</a>
             </div>
         </div>
     </li>
@@ -30,7 +30,7 @@
             <i class="fas fa-layer-group"></i>
             <span>Kategori Kelas</span></a>
     </li>
-    
+
     <!-- Nav Item - Kelas -->
     <li class="nav-item ">
         <a class="nav-link" href="kelas.html">
@@ -54,7 +54,7 @@
 
     <!-- Nav Item - Profesi -->
     <li class="nav-item">
-        <a class="nav-link" href="profesi.html">
+        <a class="nav-link" href="{{ route('admin.profession') }}">
             <i class="fas fa-fw fa-user-tie"></i>
             <span>Profesi Pengguna</span></a>
     </li>
