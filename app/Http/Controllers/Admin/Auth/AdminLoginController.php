@@ -27,7 +27,7 @@ class AdminLoginController extends Controller
             'email' => 'required|email',
             'password' => 'required',
         ]);
-        
+
         if (Auth::check()) {
             Auth::logout();
             $request->session()->invalidate();
@@ -45,9 +45,7 @@ class AdminLoginController extends Controller
                     Alert::error('Error', 'Maaf Anda Tidak Memiliki Akses Untuk Halaman Ini!');
                     return redirect()->route('home');
                 }
-
-                Alert::success('Success', 'Login successful.');
-                return redirect()->route('admin.course');
+                return redirect()->route('admin.course')->with('success', 'Anda berhasil login');
             } else {
                 return redirect()
                     ->back()
@@ -68,7 +66,6 @@ class AdminLoginController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        Alert::success('Success', 'Logout successful.');
-        return redirect()->route('admin.login');
+        return redirect()->route('admin.login')->with('success', 'Anda telah logout');
     }
 }

@@ -86,7 +86,7 @@
                 <div class="modal-body">Klik Logout Untuk Keluar, Dan Ketik Batal Untuk Membatalkan Logout</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Batal</button>
-                    <a class="btn btn-primary" href="login.html">Logout</a>
+                    <a class="btn btn-primary" href="{{ route('admin.logout') }}">Logout</a>
                 </div>
             </div>
         </div>

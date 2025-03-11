@@ -89,7 +89,7 @@ class AdminStudentController extends Controller
             }
         }
 
-        Transaction::where('user_id', $student->id)->delete();
+        Transaction::where('id', $student->id)->delete();
         MyListCourse::where('user_id', $student->id)->delete();
         CompleteEpisodeCourse::where('user_id', $student->id)->delete();
         $student->delete();

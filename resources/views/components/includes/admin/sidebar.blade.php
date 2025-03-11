@@ -60,9 +60,12 @@
             </a>
             <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
-                    <a class="collapse-item" href="{{ route('admin.students') }}">Students</a>
-                    <a class="collapse-item" href="{{ route('admin.mentor') }}">Mentor</a>
-                    <a class="collapse-item" href="{{ route('admin.superadmin') }}">Superadmin</a>
+                    <a class="collapse-item {{ request()->is('admin/sdm/students') || request()->is('admin/sdm/students/*') ? 'active' : '' }} "
+                        href="{{ route('admin.students') }}">Students</a>
+                    <a class="collapse-item {{ request()->is('admin/sdm/mentor') || request()->is('admin/sdm/mentor/*') ? 'active' : '' }}"
+                        href="{{ route('admin.mentor') }}">Mentor</a>
+                    <a class="collapse-item {{ request()->is('admin/sdm/superadmin') ? 'active' : '' }} "
+                        href="{{ route('admin.superadmin') }}">Superadmin</a>
                 </div>
             </div>
         </li>
