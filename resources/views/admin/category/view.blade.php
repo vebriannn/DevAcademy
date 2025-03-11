@@ -9,7 +9,9 @@
         <div class="card shadow mb-4">
             <div class="card-header py-3 d-flex justify-content-between align-items-center">
                 <h6 class="m-0 font-weight-bold text-primary">Data Kategori</h6>
-                <a href="{{ route('admin.category.create') }}" class="btn btn-primary">Tambahkan Kategori</a>
+                @if (Auth::user()->role == 'superadmin')
+                    <a href="{{ route('admin.category.create') }}" class="btn btn-primary">Tambahkan Kategori</a>
+                @endif
             </div>
             <div class="card-body">
                 <div class="table-responsive">
@@ -25,22 +27,26 @@
                                 <tr>
                                     <td>{{ $category->name }}</td>
                                     <td class="d-flex align-items-center" style="gap: 1rem;">
-                                        <a href="{{ route('admin.category.edit', $category->id) }}"
-                                            class="btn btn-primary me-2">
-                                            <i class="fas fa-edit"></i>
-                                        </a>
-                                        <form action="{{ route('admin.category.delete', $category->id) }}" method="POST"
-                                            onsubmit="return confirm('Apakah Anda yakin ingin menghapus ini?');">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-danger">
-                                                <i class="fas fa-trash"></i>
-                                            </button>
-                                        </form>
+                                        @if (Auth::user()->role == 'superadmin')
+                                            <a href="{{ route('admin.category.edit', $category->id) }}"
+                                                class="btn btn-primary me-2">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+                                            <form action="{{ route('admin.category.delete', $category->id) }}"
+                                                method="POST"
+                                                onsubmit="return confirm('Apakah Anda yakin ingin menghapus ini?');">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-danger">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                            </form>
+                                        @else
+                                            -
+                                        @endif
                                     </td>
                                 </tr>
                             @endforeach
-
                         </tbody>
                     </table>
                 </div>

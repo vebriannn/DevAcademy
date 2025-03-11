@@ -19,8 +19,8 @@ return new class extends Migration
             $table->unsignedBigInteger('chapter_id');
 
             $table->string('name', 255)->nullable(false);
-            $table->string('episode', 255)->nullable(false);
-            $table->text('link_video', 255)->nullable(false);
+            $table->string('slug_episode', 255)->nullable(false);
+            $table->text('link_videos', 255)->nullable(false);
 
             $table->timestamps();
         });

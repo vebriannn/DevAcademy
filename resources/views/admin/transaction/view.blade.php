@@ -48,31 +48,35 @@
 
                                     <!-- Action -->
                                     <td class="d-flex align-items-center" style="gap: 1rem;">
-                                        @if ($transaction->status == 'pending')
-                                            <!-- Tombol Batalkan -->
-                                            <form action="{{ route('admin.transaction.cancel', $transaction->id) }}"
-                                                method="POST">
-                                                @csrf
-                                                @method('PUT')
-                                                <input type="hidden" name="status" value="failed">
-                                                <button type="submit" class="btn btn-danger">
-                                                    Batalkan
-                                                </button>
-                                            </form>
+                                        @if (Auth::user()->role == 'superadmin')
+                                            @if ($transaction->status == 'pending')
+                                                <!-- Tombol Batalkan -->
+                                                <form action="{{ route('admin.transaction.cancel', $transaction->id) }}"
+                                                    method="POST">
+                                                    @csrf
+                                                    @method('PUT')
+                                                    <input type="hidden" name="status" value="failed">
+                                                    <button type="submit" class="btn btn-danger">
+                                                        Batalkan
+                                                    </button>
+                                                </form>
 
-                                            <!-- Tombol Selesaikan -->
-                                            <form action="{{ route('admin.transaction.accept', $transaction->id) }}"
-                                                method="POST">
-                                                @csrf
-                                                @method('PUT')
-                                                <input type="hidden" name="status" value="success">
-                                                <button type="submit" class="btn btn-success">
-                                                    Selesaikan
-                                                </button>
-                                            </form>
+                                                <!-- Tombol Selesaikan -->
+                                                <form action="{{ route('admin.transaction.accept', $transaction->id) }}"
+                                                    method="POST">
+                                                    @csrf
+                                                    @method('PUT')
+                                                    <input type="hidden" name="status" value="success">
+                                                    <button type="submit" class="btn btn-success">
+                                                        Selesaikan
+                                                    </button>
+                                                </form>
+                                            @else
+                                                <!-- Jika bukan pending -->
+                                                <span>-</span>
+                                            @endif
                                         @else
-                                            <!-- Jika bukan pending -->
-                                            <span>-</span>
+                                            -
                                         @endif
                                     </td>
                                 </tr>

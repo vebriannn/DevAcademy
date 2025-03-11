@@ -17,88 +17,66 @@ class AdminLessonController extends Controller
     public function index($slug_course, $id_chapter)
     {
         $lessons = Lesson::where('chapter_id', $id_chapter)->get();
-        return view('admin.lesson.view', compact('lessons', 'slug_course', 'id_chapter'));
+        return view('admin.courses.lessons.view', compact('lessons', 'slug_course', 'id_chapter'));
     }
 
     public function create($slug_course, $id_chapter)
     {
-        return view('admin.lesson.create', compact('slug_course', 'id_chapter'));
+        return view('admin.courses.lessons.create', compact('slug_course', 'id_chapter'));
     }
 
-    public function store(Request $requests, $id_chapter)
+    public function store(Request $request, $slug_course, $id_chapter)
     {
-        $requests->validate([
+        $request->validate([
             'name' => 'required',
-            'video' => 'required|',
+            'link_videos' => 'required|url',
         ]);
 
-        $chapter = Chapter::where('id', $id_chapter)->first();
-        $course = Course::where('id', $chapter->course_id)->first();
+        $chapter = Chapter::with('course')->findOrFail($id_chapter);
 
         Lesson::create([
-            'name' => $requests->name,
-            'episode' => Str::random(12),
-            'video' => $requests->video,
             'chapter_id' => $id_chapter,
+            'name' => $request->name,
+            'slug_episode' => Str::random(12),
+            'link_videos' => $request->link_videos,
         ]);
 
-
-        Alert::success('Success', 'Lesson Berhasil Di Buat');
-        return redirect()->route('admin.lesson', ['slug_course' => $course->slug, $id_chapter]);
+        return redirect()->route('admin.lesson', ['slug_course' => $slug_course, 'id_chapter' => $chapter->id])
+            ->with('success', 'Lesson berhasil dibuat.');
     }
 
-    public function edit(Request $requests, $slug_course, $id_chapter)
+    public function edit($slug_course, $id_chapter, $id_lesson)
     {
-        $id_lesson = $requests->query('id');
-        $lessons = Lesson::where('id', $id_lesson)->first();
-        return view('admin.lesson.update', compact('lessons', 'slug_course', 'id_chapter'));
+        $lesson = Lesson::findOrFail($id_lesson);
+        return view('admin.courses.lessons.update', compact('lesson', 'slug_course', 'id_chapter'));
     }
 
-    public function update(Request $requests, $id)
+    public function update(Request $request, $slug_course, $id_chapter, $id_lesson)
     {
-        $requests->validate([
+        $request->validate([
             'name' => 'required',
-            'video' => 'required',
+            'link_videos' => 'required|url',
         ]);
 
-        $lesson = Lesson::findOrFail($id);
-        $chapter = Chapter::where('id', $lesson->first()->chapter_id)->first();
-        $course = Course::where('id', $chapter->course_id)->first();
+        $lesson = Lesson::findOrFail($id_lesson);
 
-        if (
-            $lesson->first()->video != $requests->video
-        ) {
-            $lesson->update([
-                'name' => $requests->name,
-                'episode' => Str::random(12),
-                'video' => $requests->video,
-            ]);
-        } else {
-            $lesson->update([
-                'name' => $requests->name,
-            ]);
-        }
+        $lesson->update([
+            'name' => $request->name,
+            'link_videos' => $request->link_videos,
+        ]);
 
-        Alert::success('Success', 'Lesson Berhasil Di Update');
-        return redirect()->route('admin.lesson', [$course->slug, 'id_chapter' => $chapter->id]);
+        return redirect()->route('admin.lesson', ['slug_course' => $slug_course, 'id_chapter' => $id_chapter])->with('success', 'Lesson berhasil diubah.');
     }
 
-    public function delete(Request $requests)
+    public function delete($slug_course, $id_chapter, $id_lesson)
     {
-        $id_lesson = $requests->query('id');
-        $lesson = Lesson::where('id', $id_lesson)->first();
-        $chapter = Chapter::where('id', $lesson->chapter_id)->first();
-        $course = Course::where('id', $chapter->course_id)->first();
-
-        $ep = CompleteEpisodeCourse::where('episode_id', $id_lesson)->first();
-        
-        if ($ep) {
-            $ep->delete();
-        }
+        $lesson = Lesson::findOrFail($id_lesson);
 
         $lesson->delete();
 
-        Alert::success('Success', 'Lesson Berhasil Di Hapus');
-        return redirect()->route('admin.lesson', ['slug_course' => $course->slug, 'id_chapter' => $chapter->id]);
+        return redirect()->route('admin.lesson', [
+            'slug_course' => $slug_course,
+            'id_chapter' => $id_chapter
+        ])->with('success', 'Lesson berhasil dihapus.');
     }
 }

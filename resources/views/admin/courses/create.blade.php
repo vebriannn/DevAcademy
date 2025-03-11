@@ -1,187 +1,248 @@
-@extends('components.layouts.admin.create-update')
+@extends('components.layouts.admin.form')
 
-@push('prepend-style')
-    <link rel="stylesheet" href="{{ asset('nemolab/admin/css/create-update.css') }}">
+@section('title', 'Tambahkan Kelas')
+
+@push('styles')
+    <style>
+        .ck-editor__editable {
+            min-height: 200px;
+        }
+    </style>
 @endpush
 
-@section('title', 'Tambah Kelas')
-
 @section('content')
-    <div class="card w-75 mt-5 mb-5" style="border: none !important;">
-        <div class="card-header d-flex justify-content-between bg-transparent pb-0" style="border: none !important;">
-            <h2 class="fw-semibold fs-4 mb-4" style="color: #faa907">Tambah Data</h2>
-            <a href="{{ route('admin.course') }}" class="btn btn-orange"> Kembali </a>
-        </div>
-        <div class="card-body pt-2">
-            <form class="col-12" id="formAction" action="{{ route('admin.course.create.store') }}" method="post"
-                enctype="multipart/form-data">
-                @csrf
-                <div class="row">
-                    <div class="col-6">
-                        <div class="custom-entryarea">
-                            <select id="category" name="category">
-                                <div class="mb-3">
-                                    <option value="UI/UX Designer">UI/UX Designer</option>
-                                    <option value="Frontend Developer">Frontend Developer</option>
-                                    <option value="Backend Developer">Backend Developer</option>
-                                    <option value="Wordpress Developer">Wordpress Developer</option>
-                                    <option value="Graphics Designer">Graphics Designer</option>
-                                    <option value="Fullstack Developer">Fullstack Developer</option>
-                                    @error('category')
-                                        <div class="text-danger">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                            </select>
-                            @error('category')
-                                <span style="color: red">{{ $message }}</span>
-                            @enderror
-                        </div>
-                    </div>
-                    <div class="col-6">
-                        <div class="entryarea">
-                            <input type="text" id="name" name="name" placeholder=""
-                                value="{{ old('name') }}" />
-                            <div class="labelline" for="name">Judul<span class="required-field"></span></div>
-                            @error('name')
-                                <span style="color: red">{{ $message }}</span>
-                            @enderror
-                        </div>
-                    </div>
-                    <div class="col-12">
-                        <div class="entryarea">
-                            <textarea id="description" name="description" placeholder="" style="height: 173px">{{ old('description') }}</textarea>
-                            <div class="labelline-textarea" for="desc">Deskripsi<span class="required-field"></span>
-                            </div>
-                            @error('description')
-                                <span style="color: red">{{ $message }}</span>
-                            @enderror
-                        </div>
-                    </div>
-                    <div class="col-6">
-                        <div class="custom-entryarea">
-                            <select id="category" name="status">
-                                <option value="draft">Draf</option>
-                                <option value="published">Publik</option>
-                            </select>
-                            @error('status')
-                                <span style="color: red">{{ $message }}</span>
-                            @enderror
-                        </div>
-                    </div>
+    <div id="content" class="d-flex align-items-center justify-content-center" style="height: max-content; padding: 30px 0;">
+        <div class="col-12 col-sm-6" style="margin-top: 3rem;">
+            <div class="card p-4 shadow">
+                <h4 class="text-primary fw-bold mb-4">Form Kelas</h4>
+                <form method="POST" action="{{ route('admin.course.create.store') }}" enctype="multipart/form-data">
+                    @csrf
 
-                    <div class="col-6">
-                        <div class="custom-entryarea">
-                            <select id="type" name="type">
-                                <option value="free" class="value_type">Gratis</option>
-                                <option value="premium" class="value_type">Berbayar</option>
-                            </select>
-                            @error('type')
-                                <span style="color: red">{{ $message }}</span>
-                            @enderror
-                        </div>
-                    </div>
-                    <div class="col-6 mt-4 d-none" id="price">
-                        <div class="entryarea">
-                            <input type="number" id="name" name="price" placeholder="" value="0" />
-                            <div class="labelline" for="link">Harga</div>
-                            @error('price')
-                                <span style="color: red">{{ $message }}</span>
-                            @enderror
-                        </div>
-                    </div>
-                    <div class="col-6 mb-3">
-                        <p class="m-0">Cover Kelas</p>
-                        <input type="file" id="imageUpload" name="cover" accept="image/*" class="" />
-                        @error('cover')
-                            <span style="color: red">{{ $message }}</span>
-                        @enderror
-                    </div>
-                    <p class="m-0 mb-1">Pilih Tools</p>
-                    <div class="col-12 d-block mb-3">
-                        @if ($tools->isNotEmpty())
-                            <div class="d-flex align-items-center">
-                                @foreach ($tools as $tool)
-                                    <div class="form-check d-flex align-items-center ms-2">
-                                        <input class="form-check-input p-0 p-2 border-0"
-                                            style="float: none; border: 2px solid #faa907 !important;" type="checkbox"
-                                            value="{{ $tool->id }}" id="flexCheckDefault" name="tools[]">
-                                        <label class="form-check-label ms-2" for="flexCheckDefault">
-                                            {{ $tool->name_tools }}
-                                        </label>
+                    <!-- Kategori -->
+                    <div class="mb-3">
+                        <label class="form-label">Pilih Kategori</label>
+                        @if ($categories->isEmpty())
+                            <div class="alert alert-danger">
+                                Data kategori tidak tersedia. Harap tambahkan kategori terlebih dahulu.
+                            </div>
+                        @else
+                            <div class="radio-groups d-flex align-items-center flex-wrap">
+                                @foreach ($categories as $category)
+                                    <div>
+                                        <input type="radio" id="category-{{ $category->id }}" name="category"
+                                            value="{{ $category->name }}"
+                                            {{ old('category') == $category->name ? 'checked' : '' }}>
+                                        <label for="category-{{ $category->id }}"
+                                            class="m-0 p-0 mr-sm-3">{{ $category->name }}</label>
                                     </div>
                                 @endforeach
                             </div>
-                            @error('tools')
-                                <p class="m-0 text-danger d-block mb-3">
-                                    {{ $message }}
-                                </p>
-                            @enderror
-                        @else
-                            <p class="m-0 text-danger">
-                                @if ($errors->has('tools'))
-                                    {{ $errors->first('tools') }}
-                                @else
-                                    Maaf Tools Course Belum Tersedia, Silahkan Untuk Buat Alat Terlebih Dahulu
-                                @endif
-                            </p>
                         @endif
+                        @error('category')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
                     </div>
-                    <div class="col-6 mt-2">
-                        <div class="entryarea">
-                            <input type="text" id="name" name="resources" placeholder=""
-                                {{ old('resources') }} />
-                            <div class="labelline" for="link">Asset</div>
-                            @error('resources')
-                                <span style="color: red">{{ $message }}</span>
+
+                    <!-- Nama Kelas -->
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Nama Kelas</label>
+                        <input type="text" class="form-control @error('name') is-invalid @enderror" id="name"
+                            name="name" placeholder="Masukan Nama Kelas" value="{{ old('name') }}">
+                        @error('name')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
+
+                    <!-- Cover -->
+                    <div class="mb-3">
+                        <label for="imageUpload" class="form-label">Upload Cover Kelas</label>
+                        <input type="file" class="form-control @error('cover') is-invalid @enderror" id="imageUpload"
+                            accept="image/*" name="cover">
+                        @error('cover')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
+
+                    <!-- Tools -->
+                    <div class="mb-3">
+                        <label class="form-label">Pilih Tools</label>
+                        @if ($tools->isEmpty())
+                            <div class="alert alert-danger">
+                                Data tools tidak tersedia. Harap tambahkan tools terlebih dahulu.
+                            </div>
+                        @else
+                            <div class="checkbox-groups d-flex align-items-center flex-wrap">
+                                @foreach ($tools as $tool)
+                                    <div>
+                                        <input type="checkbox" id="tool-{{ $tool->id }}" name="tools[]"
+                                            value="{{ $tool->id }}"
+                                            {{ in_array($tool->id, old('tools', [])) ? 'checked' : '' }}>
+                                        <label for="tool-{{ $tool->id }}"
+                                            class="m-0 p-0 mr-sm-3">{{ $tool->name_tools }}</label>
+                                    </div>
+                                @endforeach
+                            </div>
+                        @endif
+                        @error('tools')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
+
+                    <!-- Tipe & Status -->
+                    <div class="row">
+                        <div class="col-12 col-lg-6 mb-3">
+                            <label class="form-label">Pilih Tipe</label>
+                            <div class="radio-groups d-flex align-items-center" style="gap: 1rem;">
+                                <div>
+                                    <input type="radio" id="free" name="type" value="free"
+                                        {{ old('type') == 'free' ? 'checked' : '' }} onclick="togglePrice(false)"
+                                        {{ old('type') == 'free' ? 'checked' : '' }}>
+                                    <label for="free">Gratis</label>
+                                </div>
+                                <div>
+                                    <input type="radio" id="premium" name="type" value="premium"
+                                        {{ old('type') == 'premium' ? 'checked' : '' }} onclick="togglePrice(true)"
+                                        {{ old('type') == 'premium' ? 'checked' : '' }}>
+                                    <label for="premium">Berbayar</label>
+                                </div>
+                            </div>
+                            @error('type')
+                                <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
-                    </div>
-                    <div class="col-6 mt-2">
-                        <div class="entryarea">
-                            <input type="text" id="name" name="link_grub" placeholder="" />
-                            <div class="labelline" for="link">Link Grup Kursus<span class="required-field"></span>
+
+                        <div class="col-12 col-lg-6 mb-3">
+                            <label class="form-label">Status</label>
+                            <div class="radio-groups d-flex align-items-center" style="gap: 1rem;">
+                                <div>
+                                    <input type="radio" id="draft" name="status" value="draft"
+                                        {{ old('status') == 'draft' ? 'checked' : '' }}>
+                                    <label for="draft">Draf</label>
+                                </div>
+                                <div>
+                                    <input type="radio" id="published" name="status" value="published"
+                                        {{ old('status') == 'published' ? 'checked' : '' }}>
+                                    <label for="published">Publikasi</label>
+                                </div>
                             </div>
-                            @error('link_grub')
-                                <span style="color: red">{{ $message }}</span>
+                            @error('status')
+                                <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
                     </div>
 
-                    <div class="col-12">
-                        <div class="custom-entryarea">
-                            <select id="category" name="level">
-                                <option value="beginner">Pemula</option>
-                                <option value="intermediate">Menengah</option>
-                                <option value="expert">Ahli</option>
-                            </select>
-                            @error('level')
-                                <span style="color: red">{{ $message }}</span>
-                            @enderror
+                    <!-- Harga Kelas -->
+                    <div class="mb-3">
+                        <label for="price" class="form-label">Harga Kelas</label>
+                        <input type="number" class="form-control @error('price') is-invalid @enderror" id="price"
+                            name="price" min="0" placeholder="Rp. 100000" value="{{ old('price', 0) }}">
+
+                        @error('price')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
+
+                    <!-- Level -->
+                    <div class="mb-3">
+                        <label class="form-label">Level Kelas</label>
+                        <div class="radio-groups d-flex align-items-center" style="gap: 1rem;">
+                            <div>
+                                <input type="radio" id="beginner" name="level" value="beginner"
+                                    {{ old('level') == 'beginner' ? 'checked' : '' }}>
+                                <label for="beginner">Mudah</label>
+                            </div>
+                            <div>
+                                <input type="radio" id="intermediate" name="level" value="intermediate"
+                                    {{ old('level') == 'intermediate' ? 'checked' : '' }}>
+                                <label for="intermediate">Menengah</label>
+                            </div>
+                            <div>
+                                <input type="radio" id="expert" name="level" value="expert"
+                                    {{ old('level') == 'expert' ? 'checked' : '' }}>
+                                <label for="expert">Susah</label>
+                            </div>
                         </div>
+                        @error('level')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
                     </div>
-                    <div class="col-12">
-                        <button type="submit"
-                            class="d-block w-100 text-center text-decoration-none py-2 rounded-3 text-white fw-semibold btn-kirim"
-                            style="background-color: #faa907">Kirim</button>
+
+                    <!-- Deskripsi Singkat -->
+                    <div class="mb-3">
+                        <label for="sort_description" class="form-label">Deskripsi Singkat</label>
+                        <textarea name="sort_description" id="sort_description"
+                            class="form-control @error('sort_description') is-invalid @enderror" rows="4"
+                            placeholder="Masukan Deskripsi Singkat">{{ old('sort_description') }}</textarea>
+                        @error('sort_description')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
                     </div>
-                </div>
-            </form>
+
+                    <!-- Deskripsi Panjang -->
+                    <div class="mb-3">
+                        <label for="my_editor" class="form-label">Deskripsi Panjang</label>
+                        <textarea name="long_description" id="my_editor" class="form-control @error('long_description') is-invalid @enderror"
+                            rows="4" placeholder="Masukan Deskripsi Panjang">{{ old('long_description') }}</textarea>
+                        @error('long_description')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
+
+                    <!-- Link Asset -->
+                    <div class="mb-3">
+                        <label for="link_resources" class="form-label">Link Asset</label>
+                        <input type="text" class="form-control @error('link_resources') is-invalid @enderror"
+                            id="link_resources" name="link_resources" placeholder="Masukan Link Asset"
+                            value="{{ old('link_resources') }}">
+                        @error('link_resources')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
+
+                    <!-- Link Grub -->
+                    <div class="mb-3">
+                        <label for="link_groups" class="form-label">Link Grub</label>
+                        <input type="text" class="form-control @error('link_groups') is-invalid @enderror"
+                            id="link_groups" name="link_groups" placeholder="Masukan Link Grub"
+                            value="{{ old('link_groups') }}">
+                        @error('link_groups')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
+
+                    <!-- Submit -->
+                    <button type="submit" class="btn btn-primary">Tambahkan Sekarang</button>
+                </form>
+            </div>
         </div>
     </div>
+
 @endsection
 
-@push('addon-script')
+@push('scripts')
     <script>
-        const type = document.getElementById('type');
-        const price = document.getElementById('price');
-
-        type.addEventListener('change', (e) => {
-            if (e.target.value == 'premium') {
-                price.classList.replace('d-none', 'd-block');
-            } else if (e.target.value == 'free') {
-                price.classList.replace('d-block', 'd-none');
-                price.querySelector('input[name="price"]').value = '0';
-            }
+        document.addEventListener('DOMContentLoaded', function() {
+            const freeRadio = document.getElementById('free');
+            togglePrice(!freeRadio.checked); // Jika "Gratis" tercentang, read-only
         });
+
+        function togglePrice(isPremium) {
+            const priceInput = document.getElementById('price');
+            if (isPremium) {
+                priceInput.readOnly = false; // Premium -> Bisa diketik
+            } else {
+                priceInput.readOnly = true; // Free -> Read-only
+                priceInput.value = 0; // Harga otomatis 0
+            }
+        }
+    </script>
+    <script src="https://cdn.ckeditor.com/ckeditor5/39.0.1/classic/ckeditor.js"></script>
+
+    <script>
+        ClassicEditor
+            .create(document.querySelector('#my_editor'))
+            .catch(error => {
+                console.error(error);
+            });
     </script>
 @endpush

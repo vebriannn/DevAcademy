@@ -54,9 +54,14 @@ class Course extends Model
         return $this->hasMany(Transaction::class);
     }
 
+    // Relasi: satu course memiliki banyak chapters
+    public function chapters()
+    {
+        return $this->hasMany(Chapter::class, 'course_id');
+    }
+
     public function tools()
     {
         return $this->belongsToMany(Tools::class, 'tbl_course_tools', 'course_id', 'tool_id');
     }
-
 }

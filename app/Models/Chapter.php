@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Chapter extends Model
 {
     use HasFactory;
-    
+
     protected $table = 'tbl_chapters';
 
     protected $fillable = [
@@ -19,5 +19,10 @@ class Chapter extends Model
     public function lessons()
     {
         return $this->hasMany(Lesson::class, 'chapter_id', 'id');
+    }
+
+    public function course()
+    {
+        return $this->belongsTo(Course::class, 'course_id');
     }
 }

@@ -12,10 +12,10 @@ use Illuminate\Database\Eloquent\Model;
         protected $table = 'tbl_lessons';
 
         protected $fillable = [
+            'chapter_id',
             'name',
-            'episode',
-            'video',
-            'chapter_id'
+            'slug_episode',
+            'link_videos',
         ];
 
         public function chapters()

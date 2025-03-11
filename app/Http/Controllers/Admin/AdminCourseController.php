@@ -5,10 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
-use RealRashid\SweetAlert\Facades\Alert;
 
 use App\Models\Category;
 use App\Models\Course;
@@ -16,8 +15,6 @@ use App\Models\Tools;
 use App\Models\Chapter;
 use App\Models\CompleteEpisodeCourse;
 use App\Models\Lesson;
-use App\Models\Forum;
-use App\Models\Transaction;
 
 class AdminCourseController extends Controller
 {
@@ -32,17 +29,16 @@ class AdminCourseController extends Controller
         } else {
             $courses = Course::where('mentor_id', $user->id)->OrderBy('id', 'DESC')->get();
         }
-
-        return view('admin.course-video.view', compact('courses'));
+        return view('admin.courses.view', compact('courses'));
     }
 
 
 
     public function create()
     {
-        $category = Category::all();
+        $categories = Category::all();
         $tools = Tools::all();
-        return view('admin.course-video.create', compact('category', 'tools'));
+        return view('admin.courses.create', compact('categories', 'tools'));
     }
 
     /**
@@ -51,58 +47,55 @@ class AdminCourseController extends Controller
     public function store(Request $request)
     {
 
+        // dd($request->all());
         $request->validate([
             'category' => 'required|string|max:255',
             'name' => 'required|string|max:255',
-            'cover' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+            'cover' => 'required|image|mimes:jpeg,png,jpg|max:5048',
             'type' => 'required|in:free,premium',
             'status' => 'required|in:draft,published',
-            'price' => 'required|integer',
+            'price' => 'required|integer|min:0',
             'level' => 'required|in:beginner,intermediate,expert',
-            'description' => 'required|string',
-            'tools' => 'required',
+            'sort_description' => 'required|string|max:500',
+            'long_description' => 'required|string',
+            'link_resources' => 'nullable|url',
+            'link_groups' => 'nullable|url',
+            'tools' => 'required|array',
             'tools.*' => 'exists:tbl_tools,id',
-            'link_grub' => 'required'
         ]);
-
 
         $images = $request->cover;
         $imagesGetNewName = Str::random(10) . $images->getClientOriginalName();
         $images->storeAs('public/images/covers/' . $imagesGetNewName);
-        $resources = 'null';
-
-
-        if ($request->resources) {
-            $resources = $request->resources;
-        }
 
         $course = Course::create([
+            'mentor_id' => Auth::user()->id,
             'category' => $request->category,
             'name' => $request->name,
+            'slug' => Str::slug($request->name),
             'cover' => $imagesGetNewName,
             'type' => $request->type,
             'status' => $request->status,
             'price' => $request->price,
             'level' => $request->level,
-            'description' => $request->description,
-            'resources' => $resources,
-            'link_grub' => $request->link_grub,
-            'mentor_id' => Auth::user()->id,
+            'sort_description' => $request->sort_description,
+            'long_description' => $request->long_description,
+            'link_resources' => $request->link_resources ?? '',
+            'link_groups' => $request->link_grub ?? '',
         ]);
+
         $course->tools()->sync($request->tools);
 
-        Alert::success('Success', 'Course Berhasil Di Buat');
-        return redirect()->route('admin.course');
+        return redirect()->route('admin.course')->with('success', 'Kursus berhasil dibuat');
     }
 
-    public function edit(Request $requests)
+    public function edit(Request $requests, $id)
     {
-        $id = $requests->query('id');
         $category = Category::all();
         $course = Course::where('id', $id)->first();
         $tools = Tools::all();
         $coursetool = Course::with('tools')->findOrFail($course->id);
-        return view('admin.course-video.update', compact('course', 'category', 'coursetool', 'tools'));
+        return view('admin.courses.update', compact('course', 'category', 'coursetool', 'tools'));
     }
 
     /**
@@ -110,102 +103,107 @@ class AdminCourseController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $course = Course::where('id', $id)->first();
+        $course = Course::findOrFail($id);
 
         $request->validate([
-            'cover' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
             'category' => 'required|string|max:255',
             'name' => 'required|string|max:255',
+            'cover' => 'nullable|image|mimes:jpeg,png,jpg|max:5048',
             'type' => 'required|in:free,premium',
             'status' => 'required|in:draft,published',
-            'price' => 'required|integer',
+            'price' => 'required|integer|min:0',
             'level' => 'required|in:beginner,intermediate,expert',
-            'description' => 'required|string',
-            'tools' => 'required',
+            'sort_description' => 'required|string|max:500',
+            'long_description' => 'required|string',
+            'link_resources' => 'nullable|url',
+            'link_groups' => 'nullable|url',
+            'tools' => 'required|array',
             'tools.*' => 'exists:tbl_tools,id',
-            'link_grub' => 'required',
         ]);
 
-        $images = $request->cover;
+        // Handle cover upload
+        if ($request->hasFile('cover')) {
+            $images = $request->file('cover');
+            $imagesGetNewName = Str::random(10) . '_' . $images->getClientOriginalName();
+            $images->storeAs('public/images/covers', $imagesGetNewName);
 
-        if ($images) {
-            $imagesGetNewName = Str::random(10) . $images->getClientOriginalName();
-            $images->storeAs('public/images/covers/' . $imagesGetNewName);
-            $data['cover'] = $imagesGetNewName;
-            Storage::delete('public/images/covers/' . $course->cover);
-        } else {
-            $data['cover'] = $course->cover;
+            // Hapus cover lama
+            if ($course->cover) {
+                Storage::delete('public/images/covers/' . $course->cover);
+            }
+            $course->cover = $imagesGetNewName;
         }
 
         $slug = Str::slug($request->name);
 
-        $resources = 'null';
-
-        if ($request->resources) {
-            $resources = $request->resources;
-        }
+        // Update course
         $course->update([
             'category' => $request->category,
             'name' => $request->name,
             'slug' => $slug,
-            'cover' => $data['cover'],
+            'cover' => $course->cover,
             'type' => $request->type,
             'status' => $request->status,
             'price' => $request->price,
             'level' => $request->level,
-            'resources' => $resources,
-            'link_grub' => $request->link_grub,
-            'description' => $request->description,
+            'sort_description' => $request->sort_description,
+            'long_description' => $request->long_description,
+            'link_resources' => $request->link_resources ?? '',
+            'link_groups' => $request->link_groups ?? '',
         ]);
 
+        // Sinkronisasi tools
         $course->tools()->sync($request->tools);
 
-        Alert::success('Success', 'Course Berhasil Di Update');
-        return redirect()->route('admin.course');
+        return redirect()->route('admin.course')->with('success', 'Kursus berhasil diubah!');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function delete(Request $requests)
+    public function delete(Request $requests, $id)
     {
-        // id course
-        $id = $requests->query('id');
+        $course = Course::find($id);
 
-        $course = Course::where('id', $id)->first();
-
-        // check course
         if (!$course) {
-            return response()->json(['error' => 'Course not found'], 404);
+            return redirect()->route('admin.course')->with('error', 'Maaf, kursus tidak ditemukan.');
         }
 
-        // Delete images course
-        if ($course->cover && Storage::exists('public/images/covers/' . $course->cover)) {
-            Storage::delete('public/images/covers/' . $course->cover);
-        }
+        DB::beginTransaction();
 
-        // ambil semua chapters dari id course
-        $chapters = Chapter::where('course_id', $id)->get();
+        try {
+            // Hapus cover jika ada
+            if ($course->cover && Storage::exists('public/images/covers/' . $course->cover)) {
+                Storage::delete('public/images/covers/' . $course->cover);
+            }
 
-        // foreach semua chapter dan semua lesson yang mempunyai id course sama untuk hapus lesson
-        foreach ($chapters as $chapter) {
-            Lesson::where('chapter_id', $chapter->id)->each(function ($lesson) {
-                $totalep = CompleteEpisodeCourse::where('episode_id', $lesson->id)->count();
+            // Hapus semua lesson yang terkait dengan chapters
+            $chapters = Chapter::where('course_id', $id)->get();
 
-                if ($totalep > 0) {
+            foreach ($chapters as $chapter) {
+                // Hapus semua episode yang telah diselesaikan (CompleteEpisodeCourse)
+                $lessons = Lesson::where('chapter_id', $chapter->id)->get();
+                foreach ($lessons as $lesson) {
                     CompleteEpisodeCourse::where('episode_id', $lesson->id)->delete();
+                    $lesson->delete();
                 }
 
+                // Hapus chapter
+                $chapter->delete();
+            }
 
-                $lesson->delete();
-            });
+            // Hapus semua relasi tools
+            $course->tools()->detach();
 
-            $chapter->delete();
+            // Hapus course
+            $course->delete();
+
+            DB::commit();
+
+            return redirect()->route('admin.course')->with('success', 'Kursus berhasil dihapus.');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect()->route('admin.course')->with('error', 'Terjadi kesalahan saat menghapus kursus.');
         }
-
-        Transaction::where('course_id', $id)->delete();
-        $course->delete();
-        Alert::success('Success', 'Course Berhasil Di Delete');
-        return redirect()->route('admin.course');
     }
 }
