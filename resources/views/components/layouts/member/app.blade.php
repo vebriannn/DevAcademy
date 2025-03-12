@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="{{ asset('nemolab/member/img/logo-nemolab.png') }}" type="image/x-icon" />
+    <link rel="icon" href="{{ asset('nemolab/member/img/logo-devacademy.png') }}" type="image/x-icon" />
     <title>Nemolab - @yield('title')</title>
 
     <!-- boostrap css -->
