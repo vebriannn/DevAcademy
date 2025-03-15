@@ -48,7 +48,7 @@
             </div>
             <div class="content-kelas mt-2 mt-md-4">
                 <div class="row m-0 p-0 ">
-                    {{-- @foreach ($courses as $course)
+                    @foreach ($courses as $course)
                         @if ($course)
                             <div class="col-md-6 col-xl-3 col-lg-4 col-12 d-flex justify-content-center my-2 pb-2">
                                 <div class="card d-flex d-md-block" id="card-hover">
@@ -98,7 +98,7 @@
                                 </div>
                             </div>
                         @endif
-                    @endforeach --}}
+                    @endforeach
 
                 </div>
                 <div class="d-flex justify-content-center">
