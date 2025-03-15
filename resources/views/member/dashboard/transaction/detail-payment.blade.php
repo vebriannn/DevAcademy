@@ -3,17 +3,17 @@
 @section('title', 'Payment')
 
 @push('prepend-style')
-    <link rel="stylesheet" href="{{ asset('nemolab/member/css/dashboard/detail-payment.css') }}">
+    <link rel="stylesheet" href="{{ asset('devacademy/member/css/dashboard/detail-payment.css') }}">
 @endpush
 
 @section('content')
     <div class="container" style="margin-top: 5rem">
         <div class="payment d-flex flex-column mx-auto align-items-center justify-content-center">
             @if ($transaction->status == 'success')
-                <img src="{{ asset('nemolab/member/img/Success-Icon.png') }}" alt="" width="60" height="60">
+                <img src="{{ asset('devacademy/member/img/Success-Icon.png') }}" alt="" width="60" height="60">
                 <p class="mt-3 mb-0" style="color: #474747">Pembayaran Berhasil!</p>
             @else
-                <img src="{{ asset('nemolab/member/img/Failed-Icons.png') }}" alt="" width="60" height="60">
+                <img src="{{ asset('devacademy/member/img/Failed-Icons.png') }}" alt="" width="60" height="60">
                 <p class="mt-3 mb-0" style="color: #474747">Pembayaran Gagal!</p>
             @endif
             <h4 class="mt-2">IDR {{ $transaction->price == 0 ? '0' : number_format(($transaction->price - 5000) / 1.11) }}
@@ -31,11 +31,11 @@
                 <p class="gray-text mb-0">Payment Status</p>
                 <div class="success d-flex align-items-center">
                     @if ($transaction->status == 'success')
-                        <img src="{{ asset('nemolab/member/img/Success-circle.png') }}" alt="" width="20"
+                        <img src="{{ asset('devacademy/member/img/Success-circle.png') }}" alt="" width="20"
                             height="20">
                         <p class="ms-1 mb-0" style="color: #22C58B; font-size: 14px;">{{ $transaction->status }}</p>
                     @else
-                        <img src="{{ asset('nemolab/member/img/Failed-circle.png') }}" alt="" width="20"
+                        <img src="{{ asset('devacademy/member/img/Failed-circle.png') }}" alt="" width="20"
                             height="20">
                         <p class="ms-1 mb-0" style="color: #FF0000; font-size: 14px;">Failed</p>
                     @endif

@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="{{ asset('nemolab/member/img/logo-nemolab.png') }}" type="image/x-icon" />
-    <title>Nemolab - @yield('title')</title>
+    <link rel="icon" href="{{ asset('devacademy/member/img/logo-devacademy.png') }}" type="image/x-icon" />
+    <title>Devacademy - @yield('title')</title>
 
     <!-- boostrap css -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -14,8 +14,8 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
     @stack('prepend-style')
-    <link rel="stylesheet" href="{{ asset('nemolab/components/member/css/navbar.css') }} ">
-    <link rel="stylesheet" href="{{ asset('nemolab/components/member/css/footer.css') }} ">
+    <link rel="stylesheet" href="{{ asset('devacademy/components/member/css/navbar.css') }} ">
+    <link rel="stylesheet" href="{{ asset('devacademy/components/member/css/footer.css') }} ">
     @stack('addon-style')
 </head>
 

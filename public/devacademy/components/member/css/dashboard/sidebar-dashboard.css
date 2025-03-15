@@ -1,0 +1,214 @@
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Quicksand:wght@300..700&display=swap');
+
+/* Variable for colors */
+:root {
+    --color-bg: white;
+    --color-active: #0774FA;
+    --color-icon: white;
+    --dim-grey: #B5B5B5;
+    --blck-grey: #414142;
+    --lavender: #FFF6F6;
+    --color-blue:#3990FB;
+    --color-gray: #868282;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: "Inter", serif !important;
+}
+
+/* Sidebar styling */
+.sidebar {
+    background-color: var(--color-bg);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    height: 83vh;
+    position: relative;
+    transition: top 0.7s ease-in-out;
+}
+
+/* Sidebar profile section */
+.profile {
+    margin-bottom: 30px;
+}
+
+.profile img {
+    object-fit: cover;
+    width: 50px;
+    height: 50px;
+}
+
+.tittle-sidebar {
+    font-weight: 700;
+}
+
+.profile p:first-child {
+    font-size: 20px !important;
+    margin-bottom: 0 !important;
+    color: black;
+}
+
+.profile p:last-child {
+    font-size: 14px !important;
+}
+
+.name {
+    color: var(--blck-grey);
+}
+
+.posisi {
+    color: var(--dim-grey);
+}
+
+/* Sidebar menu */
+.menu {
+    padding-left: 0;
+}
+
+.menu ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.menu li {
+    display: flex;
+    align-items: center;
+    padding: 8px;
+    margin-bottom: 5px;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: background-color 0.3s;
+    justify-content: flex-start;
+}
+
+.menu li img {
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+    transition: filter 0.3s;
+}
+
+.menu li a {
+    text-decoration: none;
+    color: var(--dim-grey);
+    font-weight: normal;
+    font-size: 18px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    width: 100%;
+}
+
+.menu li:hover {
+    background-color: var(--lavender);
+}
+
+/* Active tab styling */
+.menu li.active {
+    background-color: var(--color-blue);
+}
+
+.menu li:not(:active) img {
+    filter: invert(46%) sepia(2%) saturate(4%) hue-rotate(314deg) brightness(99%) contrast(91%);
+}
+
+.menu li.active img {
+    filter: invert(0%);
+}
+
+.menu li.active a {
+    color: white;
+}
+
+#sidebar-mobile-section {
+    display: none;
+}
+
+#sidebar-mobile-section .row .col-sm-3 p {
+    color: var(--dim-grey);
+    font-weight: 600 !important;
+}
+
+#sidebar-mobile-section .row .col-sm-3 p.active {
+    color: var(--color-active) !important;
+}
+
+#sidebar-mobile-section {
+    position: fixed;
+    width: 100%;
+    bottom: 48px;
+    z-index: 999;
+}
+
+#sidebar-mobile-section .row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: white;
+    border-radius: 20px;
+    padding: 20px 20px;
+}
+
+#sidebar-mobile-section .row .col-sm-3 img {
+    width: 60px;
+    height: 60px;
+    padding: 10px;
+    border: 2px solid var(--dim-grey);
+    border-radius: 10px;
+}
+
+#sidebar-mobile-section .row .col-sm-3 img.active {
+    border-color: var(--color-active) !important;
+    filter: invert(47%) sepia(72%) saturate(6838%) hue-rotate(205deg) brightness(98%) contrast(101%);
+}
+
+#sidebar-mobile-section .row .col-sm-3 img {
+    filter: invert(46%) sepia(2%) saturate(4%) hue-rotate(314deg) brightness(99%) contrast(91%);
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+
+    #course-card {
+        width: 100%;
+    }
+
+    .sidebar {
+        height: max-content;
+        padding: 40px 40px;
+    }
+
+    .card-container {
+        padding-left: 20px;
+        padding-right: 0;
+    }
+    #sidebar-mobile-section {
+        display: block;
+    }
+}
+
+/* 
+
+@media screen and (max-width: 768px) {
+    #sidebar-mobile-section {
+        display: block;
+    }
+
+} */
+
+@media screen and (max-width: 576px) {
+    #sidebar-mobile-section .row {
+        width: 90% !important;
+        margin: 0 auto;
+        padding: 14px 0px;
+    }
+
+    #sidebar-mobile-section .row .col-sm-3 img {
+        width: 46px;
+        height: 46px;
+    }
+
+}

@@ -6,10 +6,10 @@
                 <div class="d-flex align-items-center">
                     <a href="{{ route('home') }}" style="text-decoration: none;">
                         <div class="brand-nemolab-icon d-flex align-items-center">
-                            <img src="{{ asset('nemolab/member/img/logo-nemolab.png') }}" alt="Logo" width="40"
+                            <img src="{{ asset('devacademy/member/img/logo-devacademy.png') }}" alt="Logo" width="40"
                                 height="40" class="d-inline-block align-text-top">
                             <div class="title-navbar-brand ms-2 d-block">
-                                <p class="m-0 p-0 fw-bold">Nemolab</p>
+                                <p class="m-0 p-0 fw-bold">Devacademy</p>
                                 <p class="m-0 p-0 ">Kursus Online Terbaik</p>
                             </div>
                         </div>
@@ -19,7 +19,7 @@
                     data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false"
                     aria-label="Toggle navigation">
                     <span class="">
-                        <img src="{{ asset('nemolab/member/img/icon-nav.png') }}" alt="">
+                        <img src="{{ asset('devacademy/member/img/icon-nav.png') }}" alt="">
                     </span>
                 </button>
 
@@ -43,6 +43,15 @@
                         </form>
                     </ul>
                     <ul class="navbar-nav d-lg-flex align-items-lg-center gap-lg-4 ps-xl-5">
+
+                        <a href="{{ route('home') }}" class="text-decoration-none  pb-2 pb-lg-0">Home</a>
+
+                        <a href="{{ route('home') }}#section-testimoni-kelas" class="text-decoration-none  pb-2 pb-lg-0">Testimonial</a>
+
+                        <a href="{{ route('home') }}#section-pilih-kursus" class="text-decoration-none  pb-2 pb-lg-0">Kategori</a>
+
+                        <a href="{{ route('home') }}#section-benefit-kelas" class="text-decoration-none  pb-2 pb-lg-0">Benefit</a>
+
                         <div class="dropdown dropdown-pilih-kelas">
                             <button
                                 class="btn btn-secondary dropdown-toggle d-flex align-items-center p-0 pt-2 pt-lg-0 pb-2 pb-lg-0"
@@ -91,36 +100,6 @@
                             </ul>
                         </div>
 
-                        <div class="dropdown dropdown-pilih-paket-kelas">
-                            <button class="btn btn-secondary dropdown-toggle d-flex align-items-center p-0 pb-2 pb-lg-0"
-                                type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Paket Kelas
-                                <box-icon name='chevron-down' color="#414142"></box-icon>
-                            </button>
-
-                            <ul class="dropdown-menu mt-lg-3 mb-3">
-                                <div class="head-submenu d-flex justify-content-between align-items-center">
-                                    <p class="m-0 p-0 fw-bold">Pilihan Paket Kelas</p>
-                                    <a href="{{ route('member.course') }}" class="m-0 p-0">Lihat Semua</a>
-                                </div>
-                                <div class="content-submenu mt-2 ">
-                                    <div class="row m-0">
-                                        <div class="col-sm-12 ps-0 pl-1 mb-1">
-                                            <a href="{{ route('member.course', ['filter-paket' => 'paket-kursus']) }}">Course</a>
-                                        </div>
-                                        <div class="col-sm-12 ps-0 pl-1 mb-1">
-                                            <a href="{{ route('member.course', ['filter-paket' => 'paket-ebook']) }}">Ebook</a>
-                                        </div>
-                                        <div class="col-sm-12 ps-0 pl-1 mb-1">
-                                            <a href="{{ route('member.course', ['filter-paket' => 'paket-bundling']) }}">Paket Combo</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </ul>
-                        </div>
-
-                        <a href="https://blog.nemolab.id/" class="text-decoration-none  pb-2 pb-lg-0">Artikel</a>
-
                         <div class="profile-auth ms-lg-5 mx-lg-0">
                             <div class="dropdown d-flex justify-content-end">
                                 <button class="btn btn-secondary dropdown-toggle" type="button"
@@ -133,7 +112,7 @@
                                             class="rounded-5 ms-1" style="width: 42px; height: 42px;"
                                             id="img-profile">
                                     @else
-                                        <img src="{{ asset('nemolab/member/img/icon/Group 7.png') }}"
+                                        <img src="{{ asset('devacademy/member/img/icon/Group 7.png') }}"
                                             class="rounded-5 ms-1" style="width: 42px; height: 42px;"
                                             id="img-profile">
                                     @endif

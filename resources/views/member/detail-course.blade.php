@@ -1,9 +1,9 @@
 @extends('components.layouts.member.app')
 
-@section('title', 'Nemolab - Kursus Online')
+@section('title', 'Devacademy - Kursus Online')
 
 @push('prepend-style')
-    <link rel="stylesheet" href="{{ asset('nemolab/member/css/detail-course.css') }} ">
+    <link rel="stylesheet" href="{{ asset('devacademy/member/css/detail-course.css') }} ">
 @endpush
 
 @section('content')
@@ -17,14 +17,14 @@
                 @if ($courses->cover !=null)
                 <img src="{{ asset('storage/images/covers/' . $courses->cover) }}" alt="" class="img-fluid" width="900" height="800" style="border-radius: 15px; box-shadow: rgba(32, 32, 32, 0.322) 0px 8px 24px; object-fit: cover">
                 @else
-                <img src="{{ asset('nemolab/member/img/NemolabBG.jpg') }}" alt="" class="img-fluid" width="900" height="800" style="border-radius: 15px; box-shadow: rgba(32, 32, 32, 0.322) 0px 8px 24px; object-fit: cover">
+                <img src="{{ asset('devacademy/member/img/NemolabBG.jpg') }}" alt="" class="img-fluid" width="900" height="800" style="border-radius: 15px; box-shadow: rgba(32, 32, 32, 0.322) 0px 8px 24px; object-fit: cover">
                 @endif
             </div>
             <div class="subcontent-images mt-5">
                 <div class="row">
                     <div class="col-12 col-sm-6 col-xl-4 mb-4">
                         <a href="{{ $courses->link_grub }}" class="shadow">
-                            <img src="{{ asset('nemolab/member/img/img-konsultasi.png') }}" alt="">
+                            <img src="{{ asset('devacademy/member/img/img-konsultasi.png') }}" alt="">
                             <div class="group-title-subtitle ms-3">
                                 <p class="m-0 p-0">Gabung Grub Konsultasi</p>
                                 <p class="m-0 p-0">Konsultasi Dengan Mentor</p>
@@ -38,7 +38,7 @@
                                 @else
                                     <a href="{{ route('member.sertifikat', $courses->slug) }}" class="shadow">
                             @endif
-                            <img src="{{ asset('nemolab/member/img/img-achievement.png') }}" alt="">
+                            <img src="{{ asset('devacademy/member/img/img-achievement.png') }}" alt="">
                             <div class="group-title-subtitle ms-3">
                                 <p class="m-0 p-0">Unduh Sertifikat</p>
                                 <p class="m-0 p-0">Unduh Sertifikat Anda</p>
@@ -49,7 +49,7 @@
                     @if ($courses->resources != 'null')
                         <div class="col-12 col-sm-6 col-xl-4 mb-4">
                             <a href="{{ $courses->resources }}" class="shadow">
-                                <img src="{{ asset('nemolab/member/img/img-asset.png') }}" alt="">
+                                <img src="{{ asset('devacademy/member/img/img-asset.png') }}" alt="">
                                 <div class="group-title-subtitle ms-3">
                                     <p class="m-0 p-0">Asset Belajar</p>
                                     <p class="m-0 p-0">Unduh Asset disini</p>

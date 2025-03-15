@@ -3,13 +3,13 @@
         @if ($ebook->cover != null)
         <img src="{{ asset('storage/images/covers/' . $ebook->cover) }}" class="card-img-top d-none d-md-block" alt="{{ $ebook->name }}" />
         @else
-            <img src="{{ asset('nemolab/member/img/NemolabBG.jpg') }}" class="card-img-top d-none d-md-block" alt="{{ $ebook->name }}" />
+            <img src="{{ asset('devacademy/member/img/NemolabBG.jpg') }}" class="card-img-top d-none d-md-block" alt="{{ $ebook->name }}" />
         @endif
         <div class="card-head d-block d-md-none">
             @if ($ebook->cover != null)
             <img src="{{ asset('storage/images/covers/' . $ebook->cover) }}" class="card-img-top" alt="{{ $ebook->name }}" />
             @else
-                <img src="{{ asset('nemolab/member/img/NemolabBG.jpg') }}" class="card-img-top" alt="{{ $ebook->name }}" />
+                <img src="{{ asset('devacademy/member/img/NemolabBG.jpg') }}" class="card-img-top" alt="{{ $ebook->name }}" />
             @endif
             <div class="harga mt-4">
                 <p class="p-0 m-0 fw-bold">Harga</p>
@@ -26,7 +26,7 @@
                     @if ($ebook->users->avatar != null)
                     <img class="me-2" src="{{ asset('storage/images/avatars/' . $ebook->users->avatar) }}" alt="" />
                     @else
-                    <img class="me-2" src="{{ asset('nemolab/member/img/icon/Group 7.png') }}" alt="" />
+                    <img class="me-2" src="{{ asset('devacademy/member/img/icon/Group 7.png') }}" alt="" />
                     @endif
                     {{ $ebook->users->name }}
                 </p>

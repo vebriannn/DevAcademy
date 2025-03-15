@@ -3,7 +3,7 @@
 @section('title', 'Ubah Email Anda Di Sini')
 
 @push('prepend-style')
-    <link rel="stylesheet" href="{{ asset('nemolab/components/member/css/dashboard/setting.css') }} ">
+    <link rel="stylesheet" href="{{ asset('devacademy/components/member/css/dashboard/setting.css') }} ">
 @endpush
 @section('content')
     <section class="profile-saya-section" id="profile-saya-section">
@@ -16,7 +16,7 @@
                         <div class="card-body">
                             <div class="d-flex align-items-center mb-3">
                                 <a href="{{ route('member.setting') }}" class="btn-back">
-                                    <img src="{{ asset('nemolab/member/img/icon/arrow.png') }}" alt="Back"
+                                    <img src="{{ asset('devacademy/member/img/icon/arrow.png') }}" alt="Back"
                                         class="back-icon btn-costum">
                                 </a>
                                 <h5 class="title p-0 ps-3 fw-bold m-0 ">Ubah email anda</h5>
@@ -62,7 +62,7 @@
 
 @endsection
 @push('addon-script')
-<script>
+{{-- <script>
     document.addEventListener('DOMContentLoaded', () => {
         const form = document.getElementById('profileForm');
         const inputs = form.querySelectorAll('input, select');
@@ -92,5 +92,5 @@
             submitButton.style.borderColor = defaultButtonColor;
         });
     });
-</script>
+</script> --}}
 @endpush

@@ -3,7 +3,7 @@
 @section('title', 'Belajar Kursus Online Kapan Saja dan Dimanapun')
 
 @push('prepend-style')
-    <link rel="stylesheet" href="{{ asset('nemolab/member/css/home.css') }} ">
+    <link rel="stylesheet" href="{{ asset('devacademy/member/css/home.css') }} ">
 @endpush
 
 @section('content')
@@ -12,148 +12,133 @@
         <div class="row">
             <div class="col-md-6 mt-lg-5" data-aos="zoom-out">
                 <div class="text-center text-md-start me-md-3">
-                    <h1 class="fw-bold">BELAJAR KURSUS ONLINE GRATIS, KAPANPUN DAN DIMANAPUN</h1>
+                    <h1 class="fw-bold">Belajar <span class="custom-underline">Kursus Online</span> <br> Gratis, Fleksibel Kapan <br class="d-xl-block d-md-none"> Saja &  <span class="custom-underline cu-2">di Mana Saja!</span></h1>
                     <p>Belajar keahlian seputar teknologi dari pemula hingga ahli, dapatkan berbagai macam kelas mulai
                         yang gratis hingga yang berbayar</p>
-                    <a href="{{ route('member.course') }}" class="btn btn-warning px-4 pt-2 pb-2 mt-2">Mulai Belajar</a>
+                        <div class="d-flex align-items-center avatar-btn-group">
+                            <a href="#" class="btn btn-primary px-4" style="padding: 14px">Mulai Belajar</a>
+                            <div class="d-flex flex-column mt-md-0 mt-sm-3 ms-md-4 ms-sm-0 flex-important">
+                              <div class="avatar-group">
+                                <img src="{{ asset('devacademy/member/img/dumy-1.jpg') }}" class="rounded-5 ms-1" style="width: 30px; height: 30px;">
+                                <img src="{{ asset('devacademy/member/img/dumy-2.jpg') }}" class="rounded-5" style="width: 30px; height: 30px;">
+                                <img src="{{ asset('devacademy/member/img/dumy-4.jpg') }}" class="rounded-5" style="width: 30px; height: 30px;">
+                                <img src="{{ asset('devacademy/member/img/dumy-5.jpg') }}" class="rounded-5" style="width: 30px; height: 30px;">
+                                <img src="{{ asset('devacademy/member/img/dumy-6.jpg') }}" class="rounded-5" style="width: 30px; height: 30px;">
+                            </div>
+                              <p class="mt-1 mb-0 fs-6">Lebih dari <span class="text-black">890+</span> Orang telah bergabung</p>
+                            </div>
+                        </div>
                 </div>
             </div>
             <div class="col-md-6 d-none d-md-block align-items-center" data-aos="zoom-out" data-aos-delay="100">
-                <img src="{{ asset('nemolab/member/img/lp-hero-1.png') }}" alt="">
+                <img class="ms-4 float-end" src="{{ asset('devacademy/member/img/hero-img.png') }}" alt="" style="width:650px;">
             </div>
         </div>
     </section>
 
     <section class="section-pilh-kelas" id="section-pilih-kelas" data-aos="fade-up">
-        <div class="container-fluid p-0 m-0">
-            <div class="title-pilih-kelas d-flex justify-content-between align-items-center pt-5">
+        <div class="container-fluid p-0 m-0" >
+            <div class="title-pilih-kelas d-flex justify-content-between align-items-center pt-5" >
                 <div class="title-group ">
-                    <h1 class="title-kelas fw-bold">Pilihan Kelas</h1>
+                    <h1 class="title-kelas fw-bold" style="margin-top: 80px;">Pilihan Kelas</h1>
                     <p class="subtitle-kelas">Beralih menjadi profesional dari sekarang dengan memilih kelas dan mulai
                         belajar</p>
                 </div>
-                <a href="{{ route('member.course') }}" class="btn btn-light fw-bold d-none d-md-block">Lihat Kelas Lainnya</a>
+                <a href="{{ route('member.course') }}" class="btn btn-primary fw-bold d-lg-block d-sm-none sm-none">Lihat Kelas Lainnya</a>
             </div>
             <div class="content-kelas mt-2 mt-md-4">
                 <div class="row m-0 p-0 ">
-                    @foreach ($courses as $course)
+                    {{-- @foreach ($courses as $course)
                         @if ($course)
-                            <div class="col-md-6 col-xl-3 col-12 d-flex justify-content-center my-2 pb-2">
-                                <div class="card d-flex flex-row d-md-block">
-                                    @if ($course->cover != null)
-                                        <img src="{{ asset('storage/images/covers/' . $course->cover) }}"
-                                            class="card-img-top d-none d-md-block" alt="{{ $course->name }}"/>
-                                    @else
-                                        <img src="{{ asset('nemolab/member/img/NemolabBG.jpg') }}"
-                                            class="card-img-top d-none d-md-block" alt="{{ $course->name }}"/>
-                                    @endif
-                                    <div class="card-head d-block d-md-none">
+                            <div class="col-md-6 col-xl-3 col-lg-4 col-12 d-flex justify-content-center my-2 pb-2">
+                                <div class="card d-flex d-md-block" id="card-hover">
+                                    <div class="card-head ">
                                         @if ($course->cover != null)
                                             <img src="{{ asset('storage/images/covers/' . $course->cover) }}"
                                                 class="card-img-top" alt="{{ $course->name }}" />
                                         @else
-                                            <img src="{{ asset('nemolab/member/img/NemolabBG.jpg') }}" class="card-img-top"
+                                            <img src="{{ asset('devacademy/member/img/NemolabBG.jpg') }}" class="card-img-top"
                                                 alt="{{ $course->name }}" />
                                         @endif
-
-                                        <div class="harga mt-4">
-                                            <p class="p-0 m-0 fw-semibold">Harga</p>
-                                            <p class="p-0 m-0 fw-bold">
-                                                {{ $course->price == 0 ? 'Gratis' : 'Rp' . number_format($course->price, 0, ',', '.') }}
-                                            </p>
-                                        </div>
                                     </div>
                                     <div class="card-body">
-                                        <div class="paket d-flex">
-                                            @if (in_array($course->id, $InBundle))
-                                                <p class="paket-item mt-md-2">Paket Combo</p>
-                                            @else
-                                                <p class="paket-item mt-md-2">Kursus</p>
-                                            @endif
-                                        </div>
                                         <div class="title-card">
                                             <h5 class="fw-bold truncate-text">{{ $course->category }} :
                                                 {{ $course->name }}
                                             </h5>
-                                            <p class="avatar m-0 fw-bold me-1" style="color: #414142">
+                                        </div>
+                                        <div class="btn-group-harga d-flex justify-content-between mt-md-3">
+                                            <div class="avatar m-0 fw-bold me-1 d-flex">
                                                 @if ($course->users && $course->users->avatar)
                                                     <img class="me-2"
                                                         src="{{ asset('storage/images/avatars/' . $course->users->avatar) }}"
                                                         alt="" />
                                                 @else
                                                     <img class="me-2"
-                                                        src="{{ asset('nemolab/member/img/icon/Group 7.png') }}"
+                                                        src="{{ asset('devacademy/member/img/icon/Group 7.png') }}"
                                                         alt="" />
                                                 @endif
-                                                {{ $course->users ? $course->users->name : '-' }}
-                                            </p>
-                                        </div>
-                                        <div
-                                            class="btn-group-harga d-flex justify-content-between align-items-center mt-md-3">
-                                            <div class="harga d-none d-md-block">
-                                                <p class="p-0 m-0 fw-semibold">Harga</p>
-                                                <p class="p-0 m-0 fw-semibold">
+                                                <p class="ms-2 align-items-center justify-content-center">{{ $course->users ? $course->users->name : '-' }}</p>
+                                            </div>
+                                            <div class="harga">
+                                                <div class="d-flex sertifikat">
+                                                    <img class="me-3 icon-serti" id="check-icon"
+                                                    src="{{ asset('devacademy/member/img/icon/check-serti.svg') }}"
+                                                    alt="" />
+                                                    <p class="p-0 m-0 fw-semibold">Sertifikat</p>
+                                                </div>
+                                                <p class="p-0 fw-semibold float-end mt-2 mb-0 price">
                                                     {{ $course->price == 0 ? 'Gratis' : 'Rp' . number_format($course->price, 0, ',', '.') }}
                                                 </p>
                                             </div>
-                                            <a href="{{ route('member.course.join', $course->slug) }}"
-                                                class="btn btn-warning">Mulai Belajar</a>
                                         </div>
+                                        <a href="{{ route('member.course.join', $course->slug) }}"
+                                            class="btn btn-warning btn-harga mt-3">Mulai</a>
                                     </div>
                                 </div>
                             </div>
                         @endif
-                    @endforeach
+                    @endforeach --}}
 
                 </div>
                 <div class="d-flex justify-content-center">
-                    <a href="{{ route('member.course') }}" class="btn btn-light fw-bold d-md-none">Lihat Kelas Lainnya</a>
+                    <a href="{{ route('member.course') }}" class="btn btn-primary fw-bold mt-4 d-md-none">Lihat Kelas Lainnya</a>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="section-tentang-nemolab" id="section-tentang-nemolab">
-        <div class="container-fluid">
-            <div class="row align-items-center my-5 mx-md-3">
-                <div class="col-md-6 justify-content-center d-none d-md-flex" id="service" data-aos="fade-up"
-                    data-aos-delay="100">
-                    <div class="col-9 d-flex align-items-center justify-content-center">
-                        <img src="{{ asset('nemolab/member/img/lp-hero-2.png') }}" class="img-fluid" alt="">
-                    </div>
-                    <div class="col-3 d-flex flex-column justify-content-center mt-4" id="menu-service">
-                        <div class="card-service mb-4 py-2" id="item-service" data-aos="zoom-out" data-aos-delay="200">
-                            <h4 class="fw-bold">Video</h4>
-                            <a href="{{ route('member.course', ['filter-paket' => 'paket-kursus']) }}"
-                                class="btn btn-secondary py-1 px-2 mt-2">belajar sekarang</a>
-                        </div>
-                        <div class="card-service mb-4 py-2" id="item-service" data-aos="zoom-out" data-aos-delay="300">
-                            <h4 class="fw-bold">E-book</h4>
-                            <a href="{{ route('member.course', ['filter-paket' => 'paket-ebook']) }}"
-                                class="btn btn-primary py-1 px-2 mt-2">belajar sekarang</a>
-                        </div>
-                        <div class="card-service mb-4 py-2" id="item-service" data-aos="zoom-out" data-aos-delay="400">
-                            <h4 class="fw-bold">Video + E-book</h4>
-                            <a href="{{ route('member.course', ['filter-paket' => 'paket-bundling']) }}"
-                                class="btn btn-warning py-1 px-2 mt-2">belajar sekarang</a>
-                        </div>
-                    </div>
+    <section class="section-pilih-kursus" id="section-pilih-kursus" data-aos="fade-up">
+        <div class="container-fluid p-5">
+            <div class="title-pilih-kursus" style="margin-top: 130px;">
+                <h1 class="title-kelas fw-bold">Pilih Kursus Berdasarkan Kategori</h1>
+                <p>Temukan kursus yang sesuai dengan minatmu dan mulai belajar dari sekarang!</p>
+            </div>
+            <div class="d-flex flex-md-row card-group gap-3">
+                <div class="card p-3">
+                    <img src="{{ asset('devacademy/member/img/icon/pentool-hover.png') }}" alt="">
+                    <h4>Graphic Designer</h4>
+                    <p>Jadi ahli dalam desain visual yang menarik</p>
                 </div>
-                <div class="col-md-6">
-                    <div class="ms-md-4 text-center text-md-start" data-aos="fade-up" data-aos-delay="200">
-                        <h1 class="fw-bold">Mengapa Harus Belajar Keahlian Di Nemolab?</h1>
-                        <p>Kamu bisa belajar berbagai macam keahlian di sini. Kami juga menyediakan kelas video dan e-book
-                            yang bisa menyesuaikan tipe pembelajaran kamu. Jadi, mulailah menjadi ahli dari sekarang!</p>
-                        <div class="link-href-group d-flex justify-content-center justify-content-md-start">
-                            <!-- Center buttons on mobile -->
-                            <a href="{{ route('member.course', ['filter-paket' => 'paket-kursus']) }}"
-                                class="btn btn-warning fw-bold px-4 me-3 pt-2 pb-2" data-aos="fade-up"
-                                data-aos-delay="300">Coba Kursus</a>
-                            <a href="{{ route('member.course', ['filter-paket' => 'paket-ebook']) }}"
-                                class="btn btn-light fw-bold px-4 pt-2 pb-2" data-aos="fade-up" data-aos-delay="400">Coba
-                                Ebook</a>
-                        </div>
-                    </div>
+                <div class="card p-3">
+                    <img src="{{ asset('devacademy/member/img/icon/UI-UX-designer.png') }}" alt="">
+                    <h4>UI/UX Designer</h4>
+                    <p>Belajar desain pengalaman dan tampilan pengguna</p>
+                </div>
+                <div class="card p-3">
+                    <img src="{{ asset('devacademy/member/img/icon/fe-dev.png') }}" alt="">
+                    <h4>Frontend Developer</h4>
+                    <p>Bangun tampilan website yang keren</p>
+                </div>
+                <div class="card p-3">
+                    <img src="{{ asset('devacademy/member/img/icon/be-dev.png') }}" alt="">
+                    <h4>Backend Developer</h4>
+                    <p>Kelola server dan database dengan mudah</p>
+                </div>
+                <div class="card p-3">
+                    <img src="{{ asset('devacademy/member/img/icon/wordpress-dev.png') }}" alt="">
+                    <h4>WordPress Developer</h4>
+                    <p>Buat website profesional pakai WordPress</p>
                 </div>
             </div>
         </div>
@@ -169,19 +154,19 @@
                         <h1 class="fw-bold">Benefit Yang Bisa Kamu Dapatkan Jika Belajar Disini</h1>
                         <ul class="check-active-group mt-3 list-unstyled"> <!-- Changed to ul and added list-unstyled -->
                             <li class="check-active d-flex align-items-center" data-aos="zoom-out">
-                                <img src="{{ asset('nemolab/member/img/check-active.png') }}" alt="Check">
+                                <img src="{{ asset('devacademy/member/img/icon/ph_check-bold.png') }}" alt="Check">
                                 <p class="m-0 p-0 ms-2">Akses kelas selamanya</p>
                             </li>
                             <li class="check-active d-flex mt-2 align-items-center" data-aos="zoom-out" data-aos-delay="100">
-                                <img src="{{ asset('nemolab/member/img/check-active.png') }}" alt="Check">
+                                <img src="{{ asset('devacademy/member/img/icon/ph_check-bold.png') }}" alt="Check">
                                 <p class="m-0 p-0 ms-2">Mendapat sertifikat pembelajaran resmi</p>
                             </li>
                             <li class="check-active d-flex mt-2 align-items-center" data-aos="zoom-out" data-aos-delay="200">
-                                <img src="{{ asset('nemolab/member/img/check-active.png') }}" alt="Check">
+                                <img src="{{ asset('devacademy/member/img/icon/ph_check-bold.png') }}" alt="Check">
                                 <p class="m-0 p-0 ms-2">Grup diskusi private</p>
                             </li>
                             <li class="check-active d-flex mt-2 align-items-center" data-aos="zoom-out" data-aos-delay="300">
-                                <img src="{{ asset('nemolab/member/img/check-active.png') }}" alt="Check">
+                                <img src="{{ asset('devacademy/member/img/icon/ph_check-bold.png') }}" alt="Check">
                                 <p class="m-0 p-0 ms-2">Konsultasi dengan mentor secara langsung</p>
                             </li>
                         </ul>
@@ -191,21 +176,9 @@
                 
                 <div class="col-md-6 justify-content-center d-none d-md-flex" id="service" data-aos="fade-up"
                     data-aos-delay="100">
-                    <div class="benefit-images d-flex my-3">
-                        <div class="person-image">
-                            <img src="{{ asset('nemolab/member/img/lp-person-1.png') }}" class="img-fluid"
-                                alt="Person">
-                        </div>
-                        <div class="grid-images d-flex flex-wrap">
-                            <img src="{{ asset('nemolab/member/img/lp-person-3.png') }}" class="grid-img" alt="Image 1"
-                                data-aos="zoom-in" data-aos-delay="100">
-                            <img src="{{ asset('nemolab/member/img/lp-person-2.png') }}" class="grid-img" alt="Image 2"
-                                data-aos="zoom-in" data-aos-delay="200">
-                            <img src="{{ asset('nemolab/member/img/lp-person-4.png') }}" class="grid-img" alt="Image 3"
-                                data-aos="zoom-in" data-aos-delay="300">
-                            <img src="{{ asset('nemolab/member/img/lp-person-5.png') }}" class="grid-img" alt="Image 4"
-                                data-aos="zoom-in" data-aos-delay="400">
-                        </div>
+                    <div class="person-image">
+                        <img src="{{ asset('devacademy/member/img/hero2-img.png') }}" class="img-fluid"
+                            alt="Person">
                     </div>
                 </div>
             </div>
@@ -216,320 +189,159 @@
 
 
     <!-- section 5 -->
-    <section class="section-testimoni-kelas mt-5" id="section-testimoni-kelas" data-aos="fade-up">
-        <div class="container-fluid">
-            <div class="testimoni-title pb-5">
-                <h1 class="fw-bold m-0">Selangkah Lebih Maju menjadi <br> Professional!!</h1>
-                <p class="fs-6 mt-2">Jangan ragu untuk bergabung di kelas-kelas kami! Banyak pengguna <br> sudah
+    <section class="section-testimoni-kelas mt-5 me-0" id="section-testimoni-kelas" data-aos="fade-up">
+        <div class="container-fluid row p-0 m-0">
+            <div class="testimoni-title pb-5 d-flex" >
+                <h1 class="fw-bold ms-3">Selangkah Lebih Maju menjadi <br> Professional!!</h1>
+                <p class="float-end">Jangan ragu untuk bergabung di kelas-kelas kami! Banyak pengguna sudah
                     membuktikan dengan belajar di kelas kami</p>
-                <a href="{{ route('member.course') }}" class="btn btn-warning px-4">Coba Kursus</a>
             </div>
-            <div class="row p-0 mx-md-3" id="testimonials">
-                <div class="col-md-4 scroll-up d-none d-md-block">
-                    <div class="col-md-12 d-flex justify-content-center">
-                        <div class="card mb-4">
-                            <div class="card-body">
-                                <div class="card-head d-flex align-items-center">
-                                    <img src="{{ asset('nemolab/member/img/dumy-1.jpg') }}" width="45"
-                                        height="45" style="border-radius: 50%;object-fit:cover" alt="">
-                                    <div class="name ms-3">
-                                        <h5 class="card-title m-0 fw-bold">Rahmat Hidayat Sianturi</h5>
-                                        <p class="m-0">UI/UX Designer</p>
+            <div class="row  p-0" id="testimonials">
+                <div class="col-md-12 p-0 carousel-container">
+                    <div class="carousel-track d-flex" style="margin-left: -500px">
+                        <div class="col-xl-2 col-md-3 col-sm-3 carousel-run ms-3 d-flex justify-content-center">
+                            <div class="card mb-4">
+                                <div class="card-body row">
+                                    <div class="col-md-2">
+                                        <div class="rounded-circle icon-testi d-flex justify-content-center align-items-center">
+                                            <img class="mx-auto" src="{{ asset('devacademy/member/img/icon/icon-testimonial.png')}}" alt="">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-10">
+                                        <p class="card-text p-0 m-0">Kelas UI/UX ini memberi saya wawasan baru tentang cara
+                                            memahami kebutuhan pengguna. Sempurna untuk meningkatkan skill desainmu!</p>
+                                            <hr>
+                                        <div class="card-head d-flex align-items-center">
+                                            <img src="{{ asset('devacademy/member/img/dumy-1.jpg') }}" width="45"
+                                                    height="45" style="border-radius: 50%;object-fit:cover" alt="">
+                                             <div class="name ms-3">
+                                                <h5 class="card-title m-0 fw-bold">Rahmat Hidayat Sianturi</h5>
+                                                <p class="m-0">UI/UX Designer</p>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                                <p class="card-text p-0 m-0 mt-2">Kelas UI/UX ini memberi saya wawasan baru tentang cara
-                                    memahami kebutuhan pengguna. Sempurna untuk meningkatkan skill desainmu!</p>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-md-12 d-flex justify-content-center">
-                        <div class="card mb-4">
-                            <div class="card-body">
-                                <div class="card-head d-flex align-items-center">
-                                    <img src="{{ asset('nemolab/member/img/dumy-14.png') }}" width="45"
-                                        height="45" style="border-radius: 50%;object-fit:cover" alt="">
-                                    <div class="name ms-3">
-                                        <h5 class="card-title m-0 fw-bold">Vindra Arya Yulian</h5>
-                                        <p class="m-0">Frontend Develeoper</p>
+                        <div class="col-xl-2 col-md-3 col-sm-3 carousel-run ms-3 d-flex justify-content-center">
+                            <div class="card mb-4">
+                                <div class="card-body row">
+                                    <div class="col-md-2">
+                                        <div class="rounded-circle icon-testi d-flex justify-content-center align-items-center">
+                                            <img class="mx-auto" src="{{ asset('devacademy/member/img/icon/icon-testimonial.png')}}" alt="">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-10">
+                                        <p class="card-text p-0 m-0">Kelas UI/UX ini memberi saya wawasan baru tentang cara
+                                            memahami kebutuhan pengguna. Sempurna untuk meningkatkan skill desainmu!</p>
+                                            <hr>
+                                        <div class="card-head d-flex align-items-center">
+                                            <img src="{{ asset('devacademy/member/img/dumy-1.jpg') }}" width="45"
+                                                    height="45" style="border-radius: 50%;object-fit:cover" alt="">
+                                             <div class="name ms-3">
+                                                <h5 class="card-title m-0 fw-bold">Rahmat Hidayat Sianturi</h5>
+                                                <p class="m-0">UI/UX Designer</p>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                                <p class="card-text p-0 m-0 mt-2">Belajar Frontend di sini benar-benar mengubah cara
-                                    saya mengembangkan aplikasi web. Materinya langsung bisa diterapkan ke proyek nyata!
-                                </p>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-md-12 d-flex justify-content-center">
-                        <div class="card mb-4">
-                            <div class="card-body">
-                                <div class="card-head d-flex align-items-center">
-                                    <img src="{{ asset('nemolab/member/img/dumy-3.jpg') }}" width="45"
-                                        height="45" style="border-radius: 50%;object-fit:cover" alt="">
-                                    <div class="name ms-3">
-                                        <h5 class="card-title m-0 fw-bold">Muhammad Fathur</h5>
-                                        <p class="m-0">Wordpress Develeoper</p>
+                        <div class="col-xl-2 col-md-3 col-sm-3 carousel-run ms-3 d-flex justify-content-center">
+                            <div class="card mb-4">
+                                <div class="card-body row">
+                                    <div class="col-md-2">
+                                        <div class="rounded-circle icon-testi d-flex justify-content-center align-items-center">
+                                            <img class="mx-auto" src="{{ asset('devacademy/member/img/icon/icon-testimonial.png')}}" alt="">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-10">
+                                        <p class="card-text p-0 m-0">Kelas UI/UX ini memberi saya wawasan baru tentang cara
+                                            memahami kebutuhan pengguna. Sempurna untuk meningkatkan skill desainmu!</p>
+                                            <hr>
+                                        <div class="card-head d-flex align-items-center">
+                                            <img src="{{ asset('devacademy/member/img/dumy-1.jpg') }}" width="45"
+                                                    height="45" style="border-radius: 50%;object-fit:cover" alt="">
+                                             <div class="name ms-3">
+                                                <h5 class="card-title m-0 fw-bold">Rahmat Hidayat Sianturi</h5>
+                                                <p class="m-0">UI/UX Designer</p>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                                <p class="card-text p-0 m-0 mt-2">Dari kelas WordPress Development, saya sekarang bisa
-                                    membuat dan mengelola website dengan mudah. Sangat membantu meningkatkan bisnis
-                                    online
-                                    saya!
-                                </p>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-md-12 d-flex justify-content-center">
-                        <div class="card mb-4">
-                            <div class="card-body">
-                                <div class="card-head d-flex align-items-center">
-                                    <img src="{{ asset('nemolab/member/img/dumy-16.png') }}" width="45"
-                                        height="45" style="border-radius: 50%;object-fit:cover" alt="">
-                                    <div class="name ms-3">
-                                        <h5 class="card-title m-0 fw-bold">Pramudya Fachri</h5>
-                                        <p class="m-0">Wordpress Developer</p>
+                        <!-- Duplicate Cards for Infinite Effect -->
+                        <div class="col-xl-2 col-md-3 col-sm-3 carousel-run ms-3 d-flex justify-content-center">
+                            <div class="card mb-4">
+                                <div class="card-body row">
+                                    <div class="col-md-2">
+                                        <div class="rounded-circle icon-testi d-flex justify-content-center align-items-center">
+                                            <img class="mx-auto" src="{{ asset('devacademy/member/img/icon/icon-testimonial.png')}}" alt="">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-10">
+                                        <p class="card-text p-0 m-0">Kelas UI/UX ini memberi saya wawasan baru tentang cara
+                                            memahami kebutuhan pengguna. Sempurna untuk meningkatkan skill desainmu!</p>
+                                            <hr>
+                                        <div class="card-head d-flex align-items-center">
+                                            <img src="{{ asset('devacademy/member/img/dumy-1.jpg') }}" width="45"
+                                                    height="45" style="border-radius: 50%;object-fit:cover" alt="">
+                                             <div class="name ms-3">
+                                                <h5 class="card-title m-0 fw-bold">Rahmat Hidayat Sianturi</h5>
+                                                <p class="m-0">UI/UX Designer</p>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                                <p class="card-text p-0 m-0 mt-2">Saya akhirnya bisa membuat website profesional
-                                    menggunakan WordPress berkat kursus ini. Mulai dari instalasi hingga cara menggunakan
-                                    plugin dan tema, semuanya dijelaskan dengan sangat detail dan mudah diikuti.
-                                </p>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-md-12 d-flex justify-content-center">
-                        <div class="card mb-4">
-                            <div class="card-body">
-                                <div class="card-head d-flex align-items-center">
-                                    <img src="{{ asset('nemolab/member/img/dumy-15.png') }}" width="45"
-                                        height="45" style="border-radius: 50%;object-fit:cover" alt="">
-                                    <div class="name ms-3">
-                                        <h5 class="card-title m-0 fw-bold">Udin Oktafian</h5>
-                                        <p class="m-0">Backend Develeoper</p>
+                        <div class="col-xl-2 col-md-3 col-sm-3 carousel-run ms-3 d-flex justify-content-center">
+                            <div class="card mb-4">
+                                <div class="card-body row">
+                                    <div class="col-md-2">
+                                        <div class="rounded-circle icon-testi d-flex justify-content-center align-items-center">
+                                            <img class="mx-auto" src="{{ asset('devacademy/member/img/icon/icon-testimonial.png')}}" alt="">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-10">
+                                        <p class="card-text p-0 m-0">Kelas UI/UX ini memberi saya wawasan baru tentang cara
+                                            memahami kebutuhan pengguna. Sempurna untuk meningkatkan skill desainmu!</p>
+                                            <hr>
+                                        <div class="card-head d-flex align-items-center">
+                                            <img src="{{ asset('devacademy/member/img/dumy-1.jpg') }}" width="45"
+                                                    height="45" style="border-radius: 50%;object-fit:cover" alt="">
+                                             <div class="name ms-3">
+                                                <h5 class="card-title m-0 fw-bold">Rahmat Hidayat Sianturi</h5>
+                                                <p class="m-0">UI/UX Designer</p>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                                <p class="card-text p-0 m-0 mt-2">Materi tentang PHP dan Laravel di kursus ini sangat
-                                    lengkap. Saya bisa memahami konsep MVC dengan baik, dan sekarang saya sedang mengerjakan
-                                    proyek website saya sendiri menggunakan Laravel!
-                                </p>
                             </div>
                         </div>
-                    </div>
-                </div>
-                <div class="col-md-4 scroll-down">
-
-                    <div class="col-md-12 d-flex justify-content-center">
-                        <div class="card mb-4">
-                            <div class="card-body">
-                                <div class="card-head d-flex align-items-center">
-                                    <img src="{{ asset('nemolab/member/img/dumy-9.jpg') }}" width="45"
-                                        height="45" style="border-radius: 50%;object-fit:cover" alt="">
-                                    <div class="name ms-3">
-                                        <h5 class="card-title m-0 fw-bold">Naufal Haidar Azhar</h5>
-                                        <p class="m-0">UI/UX Designer</p>
+                        <div class="col-xl-2 col-md-3 col-sm-3 carousel-run ms-3 d-flex justify-content-center">
+                            <div class="card mb-4">
+                                <div class="card-body row">
+                                    <div class="col-md-2">
+                                        <div class="rounded-circle icon-testi d-flex justify-content-center align-items-center">
+                                            <img class="mx-auto" src="{{ asset('devacademy/member/img/icon/icon-testimonial.png')}}" alt="">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-10">
+                                        <p class="card-text p-0 m-0">Kelas UI/UX ini memberi saya wawasan baru tentang cara
+                                            memahami kebutuhan pengguna. Sempurna untuk meningkatkan skill desainmu!</p>
+                                            <hr>
+                                        <div class="card-head d-flex align-items-center">
+                                            <img src="{{ asset('devacademy/member/img/dumy-1.jpg') }}" width="45"
+                                                    height="45" style="border-radius: 50%;object-fit:cover" alt="">
+                                             <div class="name ms-3">
+                                                <h5 class="card-title m-0 fw-bold">Rahmat Hidayat Sianturi</h5>
+                                                <p class="m-0">UI/UX Designer</p>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                                <p class="card-text p-0 m-0 mt-2">Setelah mengikuti kursus UI/UX di sini, saya berhasil
-                                    membuat desain yang lebih user-friendly. Ini sangat membantu karir saya sebagai
-                                    desainer! Kamu harus coba!</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-12 d-flex justify-content-center">
-                        <div class="card mb-4">
-                            <div class="card-body">
-                                <div class="card-head d-flex align-items-center">
-                                    <img src="{{ asset('nemolab/member/img/dumy-5.jpg') }}" width="45"
-                                        height="45" style="border-radius: 50%;object-fit:cover" alt="">
-                                    <div class="name ms-3">
-                                        <h5 class="card-title m-0 fw-bold">Novi Amelia</h5>
-                                        <p class="m-0">Graphic Designer</p>
-                                    </div>
-                                </div>
-                                <p class="card-text p-0 m-0 mt-2">Materi di kursus graphic design ini sangat menarik. Saya
-                                    belajar menggunakan Adobe Photoshop dan Illustrator dari nol hingga mahir.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-12 d-flex justify-content-center">
-                        <div class="card mb-4">
-                            <div class="card-body">
-                                <div class="card-head d-flex align-items-center">
-                                    <img src="{{ asset('nemolab/member/img/dumy-4.jpg') }}" width="45"
-                                        height="45" style="border-radius: 50%;object-fit:cover" alt="">
-                                    <div class="name ms-3">
-                                        <h5 class="card-title m-0 fw-bold">Naufal Dzaky</h5>
-                                        <p class="m-0">Fullstack Develeoper</p>
-                                    </div>
-                                </div>
-                                <p class="card-text p-0 m-0 mt-2">Belajar fullstack di sini sangat memuaskan karena semua
-                                    materi, mulai dari frontend, backend, hingga deployment dijelaskan dengan jelas. Saya
-                                    sekarang bisa membuat aplikasi web lengkap dari awal hingga akhir.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-12 d-flex justify-content-center">
-                        <div class="card mb-4">
-                            <div class="card-body">
-                                <div class="card-head d-flex align-items-center">
-                                    <img src="{{ asset('nemolab/member/img/dumy-6.jpg') }}" width="45"
-                                        height="45" style="border-radius: 50%;object-fit:cover" alt="">
-                                    <div class="name ms-3">
-                                        <h5 class="card-title m-0 fw-bold">Sarah Azizah</h5>
-                                        <p class="m-0">Wordpress Developer</p>
-                                    </div>
-                                </div>
-                                <p class="card-text p-0 m-0 mt-2">Materi tentang pengembangan plugin di kursus ini
-                                    benar-benar bermanfaat. Saya berhasil membuat plugin sederhana untuk menambahkan fitur
-                                    khusus di website saya. Terima kasih atas penjelasannya
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-12 d-flex justify-content-center">
-                        <div class="card mb-4">
-                            <div class="card-body">
-                                <div class="card-head d-flex align-items-center">
-                                    <img src="{{ asset('nemolab/member/img/dumy-18.png') }}" width="45"
-                                        height="45" style="border-radius: 50%;object-fit:cover" alt="">
-                                    <div class="name ms-3">
-                                        <h5 class="card-title m-0 fw-bold">Vebrian Nikola Saputra</h5>
-                                        <p class="m-0">Fullstack Developer</p>
-                                    </div>
-                                </div>
-                                <p class="card-text p-0 m-0 mt-2">Kelas Backend ini mengajarkan saya cara membuat sistem
-                                    yang scalable dan aman. Cocok banget buat kamu yang ingin jadi developer
-                                    profesional!
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-12 d-flex justify-content-center">
-                        <div class="card  mb-4">
-                            <div class="card-body">
-                                <div class="card-head d-flex align-items-center">
-                                    <img src="{{ asset('nemolab/member/img/dumy-13.png') }}" width="45"
-                                        height="45" style="border-radius: 50%;object-fit:cover" alt="">
-                                    <div class="name ms-3">
-                                        <h5 class="card-title m-0 fw-bold">Emilia Putri</h5>
-                                        <p class="m-0">Graphic Design</p>
-                                    </div>
-                                </div>
-                                <p class="card-text p-0 m-0 mt-2">Kursus Graphic Design ini benar-benar membantu saya
-                                    menghasilkan desain yang lebih menarik dan profesional. Materinya mudah dipahami,
-                                    bahkan untuk pemula!
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 scroll-up d-none d-md-block">
-                    <div class="col-md-12 d-flex justify-content-center">
-                        <div class="card mb-4">
-                            <div class="card-body">
-                                <div class="card-head d-flex align-items-center">
-                                    <img src="{{ asset('nemolab/member/img/dumy-11.jpg') }}" width="45"
-                                        height="45" style="border-radius: 50%;object-fit:cover" alt="">
-                                    <div class="name ms-3">
-                                        <h5 class="card-title m-0 fw-bold">Rizqy Bagus Saputra </h5>
-                                        <p class="m-0">Backend Develeoper</p>
-                                    </div>
-                                </div>
-                                <p class="card-text p-0 m-0 mt-2">Setelah mengikuti kursus Backend, saya lebih percaya
-                                    diri menangani proyek kompleks. Panduan yang jelas dan praktis membuat belajar jadi
-                                    lebih mudah!</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-12 d-flex justify-content-center">
-                        <div class="card mb-4">
-                            <div class="card-body">
-                                <div class="card-head d-flex align-items-center">
-                                    <img src="{{ asset('nemolab/member/img/dumy-10.jpg') }}" width="45"
-                                        height="45" style="border-radius: 50%;object-fit:cover" alt="">
-                                    <div class="name ms-3">
-                                        <h5 class="card-title m-0 fw-bold">Duiki Arbiyan</h5>
-                                        <p class="m-0">Frontend Develeoper</p>
-                                    </div>
-                                </div>
-                                <p class="card-text p-0 m-0 mt-2">Saya sekarang bisa membangun website interaktif dengan
-                                    mudah setelah mengikuti kelas Frontend Development. Tools dan materi yang diberikan
-                                    sangat lengkap!
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-12 d-flex justify-content-center ">
-                        <div class="card mb-4">
-                            <div class="card-body">
-                                <div class="card-head d-flex align-items-center">
-                                    <img src="{{ asset('nemolab/member/img/dumy-7.jpg') }}" width="45"
-                                        height="45" style="border-radius: 50%;object-fit:cover" alt="">
-                                    <div class="name ms-3">
-                                        <h5 class="card-title m-0 fw-bold">Abdul Somad</h5>
-                                        <p class="m-0">Graphic Design</p>
-                                    </div>
-                                </div>
-                                <p class="card-text p-0 m-0 mt-2">Dengan mengikuti kelas Graphic Design di sini, saya
-                                    bisa mengembangkan portofolio yang membuat saya dilirik oleh perusahaan besar.
-                                    Sangat direkomendasikan!
-                                    online
-                                    saya!
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-12 d-flex justify-content-center ">
-                        <div class="card mb-4">
-                            <div class="card-body">
-                                <div class="card-head d-flex align-items-center">
-                                    <img src="{{ asset('nemolab/member/img/dumy-17.png') }}" width="45"
-                                        height="45" style="border-radius: 50%;object-fit:cover" alt="">
-                                    <div class="name ms-3">
-                                        <h5 class="card-title m-0 fw-bold">Aziz Siswanto</h5>
-                                        <p class="m-0">Graphic Design</p>
-                                    </div>
-                                </div>
-                                <p class="card-text p-0 m-0 mt-2">Kursus ini memberikan penjelasan yang sangat detail
-                                    tentang teori warna, komposisi, dan tipografi. Saya sangat terbantu untuk meningkatkan
-                                    kualitas desain saya secara keseluruhan.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-12 d-flex justify-content-center ">
-                        <div class="card mb-4">
-                            <div class="card-body">
-                                <div class="card-head d-flex align-items-center">
-                                    <img src="{{ asset('nemolab/member/img/dumy-2.jpg') }}" width="45"
-                                        height="45" style="border-radius: 50%;object-fit:cover" alt="">
-                                    <div class="name ms-3">
-                                        <h5 class="card-title m-0 fw-bold">Okarun Saputra</h5>
-                                        <p class="m-0">Graphic Design</p>
-                                    </div>
-                                </div>
-                                <p class="card-text p-0 m-0 mt-2">Kursus ini benar-benar membantu saya memahami alur desain
-                                    yang baik. Mulai dari ide awal hingga membuat mockup di Figma, semua dijelaskan dengan
-                                    sangat terstruktur.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-12 d-flex justify-content-center ">
-                        <div class="card mb-4">
-                            <div class="card-body">
-                                <div class="card-head d-flex align-items-center">
-                                    <img src="{{ asset('nemolab/member/img/dumy-16.png') }}" alt="">
-                                    <div class="name ms-3">
-                                        <h5 class="card-title m-0 fw-bold">Yanto Kurniawan</h5>
-                                        <p class="m-0">Frontend Developer</p>
-                                    </div>
-                                </div>
-                                <p class="card-text p-0 m-0 mt-2">Saya sangat menyukai bagian tentang CSS. Sebelumnya saya
-                                    merasa kesulitan membuat desain yang responsif, tapi setelah ikut kelas ini, saya jadi
-                                    percaya diri membuat website yang terlihat keren di semua perangkat.
-                                </p>
                             </div>
                         </div>
                     </div>
@@ -540,19 +352,23 @@
     <!-- end section 5 -->
 
     <!-- section 6 -->
-    <section class="section-pusat-bantuan mt-5" id="section-pusat-bantuan" data-aos="fade-up">
-        <div class="row align-items-center mt-0 mx-md-3">
-            <div class="col-md-6">
-                <div class="text-center me-md-4 text-md-start" data-aos="fade-up" data-aos-delay="100">
-                    <h1 class="fw-bold">Hubungi Kami Jika Anda Memiliki Kendala</h1>
-                    <p class="me-md-5">Laporkan masalah anda ke kontak dibawah untuk informasi lebih lanjut lagi</p>
-                        <a href="#" class="btn btn-light px-4 pt-2 pb-2 mt-2">Hubungi CS</a>
+    <section class="section-meningkatkan-skill mt-5" id="section-pusat-bantuan" data-aos="fade-up">
+        <div class="container-fluid row background-image p-0 m-0">
+            <div class="col-md-6 ms-md-5 ms-sm-0">
+                <div class="text-center text-md-start" data-aos="fade-up" data-aos-delay="100">
+                    <h1 class="fw-bold text-white" style="margin-top: 55px ;">Siap Meningkatkan Karier dan Skill Anda?</h1>
+                    <p class="me-md-5 text-white">Gabung bersama ribuan pelajar lainnya yang telah memulai perjalanan mereka menuju kesuksesan. Daftar sekarang dan jadilah ahli di bidang yang Anda impikan</p>
+                    <a href="#" class="btn btn-primary px-4" style="margin-bottom: 155px;">Mulai Belajar</a>
                 </div>
-            </div>
-            <div class="col-md-6 d-none d-md-block">
-                <img src="{{ asset('nemolab/member/img/lp-hero-4.png') }}" alt="">
             </div>
         </div>
     </section>
     <!-- end section 6 -->
 @endsection
+
+
+@push('addon-script')
+    <script>
+
+    </script>
+@endpush

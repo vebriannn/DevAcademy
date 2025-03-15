@@ -1,9 +1,9 @@
 @extends('components.layouts.member.app')
 
-@section('title', 'Nemolab - Kursus Online')
+@section('title', 'Devacademy - Kursus Online')
 
 @push('prepend-style')
-    <link rel="stylesheet" href="{{ asset('nemolab/member/css/detail-course.css') }} ">
+    <link rel="stylesheet" href="{{ asset('devacademy/member/css/detail-course.css') }} ">
 @endpush
 
 @section('content')
@@ -17,7 +17,7 @@
                 @if ($ebooks->cover !=null)
                 <img src="{{ asset('storage/images/covers/' . $ebooks->cover) }}" alt="" class="img-fluid" width="900" height="800" style="border-radius: 15px; box-shadow: rgba(32, 32, 32, 0.322) 0px 8px 24px; object-fit: cover">
                 @else
-                <img src="{{ asset('nemolab/member/img/NemolabBG.jpg') }}" alt="" class="img-fluid" width="900" height="800" style="border-radius: 15px; box-shadow: rgba(32, 32, 32, 0.322) 0px 8px 24px; object-fit: cover">
+                <img src="{{ asset('devacademy/member/img/NemolabBG.jpg') }}" alt="" class="img-fluid" width="900" height="800" style="border-radius: 15px; box-shadow: rgba(32, 32, 32, 0.322) 0px 8px 24px; object-fit: cover">
                 @endif
             </div>
             <div class="detail-courses mt-5 shadow-sm">

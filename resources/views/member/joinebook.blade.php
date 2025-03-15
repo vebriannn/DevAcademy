@@ -1,9 +1,9 @@
 @extends('components.layouts.member.app')
 
-@section('title', 'Nemolab - Detail Kursus')
+@section('title', 'Devacademy - Detail Kursus')
 
 @push('prepend-style')
-    <link rel="stylesheet" href="{{ asset('nemolab/member/css/joincourse.css') }}">
+    <link rel="stylesheet" href="{{ asset('devacademy/member/css/joincourse.css') }}">
 @endpush
 
 @section('content')
@@ -16,7 +16,7 @@
                 @if ($ebooks->cover != null)
                     <img src="{{ asset('storage/images/covers/' . $ebooks->cover) }}" alt="">
                 @else
-                    <img src="{{ asset('nemolab/member/img/NemolabBG.jpg') }}" alt="">
+                    <img src="{{ asset('devacademy/member/img/NemolabBG.jpg') }}" alt="">
                 @endif
             </div>
             <div class="card mb-3 d-md-none">
@@ -28,7 +28,7 @@
                         <ul class="check-active-group mt-3 list-unstyled">
                             <ul class="check-active-group mt-3 list-unstyled">
                                 <li class="check-active d-flex align-items-center mt-2" data-aos="zoom-out" data-aos-delay="100">
-                                    <img src="{{ asset('nemolab/member/img/check-active.png') }}" alt="Check">
+                                    <img src="{{ asset('devacademy/member/img/check-active.png') }}" alt="Check">
                                     <p class="m-0 p-0 ms-2">Akses Ebook selamanya</p>
                                 </li>
                             </ul>
@@ -158,7 +158,7 @@
                         <ul class="check-active-group mt-3 list-unstyled">
                             <ul class="check-active-group mt-3 list-unstyled">
                                 <li class="check-active d-flex align-items-center mt-2" data-aos="zoom-out" data-aos-delay="100">
-                                    <img src="{{ asset('nemolab/member/img/check-active.png') }}" alt="Check">
+                                    <img src="{{ asset('devacademy/member/img/check-active.png') }}" alt="Check">
                                     <p class="m-0 p-0 ms-2">Akses E-book selamanya</p>
                                 </li>
                             </ul>

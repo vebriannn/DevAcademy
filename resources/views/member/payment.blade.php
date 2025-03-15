@@ -1,9 +1,9 @@
 @extends('components.layouts.member.app')
 
-@section('title', 'Nemolab - Selesaikan Pemabayaran Anda')
+@section('title', 'Devacademy - Selesaikan Pemabayaran Anda')
 
 @push('prepend-style')
-    <link rel="stylesheet" href="{{ asset('nemolab/member/css/payment.css') }}">
+    <link rel="stylesheet" href="{{ asset('devacademy/member/css/payment.css') }}">
 @endpush
 
 @section('content')
@@ -256,5 +256,5 @@
     </section>
 @endsection
 @push('addon-script')
-    <script src="{{ asset('nemolab/member/js/claim_diskon.js') }}"></script>
+    <script src="{{ asset('devacademy/member/js/claim_diskon.js') }}"></script>
 @endpush

@@ -5,10 +5,10 @@
                 <div class="row ">
                     <div class="col-12 mb-4 mt-md-0 col-md-4">
                         <div class="brand-nemolab-icon d-flex align-items-center">
-                            <img src="{{ asset('nemolab/member/img/logo-nemolab.png') }}" alt="Logo" width="40" height="40"
+                            <img src="{{ asset('devacademy/member/img/logo-devacademy.png') }}" alt="Logo" width="40" height="40"
                                 class="d-inline-block align-text-top">
                             <div class="title-navbar-brand ms-2">
-                                <p class="m-0 p-0 fw-bold">Nemolab</p>
+                                <p class="m-0 p-0 fw-bold">DevAcademy</p>
                                 <p class="m-0 p-0 ">Kursus Online Terbaik</p>
                             </div>
                         </div>
@@ -68,8 +68,9 @@
                     </div>
                 </div>
             </div>
+            <hr class="m-0">
             <div class="copyright d-sm-flex justify-content-sm-center align-items-sm-center pt-sm-4 pb-sm-4">
-                <p class="m-0 p-0 text-white">© 2024 All Rights Reserved. Design by <a href="https://vibrant.web.id/">Vibrant Ecosystem</a></p>
+                <p class="m-0 p-0 text-white">© 2024 All Rights Reserved. Design by <a href="https://vibrant.web.id/">DevAcademy</a></p>
             </div>
         </div>
     </footer>

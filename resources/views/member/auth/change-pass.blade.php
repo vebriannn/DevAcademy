@@ -3,7 +3,7 @@
 @section('title', 'reset Password Anda Sekarang!!!')
 
 @push('prepend-style')
-    <link rel="stylesheet" href="{{ asset('nemolab/member/css/auth.css') }} ">
+    <link rel="stylesheet" href="{{ asset('devacademy/member/css/auth.css') }} ">
 @endpush
 
 @section('content')
@@ -12,12 +12,12 @@
             <div class="col-md-12">
                 <div class="card login-card d-flex flex-row">
                     <div class="img-container">
-                        <img src="{{ asset('nemolab/member/img/bismen.jpeg') }}" alt="Team collaboration"
+                        <img src="{{ asset('devacademy/member/img/bismen.jpeg') }}" alt="Team collaboration"
                             class="img-fluid rounded-start">
                     </div>
                     <div class="card-body ps-4">
                         <a href="{{ route('member.forget-password') }}" class="btn-back mb-4">
-                            <img src="{{ asset('nemolab/member/img/icon/arrow.png') }}" alt="Back" class="back-icon">
+                            <img src="{{ asset('devacademy/member/img/icon/arrow.png') }}" alt="Back" class="back-icon">
                         </a>
                         <div class="px-3 text-center">
                             <h3 class="mb-4" data-aos="fade-left" data-aos-delay="100">Reset Password Akunmu Di Sini!</h3>

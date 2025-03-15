@@ -3,8 +3,8 @@
 @section('title', 'Pilih Kursus Yang Ingin Anda Pelajari')
 
 @push('prepend-style')
-    <link rel="stylesheet" href="{{ asset('nemolab/components/member/css/sidebar-filter.css') }} ">
-    <link rel="stylesheet" href="{{ asset('nemolab/member/css/course.css') }} ">
+    <link rel="stylesheet" href="{{ asset('devacademy/components/member/css/sidebar-filter.css') }} ">
+    <link rel="stylesheet" href="{{ asset('devacademy/member/css/course.css') }} ">
 
 @endpush
 
@@ -15,7 +15,7 @@
             <div class="mobile-filter col-12 mb-5 d-lg-none fixed-top py-2">
                 <div class="filter-menu d-flex align-items-center gap-2">
                     <button class="filter-togle btn btn-warning">
-                        <img src="{{ asset('nemolab/components/member/img/filter.png') }}" alt="">
+                        <img src="{{ asset('devacademy/components/member/img/filter.png') }}" alt="">
                     </button>
                     <form action="{{ route('member.course') }}" method="GET" class="d-flex flex-grow-1">
                         <div class="search position-relative w-100">
@@ -36,7 +36,7 @@
                         @if($data->isEmpty() && $data->isEmpty())
                             <div class="col-md-12 d-flex justify-content-center align-items-center">
                                 <div class="not-found text-center">
-                                    <img src="{{ asset('nemolab/member/img/search-not-found.png') }}" class="logo-not-found w-50 h-50" alt="Not Found">
+                                    <img src="{{ asset('devacademy/member/img/search-not-found.png') }}" class="logo-not-found w-50 h-50" alt="Not Found">
                                     <p class="mt-3">Kelas Yang Kamu Cari Tidak Tersedia</p>
                                 </div>
                             </div>
@@ -44,7 +44,7 @@
                             @if ($data->isEmpty())
                                 <div class="col-md-12 d-flex justify-content-center align-items-center">
                                     <div class="not-found text-center">
-                                        <img src="{{ asset('nemolab/member/img/search-not-found.png') }}" class="logo-not-found w-50 h-50" alt="Not Found">
+                                        <img src="{{ asset('devacademy/member/img/search-not-found.png') }}" class="logo-not-found w-50 h-50" alt="Not Found">
                                         <p class="mt-3">Kelas Yang Kamu Cari Tidak Tersedia</p>
                                     </div>
                                 </div>
@@ -56,7 +56,7 @@
                             @if ($data->isEmpty())
                                 <div class="col-md-12 d-flex justify-content-center align-items-center">
                                     <div class="not-found text-center">
-                                        <img src="{{ asset('nemolab/member/img/search-not-found.png') }}" class="logo-not-found w-50 h-50" alt="Not Found">
+                                        <img src="{{ asset('devacademy/member/img/search-not-found.png') }}" class="logo-not-found w-50 h-50" alt="Not Found">
                                         <p class="mt-3">Kelas Yang Kamu Cari Tidak Tersedia</p>
                                     </div>
                                 </div>
@@ -68,7 +68,7 @@
                             @if ($data->isEmpty())
                                 <div class="col-md-12 d-flex justify-content-center align-items-center">
                                     <div class="not-found text-center">
-                                        <img src="{{ asset('nemolab/member/img/search-not-found.png') }}" class="logo-not-found w-50 h-50" alt="Not Found">
+                                        <img src="{{ asset('devacademy/member/img/search-not-found.png') }}" class="logo-not-found w-50 h-50" alt="Not Found">
                                         <p class="mt-3">Kelas Yang Kamu Cari Tidak Tersedia</p>
                                     </div>
                                 </div>
@@ -80,7 +80,7 @@
                             @if($data->isEmpty())
                                 <div class="col-md-12 d-flex justify-content-center align-items-center">
                                     <div class="not-found text-center">
-                                        <img src="{{ asset('nemolab/member/img/search-not-found.png') }}" class="logo-not-found w-50 h-50" alt="Not Found">
+                                        <img src="{{ asset('devacademy/member/img/search-not-found.png') }}" class="logo-not-found w-50 h-50" alt="Not Found">
                                         <p class="mt-3">Kelas Yang Kamu Cari Tidak Tersedia</p>
                                     </div>
                                 </div>
@@ -131,7 +131,7 @@
 </section>
 @endsection
 @push('addon-script')
-<script src="{{ asset('nemolab/member/js/scroll-dashboard.js') }}"></script>
+<script src="{{ asset('devacademy/member/js/scroll-dashboard.js') }}"></script>
 <script>
     document.querySelector('.filter-togle').addEventListener('click', function () {
         const sidebar = document.querySelector('.sidebar');

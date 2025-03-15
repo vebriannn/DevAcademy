@@ -4,12 +4,12 @@
 
 @section('content')
     @push('prepend-style')
-        <link rel="stylesheet" href="{{ asset('nemolab/member/css/diskusi.css') }} ">
+        <link rel="stylesheet" href="{{ asset('devacademy/member/css/diskusi.css') }} ">
     @endpush
     <div class="container">
         <h3 class="text-center text-black" style="margin-top: 13rem">Forum Diskusi</h3>
         <div class="box mx-auto mt-5">
-            <img src="{{ asset('nemolab/member/img/search-diskusi.png') }}" alt="">
+            <img src="{{ asset('devacademy/member/img/search-diskusi.png') }}" alt="">
             <input type="search" name="" id="" placeholder="Cari Pertanyaan Serupa">
         </div>
         <div class="diskusi d-flex flex-column" style="margin-top: 100px">
@@ -26,7 +26,7 @@
                     <p class="ms-3 fw-light mb-0">10 jam yang lalu</p>
                 </div>
                 <div class="reply-mentor d-flex mt-2">
-                    <img src="{{ asset('nemolab/member/img/reply-mentor.png') }}" width="25" height="25"
+                    <img src="{{ asset('devacademy/member/img/reply-mentor.png') }}" width="25" height="25"
                         alt="">
                     <p class="ms-2">Dijawab Mentor</p>
                 </div>
@@ -39,7 +39,7 @@
                     <p class="d-inline-flex gap-1 mb-0">
                         <a class="text-black fw-semibold" data-bs-toggle="collapse" href="#collapsecomment" role="button"
                             aria-expanded="false" aria-controls="collapseExample" onclick="toggleChevron()" style="">
-                            <img class="my-auto" id="chevron" src="{{ asset('nemolab/member/img/chevron-down-orange.png') }}"
+                            <img class="my-auto" id="chevron" src="{{ asset('devacademy/member/img/chevron-down-orange.png') }}"
                                 width="20" height="20" alt="">
                             Balasan
                         </a>
@@ -79,12 +79,12 @@
 
             // Change chevron when collapse is shown
             collapseElement.addEventListener('shown.bs.collapse', function() {
-                chevronIcon.src = "{{ asset('nemolab/member/img/chevron-up-orange.png') }}";
+                chevronIcon.src = "{{ asset('devacademy/member/img/chevron-up-orange.png') }}";
             });
 
             // Change chevron when collapse is hidden
             collapseElement.addEventListener('hidden.bs.collapse', function() {
-                chevronIcon.src = "{{ asset('nemolab/member/img/chevron-down-orange.png') }}";
+                chevronIcon.src = "{{ asset('devacademy/member/img/chevron-down-orange.png') }}";
             });
         });
     </script>

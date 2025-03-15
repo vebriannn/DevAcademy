@@ -80,7 +80,7 @@
                                     <img src="{{ asset('storage/images/avatars/' . Auth::user()->avatar) }}"
                                         class="rounded-5 ms-1" style="width: 42px; height: 42px;" id="img-profile">
                                 @else
-                                    <img src="{{ asset('nemolab/member/img/icon/Group 7.png') }}" class="rounded-5 ms-1"
+                                    <img src="{{ asset('devacademy/member/img/icon/Group 7.png') }}" class="rounded-5 ms-1"
                                         style="width: 42px; height: 42px;" id="img-profile">
                                 @endif
                             </button>

@@ -3,7 +3,7 @@
 @section('title', 'Ubah Profil Anda Di Sini')
 
 @push('prepend-style')
-    <link rel="stylesheet" href="{{ asset('nemolab/components/member/css/dashboard/setting.css') }} ">
+    <link rel="stylesheet" href="{{ asset('devacademy/components/member/css/dashboard/setting.css') }} ">
 @endpush
 @section('content')
     <section class="profile-saya-section" id="profile-saya-section">
@@ -16,7 +16,7 @@
                         <div class="card-body">
                             <div class="d-flex align-items-center mb-3">
                                 <a href="{{ route('member.setting') }}" class="btn-back">
-                                    <img src="{{ asset('nemolab/member/img/icon/arrow.png') }}" alt="Back"
+                                    <img src="{{ asset('devacademy/member/img/icon/arrow.png') }}" alt="Back"
                                         class="back-icon btn-costum">
                                 </a>
                                 <h5 class="title p-0 ps-3 fw-bold m-0">Ubah profil anda</h5>
@@ -30,11 +30,11 @@
                                         <h6 class="fw-bold">Foto Profil</h6>
                                         <p>Ukuran Foto Maksimal (1 MB)</p>
                                     </div>
-                                    <img src="{{ Auth::user()->avatar !== null ? asset('storage/images/avatars/' . Auth::user()->avatar) : asset('nemolab/member/img/icon/Group 7.png') }}"
+                                    <img src="{{ Auth::user()->avatar !== null ? asset('storage/images/avatars/' . Auth::user()->avatar) : asset('devacademy/member/img/icon/Group 7.png') }}"
                                         alt="avatar" width="130" height="130" class="avatar mb-3"
                                         style="border-radius: 50%; object-fit: cover;" id="avatarPreview" />
                                     <input type="file" id="fileUpload" name="avatar" class="d-none">
-                                    <label for="fileUpload" class="btn btn-secondary px-5">Pilih foto</label>
+                                    <label for="fileUpload" class="btn btn-secondary ms-3 px-5">Pilih foto</label>
                                     @error('avatar')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
