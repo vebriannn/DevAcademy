@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Member\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Profession;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
@@ -19,7 +20,8 @@ class MemberRegisterController extends Controller
     // Sesi pertama: Form registrasi akun (hanya nama, email, dan password)
     public function index()
     {
-        return view('member.auth.register'); // Tampilan sesi pertama
+        $profession = Profession::all();
+        return view('member.auth.register', compact('profession')); // Tampilan sesi pertama
     }
 
     public function store(Request $requests)
@@ -32,26 +34,20 @@ class MemberRegisterController extends Controller
             'password' => [
                 'required',
                 'string',
-                'min:8',
-                'regex:/[a-z]/',
-                'regex:/[0-9]/',
-            ],
-        ], [
-            'password.regex' => 'Password harus berisi kombinasi huruf dan angka',
+                'min:6',
+            ]
         ]);
-    
-        $avatar = null;
-    
+
+        // Set default avatar jika tidak ada file yang diunggah
+        $avatar = 'default.png';
+
         if ($requests->hasFile('avatar')) {
-            $requests->validate([
-                'avatar' => 'image|mimes:jpg,jpeg,png,svg|max:2048', 
-            ]);
-    
-            $getNameImageAvatar = $requests->avatar->getClientOriginalName();
-            $avatar = Str::random(10) . $getNameImageAvatar;
-            $requests->avatar->storeAs('public/images/avatars', $avatar);
+            $getNameImageAvatar = $requests->file('avatar')->getClientOriginalName();
+            $avatarName = Str::random(10) . '_' . $getNameImageAvatar;
+            $avatar = $requests->file('avatar')->storeAs('public/images/avatars', $avatarName);
         }
-    
+
+        // Simpan user ke database
         $user = User::create([
             'avatar' => $avatar,
             'name' => $requests->name,
@@ -59,12 +55,15 @@ class MemberRegisterController extends Controller
             'profession' => $requests->profession,
             'password' => Hash::make($requests->password),
         ]);
-    
-        // Kirim notifikasi verifikasi email
-        $user->sendEmailVerificationNotification();
+
+        // **Kirim event agar email verifikasi otomatis dikirim**
         event(new Registered($user));
+
+        // **Langsung login user setelah registrasi**
         Auth::login($user);
-        Alert::success('Success', 'Berhasil Mengirimkan Tautan Verifikasi');
+
+        Alert::success('Success', 'Akun berhasil dibuat! Silakan verifikasi email Anda.');
+
         return redirect()->route('verification.notice');
-    }    
+    }
 }

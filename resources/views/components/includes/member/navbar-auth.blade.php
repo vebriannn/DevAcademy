@@ -6,8 +6,8 @@
                 <div class="d-flex align-items-center">
                     <a href="{{ route('home') }}" style="text-decoration: none;">
                         <div class="brand-nemolab-icon d-flex align-items-center">
-                            <img src="{{ asset('devacademy/member/img/logo-devacademy.png') }}" alt="Logo" width="40"
-                                height="40" class="d-inline-block align-text-top">
+                            <img src="{{ asset('devacademy/member/img/logo-devacademy.png') }}" alt="Logo"
+                                width="40" height="40" class="d-inline-block align-text-top">
                             <div class="title-navbar-brand ms-2 d-block">
                                 <p class="m-0 p-0 fw-bold">Devacademy</p>
                                 <p class="m-0 p-0 ">Kursus Online Terbaik</p>
@@ -46,11 +46,14 @@
 
                         <a href="{{ route('home') }}" class="text-decoration-none  pb-2 pb-lg-0">Home</a>
 
-                        <a href="{{ route('home') }}#section-testimoni-kelas" class="text-decoration-none  pb-2 pb-lg-0">Testimonial</a>
+                        <a href="{{ route('home') }}#section-testimoni-kelas"
+                            class="text-decoration-none  pb-2 pb-lg-0">Testimonial</a>
 
-                        <a href="{{ route('home') }}#section-pilih-kursus" class="text-decoration-none  pb-2 pb-lg-0">Kategori</a>
+                        <a href="{{ route('home') }}#section-pilih-kursus"
+                            class="text-decoration-none  pb-2 pb-lg-0">Kategori</a>
 
-                        <a href="{{ route('home') }}#section-benefit-kelas" class="text-decoration-none  pb-2 pb-lg-0">Benefit</a>
+                        <a href="{{ route('home') }}#section-benefit-kelas"
+                            class="text-decoration-none  pb-2 pb-lg-0">Benefit</a>
 
                         <div class="dropdown dropdown-pilih-kelas">
                             <button
@@ -93,7 +96,8 @@
                                         </div>
                                         <div class="col-12 col-sm-6 ps-0 pl-1 mb-1">
                                             <a
-                                                href="{{ route('member.course', ['filter-kelas' => 'Fullstack Developer']) }}">Fullstack Developer</a>
+                                                href="{{ route('member.course', ['filter-kelas' => 'Fullstack Developer']) }}">Fullstack
+                                                Developer</a>
                                         </div>
                                     </div>
                                 </div>
@@ -107,14 +111,12 @@
                                     <span class="fw-bold">
                                         {{ Auth::user()->name }}
                                     </span>
-                                    @if (Auth::user()->avatar != null)
+                                    @if (Auth::user()->avatar != 'default.png')
                                         <img src="{{ asset('storage/images/avatars/' . Auth::user()->avatar) }}"
-                                            class="rounded-5 ms-1" style="width: 42px; height: 42px;"
-                                            id="img-profile">
+                                            class="rounded-5 ms-1" style="width: 42px; height: 42px;" id="img-profile">
                                     @else
-                                        <img src="{{ asset('devacademy/member/img/icon/Group 7.png') }}"
-                                            class="rounded-5 ms-1" style="width: 42px; height: 42px;"
-                                            id="img-profile">
+                                        <img src="{{ asset('devacademy/member/img/default.png') }}"
+                                            class="rounded-5 ms-1" style="width: 42px; height: 42px;" id="img-profile">
                                     @endif
                                 </button>
 

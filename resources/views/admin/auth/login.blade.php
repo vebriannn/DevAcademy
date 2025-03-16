@@ -12,6 +12,7 @@
 
     <!-- Toastr CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <link rel="icon" href="{{ asset('devacademy/member/img/logo-devacademy.png') }}" type="image/x-icon" />
 
 </head>
 
@@ -27,7 +28,7 @@
                     <div class="card-body col-md-6">
                         <h3 class="text-center " data-aos="fade-up">Selamat Datang!</h3>
                         <p class="text-center text-muted mb-5" data-aos="fade-up" data-aos-delay="100">Silakan masuk
-                            untuk mengakses akun Anda.</p>
+                            untuk mengakses akun admin Anda.</p>
 
                         <form id="loginForm" method="POST" action="{{ route('admin.login.auth') }}">
                             @csrf

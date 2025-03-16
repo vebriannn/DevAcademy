@@ -1,124 +1,86 @@
 @extends('components.layouts.member.auth')
 
-@section('title', 'Daftarkan akunmu untuk mengakses kelas')
+@section('title', 'Register')
 
-@push('prepend-style')
-    <link rel="stylesheet" href="{{ asset('devacademy/member/css/auth.css') }} ">
+@push('styles')
+    <link rel="stylesheet" href="{{ asset('devacademy/css/register.css') }}">
 @endpush
 
 @section('content')
-    <div class="container-fluid">
+    <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-6 p-0 image-container">
-                    <img src="{{ asset('devacademy/member/img/bismen.png') }}" alt="Team collaboration"
-                        class="img-fluid rounded-start">
-            </div>
-
-            <div class="col-md-6 p-0">
-                <div class="card-body px-5">
-                    <a href="{{ route('home') }}" class="btn-back mt-2 mb-2">
-                        <img src="{{ asset('devacademy/member/img/icon/arrow.png') }}" alt="Back" class="back-icon">
-                    </a>
-                    <div class="px-3 text-center">
-                        <h3 class="mb-4" data-aos="fade-left" data-aos-delay="100">DAFTARKAN AKUN KAMU!</h3>
-                        <p class="fw-bold" data-aos="fade-left" data-aos-delay="200">Selangkah lebih maju menjadi ahli
-                            dengan belajar bersama Nemolab! Daftarkan akunmu sekarang juga</p>
+            <div class="col-lg-10 d-flex justify-content-center align-items-center">
+                <div class="card login-card flex-md-row">
+                    <div class="img-container d-none d-md-block col-md-6 p-0">
+                        <img src="https://images.unsplash.com/photo-1606761568499-6d2451b23c66?q=80&w=1374&auto=format&fit=crop"
+                            alt="Team collaboration" class="img-fluid">
                     </div>
-                    <form id="register-form" action="{{ route('member.register.store') }}" method="POST"
-                        enctype="multipart/form-data">
-                        @csrf
-                        <div class="first-reigster-sesion mt-3" id="first-regist">
-                            <div class="mb-3 text-center">
-                                <div class="d-flex flex-column align-items-center">
-                                    <img src="{{ asset('devacademy/member/img/icon/Group 7.png') }}" alt="avatar"
-                                        width="130" height="130" class="avatar class mb-3"
-                                        style="border-radius: 50%; object-fit: cover" id="avatarPreview" />
-                                    <input type="file" class="btn-upload " style="display: none;" id="fileUpload"
-                                        name="avatar">
-                                    <label for="fileUpload" class="btn btn-secondary mb-1">Upload Avatar</label>
-                                </div>
-                                @error('avatar')
-                                    <div class="text-danger">{{ $message }}</div>
+                    <div class="card-body col-md-6">
+                        <h3 class="text-center" data-aos="fade-up">Selamat Datang!</h3>
+                        <p class="text-center text-muted mb-5" data-aos="fade-up" data-aos-delay="100">Silakan daftarkan
+                            akunmu disini</p>
+
+                        <form id="loginForm" method="POST" action="{{ route('member.register.store') }}"
+                            enctype="multipart/form-data">
+                            @csrf
+                            <div class="mb-3">
+                                <label for="nameP" class="form-label">Nama Pengguna</label>
+                                <input type="text" id="nameP" name="name"
+                                    class="form-control @error('name') is-invalid @enderror" placeholder="Masukan Nama Anda"
+                                    value="{{ old('name') }}">
+                                @error('name')
+                                    <span class="text-danger small">{{ $message }}</span>
                                 @enderror
                             </div>
-                            <div class="row mb-3">
-                                <div class="col-6">
-                                    <div class="">
-                                        <label for="name" class="form-label fw-bold">Nama pengguna</label>
-                                        <input type="text" name="name" placeholder="Masukan nama disini"
-                                            value="{{ old('name') }}" class="form-control py-2 fw-bold" required>
-                                        @error('name')
-                                            <div class="text-danger">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div class="col-6">
-                                    <div class="">
-                                        <label for="email" class="form-label fw-bold">Email</label>
-                                        <input type="email" name="email" placeholder="Masukan email disini"
-                                            value="{{ old('email') }}" class="form-control py-2 fw-bold" required>
-                                        @error('email')
-                                            <div class="text-danger">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                </div>
-                            </div>
+
                             <div class="mb-3">
-                                <label for="posisi" class="form-label fw-bold">Pilih Posisi Impian Anda</label>
-                                <select name="profession" id="posisi" class="py-2 form-select">
-                                    <option value="Pelajar Jangka Panjang">Pelajar Jangka Panjang</option>
-                                    <option value="UI/UX Designer">UI/UX Designer</option>
-                                    <option value="Frontend Developer">Frontend Developer</option>
-                                    <option value="Backend Developer">Backend Developer</option>
-                                    <option value="Wordpress Developer">Wordpress Developer</option>
-                                    <option value="Graphics Designer">Graphics Designer</option>
-                                    <option value="Fullstack Developer">Fullstack Developer</option>
+                                <label for="posisi" class="form-label fw-bold">Pilih Posisi Anda</label>
+                                <select name="profession" id="posisi"
+                                    class="py-2 form-select @error('profession') is-invalid @enderror">
+                                    <option value="">Pilih profesi</option>
+                                    @foreach ($profession as $prof)
+                                        <option value="{{ $prof->name }}"
+                                            {{ old('profession') == $prof->name ? 'selected' : '' }}>
+                                            {{ $prof->name }}
+                                        </option>
+                                    @endforeach
                                 </select>
                                 @error('profession')
-                                    <div class="text-danger">{{ $message }}</div>
-                                @enderror
-                            </div>
-                            <div class="mb-3">
-                                <label for="password" class="form-label fw-bold">Buat Kata sandi</label>
-                                <input type="password" name="password" placeholder="Masukan kata sandi disini"
-                                    id="password" class="form-control py-2 fw-bold" required>
-                                @error('password')
-                                    <div class="text-danger">{{ $message }}</div>
+                                    <span class="text-danger small">{{ $message }}</span>
                                 @enderror
                             </div>
 
                             <div class="mb-3">
-                                <button type="submit"
-                                    class="btn btn-primary py-2 w-100 rounded-start fw-bold">Daftar</button>
+                                <label for="email" class="form-label">Email</label>
+                                <input type="email" id="email" name="email"
+                                    class="form-control @error('email') is-invalid @enderror"
+                                    placeholder="Masukan email Anda" value="{{ old('email') }}">
+                                @error('email')
+                                    <span class="text-danger small">{{ $message }}</span>
+                                @enderror
                             </div>
+
+                            <div class="mb-4">
+                                <label for="password" class="form-label">Kata Sandi</label>
+                                <input type="password" id="password" name="password"
+                                    class="form-control @error('password') is-invalid @enderror"
+                                    placeholder="Masukan kata sandi Anda">
+                                @error('password')
+                                    <span class="text-danger small">{{ $message }}</span>
+                                @enderror
+                            </div>
+
+                            <button type="submit" class="btn btn-primary w-100 py-2">Daftar</button>
+                        </form>
+
+                        <div class="text-center mt-4">
+                            <p>Sudah punya akun? <a href="{{ route('member.login') }}"
+                                    class="text-decoration-none">Login
+                                    di sini</a></p>
                         </div>
-                    </form>
-                    <p class="text-center fw-bold">sudah memiliki akun? <a href="{{ route('member.login') }}">masuk
-                            disini</a></p>
-                    </p>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 @endsection
-
-@push('addon-script')
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const avatarPreview = document.getElementById('avatarPreview');
-            const fileUpload = document.getElementById('fileUpload');
-
-            // Fungsi untuk memperbarui gambar pratinjau
-            fileUpload.addEventListener('change', (event) => {
-                const file = event.target.files[0];
-                if (file) {
-                    const reader = new FileReader();
-                    reader.onload = function(e) {
-                        avatarPreview.src = e.target.result; // Memperbarui sumber gambar pratinjau
-                    };
-                    reader.readAsDataURL(file);
-                }
-            });
-        });
-    </script>
-@endpush

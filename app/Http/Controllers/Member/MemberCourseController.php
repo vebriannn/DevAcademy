@@ -27,139 +27,68 @@ class MemberCourseController extends Controller
     public function index(Request $request)
     {
         // Mengambil input filter
-        $searchQuery = $request->input('search-input'); 
-        $categoryFilter = $request->input('filter-kelas');
-        $paketFilter = $request->input('filter-paket');
-        $perPage = 9; //jumlah data tampil pada per 1 halaman
-    
+        // $searchQuery = $request->input('search-input');
+        // $categoryFilter = $request->input('filter-kelas');
+
         // Membuat query dasar untuk mengambil data kursus hanya saat status "published"
-        $coursesQuery = Course::where('status', 'published');
-    
-        // Membuat query dasar untuk mengambil data ebook hanya saat status "published"
-        $ebooksQuery = Ebook::where('status', 'published');
-    
+        // $coursesQuery = Course::where('status', 'published');
+
         // jalankan logika ini saat ada input dari pencarian
-        if ($searchQuery) {
-            $coursesQuery->where(function ($query) use ($searchQuery) {
-                $query->where('name', 'LIKE', '%' . $searchQuery . '%')
-                    ->orWhere('category', 'LIKE', '%' . $searchQuery . '%')
-                    ->orWhereHas('users', function ($q) use ($searchQuery) {
-                        // Filter berdasarkan nama mentor
-                        $q->where('name', 'LIKE', '%' . $searchQuery . '%');
-                    });
-            });
-            $ebooksQuery->where(function ($query) use ($searchQuery) {
-                $query->where('name', 'LIKE', '%' . $searchQuery . '%')
-                    ->orWhere('category', 'LIKE', '%' . $searchQuery . '%')
-                    ->orWhereHas('users', function ($q) use ($searchQuery) {
-                        // Filter berdasarkan nama mentor
-                        $q->where('name', 'LIKE', '%' . $searchQuery . '%');
-                    });
-            });
-        }
-    
+        // if ($searchQuery) {
+        //     $coursesQuery->where(function ($query) use ($searchQuery) {
+        //         $query->where('name', 'LIKE', '%' . $searchQuery . '%')
+        //             ->orWhere('category', 'LIKE', '%' . $searchQuery . '%')
+        //             ->orWhereHas('users', function ($q) use ($searchQuery) {
+        //                 // Filter berdasarkan nama mentor
+        //                 $q->where('name', 'LIKE', '%' . $searchQuery . '%');
+        //             });
+        //     });
+        // }
+
         // Jalankan logika ini saat ada input dari filter category dan menghindari nilai 'semua' karena 'semua' bukan termasuk category
-        if ($categoryFilter && $categoryFilter != 'semua') {
-            $coursesQuery->where('category', $categoryFilter);
-            $ebooksQuery->where('category', $categoryFilter);
-        }
-    
-        // Filter paket berdasarkan pilihan pengguna
-        switch ($paketFilter) {
-            case 'paket-kursus':
-                // Jika paket yang dipilih adalah paket kursus, ambil hanya data kursus
-                $coursesQuery->whereDoesntHave('courseEbooks');
-                $ebooksQuery = null; // Jangan ambil data ebook
-                break;
-    
-            case 'paket-ebook':
-                // Jika paket yang dipilih adalah paket ebook, ambil hanya data ebook
-                $ebooksQuery->whereDoesntHave('courseEbooks');
-                $coursesQuery = null; // Jangan ambil data kursus
-                break;
-    
-            case 'paket-bundling':
-                // Jika paket yang dipilih adalah paket bundling, ambil data kursus yang memiliki bundling
-                $coursesQuery->whereHas('courseEbooks');
-                $ebooksQuery = null; // Jangan ambil data ebook
-                break;
-    
-            default:
-                // kondisi default/pada saat filter diluar case. maka hanya terapkan pengaturan saat ebook tidak termasuk bundling
-                $ebooksQuery->whereDoesntHave('courseEbooks');
-                break;
-        }
-    
+        // if ($categoryFilter && $categoryFilter != 'semua') {
+        //     $coursesQuery->where('category', $categoryFilter);
+        // }
+
         // ambil data course saat coursesQuery tidak null dan menyimpanya pada memory dengan collection
-        $courses = $coursesQuery ? $coursesQuery->with('users', 'courseEbooks')
-            ->select('id', 'mentor_id', 'cover', 'name', 'category', 'slug', 'created_at', 'product_type', 'price')->get() : collect();
-        // ambil data ebook saat ebooksQuery tidak null dan menyimpanya pada memory dengan collection
-        $ebooks = $ebooksQuery ? $ebooksQuery->with('users')
-            ->select('id', 'mentor_id', 'cover', 'name', 'category', 'slug', 'created_at', 'product_type', 'price')->get() : collect();
-        
-        //Menggabungkan data kursus dan ebook, lalu mengurutkan berdasarkan waktu terbaru rilis,
-        //menggunakan concat untuk menggabungkan 2 collection($ebooks dan $courses) menjadi 1,
-        //dan pada saat ada id yang sama pada kedua collection maka data tersebut menjadi entri terpisah dan tidak menimpa(menghindari hanya menampilkan 1 data saat 2 id sama)
-        $merged = $courses->concat($ebooks)->sortByDesc('created_at');
-    
-        // Mengatur pagination secara manual menggunakan LengthAwarePaginator karena data berasal dari collection
-        $page = $request->input('page', 1);
-        $paginatedData = new LengthAwarePaginator(
-            $merged->forPage($page, $perPage), // Mengambil data sesuai halaman
-            $merged->count(), // Total data yang akan dipaginasi
-            $perPage, // Jumlah data per halaman
-            $page, // Halaman saat ini
-            ['path' => $request->url(), 'query' => $request->query()] // URL dan query parameter untuk pagination
-        );
-    
-        // Mengambil data bundling yang terkait dengan kursus
-        $bundling = CourseEbook::whereIn('course_id', $courses->pluck('id'))->get()->mapWithKeys(function ($item) {
-            return [$item->course_id => $item];
-        });
-
-        if($request->ajax()){
-
-        }
+        // $courses = $coursesQuery ? $coursesQuery->with('users', 'courses')
+        //     ->select('id', 'mentor_id', 'cover', 'name', 'category', 'slug', 'created_at', 'price')->get() : collect();
 
         // Mengembalikan tampilan dengan data yang sudah diproses
-        return view('member.course', [
-            'data' => $paginatedData, // Data yang sudah dipaginasi
-            'paketFilter' => $paketFilter, // Filter paket yang dipilih
-            'bundling' => $bundling, // Data bundling yang terkait
-        ]);
+        return view('member.course');
     }
-    
+
 
 
     public function join($slug)
     {
         // Mencari data kursus berdasarkan slug terlebih dahulu
         $courses = Course::where('slug', $slug)->first();
-    
+
         // Logika ketika kursus ditemukan
         if ($courses) {
             // Mengambil data chapter dan lessons yang cocok dengan course
             $chapters = Chapter::with('lessons')->where('course_id', $courses->id)->get();
-    
+
             // Mengambil data reviews yang cocok dengan course
             $reviews = Review::with('user')->where('course_id', $courses->id)->get();
-    
+
             // Mengecek apakah kursus memiliki bundling dengan eBook yang terisi
             $bundling = CourseEbook::with(['course', 'ebook'])
                 ->where('course_id', $courses->id)
                 ->first();
-    
+
             // Ketika data chapter ada/tidak null maka tampilkan lesson pertama
             $lesson = $chapters->isNotEmpty()
                 ? Lesson::with('chapters')->where('chapter_id', $chapters->first()->id)->first()
                 : null;
-    
+
             // Mengecek apakah ada transaksi course pada user
             $transaction = Auth::check()
                 ? Transaction::where('user_id', Auth::id())
-                    ->where('course_id', $courses->id)
-                    ->orderBy('created_at', 'desc') // cek dari transaksi terbaru
-                    ->first()
+                ->where('course_id', $courses->id)
+                ->orderBy('created_at', 'desc') // cek dari transaksi terbaru
+                ->first()
                 : null;
             // Mendapatkan data tools yang ada pada course
             $coursetools = Course::with('tools')->findOrFail($courses->id);
@@ -174,9 +103,6 @@ class MemberCourseController extends Controller
             return redirect()->route('pages.error');
         }
     }
-    
-
-
 
     public function play($slug, $episode)
     {
@@ -259,13 +185,13 @@ class MemberCourseController extends Controller
         foreach ($chapters as $chapter) {
             $totalLesson += $chapter->lessons->count();
         }
-    
+
         // Memeriksa apakah user telah menyelesaikan semua episode dalam course
         $checkSertifikat = false;
         if ($totalLesson == $compeleteEps->count()) {
             $checkSertifikat = true; // Sertifikat dapat diberikan
         }
-    
+
         // Jika user sudah membeli course
         if ($checkTrx) {
             // Menampilkan halaman detail course untuk member
@@ -276,7 +202,7 @@ class MemberCourseController extends Controller
             return redirect()->route('member.course.join', $slug);
         }
     }
-    
+
 
 
     public function generateSertifikat($slug)

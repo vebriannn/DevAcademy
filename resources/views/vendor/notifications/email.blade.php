@@ -6,40 +6,39 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Verifikasi Email Anda</title>
     <style>
-        /* CSS dasar untuk gaya email */
         body {
             font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
+            background-color: #f8f9fa;
             color: #333;
             margin: 0;
             padding: 20px;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh; /* Memastikan halaman memenuhi tinggi viewport */
-            background: #f4f4f4;
+            height: 100vh;
         }
 
         .email-container {
-            max-width: 600px;
+            max-width: 500px;
             width: 100%;
             background-color: #ffffff;
             padding: 30px;
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            border: 2px solid #FAA907;
+            border-top: 5px solid #0d6efd;
             text-align: center;
             box-sizing: border-box;
         }
 
         .email-header img {
-            max-width: 150px;
-            margin-bottom: 20px;
+            max-width: 120px;
+            margin-bottom: 15px;
         }
 
         .email-header h2 {
             color: #333;
             margin-bottom: 10px;
+            font-size: 20px;
         }
 
         .email-body {
@@ -50,7 +49,7 @@
         .btn {
             display: inline-block;
             padding: 12px 24px;
-            background-color: #FAA907;
+            background-color: #0d6efd;
             color: #ffffff;
             text-decoration: none;
             border-radius: 5px;
@@ -58,24 +57,24 @@
             margin-top: 20px;
         }
 
-        .email-footer {
-            margin-top: 30px;
-            font-size: 12px;
-            color: #666;
-            text-align: center;
+        .btn:hover {
+            background-color: #0b5ed7;
         }
 
-        /* Responsivitas untuk perangkat mobile */
+        .email-footer {
+            margin-top: 20px;
+            font-size: 12px;
+            color: #666;
+        }
+
         @media (max-width: 600px) {
             .email-container {
                 padding: 20px;
-                max-width: 100%;
             }
 
             .btn {
                 width: 100%;
                 padding: 14px;
-                text-align: center;
             }
         }
     </style>
@@ -84,21 +83,19 @@
 <body>
     <div class="email-container">
         <div class="email-header">
-            <!-- Ganti path dengan logo Anda -->
-            <img src="https://i.ibb.co.com/JRR254r/logo-nemolab.png" alt="Logo Aplikasi">
             <h2>Verifikasi Email Anda</h2>
         </div>
         <div class="email-body">
-            <p>Halo, {{ $user->name }}!</p>
-            <p>Terima kasih telah mendaftar di nemolab. Silakan klik tombol di bawah ini untuk memverifikasi alamat
-                email Anda:</p>
-            <p>
-                <a href="{{ $url }}" class="btn" style="color: white;">Verifikasi Email</a>
+            <p>Halo, <strong>{{ $user->name }}</strong>!</p>
+            <p>Terima kasih telah bergabung di DevAcademy. Klik tombol di bawah untuk memverifikasi alamat email Anda:
             </p>
-            <p>Jika Anda tidak mendaftar, abaikan email ini.</p>
+            <p>
+                <a href="{{ $url }}" class="btn">Verifikasi Email</a>
+            </p>
+            <p>Jika Anda tidak merasa mendaftar, abaikan email ini.</p>
         </div>
         <div class="email-footer">
-            <p>© 2024 All Rights Reserved. Design by Vibrant Ecosystem</p>
+            <p>Copyright &copy; Dev Academy 2025</p>
         </div>
     </div>
 </body>

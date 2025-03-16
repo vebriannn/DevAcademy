@@ -20,7 +20,8 @@ use RealRashid\SweetAlert\Facades\Alert;
 class forgotPassController extends Controller
 {
 
-    public function index() {
+    public function index()
+    {
         return view('member.auth.forget-pass');
     }
 
@@ -67,11 +68,7 @@ class forgotPassController extends Controller
                 'required',
                 'string',
                 'min:8',
-                'regex:/[a-z]/',
-                'regex:/[0-9]/',
-            ],
-        ],  [
-            'password.regex' => 'Password harus berisi kombinasi huruf dan angka',
+            ]
         ]);
 
         $status = Password::reset(
@@ -85,8 +82,7 @@ class forgotPassController extends Controller
         );
 
         if ($status === Password::PASSWORD_RESET) {
-            Alert::success('Berhasil', 'Password Berhasil Di Reset');
-            return redirect()->route('member.login');
+            return redirect()->route('member.login')->with('success', 'Password Berhasl Di Reset');
         }
 
         Alert::error('Error', 'Maaf Terjadi Kesalahan Dalam Reset Password, SIlahkan Coba Lagi Dalam Beberapa Saat');

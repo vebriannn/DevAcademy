@@ -28,9 +28,6 @@ class MemberPaymentController extends Controller
         $bundleId = $request->query('bundle_id');
 
         $course = Course::find($courseId);
-        $ebook = Ebook::find($ebookId);
-        $bundle = CourseEbook::find($bundleId);
-        $diskonKelas = DiskonKelas::all();
         return view('member.payment', [
             'course' => $course,
             'ebook' => $ebook,
@@ -61,9 +58,6 @@ class MemberPaymentController extends Controller
         $hargaAwal = 0;
         $status = 'pending';
 
-        $course = Course::find($courseId);
-        $ebook = Ebook::find($ebookId);
-        $bundle = CourseEbook::find($bundleId);
         $diskon = 0;
 
         if ($course) {

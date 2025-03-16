@@ -4,11 +4,6 @@ namespace App\Http\Controllers\Member;
 
 use App\Http\Controllers\Controller;
 use App\Models\Course;
-use App\Models\Review;
-use Illuminate\Http\Request;
-use Illuminate\Http\JsonResponse;
-use App\Models\CourseEbook;
-
 
 class LandingpageController extends Controller
 {
@@ -23,8 +18,8 @@ class LandingpageController extends Controller
             ->get();
         // Mengambil semua ID kursus yang termasuk dalam bundle
 
-    
+
         // Mengirimkan data kursus dan ID bundle ke view 'member.home'
-        return view('member.home');
-    }    
+        return view('member.home', compact('courses'));
+    }
 }

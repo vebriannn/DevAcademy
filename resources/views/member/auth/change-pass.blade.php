@@ -8,17 +8,13 @@
 
 @section('content')
     <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-12">
+        <div class="row justify-content-center align-items-center">
+            <div class="col-10 col-sm-6 mt-5">
                 <div class="card login-card d-flex flex-row">
-                    <div class="img-container">
-                        <img src="{{ asset('devacademy/member/img/bismen.jpeg') }}" alt="Team collaboration"
-                            class="img-fluid rounded-start">
-                    </div>
                     <div class="card-body ps-4">
-                        <a href="{{ route('member.forget-password') }}" class="btn-back mb-4">
+                        {{-- <a href="{{ route('member.forget-password') }}" class="btn-back mb-4">
                             <img src="{{ asset('devacademy/member/img/icon/arrow.png') }}" alt="Back" class="back-icon">
-                        </a>
+                        </a> --}}
                         <div class="px-3 text-center">
                             <h3 class="mb-4" data-aos="fade-left" data-aos-delay="100">Reset Password Akunmu Di Sini!</h3>
                         </div>
@@ -39,6 +35,9 @@
                                 <input type="password" id="confirm-password" name="password_confirmation"
                                     class="form-control fw-bold" placeholder="Masukan kata sandi disini" required>
                             </div>
+                            @error('password_confirmation')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
                             <div class="mb-3">
                                 <button type="submit" class="btn btn-primary w-100 py-2 rounded-start fw-bold"
                                     id="submitBtn">Ubah Kata Sandi</button>

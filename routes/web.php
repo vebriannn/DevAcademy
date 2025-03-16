@@ -43,103 +43,94 @@ use App\Http\Controllers\Admin\Sdm\AdminSuperadminController;
 */
 
 
-// route mainetanance
-Route::get('/maintenance', function () {
-    if (config('app.maintenance_mode') === true) {
-        return view('error.maintenance'); // Menampilkan view 'pages/maintenance.blade.php'
-    } else {
-        return redirect()->route('home');
-    }
-})->name('pages.maintenance');
 
+Route::get('/', [MemberLandingPagesController::class, 'index'])->name('home');
+Route::view('/eror/pages', 'error.page404')->name('pages.error');
 
-// menampilkan halaman maintenance jika website sedang dalam pengembangan (jika ingin mengaktifkan tinggal costum boolean true di env maintenance_mode)
-Route::middleware('maintenance.middleware')->group(function () {
+Route::prefix('member')->group(function () {
 
-    Route::get('/', [MemberLandingPagesController::class, 'index'])->name('home')->middleware('cache.headers:public;max_age=31536000;etag');
-    Route::view('/eror/pages', 'error.page404')->name('pages.error');
-
-    Route::prefix('member')->group(function () {
-
-        // member course
-        Route::prefix('course')->group(function () {
-            Route::get('/', [MemberCourseController::class, 'index'])->name('member.course')->middleware('cache.headers:public;max_age=31536000;etag');
-            Route::get('join/{slug}', [MemberCourseController::class, 'join'])->name('member.course.join')->middleware(['students', 'verified']);
-            Route::get('{slug}/play/episode/{episode}', [MemberCourseController::class, 'play'])->name('member.course.play')->middleware(['students', 'verified']);
-            Route::get('detail/{slug}', [MemberCourseController::class, 'detail'])->name('member.course.detail')->middleware(['students', 'verified']);
-            Route::get('detail/sertifikat/{slug}', [MemberCourseController::class, 'generateSertifikat'])->name('member.sertifikat')->middleware(['students', 'verified']);
-        });
-        Route::prefix('review')->middleware(['students', 'verified'])->group(function () {
-            Route::get('{slug}', [MemberReviewController::class, 'index'])->name('member.review');
-            Route::post('store', [MemberReviewController::class, 'store'])->name('member.review.store');
-            Route::get('ebook/{slug}', [MemberReviewController::class, 'ebookFormReview'])->name('member.review.ebook');
-            Route::post('ebook/store', [MemberReviewController::class, 'storeReviewEbook'])->name('member.review.ebook.store');
-        });
-
-        Route::prefix('payment')->middleware(['students', 'verified'])->group(function () {
-            Route::get('payment/', [MemberPaymentController::class, 'index'])->name('member.payment');
-            Route::post('payment/store', [MemberPaymentController::class, 'store'])->name('member.transaction.store');
-        });
-
-        // dashboard mycourse
-        Route::get('/', [MemberMyCourseController::class, 'index'])->name('member.dashboard')->middleware(['students', 'verified']);
-        // dashboard setting member
-        Route::prefix('setting')->middleware(['students', 'verified'])->group(function () {
-            Route::view('/', 'member.dashboard.setting.view')->name('member.setting');
-
-            Route::view('profile', 'member.dashboard.setting.edit-profile')->name('member.setting.profile');
-            Route::put('profile/updated', [MemberSettingController::class, 'updateProfile'])->name('member.setting.profile.updated');
-
-            Route::view('change-email', 'member.dashboard.setting.edit-email')->name('member.setting.change-email');
-            Route::put('change-email/updated', [MemberSettingController::class, 'updateEmail'])->name('member.setting.change-email.updated');
-
-            Route::view('reset-password', 'member.dashboard.setting.edit-password')->name('member.setting.reset-password');
-            Route::put('reset-password/updated', [MemberSettingController::class, 'updatePassword'])->name('member.setting.reset-password.updated');
-        });
-
-        // My transaction
-        Route::prefix('transaction')->group(function () {
-            Route::get('/', [MemberTransactionController::class, 'index'])->name('member.transaction');
-            Route::delete('/cancel/{id}', [MemberTransactionController::class, 'cancel'])->name('member.transaction.cancel');
-            Route::get('/detail/{transaction_code}', [MemberTransactionController::class, 'show'])->name('member.transaction.view-transaction');
-        });
-
-
-        Route::view('login', 'member.auth.login')->name('member.login');
-        Route::post('login/auth', [MemberLoginController::class, 'login'])->name('member.login.auth');
-
-        Route::view('register', 'member.auth.register')->name('member.register');
-        Route::post('register/store', [MemberRegisterController::class, 'store'])->name('member.register.store');
-
-        // logout
-        Route::get('user/logout', [MemberLoginController::class, 'logout'])->name('member.logout');
-
-        // route halaman send verified
-        Route::get('email/verify', [MemberResendEmailController::class, 'index'])->middleware('students')->name('verification.notice');
-
-        // resend email verified
-        Route::post('email/verification-notification', [MemberResendEmailController::class, 'resend'])->middleware(['students', 'throttle:custom-limit'])->name('verification.send');
-
-        // handler email verified
-        Route::get('email/verify/{id}/{hash}', [MemberResendEmailController::class, 'handler'])->middleware(['students', 'signed'])->name('verification.verify');
-
-        // route halaman send reset oassword
-        Route::get('forget-password', [MemberForgotPassController::class, 'index'])->name('member.forget-password');
-
-        Route::post('forget-password/check', [MemberForgotPassController::class, 'checkEmail'])->middleware(['throttle:custom-limit-reset-pw'])->name('member.forget-password.check');
-
-        // kirim link reset password
-        Route::get('/reset-password/{token}', [MemberForgotPassController::class, 'sendResetLinkPassword'])->name('password.reset');
-        Route::post('/reset-password/updated', [MemberForgotPassController::class, 'resetPassword'])->name('member.reset-password.updated');
+    // member course
+    Route::prefix('course')->group(function () {
+        Route::get('/', [MemberCourseController::class, 'index'])->name('member.course')->middleware('cache.headers:public;max_age=31536000;etag');
+        Route::get('join/{slug}', [MemberCourseController::class, 'join'])->name('member.course.join')->middleware(['students', 'verified']);
+        Route::get('{slug}/play/episode/{episode}', [MemberCourseController::class, 'play'])->name('member.course.play')->middleware(['students', 'verified']);
+        Route::get('detail/{slug}', [MemberCourseController::class, 'detail'])->name('member.course.detail')->middleware(['students', 'verified']);
+        Route::get('detail/sertifikat/{slug}', [MemberCourseController::class, 'generateSertifikat'])->name('member.sertifikat')->middleware(['students', 'verified']);
     });
+
+    Route::prefix('review')->middleware(['students', 'verified'])->group(function () {
+        Route::get('{slug}', [MemberReviewController::class, 'index'])->name('member.review');
+        Route::post('store', [MemberReviewController::class, 'store'])->name('member.review.store');
+        Route::get('ebook/{slug}', [MemberReviewController::class, 'ebookFormReview'])->name('member.review.ebook');
+        Route::post('ebook/store', [MemberReviewController::class, 'storeReviewEbook'])->name('member.review.ebook.store');
+    });
+
+    Route::prefix('payment')->middleware(['students', 'verified'])->group(function () {
+        Route::get('payment/', [MemberPaymentController::class, 'index'])->name('member.payment');
+        Route::post('payment/store', [MemberPaymentController::class, 'store'])->name('member.transaction.store');
+    });
+
+    // dashboard mycourse
+    Route::get('/', [MemberMyCourseController::class, 'index'])->name('member.dashboard')->middleware(['students', 'verified']);
+    // dashboard setting member
+    Route::prefix('setting')->middleware(['students', 'verified'])->group(function () {
+        Route::view('/', 'member.dashboard.setting.view')->name('member.setting');
+
+        Route::view('profile', 'member.dashboard.setting.edit-profile')->name('member.setting.profile');
+        Route::put('profile/updated', [MemberSettingController::class, 'updateProfile'])->name('member.setting.profile.updated');
+
+        Route::view('change-email', 'member.dashboard.setting.edit-email')->name('member.setting.change-email');
+        Route::put('change-email/updated', [MemberSettingController::class, 'updateEmail'])->name('member.setting.change-email.updated');
+
+        Route::view('reset-password', 'member.dashboard.setting.edit-password')->name('member.setting.reset-password');
+        Route::put('reset-password/updated', [MemberSettingController::class, 'updatePassword'])->name('member.setting.reset-password.updated');
+    });
+
+    // My transaction
+    Route::prefix('transaction')->group(function () {
+        Route::get('/', [MemberTransactionController::class, 'index'])->name('member.transaction');
+        Route::delete('/cancel/{id}', [MemberTransactionController::class, 'cancel'])->name('member.transaction.cancel');
+        Route::get('/detail/{transaction_code}', [MemberTransactionController::class, 'show'])->name('member.transaction.view-transaction');
+    });
+
+
+    Route::view('login', 'member.auth.login')->name('member.login');
+    Route::post('login/auth', [MemberLoginController::class, 'login'])->name('member.login.auth');
+
+    Route::get('register', [MemberRegisterController::class, 'index'])->name('member.register');
+    Route::post('register/store', [MemberRegisterController::class, 'store'])->name('member.register.store');
+
+    // logout
+    Route::get('user/logout', [MemberLoginController::class, 'logout'])->name('member.logout');
+
+    // Halaman verifikasi email
+    Route::get('/email/verify', [MemberResendEmailController::class, 'index'])->name('verification.notice');
+
+    // Mengirim ulang email verifikasi
+    Route::post('/email/resend', [MemberResendEmailController::class, 'resend'])->middleware('auth')->name('verification.resend');
+
+    // Menangani verifikasi email dari link
+    Route::get('/email/verify/{id}/{hash}', [MemberResendEmailController::class, 'handler'])
+        ->middleware(['auth', 'signed'])
+        ->name('verification.verify');
+
+    // route halaman send reset oassword
+    Route::get('forget-password', [MemberForgotPassController::class, 'index'])->name('member.forget-password');
+
+    Route::post('forget-password/check', [MemberForgotPassController::class, 'checkEmail'])->middleware(['throttle:custom-limit-reset-pw'])->name('member.forget-password.check');
+
+    // kirim link reset password
+    Route::get('/reset-password/{token}', [MemberForgotPassController::class, 'sendResetLinkPassword'])->name('password.reset');
+    Route::post('/reset-password/updated', [MemberForgotPassController::class, 'resetPassword'])->name('member.reset-password.updated');
 });
+
 
 Route::prefix('admin')->group(function () {
     Route::get('login', [AdminLoginController::class, 'index'])->name('admin.login');
     Route::post('login/auth', [AdminLoginController::class, 'login'])->name('admin.login.auth');
     Route::get('logout', [AdminLoginController::class, 'logout'])->name('admin.logout');
 
-    Route::get('/', [AdminCategoryController::class, 'index'])->name('admin.category');
+    Route::get('/', [AdminCategoryController::class, 'index'])->middleware(['superadmin', 'verified'])->name('admin.category');
     Route::prefix('category')->middleware(['superadmin', 'verified'])->group(function () {
         Route::get('/create', [AdminCategoryController::class, 'create'])->name('admin.category.create');
         Route::post('/create/store', [AdminCategoryController::class, 'store'])->name('admin.category.create.store');

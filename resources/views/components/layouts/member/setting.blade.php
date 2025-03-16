@@ -18,6 +18,7 @@
     @stack('prepend-style')
     <link rel="stylesheet" href="{{ asset('devacademy/components/member/css/navbar.css') }} ">
     <link rel="stylesheet" href="{{ asset('devacademy/components/member/css/footer.css') }} ">
+    <link rel="icon" href="{{ asset('devacademy/member/img/logo-devacademy.png') }}" type="image/x-icon" />
     @stack('addon-style')
 </head>
 

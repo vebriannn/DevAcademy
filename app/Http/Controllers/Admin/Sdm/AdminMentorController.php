@@ -36,6 +36,7 @@ class AdminMentorController extends Controller
         ]);
 
         User::create([
+            'avatar' => 'default.png',
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),

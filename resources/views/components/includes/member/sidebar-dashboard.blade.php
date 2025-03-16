@@ -5,10 +5,10 @@
             <div class="profile d-flex">
                 @if (Auth::user()->avatar != null)
                     <img src="{{ asset('storage/images/avatars/' . Auth::user()->avatar) }}" alt="avatar"
-                         class="avatar class mb-3 rounded-circle" />
+                        class="avatar class mb-3 rounded-circle" />
                 @else
                     <img src="{{ asset('devacademy/member/img/icon/Group 7.png') }}" alt="avatar"
-                         class="avatar class mb-3 rounded-circle" />
+                        class="avatar class mb-3 rounded-circle" />
                 @endif
                 <div>
                     <p class="name ms-3">{{ Auth::user()->name }}</p>
@@ -17,14 +17,15 @@
             </div>
             <div class="menu">
                 <ul class="side-tabs d-flex flex-column gap-2">
-                    <li><a href="{{ route('member.dashboard') }}"><img
-                                class="ms-2"  src="{{ asset('devacademy/components/member/img/Frame 8.png') }}" alt="icon">Kelas
+                    <li><a href="{{ route('member.dashboard') }}"><img class="ms-2"
+                                src="{{ asset('devacademy/components/member/img/Frame 8.png') }}" alt="icon">Kelas
                             Saya</a></li>
-                    <li><a href="{{ route('member.transaction') }}"><img
-                                class="ms-2"  src="{{ asset('devacademy/components/member/img/Frame 10.png') }}" alt="icon">Transaksi
+                    <li><a href="{{ route('member.transaction') }}"><img class="ms-2"
+                                src="{{ asset('devacademy/components/member/img/Frame 10.png') }}"
+                                alt="icon">Transaksi
                             Saya</a></li>
-                    <li><a href="{{ route('member.setting') }}"><img
-                                class="ms-2"  src="{{ asset('devacademy/components/member/img/Frame 11.png') }}"
+                    <li><a href="{{ route('member.setting') }}"><img class="ms-2"
+                                src="{{ asset('devacademy/components/member/img/Frame 11.png') }}"
                                 alt="icon">Pengaturan</a></li>
                 </ul>
             </div>

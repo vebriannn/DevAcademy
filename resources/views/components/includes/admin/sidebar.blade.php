@@ -50,6 +50,7 @@
             <span>Profesi Pengguna</span></a>
     </li>
 
+
     @if (Auth::user()->role == 'superadmin')
         <!-- Nav Item - Kelolah akun -->
         <li class="nav-item {{ request()->is('admin/sdm/*') ? 'active' : '' }}">
@@ -70,6 +71,7 @@
             </div>
         </li>
     @endif
+
 
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">

@@ -38,6 +38,7 @@ class AdminStudentController extends Controller
         ]);
 
         User::create([
+            'avatar' => 'default.png',
             'name' => $request->name,
             'email' => $request->email,
             // 'email_verified_at' => now()->format('Y-m-d H:i:s'), // Format: 2025-03-10 03:07:17
